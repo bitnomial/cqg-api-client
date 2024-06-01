@@ -1,0 +1,82 @@
+// CMS API Login entity Protocol.
+
+syntax = "proto2";
+
+package login_1;
+
+// Service assigned to a login.
+message LoginEntitlementService
+{
+    // [required] ID of a login.
+    optional string login_id = 1;
+
+    // [required] Assigned service ID.
+    optional uint32 entitlement_service_id = 2;
+
+    // [immutable] Time when this entitlement was enabled or is planned to enabled for the login.
+    optional sint64 from_utc_time = 3;
+
+    // [obsolete] Time when this entitlement is planned to be disabled for the login.
+    optional sint64 _obsolete_to_utc_time = 4 [deprecated=true];
+
+    // ID of brokerage who is responsible for billing of the service.
+    optional string billing_brokerage_id = 5;
+
+    // Brokerages assigned to Entitlement service (only for products).
+    repeated AssignedBrokerage assigned_brokerages = 6;
+
+    // Determines, whether service is active.
+    optional bool active = 7;
+}
+
+// Brokerage assigned to Entitlement service.
+message AssignedBrokerage
+{
+    // [required] Brokerage ID.
+    optional string brokerage_id = 1;
+
+    // If True - brokerage is charged for service not by price, but by usage; otherwise - by price, as usual.
+    optional bool waive_base_charge = 2;
+}
+
+// Service with an optional restriction period.
+message RestrictedEntitlementService
+{
+    // [required] Service ID.
+    optional uint32 entitlement_service_id = 1;
+
+    // [immutable] Time when this entitlement was enabled or is planned to enabled for the login.
+    optional sint64 from_utc_time = 2;
+
+    // [obsolete] Time when this entitlement is planned to be disabled for the login.
+    optional sint64 _obsolete_to_utc_time = 3 [deprecated=true];
+
+    // ID of brokerage who will pay for the service usage.
+    optional string billing_brokerage_id = 4;
+
+    // All brokerages assigned to Entitlement service (only for products).
+    repeated AssignedBrokerage assigned_brokerages = 5;
+}
+
+// Modify login entitlement services operation.
+message ModifyLoginEntitlementService
+{
+    // [required] Login id to modify the list of services.
+    optional string login_id = 1;
+
+    // Services to add.
+    // Services to change restriction periods, billing brokerage or assigned brokerages.
+    repeated RestrictedEntitlementService entitlement_service_to_set = 2;
+
+    // Services to remove.
+    repeated uint32 entitlement_service_id_to_remove = 3;
+}
+
+// Result of modify login entitlement service operation.
+message ModifyLoginEntitlementServiceResult
+{
+    // [obsolete] List of login entitlement services after modification.
+    repeated RestrictedEntitlementService _obsolete_restricted_entitlement_service = 1 [deprecated=true];
+}
+
+

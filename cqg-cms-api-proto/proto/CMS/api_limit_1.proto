@@ -1,0 +1,85 @@
+// CQG Customer Management System API user limit protocol
+
+syntax = "proto2";
+
+package api_limit_1;
+
+import "common/shared_1.proto";
+
+// Type of limit.
+enum ApiLimitType
+{
+    // Limit type unspecifed and must be ignored.
+    API_LIMIT_TYPE_UNSPECIFIED = 0;
+
+    // Maximum number of messages per period.
+    // Messages exceeding the limit are rejected.
+    API_LIMIT_TYPE_CLIENT_MESSAGES_RATE = 1;
+}
+
+// Request for API limit.
+message ApiLimitRequestEntry
+{
+    // [required] Limit type.
+    // This field is associated with ApiLimitType enum type.
+    optional uint32 limit_type = 1;
+
+    // Name of entity to request limit for. Set of possible values depends on limit_type:
+    // - API_LIMIT_CLIENT_MESSAGES_RATE: Full name of a client message (e.g. information_request.user_info_request).
+    //
+    // If not set, then all configured limits of requested type will be returned.
+    optional string entity_name = 2;
+}
+
+// Request for API limits.
+message ApiLimitRequest
+{
+    // Limits to request.
+    // If empty, all configured types of limits will be returned.
+    repeated ApiLimitRequestEntry limits = 1;
+}
+
+// Status of limit entry in result message.
+enum ApiLimitEntryStatusCode
+{
+    // Entry not specified and must be ignored.
+    API_LIMIT_ENTRY_STATUS_CODE_UNSPECIFIED = 0;
+
+    // Value is populated.
+    API_LIMIT_ENTRY_STATUS_CODE_SUCCESS = 1;
+
+    // Limit type was not found.
+    API_LIMIT_ENTRY_STATUS_CODE_NOT_FOUND = 2;
+}
+
+// Information about a limit set for current session of CMS API user.
+message ApiLimitEntry
+{
+    // Limit type.
+    // This field is associated with ApiLimitType enum type.
+    optional uint32 limit_type = 1;
+
+    // Name of entity this limit relates to. For more details see entity_name in ApiLimitRequestEntry.
+    // If not set, then this will be a default limit for all entities of the same limit type.
+    optional string entity_name = 2;
+
+    // Result status of the requested limit.
+    // This field is associated with ApiLimitEntryStatusCode enum type.
+    optional uint32 status_code = 3;
+
+    // Limit value.
+    optional uint32 value = 4;
+
+    // Populated if the limit is a rate = value / period_sec.
+    optional uint32 period_sec = 5;
+
+    // Limit description.
+    optional shared_1.Text description = 6;
+}
+
+// Result of ApiLimitRequest.
+message ApiLimitResult
+{
+    // Output entries.
+    repeated ApiLimitEntry limit_entries = 1;
+}

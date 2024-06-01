@@ -1,0 +1,87 @@
+// CQG Customer Management System API log event extend protocol.
+
+syntax = "proto2";
+
+package log_event_1;
+
+import "CMS/common_1.proto";
+
+message EventLogSearchRequest
+{
+    // List of possible search refine criteria.
+    // All criteria only one per search option and with exact_equality matching rule.
+    enum SearchCriteria
+    {
+        EVENT_ID = 1;
+
+        // LookupPropertyListRequest { property_type = CommonLookupPropertyType.LOG_EVENT_TYPE }
+        // Can be used with MatchingRule.IN.
+        EVENT_TYPE_ID = 2;
+
+        EVENT_GROUP_ID = 3;
+
+        // This field is associated with common_1.EntityType enum type.
+        ENTITY_TYPE_ID = 4;
+
+        ENTITY_ID = 5;
+
+        // Unix timestamp (UTC).
+        FROM_DATE = 6;
+
+        // Unix timestamp (UTC).
+        TO_DATE = 7;
+    }
+
+    // Optionally restrict matched results by returning the first 'top' records.
+    optional uint32 top = 1;
+
+    // List of search options. Each option has its own search text, criteria and matching rule.
+    repeated common_1.SearchOption search_options = 2;
+}
+
+message EventLogSearchResult
+{
+    // List of found event logs.
+    repeated EventLogSearchResultRecord event_log_record = 1;
+
+    // This flag is set to true if all results are sent
+    // and nothing was filtered out by 'top' parameter.
+    optional bool is_complete = 2 [default = true];
+}
+
+message EventLogSearchResultRecord
+{
+    // Event id.
+    optional string event_id = 1;
+
+    // Event group id.
+    optional string event_group_id = 2;
+
+    // Event group name;
+    optional string event_group_name = 3;
+
+    // Event type id.
+    optional string event_type_id = 4;
+
+    // Event type name.
+    optional string event_type_name = 5;
+
+    // Event time in UTC.
+    optional sint64 event_time = 6;
+
+    // Login id.
+    optional string login_id = 7;
+
+    // Login name (if current session login is authorized on this login).
+    optional string login_name = 8;
+
+    // Entity type id.
+    // This field is associated with common_1.EntityType enum type.
+    optional string entity_type_id = 9;
+
+    // Target entity id.
+    optional string entity_id = 10;
+
+    // Log text.
+    optional string text = 11;
+}
