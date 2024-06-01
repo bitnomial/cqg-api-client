@@ -20,14 +20,13 @@ description:         "Please see the README on GitHub at <https://github.com/bit
 
 dependencies:
   - base >= 4.7 && < 5
+  - proto-lens-runtime
 
 ghc-options:
   - -Wall
   - -Wcompat
-  - -Widentities
   - -Wincomplete-record-updates
   - -Wincomplete-uni-patterns
-  - -Wmissing-export-lists
   - -Wmissing-home-modules
   - -Wpartial-fields
   - -Wredundant-constraints

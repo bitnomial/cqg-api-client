@@ -61,7 +61,8 @@ library
       Paths_cqg_cms_api_proto
   hs-source-dirs:
       src
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-unused-do-bind -Wunused-packages -funbox-strict-fields -fwrite-ide-info
+  ghc-options: -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-unused-do-bind -Wunused-packages -funbox-strict-fields -fwrite-ide-info
   build-depends:
       base >=4.7 && <5
+    , proto-lens-runtime
   default-language: Haskell2010
