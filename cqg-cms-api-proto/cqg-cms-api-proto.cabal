@@ -1,0 +1,32 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           cqg-cms-api-proto
+version:        0.1.0.0
+synopsis:       Haskell modules generated from Protobuf definitions of the CQG CMS API
+description:    Please see the README on GitHub at <https://github.com/bitnomial/cqg-api-client/cqg-cms-api-proto#readme>
+category:       Web
+author:         Bitnomial
+maintainer:     Bitnomial <support@bitnomial.com>
+copyright:      2024 Bitnomial, Inc
+license:        AllRightsReserved
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_cqg_cms_api_proto
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-unused-do-bind -Wunused-packages -funbox-strict-fields -fwrite-ide-info
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010

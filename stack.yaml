@@ -1,0 +1,20 @@
+---
+resolver: lts-22.22
+
+# By default, stack warns if it finds `nix` on your PATH, but you're not
+# passing the `--nix` flag to stack.  This is exactly how we do local
+# development, and we don't want stack warning about this.
+notify-if-nix-on-path: false
+
+flags:
+  zlib:
+    pkg-config: true
+
+ghc-options:
+  "$locals": -Werror
+  "$everything": -haddock
+
+packages:
+  - cqg-cms-api-proto
+
+extra-deps: []
