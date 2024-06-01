@@ -18,10 +18,45 @@ build-type:     Simple
 extra-source-files:
     README.md
     CHANGELOG.md
+    proto/CMS/api_limit_1.proto
+    proto/CMS/cmsapi_1.proto
+    proto/CMS/common_1.proto
+    proto/CMS/location_1.proto
+    proto/CMS/log_event_1.proto
+    proto/CMS/login_1.proto
+    proto/CMS/metadata_1.proto
+    proto/CMS/order_1.proto
+    proto/CMS/session_context_1.proto
+    proto/CMS/traderouting_1.proto
+    proto/common/decimal.proto
+    proto/common/shared_1.proto
 
 library
   exposed-modules:
-      Lib
+      Proto.CMS.ApiLimit1
+      Proto.CMS.ApiLimit1_Fields
+      Proto.CMS.Cmsapi1
+      Proto.CMS.Cmsapi1_Fields
+      Proto.CMS.Common1
+      Proto.CMS.Common1_Fields
+      Proto.CMS.Location1
+      Proto.CMS.Location1_Fields
+      Proto.CMS.LogEvent1
+      Proto.CMS.LogEvent1_Fields
+      Proto.CMS.Login1
+      Proto.CMS.Login1_Fields
+      Proto.CMS.Metadata1
+      Proto.CMS.Metadata1_Fields
+      Proto.CMS.Order1
+      Proto.CMS.Order1_Fields
+      Proto.CMS.SessionContext1
+      Proto.CMS.SessionContext1_Fields
+      Proto.CMS.Traderouting1
+      Proto.CMS.Traderouting1_Fields
+      Proto.Common.Decimal
+      Proto.Common.Decimal_Fields
+      Proto.Common.Shared1
+      Proto.Common.Shared1_Fields
   other-modules:
       Paths_cqg_cms_api_proto
   hs-source-dirs:
