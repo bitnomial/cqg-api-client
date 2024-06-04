@@ -1,0 +1,39 @@
+name:                "cqg-cms-api-proto"
+version:             "0.1.0.0"
+maintainer:          "Bitnomial <support@bitnomial.com>"
+license:             "AllRightsReserved"
+author:              "Bitnomial"
+copyright:           "2024 Bitnomial, Inc"
+
+extra-source-files:
+  - README.md
+  - CHANGELOG.md
+  - proto/**/*.proto
+
+synopsis:            "Haskell modules generated from Protobuf definitions of the CQG CMS API"
+category:            "Web"
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         "Please see the README on GitHub at <https://github.com/bitnomial/cqg-api-client/cqg-cms-api-proto#readme>"
+
+dependencies:
+  - base >= 4.7 && < 5
+  - proto-lens-runtime
+
+ghc-options:
+  - -Wall
+  - -Wcompat
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wmissing-home-modules
+  - -Wpartial-fields
+  - -Wredundant-constraints
+  - -Wno-unused-do-bind
+  - -Wunused-packages
+  - -funbox-strict-fields
+  - -fwrite-ide-info
+
+library:
+  source-dirs: src

@@ -1,0 +1,107 @@
+// CQG Customer Management System API Orders management protocol.
+
+syntax = "proto2";
+
+package order_1;
+
+// CMS message for BatchOrdersOperation
+message BatchOrdersOperation
+{
+    // [required] Main criteria to search orders for cancel.
+    optional BatchOrdersOperationCriteria batch_orders_operation_criteria = 1;
+
+    // [required] Secondary criteria to search orders for cancel.
+    optional BatchOrdersOperationSecondaryCriteria batch_orders_operation_secondary_criteria = 2;
+}
+
+// CMS message for BatchOrdersOperationCriteria.
+// Set of criteria to search orders for cancel.
+// Either brokerage_ids or profile_ids with sales series profiles is required.
+message BatchOrdersOperationCriteria 
+{
+    // ID of Brokerage to limit scope by accounts of this Brokerage.
+    // [required] for cqg/brokerage scope.
+    repeated string brokerage_ids = 1;
+
+    // ID of different profile types to limit scope by these profiles.
+    // Supported profile types: admin, customer, sales series.
+    // [required] for sales series scope.
+    repeated string profile_ids = 2;
+
+    // ID of Account to limit scope by this Account.
+    repeated string account_ids = 3;
+
+    // Login identifier to limit scope by orders, initiated by this login.
+    // Supported login domains: trade-routing.
+    repeated string login_ids = 4;
+
+    // ID of RouteGroup to limit scope of orders by this RouteGroup.
+    repeated string route_group_ids = 5;
+
+    // ID of gateway route to limit scope by this Route.
+    repeated string route_codes = 6;
+
+    // ID of Contract to limit scope of orders by this Contract.
+    repeated string contract_ids = 7;
+
+    // ID of MiFID CQG Algorithm to cancel orders initiated by this Algorithm.
+    repeated string internal_algorithms_ids = 8;
+
+    // ID of MiFID External Algorithm to cancel orders initiated by this Algorithm.
+    repeated string external_algorithms_ids = 9;
+}
+
+// Set of order criteria to search orders for cancel.
+message BatchOrdersOperationSecondaryCriteria 
+{
+    // Order operation type enum.
+    enum OrderOperationType
+    {
+        // Send cancel request.
+        CANCEL = 1;
+
+        // Reflect order as canceled without sending real cancel request to exchange.
+        REFLECT_AS_CANCELED = 2;
+    }
+
+    // Specifies whether only order(s) expiring during the current/nearest session should be considered.
+    optional bool current_day_only = 1 [default = false];
+
+    // Specifies whether only externally reported orders that were created via dedicated reporting session (not a regular CQG session) should be considered.
+    optional bool inactive_exchange_reported_orders_only = 2 [default = false];
+
+    // Specifies state of orders to be cancelled. True - cancel only parked orders, False - cancel working and parked orders.
+    optional bool parked_only = 3 [default = false];
+
+    // Specifies side of orders to cancel.
+    // This field is associated with OrderChain.Side enum type.
+    // If this field wasn't provided it's interpreted as 'Both' option.
+    optional uint32 side = 4;
+
+    // [required] Order operation type that needs to be performed.
+    // This field is associated with OrderOperationType enum.
+    optional uint32 order_operation_type = 5;
+}
+
+message BatchOrdersOperationResult 
+{
+    // Operation unique identifier, by which all cancel requests can be found then.
+    optional string batch_request_guid = 1;
+
+    // In case of successful operation contains result of each risk server instance.
+    repeated BatchOrdersOperationActionResult risk_instances_results = 2;
+}
+
+// The result of the batch orders operation for a specific risk server instance.
+message BatchOrdersOperationActionResult
+{
+    // Risk server instance identifier.
+    // LookupPropertyListRequest { property_type = traderouting_1.TradeRoutingLookupPropertyType.RISK_SERVER_INSTANCE }
+    optional string risk_server_instance_id = 1;
+
+    // Determines count of processed orders on current risk instance.
+    optional uint32 processed_orders_count = 2;
+    
+    // In case of failure action contains error message.
+    optional string result_description = 3;
+}

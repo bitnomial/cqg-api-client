@@ -1,0 +1,16975 @@
+{- This file was auto-generated from CMS/cmsapi_1.proto by the proto-lens-protoc program. -}
+{-# LANGUAGE ScopedTypeVariables, DataKinds, TypeFamilies, UndecidableInstances, GeneralizedNewtypeDeriving, MultiParamTypeClasses, FlexibleContexts, FlexibleInstances, PatternSynonyms, MagicHash, NoImplicitPrelude, DataKinds, BangPatterns, TypeApplications, OverloadedStrings, DerivingStrategies#-}
+{-# OPTIONS_GHC -Wno-unused-imports#-}
+{-# OPTIONS_GHC -Wno-duplicate-exports#-}
+{-# OPTIONS_GHC -Wno-dodgy-exports#-}
+module Proto.CMS.Cmsapi1 (
+        AuthPartner(), AuthPartnerListRequest(), AuthPartnerListResult(),
+        CancelDeferredRequest(), CancelDeferredRequestResult(),
+        ClientMessage(), CreateProfile(), CreateProfileResult(),
+        GenerateServiceSecurityToken(),
+        GenerateServiceSecurityTokenResult(), GetUniqueUsernameRequest(),
+        InformationRequest(), InformationResult(), LinkLoginToProfile(),
+        LinkLoginToProfileResult(), OperationRequest(), OperationResult(),
+        Ping(), Pong(), ProfileRequest(), ProfileSearchRequest(),
+        ProfileSearchRequest'SearchCriteria(..),
+        ProfileSearchRequest'SearchCriteria(), ProfileSearchResultRecord(),
+        ProtocolVersion(..), ProtocolVersion(), RemoveProfile(),
+        RemoveProfileResult(), RestoreProfile(), RestoreProfileResult(),
+        SearchRequest(), SearchResult(), SendCredentialResetEmail(),
+        SendCredentialResetEmailResult(), SendWelcomeEmail(),
+        SendWelcomeEmailResult(), ServerMessage(), TerminateLoginSession(),
+        TerminateLoginSessionResult(), UniqueUsernameResult(),
+        UpdateProfile(), UpdateProfileResult()
+    ) where
+import qualified Data.ProtoLens.Runtime.Control.DeepSeq as Control.DeepSeq
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens.Prism as Data.ProtoLens.Prism
+import qualified Data.ProtoLens.Runtime.Prelude as Prelude
+import qualified Data.ProtoLens.Runtime.Data.Int as Data.Int
+import qualified Data.ProtoLens.Runtime.Data.Monoid as Data.Monoid
+import qualified Data.ProtoLens.Runtime.Data.Word as Data.Word
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens as Data.ProtoLens
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens.Encoding.Bytes as Data.ProtoLens.Encoding.Bytes
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens.Encoding.Growing as Data.ProtoLens.Encoding.Growing
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens.Encoding.Parser.Unsafe as Data.ProtoLens.Encoding.Parser.Unsafe
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens.Encoding.Wire as Data.ProtoLens.Encoding.Wire
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens.Field as Data.ProtoLens.Field
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens.Message.Enum as Data.ProtoLens.Message.Enum
+import qualified Data.ProtoLens.Runtime.Data.ProtoLens.Service.Types as Data.ProtoLens.Service.Types
+import qualified Data.ProtoLens.Runtime.Lens.Family2 as Lens.Family2
+import qualified Data.ProtoLens.Runtime.Lens.Family2.Unchecked as Lens.Family2.Unchecked
+import qualified Data.ProtoLens.Runtime.Data.Text as Data.Text
+import qualified Data.ProtoLens.Runtime.Data.Map as Data.Map
+import qualified Data.ProtoLens.Runtime.Data.ByteString as Data.ByteString
+import qualified Data.ProtoLens.Runtime.Data.ByteString.Char8 as Data.ByteString.Char8
+import qualified Data.ProtoLens.Runtime.Data.Text.Encoding as Data.Text.Encoding
+import qualified Data.ProtoLens.Runtime.Data.Vector as Data.Vector
+import qualified Data.ProtoLens.Runtime.Data.Vector.Generic as Data.Vector.Generic
+import qualified Data.ProtoLens.Runtime.Data.Vector.Unboxed as Data.Vector.Unboxed
+import qualified Data.ProtoLens.Runtime.Text.Read as Text.Read
+import qualified Proto.CMS.Common1
+import qualified Proto.CMS.Location1
+import qualified Proto.CMS.LogEvent1
+import qualified Proto.CMS.Login1
+import qualified Proto.CMS.Metadata1
+import qualified Proto.CMS.SessionContext1
+import qualified Proto.CMS.Traderouting1
+import qualified Proto.Common.Shared1
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.id' @:: Lens' AuthPartner Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'id' @:: Lens' AuthPartner (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.displayName' @:: Lens' AuthPartner Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'displayName' @:: Lens' AuthPartner (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.brokerageId' @:: Lens' AuthPartner [Data.Text.Text]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'brokerageId' @:: Lens' AuthPartner (Data.Vector.Vector Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.logoutEndpointUri' @:: Lens' AuthPartner Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'logoutEndpointUri' @:: Lens' AuthPartner (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.logoutEndpointParameters' @:: Lens' AuthPartner Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'logoutEndpointParameters' @:: Lens' AuthPartner (Prelude.Maybe Data.Text.Text)@ -}
+data AuthPartner
+  = AuthPartner'_constructor {_AuthPartner'id :: !(Prelude.Maybe Data.Text.Text),
+                              _AuthPartner'displayName :: !(Prelude.Maybe Data.Text.Text),
+                              _AuthPartner'brokerageId :: !(Data.Vector.Vector Data.Text.Text),
+                              _AuthPartner'logoutEndpointUri :: !(Prelude.Maybe Data.Text.Text),
+                              _AuthPartner'logoutEndpointParameters :: !(Prelude.Maybe Data.Text.Text),
+                              _AuthPartner'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show AuthPartner where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField AuthPartner "id" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'id (\ x__ y__ -> x__ {_AuthPartner'id = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField AuthPartner "maybe'id" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'id (\ x__ y__ -> x__ {_AuthPartner'id = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField AuthPartner "displayName" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'displayName
+           (\ x__ y__ -> x__ {_AuthPartner'displayName = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField AuthPartner "maybe'displayName" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'displayName
+           (\ x__ y__ -> x__ {_AuthPartner'displayName = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField AuthPartner "brokerageId" [Data.Text.Text] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'brokerageId
+           (\ x__ y__ -> x__ {_AuthPartner'brokerageId = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField AuthPartner "vec'brokerageId" (Data.Vector.Vector Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'brokerageId
+           (\ x__ y__ -> x__ {_AuthPartner'brokerageId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField AuthPartner "logoutEndpointUri" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'logoutEndpointUri
+           (\ x__ y__ -> x__ {_AuthPartner'logoutEndpointUri = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField AuthPartner "maybe'logoutEndpointUri" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'logoutEndpointUri
+           (\ x__ y__ -> x__ {_AuthPartner'logoutEndpointUri = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField AuthPartner "logoutEndpointParameters" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'logoutEndpointParameters
+           (\ x__ y__ -> x__ {_AuthPartner'logoutEndpointParameters = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField AuthPartner "maybe'logoutEndpointParameters" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartner'logoutEndpointParameters
+           (\ x__ y__ -> x__ {_AuthPartner'logoutEndpointParameters = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message AuthPartner where
+  messageName _ = Data.Text.pack "cmsapi_1.AuthPartner"
+  packedMessageDescriptor _
+    = "\n\
+      \\vAuthPartner\DC2\SO\n\
+      \\STXid\CAN\SOH \SOH(\tR\STXid\DC2!\n\
+      \\fdisplay_name\CAN\STX \SOH(\tR\vdisplayName\DC2!\n\
+      \\fbrokerage_id\CAN\ETX \ETX(\tR\vbrokerageId\DC2.\n\
+      \\DC3logout_endpoint_uri\CAN\EOT \SOH(\tR\DC1logoutEndpointUri\DC2<\n\
+      \\SUBlogout_endpoint_parameters\CAN\ENQ \SOH(\tR\CANlogoutEndpointParameters"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        id__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'id")) ::
+              Data.ProtoLens.FieldDescriptor AuthPartner
+        displayName__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "display_name"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'displayName")) ::
+              Data.ProtoLens.FieldDescriptor AuthPartner
+        brokerageId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "brokerage_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"brokerageId")) ::
+              Data.ProtoLens.FieldDescriptor AuthPartner
+        logoutEndpointUri__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "logout_endpoint_uri"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'logoutEndpointUri")) ::
+              Data.ProtoLens.FieldDescriptor AuthPartner
+        logoutEndpointParameters__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "logout_endpoint_parameters"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'logoutEndpointParameters")) ::
+              Data.ProtoLens.FieldDescriptor AuthPartner
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, id__field_descriptor),
+           (Data.ProtoLens.Tag 2, displayName__field_descriptor),
+           (Data.ProtoLens.Tag 3, brokerageId__field_descriptor),
+           (Data.ProtoLens.Tag 4, logoutEndpointUri__field_descriptor),
+           (Data.ProtoLens.Tag 5, logoutEndpointParameters__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _AuthPartner'_unknownFields
+        (\ x__ y__ -> x__ {_AuthPartner'_unknownFields = y__})
+  defMessage
+    = AuthPartner'_constructor
+        {_AuthPartner'id = Prelude.Nothing,
+         _AuthPartner'displayName = Prelude.Nothing,
+         _AuthPartner'brokerageId = Data.Vector.Generic.empty,
+         _AuthPartner'logoutEndpointUri = Prelude.Nothing,
+         _AuthPartner'logoutEndpointParameters = Prelude.Nothing,
+         _AuthPartner'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          AuthPartner
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Data.Text.Text
+             -> Data.ProtoLens.Encoding.Bytes.Parser AuthPartner
+        loop x mutable'brokerageId
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'brokerageId <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                              (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                 mutable'brokerageId)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'brokerageId") frozen'brokerageId
+                              x))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"id") y x)
+                                  mutable'brokerageId
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "display_name"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"displayName") y x)
+                                  mutable'brokerageId
+                        26
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.getText
+                                              (Prelude.fromIntegral len))
+                                        "brokerage_id"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'brokerageId y)
+                                loop x v
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "logout_endpoint_uri"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"logoutEndpointUri") y x)
+                                  mutable'brokerageId
+                        42
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "logout_endpoint_parameters"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"logoutEndpointParameters") y x)
+                                  mutable'brokerageId
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'brokerageId
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'brokerageId <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       Data.ProtoLens.Encoding.Growing.new
+              loop Data.ProtoLens.defMessage mutable'brokerageId)
+          "AuthPartner"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'id") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'displayName") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                ((Data.Monoid.<>)
+                   (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                      (\ _v
+                         -> (Data.Monoid.<>)
+                              (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                              ((Prelude..)
+                                 (\ bs
+                                    -> (Data.Monoid.<>)
+                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                            (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                         (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                 Data.Text.Encoding.encodeUtf8 _v))
+                      (Lens.Family2.view
+                         (Data.ProtoLens.Field.field @"vec'brokerageId") _x))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field @"maybe'logoutEndpointUri") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.Text.Encoding.encodeUtf8 _v))
+                      ((Data.Monoid.<>)
+                         (case
+                              Lens.Family2.view
+                                (Data.ProtoLens.Field.field @"maybe'logoutEndpointParameters") _x
+                          of
+                            Prelude.Nothing -> Data.Monoid.mempty
+                            (Prelude.Just _v)
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                   ((Prelude..)
+                                      (\ bs
+                                         -> (Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                 (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                              (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                      Data.Text.Encoding.encodeUtf8 _v))
+                         (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                            (Lens.Family2.view Data.ProtoLens.unknownFields _x))))))
+instance Control.DeepSeq.NFData AuthPartner where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_AuthPartner'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_AuthPartner'id x__)
+                (Control.DeepSeq.deepseq
+                   (_AuthPartner'displayName x__)
+                   (Control.DeepSeq.deepseq
+                      (_AuthPartner'brokerageId x__)
+                      (Control.DeepSeq.deepseq
+                         (_AuthPartner'logoutEndpointUri x__)
+                         (Control.DeepSeq.deepseq
+                            (_AuthPartner'logoutEndpointParameters x__) ())))))
+{- | Fields :
+      -}
+data AuthPartnerListRequest
+  = AuthPartnerListRequest'_constructor {_AuthPartnerListRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show AuthPartnerListRequest where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Message AuthPartnerListRequest where
+  messageName _ = Data.Text.pack "cmsapi_1.AuthPartnerListRequest"
+  packedMessageDescriptor _
+    = "\n\
+      \\SYNAuthPartnerListRequest"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag = let in Data.Map.fromList []
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _AuthPartnerListRequest'_unknownFields
+        (\ x__ y__ -> x__ {_AuthPartnerListRequest'_unknownFields = y__})
+  defMessage
+    = AuthPartnerListRequest'_constructor
+        {_AuthPartnerListRequest'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          AuthPartnerListRequest
+          -> Data.ProtoLens.Encoding.Bytes.Parser AuthPartnerListRequest
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "AuthPartnerListRequest"
+  buildMessage
+    = \ _x
+        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
+             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+instance Control.DeepSeq.NFData AuthPartnerListRequest where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_AuthPartnerListRequest'_unknownFields x__) ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.authPartner' @:: Lens' AuthPartnerListResult [AuthPartner]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'authPartner' @:: Lens' AuthPartnerListResult (Data.Vector.Vector AuthPartner)@ -}
+data AuthPartnerListResult
+  = AuthPartnerListResult'_constructor {_AuthPartnerListResult'authPartner :: !(Data.Vector.Vector AuthPartner),
+                                        _AuthPartnerListResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show AuthPartnerListResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField AuthPartnerListResult "authPartner" [AuthPartner] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartnerListResult'authPartner
+           (\ x__ y__ -> x__ {_AuthPartnerListResult'authPartner = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField AuthPartnerListResult "vec'authPartner" (Data.Vector.Vector AuthPartner) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _AuthPartnerListResult'authPartner
+           (\ x__ y__ -> x__ {_AuthPartnerListResult'authPartner = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message AuthPartnerListResult where
+  messageName _ = Data.Text.pack "cmsapi_1.AuthPartnerListResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\NAKAuthPartnerListResult\DC28\n\
+      \\fauth_partner\CAN\SOH \ETX(\v2\NAK.cmsapi_1.AuthPartnerR\vauthPartner"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        authPartner__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "auth_partner"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor AuthPartner)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"authPartner")) ::
+              Data.ProtoLens.FieldDescriptor AuthPartnerListResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, authPartner__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _AuthPartnerListResult'_unknownFields
+        (\ x__ y__ -> x__ {_AuthPartnerListResult'_unknownFields = y__})
+  defMessage
+    = AuthPartnerListResult'_constructor
+        {_AuthPartnerListResult'authPartner = Data.Vector.Generic.empty,
+         _AuthPartnerListResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          AuthPartnerListResult
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld AuthPartner
+             -> Data.ProtoLens.Encoding.Bytes.Parser AuthPartnerListResult
+        loop x mutable'authPartner
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'authPartner <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                              (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                 mutable'authPartner)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'authPartner") frozen'authPartner
+                              x))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "auth_partner"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'authPartner y)
+                                loop x v
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'authPartner
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'authPartner <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       Data.ProtoLens.Encoding.Growing.new
+              loop Data.ProtoLens.defMessage mutable'authPartner)
+          "AuthPartnerListResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                (\ _v
+                   -> (Data.Monoid.<>)
+                        (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                        ((Prelude..)
+                           (\ bs
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                      (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                   (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                           Data.ProtoLens.encodeMessage _v))
+                (Lens.Family2.view
+                   (Data.ProtoLens.Field.field @"vec'authPartner") _x))
+             (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                (Lens.Family2.view Data.ProtoLens.unknownFields _x))
+instance Control.DeepSeq.NFData AuthPartnerListResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_AuthPartnerListResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_AuthPartnerListResult'authPartner x__) ())
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.id' @:: Lens' CancelDeferredRequest Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'id' @:: Lens' CancelDeferredRequest (Prelude.Maybe Data.Word.Word32)@
+         * 'Proto.CMS.Cmsapi1_Fields.trackingNumber' @:: Lens' CancelDeferredRequest Data.Word.Word64@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'trackingNumber' @:: Lens' CancelDeferredRequest (Prelude.Maybe Data.Word.Word64)@ -}
+data CancelDeferredRequest
+  = CancelDeferredRequest'_constructor {_CancelDeferredRequest'id :: !(Prelude.Maybe Data.Word.Word32),
+                                        _CancelDeferredRequest'trackingNumber :: !(Prelude.Maybe Data.Word.Word64),
+                                        _CancelDeferredRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show CancelDeferredRequest where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField CancelDeferredRequest "id" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequest'id
+           (\ x__ y__ -> x__ {_CancelDeferredRequest'id = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField CancelDeferredRequest "maybe'id" (Prelude.Maybe Data.Word.Word32) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequest'id
+           (\ x__ y__ -> x__ {_CancelDeferredRequest'id = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField CancelDeferredRequest "trackingNumber" Data.Word.Word64 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequest'trackingNumber
+           (\ x__ y__ -> x__ {_CancelDeferredRequest'trackingNumber = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField CancelDeferredRequest "maybe'trackingNumber" (Prelude.Maybe Data.Word.Word64) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequest'trackingNumber
+           (\ x__ y__ -> x__ {_CancelDeferredRequest'trackingNumber = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message CancelDeferredRequest where
+  messageName _ = Data.Text.pack "cmsapi_1.CancelDeferredRequest"
+  packedMessageDescriptor _
+    = "\n\
+      \\NAKCancelDeferredRequest\DC2\SO\n\
+      \\STXid\CAN\SOH \SOH(\rR\STXid\DC2'\n\
+      \\SItracking_number\CAN\STX \SOH(\EOTR\SOtrackingNumber"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        id__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'id")) ::
+              Data.ProtoLens.FieldDescriptor CancelDeferredRequest
+        trackingNumber__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "tracking_number"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt64Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word64)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'trackingNumber")) ::
+              Data.ProtoLens.FieldDescriptor CancelDeferredRequest
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, id__field_descriptor),
+           (Data.ProtoLens.Tag 2, trackingNumber__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _CancelDeferredRequest'_unknownFields
+        (\ x__ y__ -> x__ {_CancelDeferredRequest'_unknownFields = y__})
+  defMessage
+    = CancelDeferredRequest'_constructor
+        {_CancelDeferredRequest'id = Prelude.Nothing,
+         _CancelDeferredRequest'trackingNumber = Prelude.Nothing,
+         _CancelDeferredRequest'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          CancelDeferredRequest
+          -> Data.ProtoLens.Encoding.Bytes.Parser CancelDeferredRequest
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "id"
+                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"id") y x)
+                        16
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       Data.ProtoLens.Encoding.Bytes.getVarInt "tracking_number"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"trackingNumber") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "CancelDeferredRequest"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'id") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                       ((Prelude..)
+                          Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'trackingNumber") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData CancelDeferredRequest where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_CancelDeferredRequest'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_CancelDeferredRequest'id x__)
+                (Control.DeepSeq.deepseq
+                   (_CancelDeferredRequest'trackingNumber x__) ()))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.requestId' @:: Lens' CancelDeferredRequestResult Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'requestId' @:: Lens' CancelDeferredRequestResult (Prelude.Maybe Data.Word.Word32)@
+         * 'Proto.CMS.Cmsapi1_Fields.operationStatus' @:: Lens' CancelDeferredRequestResult Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'operationStatus' @:: Lens' CancelDeferredRequestResult (Prelude.Maybe Data.Word.Word32)@
+         * 'Proto.CMS.Cmsapi1_Fields.errorMessage' @:: Lens' CancelDeferredRequestResult Proto.Common.Shared1.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'errorMessage' @:: Lens' CancelDeferredRequestResult (Prelude.Maybe Proto.Common.Shared1.Text)@ -}
+data CancelDeferredRequestResult
+  = CancelDeferredRequestResult'_constructor {_CancelDeferredRequestResult'requestId :: !(Prelude.Maybe Data.Word.Word32),
+                                              _CancelDeferredRequestResult'operationStatus :: !(Prelude.Maybe Data.Word.Word32),
+                                              _CancelDeferredRequestResult'errorMessage :: !(Prelude.Maybe Proto.Common.Shared1.Text),
+                                              _CancelDeferredRequestResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show CancelDeferredRequestResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField CancelDeferredRequestResult "requestId" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequestResult'requestId
+           (\ x__ y__ -> x__ {_CancelDeferredRequestResult'requestId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField CancelDeferredRequestResult "maybe'requestId" (Prelude.Maybe Data.Word.Word32) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequestResult'requestId
+           (\ x__ y__ -> x__ {_CancelDeferredRequestResult'requestId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField CancelDeferredRequestResult "operationStatus" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequestResult'operationStatus
+           (\ x__ y__
+              -> x__ {_CancelDeferredRequestResult'operationStatus = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField CancelDeferredRequestResult "maybe'operationStatus" (Prelude.Maybe Data.Word.Word32) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequestResult'operationStatus
+           (\ x__ y__
+              -> x__ {_CancelDeferredRequestResult'operationStatus = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField CancelDeferredRequestResult "errorMessage" Proto.Common.Shared1.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequestResult'errorMessage
+           (\ x__ y__
+              -> x__ {_CancelDeferredRequestResult'errorMessage = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField CancelDeferredRequestResult "maybe'errorMessage" (Prelude.Maybe Proto.Common.Shared1.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CancelDeferredRequestResult'errorMessage
+           (\ x__ y__
+              -> x__ {_CancelDeferredRequestResult'errorMessage = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message CancelDeferredRequestResult where
+  messageName _
+    = Data.Text.pack "cmsapi_1.CancelDeferredRequestResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\ESCCancelDeferredRequestResult\DC2\GS\n\
+      \\n\
+      \request_id\CAN\SOH \SOH(\rR\trequestId\DC2)\n\
+      \\DLEoperation_status\CAN\STX \SOH(\rR\SIoperationStatus\DC23\n\
+      \\rerror_message\CAN\ETX \SOH(\v2\SO.shared_1.TextR\ferrorMessage"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        requestId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "request_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'requestId")) ::
+              Data.ProtoLens.FieldDescriptor CancelDeferredRequestResult
+        operationStatus__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "operation_status"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'operationStatus")) ::
+              Data.ProtoLens.FieldDescriptor CancelDeferredRequestResult
+        errorMessage__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "error_message"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.Common.Shared1.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'errorMessage")) ::
+              Data.ProtoLens.FieldDescriptor CancelDeferredRequestResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, requestId__field_descriptor),
+           (Data.ProtoLens.Tag 2, operationStatus__field_descriptor),
+           (Data.ProtoLens.Tag 3, errorMessage__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _CancelDeferredRequestResult'_unknownFields
+        (\ x__ y__
+           -> x__ {_CancelDeferredRequestResult'_unknownFields = y__})
+  defMessage
+    = CancelDeferredRequestResult'_constructor
+        {_CancelDeferredRequestResult'requestId = Prelude.Nothing,
+         _CancelDeferredRequestResult'operationStatus = Prelude.Nothing,
+         _CancelDeferredRequestResult'errorMessage = Prelude.Nothing,
+         _CancelDeferredRequestResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          CancelDeferredRequestResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser CancelDeferredRequestResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "request_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"requestId") y x)
+                        16
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "operation_status"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"operationStatus") y x)
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "error_message"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"errorMessage") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "CancelDeferredRequestResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'requestId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                       ((Prelude..)
+                          Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'operationStatus") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                          ((Prelude..)
+                             Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'errorMessage") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                      (Lens.Family2.view Data.ProtoLens.unknownFields _x))))
+instance Control.DeepSeq.NFData CancelDeferredRequestResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_CancelDeferredRequestResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_CancelDeferredRequestResult'requestId x__)
+                (Control.DeepSeq.deepseq
+                   (_CancelDeferredRequestResult'operationStatus x__)
+                   (Control.DeepSeq.deepseq
+                      (_CancelDeferredRequestResult'errorMessage x__) ())))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.logon' @:: Lens' ClientMessage Proto.CMS.Common1.Logon@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'logon' @:: Lens' ClientMessage (Prelude.Maybe Proto.CMS.Common1.Logon)@
+         * 'Proto.CMS.Cmsapi1_Fields.logoff' @:: Lens' ClientMessage Proto.CMS.Common1.Logoff@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'logoff' @:: Lens' ClientMessage (Prelude.Maybe Proto.CMS.Common1.Logoff)@
+         * 'Proto.CMS.Cmsapi1_Fields.restoreOrJoinSession' @:: Lens' ClientMessage Proto.CMS.Common1.RestoreOrJoinSession@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'restoreOrJoinSession' @:: Lens' ClientMessage (Prelude.Maybe Proto.CMS.Common1.RestoreOrJoinSession)@
+         * 'Proto.CMS.Cmsapi1_Fields.informationRequest' @:: Lens' ClientMessage [InformationRequest]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'informationRequest' @:: Lens' ClientMessage (Data.Vector.Vector InformationRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.searchRequest' @:: Lens' ClientMessage [SearchRequest]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'searchRequest' @:: Lens' ClientMessage (Data.Vector.Vector SearchRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.operationRequest' @:: Lens' ClientMessage [OperationRequest]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'operationRequest' @:: Lens' ClientMessage (Data.Vector.Vector OperationRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.tradeRoutingRequest' @:: Lens' ClientMessage [Proto.CMS.Traderouting1.TradeRoutingRequest]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'tradeRoutingRequest' @:: Lens' ClientMessage (Data.Vector.Vector Proto.CMS.Traderouting1.TradeRoutingRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.ping' @:: Lens' ClientMessage Ping@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'ping' @:: Lens' ClientMessage (Prelude.Maybe Ping)@
+         * 'Proto.CMS.Cmsapi1_Fields.pong' @:: Lens' ClientMessage Pong@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'pong' @:: Lens' ClientMessage (Prelude.Maybe Pong)@
+         * 'Proto.CMS.Cmsapi1_Fields.cancelDeferredRequest' @:: Lens' ClientMessage CancelDeferredRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'cancelDeferredRequest' @:: Lens' ClientMessage (Prelude.Maybe CancelDeferredRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.metadataRequest' @:: Lens' ClientMessage [Proto.CMS.Metadata1.MetadataScopeRequest]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'metadataRequest' @:: Lens' ClientMessage (Data.Vector.Vector Proto.CMS.Metadata1.MetadataScopeRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.sessionContextScopeRequest' @:: Lens' ClientMessage [Proto.CMS.SessionContext1.SessionContextScopeRequest]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'sessionContextScopeRequest' @:: Lens' ClientMessage (Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.locationScopeRequest' @:: Lens' ClientMessage [Proto.CMS.Location1.LocationScopeRequest]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'locationScopeRequest' @:: Lens' ClientMessage (Data.Vector.Vector Proto.CMS.Location1.LocationScopeRequest)@ -}
+data ClientMessage
+  = ClientMessage'_constructor {_ClientMessage'logon :: !(Prelude.Maybe Proto.CMS.Common1.Logon),
+                                _ClientMessage'logoff :: !(Prelude.Maybe Proto.CMS.Common1.Logoff),
+                                _ClientMessage'restoreOrJoinSession :: !(Prelude.Maybe Proto.CMS.Common1.RestoreOrJoinSession),
+                                _ClientMessage'informationRequest :: !(Data.Vector.Vector InformationRequest),
+                                _ClientMessage'searchRequest :: !(Data.Vector.Vector SearchRequest),
+                                _ClientMessage'operationRequest :: !(Data.Vector.Vector OperationRequest),
+                                _ClientMessage'tradeRoutingRequest :: !(Data.Vector.Vector Proto.CMS.Traderouting1.TradeRoutingRequest),
+                                _ClientMessage'ping :: !(Prelude.Maybe Ping),
+                                _ClientMessage'pong :: !(Prelude.Maybe Pong),
+                                _ClientMessage'cancelDeferredRequest :: !(Prelude.Maybe CancelDeferredRequest),
+                                _ClientMessage'metadataRequest :: !(Data.Vector.Vector Proto.CMS.Metadata1.MetadataScopeRequest),
+                                _ClientMessage'sessionContextScopeRequest :: !(Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeRequest),
+                                _ClientMessage'locationScopeRequest :: !(Data.Vector.Vector Proto.CMS.Location1.LocationScopeRequest),
+                                _ClientMessage'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show ClientMessage where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField ClientMessage "logon" Proto.CMS.Common1.Logon where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'logon
+           (\ x__ y__ -> x__ {_ClientMessage'logon = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ClientMessage "maybe'logon" (Prelude.Maybe Proto.CMS.Common1.Logon) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'logon
+           (\ x__ y__ -> x__ {_ClientMessage'logon = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "logoff" Proto.CMS.Common1.Logoff where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'logoff
+           (\ x__ y__ -> x__ {_ClientMessage'logoff = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ClientMessage "maybe'logoff" (Prelude.Maybe Proto.CMS.Common1.Logoff) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'logoff
+           (\ x__ y__ -> x__ {_ClientMessage'logoff = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "restoreOrJoinSession" Proto.CMS.Common1.RestoreOrJoinSession where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'restoreOrJoinSession
+           (\ x__ y__ -> x__ {_ClientMessage'restoreOrJoinSession = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ClientMessage "maybe'restoreOrJoinSession" (Prelude.Maybe Proto.CMS.Common1.RestoreOrJoinSession) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'restoreOrJoinSession
+           (\ x__ y__ -> x__ {_ClientMessage'restoreOrJoinSession = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "informationRequest" [InformationRequest] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'informationRequest
+           (\ x__ y__ -> x__ {_ClientMessage'informationRequest = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ClientMessage "vec'informationRequest" (Data.Vector.Vector InformationRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'informationRequest
+           (\ x__ y__ -> x__ {_ClientMessage'informationRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "searchRequest" [SearchRequest] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'searchRequest
+           (\ x__ y__ -> x__ {_ClientMessage'searchRequest = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ClientMessage "vec'searchRequest" (Data.Vector.Vector SearchRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'searchRequest
+           (\ x__ y__ -> x__ {_ClientMessage'searchRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "operationRequest" [OperationRequest] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'operationRequest
+           (\ x__ y__ -> x__ {_ClientMessage'operationRequest = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ClientMessage "vec'operationRequest" (Data.Vector.Vector OperationRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'operationRequest
+           (\ x__ y__ -> x__ {_ClientMessage'operationRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "tradeRoutingRequest" [Proto.CMS.Traderouting1.TradeRoutingRequest] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'tradeRoutingRequest
+           (\ x__ y__ -> x__ {_ClientMessage'tradeRoutingRequest = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ClientMessage "vec'tradeRoutingRequest" (Data.Vector.Vector Proto.CMS.Traderouting1.TradeRoutingRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'tradeRoutingRequest
+           (\ x__ y__ -> x__ {_ClientMessage'tradeRoutingRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "ping" Ping where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'ping (\ x__ y__ -> x__ {_ClientMessage'ping = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ClientMessage "maybe'ping" (Prelude.Maybe Ping) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'ping (\ x__ y__ -> x__ {_ClientMessage'ping = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "pong" Pong where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'pong (\ x__ y__ -> x__ {_ClientMessage'pong = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ClientMessage "maybe'pong" (Prelude.Maybe Pong) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'pong (\ x__ y__ -> x__ {_ClientMessage'pong = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "cancelDeferredRequest" CancelDeferredRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'cancelDeferredRequest
+           (\ x__ y__ -> x__ {_ClientMessage'cancelDeferredRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ClientMessage "maybe'cancelDeferredRequest" (Prelude.Maybe CancelDeferredRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'cancelDeferredRequest
+           (\ x__ y__ -> x__ {_ClientMessage'cancelDeferredRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "metadataRequest" [Proto.CMS.Metadata1.MetadataScopeRequest] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'metadataRequest
+           (\ x__ y__ -> x__ {_ClientMessage'metadataRequest = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ClientMessage "vec'metadataRequest" (Data.Vector.Vector Proto.CMS.Metadata1.MetadataScopeRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'metadataRequest
+           (\ x__ y__ -> x__ {_ClientMessage'metadataRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "sessionContextScopeRequest" [Proto.CMS.SessionContext1.SessionContextScopeRequest] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'sessionContextScopeRequest
+           (\ x__ y__
+              -> x__ {_ClientMessage'sessionContextScopeRequest = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ClientMessage "vec'sessionContextScopeRequest" (Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'sessionContextScopeRequest
+           (\ x__ y__
+              -> x__ {_ClientMessage'sessionContextScopeRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "locationScopeRequest" [Proto.CMS.Location1.LocationScopeRequest] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'locationScopeRequest
+           (\ x__ y__ -> x__ {_ClientMessage'locationScopeRequest = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ClientMessage "vec'locationScopeRequest" (Data.Vector.Vector Proto.CMS.Location1.LocationScopeRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'locationScopeRequest
+           (\ x__ y__ -> x__ {_ClientMessage'locationScopeRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message ClientMessage where
+  messageName _ = Data.Text.pack "cmsapi_1.ClientMessage"
+  packedMessageDescriptor _
+    = "\n\
+      \\rClientMessage\DC2%\n\
+      \\ENQlogon\CAN\SOH \SOH(\v2\SI.common_1.LogonR\ENQlogon\DC2(\n\
+      \\ACKlogoff\CAN\STX \SOH(\v2\DLE.common_1.LogoffR\ACKlogoff\DC2U\n\
+      \\ETBrestore_or_join_session\CAN\a \SOH(\v2\RS.common_1.RestoreOrJoinSessionR\DC4restoreOrJoinSession\DC2M\n\
+      \\DC3information_request\CAN\ETX \ETX(\v2\FS.cmsapi_1.InformationRequestR\DC2informationRequest\DC2>\n\
+      \\SOsearch_request\CAN\EOT \ETX(\v2\ETB.cmsapi_1.SearchRequestR\rsearchRequest\DC2G\n\
+      \\DC1operation_request\CAN\ENQ \ETX(\v2\SUB.cmsapi_1.OperationRequestR\DLEoperationRequest\DC2W\n\
+      \\NAKtrade_routing_request\CAN\ACK \ETX(\v2#.traderouting_1.TradeRoutingRequestR\DC3tradeRoutingRequest\DC2\"\n\
+      \\EOTping\CAN\t \SOH(\v2\SO.cmsapi_1.PingR\EOTping\DC2\"\n\
+      \\EOTpong\CAN\n\
+      \ \SOH(\v2\SO.cmsapi_1.PongR\EOTpong\DC2W\n\
+      \\ETBcancel_deferred_request\CAN\v \SOH(\v2\US.cmsapi_1.CancelDeferredRequestR\NAKcancelDeferredRequest\DC2K\n\
+      \\DLEmetadata_request\CAN\f \ETX(\v2 .metadata_1.MetadataScopeRequestR\SImetadataRequest\DC2p\n\
+      \\GSsession_context_scope_request\CAN\r \ETX(\v2-.session_context_1.SessionContextScopeRequestR\SUBsessionContextScopeRequest\DC2V\n\
+      \\SYNlocation_scope_request\CAN\SO \ETX(\v2 .location_1.LocationScopeRequestR\DC4locationScopeRequest*\ENQ\bd\DLE\200\SOH"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        logon__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "logon"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Logon)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'logon")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        logoff__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "logoff"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Logoff)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'logoff")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        restoreOrJoinSession__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "restore_or_join_session"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.RestoreOrJoinSession)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'restoreOrJoinSession")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        informationRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "information_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor InformationRequest)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"informationRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        searchRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "search_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor SearchRequest)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"searchRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        operationRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "operation_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor OperationRequest)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"operationRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        tradeRoutingRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "trade_routing_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Traderouting1.TradeRoutingRequest)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"tradeRoutingRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        ping__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "ping"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Ping)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'ping")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        pong__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "pong"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Pong)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'pong")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        cancelDeferredRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "cancel_deferred_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor CancelDeferredRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'cancelDeferredRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        metadataRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "metadata_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Metadata1.MetadataScopeRequest)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"metadataRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        sessionContextScopeRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "session_context_scope_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.SessionContext1.SessionContextScopeRequest)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"sessionContextScopeRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+        locationScopeRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "location_scope_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Location1.LocationScopeRequest)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"locationScopeRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, logon__field_descriptor),
+           (Data.ProtoLens.Tag 2, logoff__field_descriptor),
+           (Data.ProtoLens.Tag 7, restoreOrJoinSession__field_descriptor),
+           (Data.ProtoLens.Tag 3, informationRequest__field_descriptor),
+           (Data.ProtoLens.Tag 4, searchRequest__field_descriptor),
+           (Data.ProtoLens.Tag 5, operationRequest__field_descriptor),
+           (Data.ProtoLens.Tag 6, tradeRoutingRequest__field_descriptor),
+           (Data.ProtoLens.Tag 9, ping__field_descriptor),
+           (Data.ProtoLens.Tag 10, pong__field_descriptor),
+           (Data.ProtoLens.Tag 11, cancelDeferredRequest__field_descriptor),
+           (Data.ProtoLens.Tag 12, metadataRequest__field_descriptor),
+           (Data.ProtoLens.Tag 13, 
+            sessionContextScopeRequest__field_descriptor),
+           (Data.ProtoLens.Tag 14, locationScopeRequest__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _ClientMessage'_unknownFields
+        (\ x__ y__ -> x__ {_ClientMessage'_unknownFields = y__})
+  defMessage
+    = ClientMessage'_constructor
+        {_ClientMessage'logon = Prelude.Nothing,
+         _ClientMessage'logoff = Prelude.Nothing,
+         _ClientMessage'restoreOrJoinSession = Prelude.Nothing,
+         _ClientMessage'informationRequest = Data.Vector.Generic.empty,
+         _ClientMessage'searchRequest = Data.Vector.Generic.empty,
+         _ClientMessage'operationRequest = Data.Vector.Generic.empty,
+         _ClientMessage'tradeRoutingRequest = Data.Vector.Generic.empty,
+         _ClientMessage'ping = Prelude.Nothing,
+         _ClientMessage'pong = Prelude.Nothing,
+         _ClientMessage'cancelDeferredRequest = Prelude.Nothing,
+         _ClientMessage'metadataRequest = Data.Vector.Generic.empty,
+         _ClientMessage'sessionContextScopeRequest = Data.Vector.Generic.empty,
+         _ClientMessage'locationScopeRequest = Data.Vector.Generic.empty,
+         _ClientMessage'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          ClientMessage
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld InformationRequest
+             -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Location1.LocationScopeRequest
+                -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Metadata1.MetadataScopeRequest
+                   -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld OperationRequest
+                      -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld SearchRequest
+                         -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.SessionContext1.SessionContextScopeRequest
+                            -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Traderouting1.TradeRoutingRequest
+                               -> Data.ProtoLens.Encoding.Bytes.Parser ClientMessage
+        loop
+          x
+          mutable'informationRequest
+          mutable'locationScopeRequest
+          mutable'metadataRequest
+          mutable'operationRequest
+          mutable'searchRequest
+          mutable'sessionContextScopeRequest
+          mutable'tradeRoutingRequest
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'informationRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                     (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                        mutable'informationRequest)
+                      frozen'locationScopeRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                       (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                          mutable'locationScopeRequest)
+                      frozen'metadataRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                  (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                     mutable'metadataRequest)
+                      frozen'operationRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                   (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                      mutable'operationRequest)
+                      frozen'searchRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                   mutable'searchRequest)
+                      frozen'sessionContextScopeRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                             (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                                mutable'sessionContextScopeRequest)
+                      frozen'tradeRoutingRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                      (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                         mutable'tradeRoutingRequest)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'informationRequest")
+                              frozen'informationRequest
+                              (Lens.Family2.set
+                                 (Data.ProtoLens.Field.field @"vec'locationScopeRequest")
+                                 frozen'locationScopeRequest
+                                 (Lens.Family2.set
+                                    (Data.ProtoLens.Field.field @"vec'metadataRequest")
+                                    frozen'metadataRequest
+                                    (Lens.Family2.set
+                                       (Data.ProtoLens.Field.field @"vec'operationRequest")
+                                       frozen'operationRequest
+                                       (Lens.Family2.set
+                                          (Data.ProtoLens.Field.field @"vec'searchRequest")
+                                          frozen'searchRequest
+                                          (Lens.Family2.set
+                                             (Data.ProtoLens.Field.field
+                                                @"vec'sessionContextScopeRequest")
+                                             frozen'sessionContextScopeRequest
+                                             (Lens.Family2.set
+                                                (Data.ProtoLens.Field.field
+                                                   @"vec'tradeRoutingRequest")
+                                                frozen'tradeRoutingRequest x))))))))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "logon"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"logon") y x)
+                                  mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "logoff"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"logoff") y x)
+                                  mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
+                        58
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "restore_or_join_session"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"restoreOrJoinSession") y x)
+                                  mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
+                        26
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "information_request"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'informationRequest y)
+                                loop
+                                  x v mutable'locationScopeRequest mutable'metadataRequest
+                                  mutable'operationRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                        34
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "search_request"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'searchRequest y)
+                                loop
+                                  x mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest v
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                        42
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "operation_request"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'operationRequest y)
+                                loop
+                                  x mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest v mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                        50
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "trade_routing_request"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'tradeRoutingRequest y)
+                                loop
+                                  x mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest v
+                        74
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "ping"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"ping") y x)
+                                  mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
+                        82
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "pong"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"pong") y x)
+                                  mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
+                        90
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "cancel_deferred_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"cancelDeferredRequest") y x)
+                                  mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
+                        98
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "metadata_request"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'metadataRequest y)
+                                loop
+                                  x mutable'informationRequest mutable'locationScopeRequest v
+                                  mutable'operationRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                        106
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "session_context_scope_request"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'sessionContextScopeRequest y)
+                                loop
+                                  x mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest v mutable'tradeRoutingRequest
+                        114
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "location_scope_request"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'locationScopeRequest y)
+                                loop
+                                  x mutable'informationRequest v mutable'metadataRequest
+                                  mutable'operationRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'informationRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                              Data.ProtoLens.Encoding.Growing.new
+              mutable'locationScopeRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                Data.ProtoLens.Encoding.Growing.new
+              mutable'metadataRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                           Data.ProtoLens.Encoding.Growing.new
+              mutable'operationRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                            Data.ProtoLens.Encoding.Growing.new
+              mutable'searchRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                         Data.ProtoLens.Encoding.Growing.new
+              mutable'sessionContextScopeRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                      Data.ProtoLens.Encoding.Growing.new
+              mutable'tradeRoutingRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                               Data.ProtoLens.Encoding.Growing.new
+              loop
+                Data.ProtoLens.defMessage mutable'informationRequest
+                mutable'locationScopeRequest mutable'metadataRequest
+                mutable'operationRequest mutable'searchRequest
+                mutable'sessionContextScopeRequest mutable'tradeRoutingRequest)
+          "ClientMessage"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'logon") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.ProtoLens.encodeMessage _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'logoff") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.ProtoLens.encodeMessage _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'restoreOrJoinSession") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   ((Data.Monoid.<>)
+                      (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                         (\ _v
+                            -> (Data.Monoid.<>)
+                                 (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                                 ((Prelude..)
+                                    (\ bs
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                               (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                            (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                    Data.ProtoLens.encodeMessage _v))
+                         (Lens.Family2.view
+                            (Data.ProtoLens.Field.field @"vec'informationRequest") _x))
+                      ((Data.Monoid.<>)
+                         (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                            (\ _v
+                               -> (Data.Monoid.<>)
+                                    (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                    ((Prelude..)
+                                       (\ bs
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                  (Prelude.fromIntegral
+                                                     (Data.ByteString.length bs)))
+                                               (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                       Data.ProtoLens.encodeMessage _v))
+                            (Lens.Family2.view
+                               (Data.ProtoLens.Field.field @"vec'searchRequest") _x))
+                         ((Data.Monoid.<>)
+                            (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                               (\ _v
+                                  -> (Data.Monoid.<>)
+                                       (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                       ((Prelude..)
+                                          (\ bs
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                     (Prelude.fromIntegral
+                                                        (Data.ByteString.length bs)))
+                                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                          Data.ProtoLens.encodeMessage _v))
+                               (Lens.Family2.view
+                                  (Data.ProtoLens.Field.field @"vec'operationRequest") _x))
+                            ((Data.Monoid.<>)
+                               (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                  (\ _v
+                                     -> (Data.Monoid.<>)
+                                          (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                          ((Prelude..)
+                                             (\ bs
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                        (Prelude.fromIntegral
+                                                           (Data.ByteString.length bs)))
+                                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                             Data.ProtoLens.encodeMessage _v))
+                                  (Lens.Family2.view
+                                     (Data.ProtoLens.Field.field @"vec'tradeRoutingRequest") _x))
+                               ((Data.Monoid.<>)
+                                  (case
+                                       Lens.Family2.view
+                                         (Data.ProtoLens.Field.field @"maybe'ping") _x
+                                   of
+                                     Prelude.Nothing -> Data.Monoid.mempty
+                                     (Prelude.Just _v)
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt 74)
+                                            ((Prelude..)
+                                               (\ bs
+                                                  -> (Data.Monoid.<>)
+                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                          (Prelude.fromIntegral
+                                                             (Data.ByteString.length bs)))
+                                                       (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                               Data.ProtoLens.encodeMessage _v))
+                                  ((Data.Monoid.<>)
+                                     (case
+                                          Lens.Family2.view
+                                            (Data.ProtoLens.Field.field @"maybe'pong") _x
+                                      of
+                                        Prelude.Nothing -> Data.Monoid.mempty
+                                        (Prelude.Just _v)
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt 82)
+                                               ((Prelude..)
+                                                  (\ bs
+                                                     -> (Data.Monoid.<>)
+                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                             (Prelude.fromIntegral
+                                                                (Data.ByteString.length bs)))
+                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                             bs))
+                                                  Data.ProtoLens.encodeMessage _v))
+                                     ((Data.Monoid.<>)
+                                        (case
+                                             Lens.Family2.view
+                                               (Data.ProtoLens.Field.field
+                                                  @"maybe'cancelDeferredRequest")
+                                               _x
+                                         of
+                                           Prelude.Nothing -> Data.Monoid.mempty
+                                           (Prelude.Just _v)
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt 90)
+                                                  ((Prelude..)
+                                                     (\ bs
+                                                        -> (Data.Monoid.<>)
+                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                (Prelude.fromIntegral
+                                                                   (Data.ByteString.length bs)))
+                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                bs))
+                                                     Data.ProtoLens.encodeMessage _v))
+                                        ((Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                              (\ _v
+                                                 -> (Data.Monoid.<>)
+                                                      (Data.ProtoLens.Encoding.Bytes.putVarInt 98)
+                                                      ((Prelude..)
+                                                         (\ bs
+                                                            -> (Data.Monoid.<>)
+                                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                    (Prelude.fromIntegral
+                                                                       (Data.ByteString.length bs)))
+                                                                 (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                    bs))
+                                                         Data.ProtoLens.encodeMessage _v))
+                                              (Lens.Family2.view
+                                                 (Data.ProtoLens.Field.field @"vec'metadataRequest")
+                                                 _x))
+                                           ((Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                                 (\ _v
+                                                    -> (Data.Monoid.<>)
+                                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                            106)
+                                                         ((Prelude..)
+                                                            (\ bs
+                                                               -> (Data.Monoid.<>)
+                                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                       (Prelude.fromIntegral
+                                                                          (Data.ByteString.length
+                                                                             bs)))
+                                                                    (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                       bs))
+                                                            Data.ProtoLens.encodeMessage _v))
+                                                 (Lens.Family2.view
+                                                    (Data.ProtoLens.Field.field
+                                                       @"vec'sessionContextScopeRequest")
+                                                    _x))
+                                              ((Data.Monoid.<>)
+                                                 (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                                    (\ _v
+                                                       -> (Data.Monoid.<>)
+                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                               114)
+                                                            ((Prelude..)
+                                                               (\ bs
+                                                                  -> (Data.Monoid.<>)
+                                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                          (Prelude.fromIntegral
+                                                                             (Data.ByteString.length
+                                                                                bs)))
+                                                                       (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                          bs))
+                                                               Data.ProtoLens.encodeMessage _v))
+                                                    (Lens.Family2.view
+                                                       (Data.ProtoLens.Field.field
+                                                          @"vec'locationScopeRequest")
+                                                       _x))
+                                                 (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                    (Lens.Family2.view
+                                                       Data.ProtoLens.unknownFields _x))))))))))))))
+instance Control.DeepSeq.NFData ClientMessage where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_ClientMessage'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_ClientMessage'logon x__)
+                (Control.DeepSeq.deepseq
+                   (_ClientMessage'logoff x__)
+                   (Control.DeepSeq.deepseq
+                      (_ClientMessage'restoreOrJoinSession x__)
+                      (Control.DeepSeq.deepseq
+                         (_ClientMessage'informationRequest x__)
+                         (Control.DeepSeq.deepseq
+                            (_ClientMessage'searchRequest x__)
+                            (Control.DeepSeq.deepseq
+                               (_ClientMessage'operationRequest x__)
+                               (Control.DeepSeq.deepseq
+                                  (_ClientMessage'tradeRoutingRequest x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_ClientMessage'ping x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_ClientMessage'pong x__)
+                                        (Control.DeepSeq.deepseq
+                                           (_ClientMessage'cancelDeferredRequest x__)
+                                           (Control.DeepSeq.deepseq
+                                              (_ClientMessage'metadataRequest x__)
+                                              (Control.DeepSeq.deepseq
+                                                 (_ClientMessage'sessionContextScopeRequest x__)
+                                                 (Control.DeepSeq.deepseq
+                                                    (_ClientMessage'locationScopeRequest x__)
+                                                    ())))))))))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.profile' @:: Lens' CreateProfile Proto.CMS.Common1.Profile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profile' @:: Lens' CreateProfile (Prelude.Maybe Proto.CMS.Common1.Profile)@ -}
+data CreateProfile
+  = CreateProfile'_constructor {_CreateProfile'profile :: !(Prelude.Maybe Proto.CMS.Common1.Profile),
+                                _CreateProfile'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show CreateProfile where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField CreateProfile "profile" Proto.CMS.Common1.Profile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CreateProfile'profile
+           (\ x__ y__ -> x__ {_CreateProfile'profile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField CreateProfile "maybe'profile" (Prelude.Maybe Proto.CMS.Common1.Profile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CreateProfile'profile
+           (\ x__ y__ -> x__ {_CreateProfile'profile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message CreateProfile where
+  messageName _ = Data.Text.pack "cmsapi_1.CreateProfile"
+  packedMessageDescriptor _
+    = "\n\
+      \\rCreateProfile\DC2+\n\
+      \\aprofile\CAN\SOH \SOH(\v2\DC1.common_1.ProfileR\aprofile"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        profile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Profile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profile")) ::
+              Data.ProtoLens.FieldDescriptor CreateProfile
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, profile__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _CreateProfile'_unknownFields
+        (\ x__ y__ -> x__ {_CreateProfile'_unknownFields = y__})
+  defMessage
+    = CreateProfile'_constructor
+        {_CreateProfile'profile = Prelude.Nothing,
+         _CreateProfile'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          CreateProfile -> Data.ProtoLens.Encoding.Bytes.Parser CreateProfile
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "profile"
+                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"profile") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "CreateProfile"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'profile") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.ProtoLens.encodeMessage _v))
+             (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                (Lens.Family2.view Data.ProtoLens.unknownFields _x))
+instance Control.DeepSeq.NFData CreateProfile where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_CreateProfile'_unknownFields x__)
+             (Control.DeepSeq.deepseq (_CreateProfile'profile x__) ())
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteCustomerId' @:: Lens' CreateProfileResult Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteCustomerId' @:: Lens' CreateProfileResult (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' CreateProfileResult Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' CreateProfileResult (Prelude.Maybe Data.Text.Text)@ -}
+data CreateProfileResult
+  = CreateProfileResult'_constructor {_CreateProfileResult'obsoleteCustomerId :: !(Prelude.Maybe Data.Text.Text),
+                                      _CreateProfileResult'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                      _CreateProfileResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show CreateProfileResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField CreateProfileResult "obsoleteCustomerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CreateProfileResult'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_CreateProfileResult'obsoleteCustomerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField CreateProfileResult "maybe'obsoleteCustomerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CreateProfileResult'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_CreateProfileResult'obsoleteCustomerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField CreateProfileResult "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CreateProfileResult'profileId
+           (\ x__ y__ -> x__ {_CreateProfileResult'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField CreateProfileResult "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _CreateProfileResult'profileId
+           (\ x__ y__ -> x__ {_CreateProfileResult'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message CreateProfileResult where
+  messageName _ = Data.Text.pack "cmsapi_1.CreateProfileResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC3CreateProfileResult\DC24\n\
+      \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\STX \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        obsoleteCustomerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId")) ::
+              Data.ProtoLens.FieldDescriptor CreateProfileResult
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor CreateProfileResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, obsoleteCustomerId__field_descriptor),
+           (Data.ProtoLens.Tag 2, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _CreateProfileResult'_unknownFields
+        (\ x__ y__ -> x__ {_CreateProfileResult'_unknownFields = y__})
+  defMessage
+    = CreateProfileResult'_constructor
+        {_CreateProfileResult'obsoleteCustomerId = Prelude.Nothing,
+         _CreateProfileResult'profileId = Prelude.Nothing,
+         _CreateProfileResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          CreateProfileResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser CreateProfileResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_customer_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteCustomerId") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "CreateProfileResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'profileId") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData CreateProfileResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_CreateProfileResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_CreateProfileResult'obsoleteCustomerId x__)
+                (Control.DeepSeq.deepseq (_CreateProfileResult'profileId x__) ()))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.loginId' @:: Lens' GenerateServiceSecurityToken Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginId' @:: Lens' GenerateServiceSecurityToken (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.operation' @:: Lens' GenerateServiceSecurityToken [Data.Word.Word32]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'operation' @:: Lens' GenerateServiceSecurityToken (Data.Vector.Unboxed.Vector Data.Word.Word32)@ -}
+data GenerateServiceSecurityToken
+  = GenerateServiceSecurityToken'_constructor {_GenerateServiceSecurityToken'loginId :: !(Prelude.Maybe Data.Text.Text),
+                                               _GenerateServiceSecurityToken'operation :: !(Data.Vector.Unboxed.Vector Data.Word.Word32),
+                                               _GenerateServiceSecurityToken'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show GenerateServiceSecurityToken where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField GenerateServiceSecurityToken "loginId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GenerateServiceSecurityToken'loginId
+           (\ x__ y__ -> x__ {_GenerateServiceSecurityToken'loginId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField GenerateServiceSecurityToken "maybe'loginId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GenerateServiceSecurityToken'loginId
+           (\ x__ y__ -> x__ {_GenerateServiceSecurityToken'loginId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField GenerateServiceSecurityToken "operation" [Data.Word.Word32] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GenerateServiceSecurityToken'operation
+           (\ x__ y__ -> x__ {_GenerateServiceSecurityToken'operation = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField GenerateServiceSecurityToken "vec'operation" (Data.Vector.Unboxed.Vector Data.Word.Word32) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GenerateServiceSecurityToken'operation
+           (\ x__ y__ -> x__ {_GenerateServiceSecurityToken'operation = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message GenerateServiceSecurityToken where
+  messageName _
+    = Data.Text.pack "cmsapi_1.GenerateServiceSecurityToken"
+  packedMessageDescriptor _
+    = "\n\
+      \\FSGenerateServiceSecurityToken\DC2\EM\n\
+      \\blogin_id\CAN\SOH \SOH(\tR\aloginId\DC2\FS\n\
+      \\toperation\CAN\STX \ETX(\rR\toperation"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        loginId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'loginId")) ::
+              Data.ProtoLens.FieldDescriptor GenerateServiceSecurityToken
+        operation__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "operation"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"operation")) ::
+              Data.ProtoLens.FieldDescriptor GenerateServiceSecurityToken
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, loginId__field_descriptor),
+           (Data.ProtoLens.Tag 2, operation__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _GenerateServiceSecurityToken'_unknownFields
+        (\ x__ y__
+           -> x__ {_GenerateServiceSecurityToken'_unknownFields = y__})
+  defMessage
+    = GenerateServiceSecurityToken'_constructor
+        {_GenerateServiceSecurityToken'loginId = Prelude.Nothing,
+         _GenerateServiceSecurityToken'operation = Data.Vector.Generic.empty,
+         _GenerateServiceSecurityToken'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          GenerateServiceSecurityToken
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Unboxed.Vector Data.ProtoLens.Encoding.Growing.RealWorld Data.Word.Word32
+             -> Data.ProtoLens.Encoding.Bytes.Parser GenerateServiceSecurityToken
+        loop x mutable'operation
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'operation <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                            (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                               mutable'operation)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'operation") frozen'operation x))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "login_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"loginId") y x)
+                                  mutable'operation
+                        16
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (Prelude.fmap
+                                           Prelude.fromIntegral
+                                           Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                        "operation"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append mutable'operation y)
+                                loop x v
+                        18
+                          -> do y <- do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                        Data.ProtoLens.Encoding.Bytes.isolate
+                                          (Prelude.fromIntegral len)
+                                          ((let
+                                              ploop qs
+                                                = do packedEnd <- Data.ProtoLens.Encoding.Bytes.atEnd
+                                                     if packedEnd then
+                                                         Prelude.return qs
+                                                     else
+                                                         do !q <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                                                    (Prelude.fmap
+                                                                       Prelude.fromIntegral
+                                                                       Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                                                    "operation"
+                                                            qs' <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                                     (Data.ProtoLens.Encoding.Growing.append
+                                                                        qs q)
+                                                            ploop qs'
+                                            in ploop)
+                                             mutable'operation)
+                                loop x y
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'operation
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'operation <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                     Data.ProtoLens.Encoding.Growing.new
+              loop Data.ProtoLens.defMessage mutable'operation)
+          "GenerateServiceSecurityToken"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'loginId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                   (\ _v
+                      -> (Data.Monoid.<>)
+                           (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                           ((Prelude..)
+                              Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral _v))
+                   (Lens.Family2.view
+                      (Data.ProtoLens.Field.field @"vec'operation") _x))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData GenerateServiceSecurityToken where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_GenerateServiceSecurityToken'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_GenerateServiceSecurityToken'loginId x__)
+                (Control.DeepSeq.deepseq
+                   (_GenerateServiceSecurityToken'operation x__) ()))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.securityToken' @:: Lens' GenerateServiceSecurityTokenResult Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'securityToken' @:: Lens' GenerateServiceSecurityTokenResult (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.url' @:: Lens' GenerateServiceSecurityTokenResult Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'url' @:: Lens' GenerateServiceSecurityTokenResult (Prelude.Maybe Data.Text.Text)@ -}
+data GenerateServiceSecurityTokenResult
+  = GenerateServiceSecurityTokenResult'_constructor {_GenerateServiceSecurityTokenResult'securityToken :: !(Prelude.Maybe Data.Text.Text),
+                                                     _GenerateServiceSecurityTokenResult'url :: !(Prelude.Maybe Data.Text.Text),
+                                                     _GenerateServiceSecurityTokenResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show GenerateServiceSecurityTokenResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField GenerateServiceSecurityTokenResult "securityToken" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GenerateServiceSecurityTokenResult'securityToken
+           (\ x__ y__
+              -> x__ {_GenerateServiceSecurityTokenResult'securityToken = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField GenerateServiceSecurityTokenResult "maybe'securityToken" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GenerateServiceSecurityTokenResult'securityToken
+           (\ x__ y__
+              -> x__ {_GenerateServiceSecurityTokenResult'securityToken = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField GenerateServiceSecurityTokenResult "url" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GenerateServiceSecurityTokenResult'url
+           (\ x__ y__ -> x__ {_GenerateServiceSecurityTokenResult'url = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField GenerateServiceSecurityTokenResult "maybe'url" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GenerateServiceSecurityTokenResult'url
+           (\ x__ y__ -> x__ {_GenerateServiceSecurityTokenResult'url = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message GenerateServiceSecurityTokenResult where
+  messageName _
+    = Data.Text.pack "cmsapi_1.GenerateServiceSecurityTokenResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\"GenerateServiceSecurityTokenResult\DC2%\n\
+      \\SOsecurity_token\CAN\SOH \SOH(\tR\rsecurityToken\DC2\DLE\n\
+      \\ETXurl\CAN\STX \SOH(\tR\ETXurl"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        securityToken__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "security_token"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'securityToken")) ::
+              Data.ProtoLens.FieldDescriptor GenerateServiceSecurityTokenResult
+        url__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "url"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'url")) ::
+              Data.ProtoLens.FieldDescriptor GenerateServiceSecurityTokenResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, securityToken__field_descriptor),
+           (Data.ProtoLens.Tag 2, url__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _GenerateServiceSecurityTokenResult'_unknownFields
+        (\ x__ y__
+           -> x__ {_GenerateServiceSecurityTokenResult'_unknownFields = y__})
+  defMessage
+    = GenerateServiceSecurityTokenResult'_constructor
+        {_GenerateServiceSecurityTokenResult'securityToken = Prelude.Nothing,
+         _GenerateServiceSecurityTokenResult'url = Prelude.Nothing,
+         _GenerateServiceSecurityTokenResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          GenerateServiceSecurityTokenResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser GenerateServiceSecurityTokenResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "security_token"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"securityToken") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "url"
+                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"url") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage)
+          "GenerateServiceSecurityTokenResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'securityToken") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'url") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData GenerateServiceSecurityTokenResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_GenerateServiceSecurityTokenResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_GenerateServiceSecurityTokenResult'securityToken x__)
+                (Control.DeepSeq.deepseq
+                   (_GenerateServiceSecurityTokenResult'url x__) ()))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteCustomerId' @:: Lens' GetUniqueUsernameRequest Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteCustomerId' @:: Lens' GetUniqueUsernameRequest (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' GetUniqueUsernameRequest Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' GetUniqueUsernameRequest (Prelude.Maybe Data.Text.Text)@ -}
+data GetUniqueUsernameRequest
+  = GetUniqueUsernameRequest'_constructor {_GetUniqueUsernameRequest'obsoleteCustomerId :: !(Prelude.Maybe Data.Text.Text),
+                                           _GetUniqueUsernameRequest'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                           _GetUniqueUsernameRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show GetUniqueUsernameRequest where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField GetUniqueUsernameRequest "obsoleteCustomerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GetUniqueUsernameRequest'obsoleteCustomerId
+           (\ x__ y__
+              -> x__ {_GetUniqueUsernameRequest'obsoleteCustomerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField GetUniqueUsernameRequest "maybe'obsoleteCustomerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GetUniqueUsernameRequest'obsoleteCustomerId
+           (\ x__ y__
+              -> x__ {_GetUniqueUsernameRequest'obsoleteCustomerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField GetUniqueUsernameRequest "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GetUniqueUsernameRequest'profileId
+           (\ x__ y__ -> x__ {_GetUniqueUsernameRequest'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField GetUniqueUsernameRequest "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _GetUniqueUsernameRequest'profileId
+           (\ x__ y__ -> x__ {_GetUniqueUsernameRequest'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message GetUniqueUsernameRequest where
+  messageName _ = Data.Text.pack "cmsapi_1.GetUniqueUsernameRequest"
+  packedMessageDescriptor _
+    = "\n\
+      \\CANGetUniqueUsernameRequest\DC24\n\
+      \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\STX \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        obsoleteCustomerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId")) ::
+              Data.ProtoLens.FieldDescriptor GetUniqueUsernameRequest
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor GetUniqueUsernameRequest
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, obsoleteCustomerId__field_descriptor),
+           (Data.ProtoLens.Tag 2, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _GetUniqueUsernameRequest'_unknownFields
+        (\ x__ y__ -> x__ {_GetUniqueUsernameRequest'_unknownFields = y__})
+  defMessage
+    = GetUniqueUsernameRequest'_constructor
+        {_GetUniqueUsernameRequest'obsoleteCustomerId = Prelude.Nothing,
+         _GetUniqueUsernameRequest'profileId = Prelude.Nothing,
+         _GetUniqueUsernameRequest'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          GetUniqueUsernameRequest
+          -> Data.ProtoLens.Encoding.Bytes.Parser GetUniqueUsernameRequest
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_customer_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteCustomerId") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "GetUniqueUsernameRequest"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'profileId") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData GetUniqueUsernameRequest where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_GetUniqueUsernameRequest'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_GetUniqueUsernameRequest'obsoleteCustomerId x__)
+                (Control.DeepSeq.deepseq
+                   (_GetUniqueUsernameRequest'profileId x__) ()))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.id' @:: Lens' InformationRequest Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.userInfoRequest' @:: Lens' InformationRequest Proto.CMS.Common1.UserInfoRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'userInfoRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.UserInfoRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginEntitlementServiceRequest' @:: Lens' InformationRequest Proto.CMS.Common1.EntityDataRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginEntitlementServiceRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.EntityDataRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.entitlementCategoryListRequest' @:: Lens' InformationRequest Proto.CMS.Common1.EntitlementCategoryListRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'entitlementCategoryListRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.EntitlementCategoryListRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.entitlementServiceRequest' @:: Lens' InformationRequest Proto.CMS.Common1.EntitlementServiceRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'entitlementServiceRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.EntitlementServiceRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileRequest' @:: Lens' InformationRequest ProfileRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileRequest' @:: Lens' InformationRequest (Prelude.Maybe ProfileRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.entitlementServiceListRequest' @:: Lens' InformationRequest Proto.CMS.Common1.EntitlementServiceListRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'entitlementServiceListRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.EntitlementServiceListRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.getUniqueUsernameRequest' @:: Lens' InformationRequest GetUniqueUsernameRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'getUniqueUsernameRequest' @:: Lens' InformationRequest (Prelude.Maybe GetUniqueUsernameRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.customerSalesSeriesAuthorizationListRequest' @:: Lens' InformationRequest Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'customerSalesSeriesAuthorizationListRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginSettingsRequest' @:: Lens' InformationRequest Proto.CMS.Common1.LoginSettingsRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginSettingsRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.LoginSettingsRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginExchangeMemberIdListRequest' @:: Lens' InformationRequest Proto.CMS.Common1.LoginExchangeMemberIdListRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginExchangeMemberIdListRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.LoginExchangeMemberIdListRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.lookupPropertyListRequest' @:: Lens' InformationRequest Proto.CMS.Common1.LookupPropertyListRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'lookupPropertyListRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.LookupPropertyListRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.authPartnerListRequest' @:: Lens' InformationRequest AuthPartnerListRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'authPartnerListRequest' @:: Lens' InformationRequest (Prelude.Maybe AuthPartnerListRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginBillingCustomDataRequest' @:: Lens' InformationRequest Proto.CMS.Common1.LoginBillingCustomDataRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginBillingCustomDataRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.LoginBillingCustomDataRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.tradingFeaturesRequest' @:: Lens' InformationRequest Proto.CMS.Common1.TradingFeaturesRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'tradingFeaturesRequest' @:: Lens' InformationRequest (Prelude.Maybe Proto.CMS.Common1.TradingFeaturesRequest)@ -}
+data InformationRequest
+  = InformationRequest'_constructor {_InformationRequest'id :: !Data.Word.Word32,
+                                     _InformationRequest'userInfoRequest :: !(Prelude.Maybe Proto.CMS.Common1.UserInfoRequest),
+                                     _InformationRequest'loginEntitlementServiceRequest :: !(Prelude.Maybe Proto.CMS.Common1.EntityDataRequest),
+                                     _InformationRequest'entitlementCategoryListRequest :: !(Prelude.Maybe Proto.CMS.Common1.EntitlementCategoryListRequest),
+                                     _InformationRequest'entitlementServiceRequest :: !(Prelude.Maybe Proto.CMS.Common1.EntitlementServiceRequest),
+                                     _InformationRequest'profileRequest :: !(Prelude.Maybe ProfileRequest),
+                                     _InformationRequest'entitlementServiceListRequest :: !(Prelude.Maybe Proto.CMS.Common1.EntitlementServiceListRequest),
+                                     _InformationRequest'getUniqueUsernameRequest :: !(Prelude.Maybe GetUniqueUsernameRequest),
+                                     _InformationRequest'customerSalesSeriesAuthorizationListRequest :: !(Prelude.Maybe Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListRequest),
+                                     _InformationRequest'loginSettingsRequest :: !(Prelude.Maybe Proto.CMS.Common1.LoginSettingsRequest),
+                                     _InformationRequest'loginExchangeMemberIdListRequest :: !(Prelude.Maybe Proto.CMS.Common1.LoginExchangeMemberIdListRequest),
+                                     _InformationRequest'lookupPropertyListRequest :: !(Prelude.Maybe Proto.CMS.Common1.LookupPropertyListRequest),
+                                     _InformationRequest'authPartnerListRequest :: !(Prelude.Maybe AuthPartnerListRequest),
+                                     _InformationRequest'loginBillingCustomDataRequest :: !(Prelude.Maybe Proto.CMS.Common1.LoginBillingCustomDataRequest),
+                                     _InformationRequest'tradingFeaturesRequest :: !(Prelude.Maybe Proto.CMS.Common1.TradingFeaturesRequest),
+                                     _InformationRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show InformationRequest where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField InformationRequest "id" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'id
+           (\ x__ y__ -> x__ {_InformationRequest'id = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "userInfoRequest" Proto.CMS.Common1.UserInfoRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'userInfoRequest
+           (\ x__ y__ -> x__ {_InformationRequest'userInfoRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'userInfoRequest" (Prelude.Maybe Proto.CMS.Common1.UserInfoRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'userInfoRequest
+           (\ x__ y__ -> x__ {_InformationRequest'userInfoRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "loginEntitlementServiceRequest" Proto.CMS.Common1.EntityDataRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'loginEntitlementServiceRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'loginEntitlementServiceRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'loginEntitlementServiceRequest" (Prelude.Maybe Proto.CMS.Common1.EntityDataRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'loginEntitlementServiceRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'loginEntitlementServiceRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "entitlementCategoryListRequest" Proto.CMS.Common1.EntitlementCategoryListRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'entitlementCategoryListRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'entitlementCategoryListRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'entitlementCategoryListRequest" (Prelude.Maybe Proto.CMS.Common1.EntitlementCategoryListRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'entitlementCategoryListRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'entitlementCategoryListRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "entitlementServiceRequest" Proto.CMS.Common1.EntitlementServiceRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'entitlementServiceRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'entitlementServiceRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'entitlementServiceRequest" (Prelude.Maybe Proto.CMS.Common1.EntitlementServiceRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'entitlementServiceRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'entitlementServiceRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "profileRequest" ProfileRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'profileRequest
+           (\ x__ y__ -> x__ {_InformationRequest'profileRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'profileRequest" (Prelude.Maybe ProfileRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'profileRequest
+           (\ x__ y__ -> x__ {_InformationRequest'profileRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "entitlementServiceListRequest" Proto.CMS.Common1.EntitlementServiceListRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'entitlementServiceListRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'entitlementServiceListRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'entitlementServiceListRequest" (Prelude.Maybe Proto.CMS.Common1.EntitlementServiceListRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'entitlementServiceListRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'entitlementServiceListRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "getUniqueUsernameRequest" GetUniqueUsernameRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'getUniqueUsernameRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'getUniqueUsernameRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'getUniqueUsernameRequest" (Prelude.Maybe GetUniqueUsernameRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'getUniqueUsernameRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'getUniqueUsernameRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "customerSalesSeriesAuthorizationListRequest" Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'customerSalesSeriesAuthorizationListRequest
+           (\ x__ y__
+              -> x__
+                   {_InformationRequest'customerSalesSeriesAuthorizationListRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'customerSalesSeriesAuthorizationListRequest" (Prelude.Maybe Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'customerSalesSeriesAuthorizationListRequest
+           (\ x__ y__
+              -> x__
+                   {_InformationRequest'customerSalesSeriesAuthorizationListRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "loginSettingsRequest" Proto.CMS.Common1.LoginSettingsRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'loginSettingsRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'loginSettingsRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'loginSettingsRequest" (Prelude.Maybe Proto.CMS.Common1.LoginSettingsRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'loginSettingsRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'loginSettingsRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "loginExchangeMemberIdListRequest" Proto.CMS.Common1.LoginExchangeMemberIdListRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'loginExchangeMemberIdListRequest
+           (\ x__ y__
+              -> x__
+                   {_InformationRequest'loginExchangeMemberIdListRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'loginExchangeMemberIdListRequest" (Prelude.Maybe Proto.CMS.Common1.LoginExchangeMemberIdListRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'loginExchangeMemberIdListRequest
+           (\ x__ y__
+              -> x__
+                   {_InformationRequest'loginExchangeMemberIdListRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "lookupPropertyListRequest" Proto.CMS.Common1.LookupPropertyListRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'lookupPropertyListRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'lookupPropertyListRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'lookupPropertyListRequest" (Prelude.Maybe Proto.CMS.Common1.LookupPropertyListRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'lookupPropertyListRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'lookupPropertyListRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "authPartnerListRequest" AuthPartnerListRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'authPartnerListRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'authPartnerListRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'authPartnerListRequest" (Prelude.Maybe AuthPartnerListRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'authPartnerListRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'authPartnerListRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "loginBillingCustomDataRequest" Proto.CMS.Common1.LoginBillingCustomDataRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'loginBillingCustomDataRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'loginBillingCustomDataRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'loginBillingCustomDataRequest" (Prelude.Maybe Proto.CMS.Common1.LoginBillingCustomDataRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'loginBillingCustomDataRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'loginBillingCustomDataRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationRequest "tradingFeaturesRequest" Proto.CMS.Common1.TradingFeaturesRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'tradingFeaturesRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'tradingFeaturesRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationRequest "maybe'tradingFeaturesRequest" (Prelude.Maybe Proto.CMS.Common1.TradingFeaturesRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationRequest'tradingFeaturesRequest
+           (\ x__ y__
+              -> x__ {_InformationRequest'tradingFeaturesRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message InformationRequest where
+  messageName _ = Data.Text.pack "cmsapi_1.InformationRequest"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC2InformationRequest\DC2\SO\n\
+      \\STXid\CAN\SOH \STX(\rR\STXid\DC2E\n\
+      \\DC1user_info_request\CAN\STX \SOH(\v2\EM.common_1.UserInfoRequestR\SIuserInfoRequest\DC2f\n\
+      \!login_entitlement_service_request\CAN\ETX \SOH(\v2\ESC.common_1.EntityDataRequestR\RSloginEntitlementServiceRequest\DC2s\n\
+      \!entitlement_category_list_request\CAN\EOT \SOH(\v2(.common_1.EntitlementCategoryListRequestR\RSentitlementCategoryListRequest\DC2c\n\
+      \\ESCentitlement_service_request\CAN\ENQ \SOH(\v2#.common_1.EntitlementServiceRequestR\EMentitlementServiceRequest\DC2A\n\
+      \\SIprofile_request\CAN\ACK \SOH(\v2\CAN.cmsapi_1.ProfileRequestR\SOprofileRequest\DC2p\n\
+      \ entitlement_service_list_request\CAN\a \SOH(\v2'.common_1.EntitlementServiceListRequestR\GSentitlementServiceListRequest\DC2a\n\
+      \\ESCget_unique_username_request\CAN\b \SOH(\v2\".cmsapi_1.GetUniqueUsernameRequestR\CANgetUniqueUsernameRequest\DC2\156\SOH\n\
+      \0customer_sales_series_authorization_list_request\CAN\t \SOH(\v25.common_1.CustomerSalesSeriesAuthorizationListRequestR+customerSalesSeriesAuthorizationListRequest\DC2T\n\
+      \\SYNlogin_settings_request\CAN\n\
+      \ \SOH(\v2\RS.common_1.LoginSettingsRequestR\DC4loginSettingsRequest\DC2{\n\
+      \%login_exchange_member_id_list_request\CAN\v \SOH(\v2*.common_1.LoginExchangeMemberIdListRequestR loginExchangeMemberIdListRequest\DC2d\n\
+      \\FSlookup_property_list_request\CAN\f \SOH(\v2#.common_1.LookupPropertyListRequestR\EMlookupPropertyListRequest\DC2[\n\
+      \\EMauth_partner_list_request\CAN\r \SOH(\v2 .cmsapi_1.AuthPartnerListRequestR\SYNauthPartnerListRequest\DC2q\n\
+      \!login_billing_custom_data_request\CAN\SO \SOH(\v2'.common_1.LoginBillingCustomDataRequestR\GSloginBillingCustomDataRequest\DC2Z\n\
+      \\CANtrading_features_request\CAN\SI \SOH(\v2 .common_1.TradingFeaturesRequestR\SYNtradingFeaturesRequest"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        id__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required (Data.ProtoLens.Field.field @"id")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        userInfoRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "user_info_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UserInfoRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'userInfoRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        loginEntitlementServiceRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_entitlement_service_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.EntityDataRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'loginEntitlementServiceRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        entitlementCategoryListRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "entitlement_category_list_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.EntitlementCategoryListRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'entitlementCategoryListRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        entitlementServiceRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "entitlement_service_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.EntitlementServiceRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'entitlementServiceRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        profileRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor ProfileRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        entitlementServiceListRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "entitlement_service_list_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.EntitlementServiceListRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'entitlementServiceListRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        getUniqueUsernameRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "get_unique_username_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor GetUniqueUsernameRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'getUniqueUsernameRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        customerSalesSeriesAuthorizationListRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "customer_sales_series_authorization_list_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'customerSalesSeriesAuthorizationListRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        loginSettingsRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_settings_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LoginSettingsRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'loginSettingsRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        loginExchangeMemberIdListRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_exchange_member_id_list_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LoginExchangeMemberIdListRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'loginExchangeMemberIdListRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        lookupPropertyListRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "lookup_property_list_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LookupPropertyListRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'lookupPropertyListRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        authPartnerListRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "auth_partner_list_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor AuthPartnerListRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'authPartnerListRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        loginBillingCustomDataRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_billing_custom_data_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LoginBillingCustomDataRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'loginBillingCustomDataRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+        tradingFeaturesRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "trading_features_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.TradingFeaturesRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'tradingFeaturesRequest")) ::
+              Data.ProtoLens.FieldDescriptor InformationRequest
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, id__field_descriptor),
+           (Data.ProtoLens.Tag 2, userInfoRequest__field_descriptor),
+           (Data.ProtoLens.Tag 3, 
+            loginEntitlementServiceRequest__field_descriptor),
+           (Data.ProtoLens.Tag 4, 
+            entitlementCategoryListRequest__field_descriptor),
+           (Data.ProtoLens.Tag 5, 
+            entitlementServiceRequest__field_descriptor),
+           (Data.ProtoLens.Tag 6, profileRequest__field_descriptor),
+           (Data.ProtoLens.Tag 7, 
+            entitlementServiceListRequest__field_descriptor),
+           (Data.ProtoLens.Tag 8, getUniqueUsernameRequest__field_descriptor),
+           (Data.ProtoLens.Tag 9, 
+            customerSalesSeriesAuthorizationListRequest__field_descriptor),
+           (Data.ProtoLens.Tag 10, loginSettingsRequest__field_descriptor),
+           (Data.ProtoLens.Tag 11, 
+            loginExchangeMemberIdListRequest__field_descriptor),
+           (Data.ProtoLens.Tag 12, 
+            lookupPropertyListRequest__field_descriptor),
+           (Data.ProtoLens.Tag 13, authPartnerListRequest__field_descriptor),
+           (Data.ProtoLens.Tag 14, 
+            loginBillingCustomDataRequest__field_descriptor),
+           (Data.ProtoLens.Tag 15, tradingFeaturesRequest__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _InformationRequest'_unknownFields
+        (\ x__ y__ -> x__ {_InformationRequest'_unknownFields = y__})
+  defMessage
+    = InformationRequest'_constructor
+        {_InformationRequest'id = Data.ProtoLens.fieldDefault,
+         _InformationRequest'userInfoRequest = Prelude.Nothing,
+         _InformationRequest'loginEntitlementServiceRequest = Prelude.Nothing,
+         _InformationRequest'entitlementCategoryListRequest = Prelude.Nothing,
+         _InformationRequest'entitlementServiceRequest = Prelude.Nothing,
+         _InformationRequest'profileRequest = Prelude.Nothing,
+         _InformationRequest'entitlementServiceListRequest = Prelude.Nothing,
+         _InformationRequest'getUniqueUsernameRequest = Prelude.Nothing,
+         _InformationRequest'customerSalesSeriesAuthorizationListRequest = Prelude.Nothing,
+         _InformationRequest'loginSettingsRequest = Prelude.Nothing,
+         _InformationRequest'loginExchangeMemberIdListRequest = Prelude.Nothing,
+         _InformationRequest'lookupPropertyListRequest = Prelude.Nothing,
+         _InformationRequest'authPartnerListRequest = Prelude.Nothing,
+         _InformationRequest'loginBillingCustomDataRequest = Prelude.Nothing,
+         _InformationRequest'tradingFeaturesRequest = Prelude.Nothing,
+         _InformationRequest'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          InformationRequest
+          -> Prelude.Bool
+             -> Data.ProtoLens.Encoding.Bytes.Parser InformationRequest
+        loop x required'id
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = (if required'id then (:) "id" else Prelude.id) []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"id") y x)
+                                  Prelude.False
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "user_info_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"userInfoRequest") y x)
+                                  required'id
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "login_entitlement_service_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"loginEntitlementServiceRequest")
+                                     y x)
+                                  required'id
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "entitlement_category_list_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"entitlementCategoryListRequest")
+                                     y x)
+                                  required'id
+                        42
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "entitlement_service_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"entitlementServiceRequest") y x)
+                                  required'id
+                        50
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "profile_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"profileRequest") y x)
+                                  required'id
+                        58
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "entitlement_service_list_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"entitlementServiceListRequest") y
+                                     x)
+                                  required'id
+                        66
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "get_unique_username_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"getUniqueUsernameRequest") y x)
+                                  required'id
+                        74
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "customer_sales_series_authorization_list_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"customerSalesSeriesAuthorizationListRequest")
+                                     y x)
+                                  required'id
+                        82
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "login_settings_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"loginSettingsRequest") y x)
+                                  required'id
+                        90
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "login_exchange_member_id_list_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"loginExchangeMemberIdListRequest")
+                                     y x)
+                                  required'id
+                        98
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "lookup_property_list_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"lookupPropertyListRequest") y x)
+                                  required'id
+                        106
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "auth_partner_list_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"authPartnerListRequest") y x)
+                                  required'id
+                        114
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "login_billing_custom_data_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"loginBillingCustomDataRequest") y
+                                     x)
+                                  required'id
+                        122
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "trading_features_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"tradingFeaturesRequest") y x)
+                                  required'id
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  required'id
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage Prelude.True)
+          "InformationRequest"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                ((Prelude..)
+                   Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                   (Lens.Family2.view (Data.ProtoLens.Field.field @"id") _x)))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'userInfoRequest") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.ProtoLens.encodeMessage _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field
+                             @"maybe'loginEntitlementServiceRequest")
+                          _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field
+                                @"maybe'entitlementCategoryListRequest")
+                             _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.ProtoLens.encodeMessage _v))
+                      ((Data.Monoid.<>)
+                         (case
+                              Lens.Family2.view
+                                (Data.ProtoLens.Field.field @"maybe'entitlementServiceRequest") _x
+                          of
+                            Prelude.Nothing -> Data.Monoid.mempty
+                            (Prelude.Just _v)
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                   ((Prelude..)
+                                      (\ bs
+                                         -> (Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                 (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                              (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                      Data.ProtoLens.encodeMessage _v))
+                         ((Data.Monoid.<>)
+                            (case
+                                 Lens.Family2.view
+                                   (Data.ProtoLens.Field.field @"maybe'profileRequest") _x
+                             of
+                               Prelude.Nothing -> Data.Monoid.mempty
+                               (Prelude.Just _v)
+                                 -> (Data.Monoid.<>)
+                                      (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                      ((Prelude..)
+                                         (\ bs
+                                            -> (Data.Monoid.<>)
+                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                    (Prelude.fromIntegral
+                                                       (Data.ByteString.length bs)))
+                                                 (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                         Data.ProtoLens.encodeMessage _v))
+                            ((Data.Monoid.<>)
+                               (case
+                                    Lens.Family2.view
+                                      (Data.ProtoLens.Field.field
+                                         @"maybe'entitlementServiceListRequest")
+                                      _x
+                                of
+                                  Prelude.Nothing -> Data.Monoid.mempty
+                                  (Prelude.Just _v)
+                                    -> (Data.Monoid.<>)
+                                         (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                                         ((Prelude..)
+                                            (\ bs
+                                               -> (Data.Monoid.<>)
+                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                       (Prelude.fromIntegral
+                                                          (Data.ByteString.length bs)))
+                                                    (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                            Data.ProtoLens.encodeMessage _v))
+                               ((Data.Monoid.<>)
+                                  (case
+                                       Lens.Family2.view
+                                         (Data.ProtoLens.Field.field
+                                            @"maybe'getUniqueUsernameRequest")
+                                         _x
+                                   of
+                                     Prelude.Nothing -> Data.Monoid.mempty
+                                     (Prelude.Just _v)
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt 66)
+                                            ((Prelude..)
+                                               (\ bs
+                                                  -> (Data.Monoid.<>)
+                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                          (Prelude.fromIntegral
+                                                             (Data.ByteString.length bs)))
+                                                       (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                               Data.ProtoLens.encodeMessage _v))
+                                  ((Data.Monoid.<>)
+                                     (case
+                                          Lens.Family2.view
+                                            (Data.ProtoLens.Field.field
+                                               @"maybe'customerSalesSeriesAuthorizationListRequest")
+                                            _x
+                                      of
+                                        Prelude.Nothing -> Data.Monoid.mempty
+                                        (Prelude.Just _v)
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt 74)
+                                               ((Prelude..)
+                                                  (\ bs
+                                                     -> (Data.Monoid.<>)
+                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                             (Prelude.fromIntegral
+                                                                (Data.ByteString.length bs)))
+                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                             bs))
+                                                  Data.ProtoLens.encodeMessage _v))
+                                     ((Data.Monoid.<>)
+                                        (case
+                                             Lens.Family2.view
+                                               (Data.ProtoLens.Field.field
+                                                  @"maybe'loginSettingsRequest")
+                                               _x
+                                         of
+                                           Prelude.Nothing -> Data.Monoid.mempty
+                                           (Prelude.Just _v)
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt 82)
+                                                  ((Prelude..)
+                                                     (\ bs
+                                                        -> (Data.Monoid.<>)
+                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                (Prelude.fromIntegral
+                                                                   (Data.ByteString.length bs)))
+                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                bs))
+                                                     Data.ProtoLens.encodeMessage _v))
+                                        ((Data.Monoid.<>)
+                                           (case
+                                                Lens.Family2.view
+                                                  (Data.ProtoLens.Field.field
+                                                     @"maybe'loginExchangeMemberIdListRequest")
+                                                  _x
+                                            of
+                                              Prelude.Nothing -> Data.Monoid.mempty
+                                              (Prelude.Just _v)
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt 90)
+                                                     ((Prelude..)
+                                                        (\ bs
+                                                           -> (Data.Monoid.<>)
+                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                   (Prelude.fromIntegral
+                                                                      (Data.ByteString.length bs)))
+                                                                (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                   bs))
+                                                        Data.ProtoLens.encodeMessage _v))
+                                           ((Data.Monoid.<>)
+                                              (case
+                                                   Lens.Family2.view
+                                                     (Data.ProtoLens.Field.field
+                                                        @"maybe'lookupPropertyListRequest")
+                                                     _x
+                                               of
+                                                 Prelude.Nothing -> Data.Monoid.mempty
+                                                 (Prelude.Just _v)
+                                                   -> (Data.Monoid.<>)
+                                                        (Data.ProtoLens.Encoding.Bytes.putVarInt 98)
+                                                        ((Prelude..)
+                                                           (\ bs
+                                                              -> (Data.Monoid.<>)
+                                                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                      (Prelude.fromIntegral
+                                                                         (Data.ByteString.length
+                                                                            bs)))
+                                                                   (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                      bs))
+                                                           Data.ProtoLens.encodeMessage _v))
+                                              ((Data.Monoid.<>)
+                                                 (case
+                                                      Lens.Family2.view
+                                                        (Data.ProtoLens.Field.field
+                                                           @"maybe'authPartnerListRequest")
+                                                        _x
+                                                  of
+                                                    Prelude.Nothing -> Data.Monoid.mempty
+                                                    (Prelude.Just _v)
+                                                      -> (Data.Monoid.<>)
+                                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                              106)
+                                                           ((Prelude..)
+                                                              (\ bs
+                                                                 -> (Data.Monoid.<>)
+                                                                      (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                         (Prelude.fromIntegral
+                                                                            (Data.ByteString.length
+                                                                               bs)))
+                                                                      (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                         bs))
+                                                              Data.ProtoLens.encodeMessage _v))
+                                                 ((Data.Monoid.<>)
+                                                    (case
+                                                         Lens.Family2.view
+                                                           (Data.ProtoLens.Field.field
+                                                              @"maybe'loginBillingCustomDataRequest")
+                                                           _x
+                                                     of
+                                                       Prelude.Nothing -> Data.Monoid.mempty
+                                                       (Prelude.Just _v)
+                                                         -> (Data.Monoid.<>)
+                                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                 114)
+                                                              ((Prelude..)
+                                                                 (\ bs
+                                                                    -> (Data.Monoid.<>)
+                                                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                            (Prelude.fromIntegral
+                                                                               (Data.ByteString.length
+                                                                                  bs)))
+                                                                         (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                            bs))
+                                                                 Data.ProtoLens.encodeMessage _v))
+                                                    ((Data.Monoid.<>)
+                                                       (case
+                                                            Lens.Family2.view
+                                                              (Data.ProtoLens.Field.field
+                                                                 @"maybe'tradingFeaturesRequest")
+                                                              _x
+                                                        of
+                                                          Prelude.Nothing -> Data.Monoid.mempty
+                                                          (Prelude.Just _v)
+                                                            -> (Data.Monoid.<>)
+                                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                    122)
+                                                                 ((Prelude..)
+                                                                    (\ bs
+                                                                       -> (Data.Monoid.<>)
+                                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                               (Prelude.fromIntegral
+                                                                                  (Data.ByteString.length
+                                                                                     bs)))
+                                                                            (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                               bs))
+                                                                    Data.ProtoLens.encodeMessage
+                                                                    _v))
+                                                       (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                          (Lens.Family2.view
+                                                             Data.ProtoLens.unknownFields
+                                                             _x))))))))))))))))
+instance Control.DeepSeq.NFData InformationRequest where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_InformationRequest'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_InformationRequest'id x__)
+                (Control.DeepSeq.deepseq
+                   (_InformationRequest'userInfoRequest x__)
+                   (Control.DeepSeq.deepseq
+                      (_InformationRequest'loginEntitlementServiceRequest x__)
+                      (Control.DeepSeq.deepseq
+                         (_InformationRequest'entitlementCategoryListRequest x__)
+                         (Control.DeepSeq.deepseq
+                            (_InformationRequest'entitlementServiceRequest x__)
+                            (Control.DeepSeq.deepseq
+                               (_InformationRequest'profileRequest x__)
+                               (Control.DeepSeq.deepseq
+                                  (_InformationRequest'entitlementServiceListRequest x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_InformationRequest'getUniqueUsernameRequest x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_InformationRequest'customerSalesSeriesAuthorizationListRequest
+                                           x__)
+                                        (Control.DeepSeq.deepseq
+                                           (_InformationRequest'loginSettingsRequest x__)
+                                           (Control.DeepSeq.deepseq
+                                              (_InformationRequest'loginExchangeMemberIdListRequest
+                                                 x__)
+                                              (Control.DeepSeq.deepseq
+                                                 (_InformationRequest'lookupPropertyListRequest x__)
+                                                 (Control.DeepSeq.deepseq
+                                                    (_InformationRequest'authPartnerListRequest x__)
+                                                    (Control.DeepSeq.deepseq
+                                                       (_InformationRequest'loginBillingCustomDataRequest
+                                                          x__)
+                                                       (Control.DeepSeq.deepseq
+                                                          (_InformationRequest'tradingFeaturesRequest
+                                                             x__)
+                                                          ())))))))))))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.requestId' @:: Lens' InformationResult Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.operationStatus' @:: Lens' InformationResult Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.errorMessage' @:: Lens' InformationResult Proto.Common.Shared1.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'errorMessage' @:: Lens' InformationResult (Prelude.Maybe Proto.Common.Shared1.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.user' @:: Lens' InformationResult Proto.CMS.Common1.User@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'user' @:: Lens' InformationResult (Prelude.Maybe Proto.CMS.Common1.User)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginEntitlementService' @:: Lens' InformationResult [Proto.CMS.Login1.LoginEntitlementService]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'loginEntitlementService' @:: Lens' InformationResult (Data.Vector.Vector Proto.CMS.Login1.LoginEntitlementService)@
+         * 'Proto.CMS.Cmsapi1_Fields.entitlementCategory' @:: Lens' InformationResult [Proto.CMS.Common1.EntitlementCategory]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'entitlementCategory' @:: Lens' InformationResult (Data.Vector.Vector Proto.CMS.Common1.EntitlementCategory)@
+         * 'Proto.CMS.Cmsapi1_Fields.entitlementService' @:: Lens' InformationResult [Proto.CMS.Common1.EntitlementService]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'entitlementService' @:: Lens' InformationResult (Data.Vector.Vector Proto.CMS.Common1.EntitlementService)@
+         * 'Proto.CMS.Cmsapi1_Fields.profile' @:: Lens' InformationResult Proto.CMS.Common1.Profile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profile' @:: Lens' InformationResult (Prelude.Maybe Proto.CMS.Common1.Profile)@
+         * 'Proto.CMS.Cmsapi1_Fields.uniqueUsernameResult' @:: Lens' InformationResult UniqueUsernameResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'uniqueUsernameResult' @:: Lens' InformationResult (Prelude.Maybe UniqueUsernameResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.customerSalesSeriesAuthorizationListResult' @:: Lens' InformationResult Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'customerSalesSeriesAuthorizationListResult' @:: Lens' InformationResult (Prelude.Maybe Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginSettingsResult' @:: Lens' InformationResult Proto.CMS.Common1.LoginSettingsResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginSettingsResult' @:: Lens' InformationResult (Prelude.Maybe Proto.CMS.Common1.LoginSettingsResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginExchangeMemberIdListResult' @:: Lens' InformationResult Proto.CMS.Common1.LoginExchangeMemberIdListResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginExchangeMemberIdListResult' @:: Lens' InformationResult (Prelude.Maybe Proto.CMS.Common1.LoginExchangeMemberIdListResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.lookupPropertyListResult' @:: Lens' InformationResult Proto.CMS.Common1.LookupPropertyListResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'lookupPropertyListResult' @:: Lens' InformationResult (Prelude.Maybe Proto.CMS.Common1.LookupPropertyListResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.authPartnerListResult' @:: Lens' InformationResult AuthPartnerListResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'authPartnerListResult' @:: Lens' InformationResult (Prelude.Maybe AuthPartnerListResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginBillingCustomDataResult' @:: Lens' InformationResult Proto.CMS.Common1.LoginBillingCustomDataResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginBillingCustomDataResult' @:: Lens' InformationResult (Prelude.Maybe Proto.CMS.Common1.LoginBillingCustomDataResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.trackingNumber' @:: Lens' InformationResult Data.Word.Word64@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'trackingNumber' @:: Lens' InformationResult (Prelude.Maybe Data.Word.Word64)@
+         * 'Proto.CMS.Cmsapi1_Fields.tradingFeaturesResult' @:: Lens' InformationResult Proto.CMS.Common1.TradingFeaturesResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'tradingFeaturesResult' @:: Lens' InformationResult (Prelude.Maybe Proto.CMS.Common1.TradingFeaturesResult)@ -}
+data InformationResult
+  = InformationResult'_constructor {_InformationResult'requestId :: !Data.Word.Word32,
+                                    _InformationResult'operationStatus :: !Data.Word.Word32,
+                                    _InformationResult'errorMessage :: !(Prelude.Maybe Proto.Common.Shared1.Text),
+                                    _InformationResult'user :: !(Prelude.Maybe Proto.CMS.Common1.User),
+                                    _InformationResult'loginEntitlementService :: !(Data.Vector.Vector Proto.CMS.Login1.LoginEntitlementService),
+                                    _InformationResult'entitlementCategory :: !(Data.Vector.Vector Proto.CMS.Common1.EntitlementCategory),
+                                    _InformationResult'entitlementService :: !(Data.Vector.Vector Proto.CMS.Common1.EntitlementService),
+                                    _InformationResult'profile :: !(Prelude.Maybe Proto.CMS.Common1.Profile),
+                                    _InformationResult'uniqueUsernameResult :: !(Prelude.Maybe UniqueUsernameResult),
+                                    _InformationResult'customerSalesSeriesAuthorizationListResult :: !(Prelude.Maybe Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListResult),
+                                    _InformationResult'loginSettingsResult :: !(Prelude.Maybe Proto.CMS.Common1.LoginSettingsResult),
+                                    _InformationResult'loginExchangeMemberIdListResult :: !(Prelude.Maybe Proto.CMS.Common1.LoginExchangeMemberIdListResult),
+                                    _InformationResult'lookupPropertyListResult :: !(Prelude.Maybe Proto.CMS.Common1.LookupPropertyListResult),
+                                    _InformationResult'authPartnerListResult :: !(Prelude.Maybe AuthPartnerListResult),
+                                    _InformationResult'loginBillingCustomDataResult :: !(Prelude.Maybe Proto.CMS.Common1.LoginBillingCustomDataResult),
+                                    _InformationResult'trackingNumber :: !(Prelude.Maybe Data.Word.Word64),
+                                    _InformationResult'tradingFeaturesResult :: !(Prelude.Maybe Proto.CMS.Common1.TradingFeaturesResult),
+                                    _InformationResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show InformationResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField InformationResult "requestId" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'requestId
+           (\ x__ y__ -> x__ {_InformationResult'requestId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "operationStatus" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'operationStatus
+           (\ x__ y__ -> x__ {_InformationResult'operationStatus = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "errorMessage" Proto.Common.Shared1.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'errorMessage
+           (\ x__ y__ -> x__ {_InformationResult'errorMessage = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'errorMessage" (Prelude.Maybe Proto.Common.Shared1.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'errorMessage
+           (\ x__ y__ -> x__ {_InformationResult'errorMessage = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "user" Proto.CMS.Common1.User where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'user
+           (\ x__ y__ -> x__ {_InformationResult'user = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'user" (Prelude.Maybe Proto.CMS.Common1.User) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'user
+           (\ x__ y__ -> x__ {_InformationResult'user = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "loginEntitlementService" [Proto.CMS.Login1.LoginEntitlementService] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'loginEntitlementService
+           (\ x__ y__
+              -> x__ {_InformationResult'loginEntitlementService = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField InformationResult "vec'loginEntitlementService" (Data.Vector.Vector Proto.CMS.Login1.LoginEntitlementService) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'loginEntitlementService
+           (\ x__ y__
+              -> x__ {_InformationResult'loginEntitlementService = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "entitlementCategory" [Proto.CMS.Common1.EntitlementCategory] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'entitlementCategory
+           (\ x__ y__ -> x__ {_InformationResult'entitlementCategory = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField InformationResult "vec'entitlementCategory" (Data.Vector.Vector Proto.CMS.Common1.EntitlementCategory) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'entitlementCategory
+           (\ x__ y__ -> x__ {_InformationResult'entitlementCategory = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "entitlementService" [Proto.CMS.Common1.EntitlementService] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'entitlementService
+           (\ x__ y__ -> x__ {_InformationResult'entitlementService = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField InformationResult "vec'entitlementService" (Data.Vector.Vector Proto.CMS.Common1.EntitlementService) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'entitlementService
+           (\ x__ y__ -> x__ {_InformationResult'entitlementService = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "profile" Proto.CMS.Common1.Profile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'profile
+           (\ x__ y__ -> x__ {_InformationResult'profile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'profile" (Prelude.Maybe Proto.CMS.Common1.Profile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'profile
+           (\ x__ y__ -> x__ {_InformationResult'profile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "uniqueUsernameResult" UniqueUsernameResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'uniqueUsernameResult
+           (\ x__ y__ -> x__ {_InformationResult'uniqueUsernameResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'uniqueUsernameResult" (Prelude.Maybe UniqueUsernameResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'uniqueUsernameResult
+           (\ x__ y__ -> x__ {_InformationResult'uniqueUsernameResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "customerSalesSeriesAuthorizationListResult" Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'customerSalesSeriesAuthorizationListResult
+           (\ x__ y__
+              -> x__
+                   {_InformationResult'customerSalesSeriesAuthorizationListResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'customerSalesSeriesAuthorizationListResult" (Prelude.Maybe Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'customerSalesSeriesAuthorizationListResult
+           (\ x__ y__
+              -> x__
+                   {_InformationResult'customerSalesSeriesAuthorizationListResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "loginSettingsResult" Proto.CMS.Common1.LoginSettingsResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'loginSettingsResult
+           (\ x__ y__ -> x__ {_InformationResult'loginSettingsResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'loginSettingsResult" (Prelude.Maybe Proto.CMS.Common1.LoginSettingsResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'loginSettingsResult
+           (\ x__ y__ -> x__ {_InformationResult'loginSettingsResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "loginExchangeMemberIdListResult" Proto.CMS.Common1.LoginExchangeMemberIdListResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'loginExchangeMemberIdListResult
+           (\ x__ y__
+              -> x__ {_InformationResult'loginExchangeMemberIdListResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'loginExchangeMemberIdListResult" (Prelude.Maybe Proto.CMS.Common1.LoginExchangeMemberIdListResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'loginExchangeMemberIdListResult
+           (\ x__ y__
+              -> x__ {_InformationResult'loginExchangeMemberIdListResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "lookupPropertyListResult" Proto.CMS.Common1.LookupPropertyListResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'lookupPropertyListResult
+           (\ x__ y__
+              -> x__ {_InformationResult'lookupPropertyListResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'lookupPropertyListResult" (Prelude.Maybe Proto.CMS.Common1.LookupPropertyListResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'lookupPropertyListResult
+           (\ x__ y__
+              -> x__ {_InformationResult'lookupPropertyListResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "authPartnerListResult" AuthPartnerListResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'authPartnerListResult
+           (\ x__ y__
+              -> x__ {_InformationResult'authPartnerListResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'authPartnerListResult" (Prelude.Maybe AuthPartnerListResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'authPartnerListResult
+           (\ x__ y__
+              -> x__ {_InformationResult'authPartnerListResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "loginBillingCustomDataResult" Proto.CMS.Common1.LoginBillingCustomDataResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'loginBillingCustomDataResult
+           (\ x__ y__
+              -> x__ {_InformationResult'loginBillingCustomDataResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'loginBillingCustomDataResult" (Prelude.Maybe Proto.CMS.Common1.LoginBillingCustomDataResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'loginBillingCustomDataResult
+           (\ x__ y__
+              -> x__ {_InformationResult'loginBillingCustomDataResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "trackingNumber" Data.Word.Word64 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'trackingNumber
+           (\ x__ y__ -> x__ {_InformationResult'trackingNumber = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'trackingNumber" (Prelude.Maybe Data.Word.Word64) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'trackingNumber
+           (\ x__ y__ -> x__ {_InformationResult'trackingNumber = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField InformationResult "tradingFeaturesResult" Proto.CMS.Common1.TradingFeaturesResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'tradingFeaturesResult
+           (\ x__ y__
+              -> x__ {_InformationResult'tradingFeaturesResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField InformationResult "maybe'tradingFeaturesResult" (Prelude.Maybe Proto.CMS.Common1.TradingFeaturesResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _InformationResult'tradingFeaturesResult
+           (\ x__ y__
+              -> x__ {_InformationResult'tradingFeaturesResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message InformationResult where
+  messageName _ = Data.Text.pack "cmsapi_1.InformationResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC1InformationResult\DC2\GS\n\
+      \\n\
+      \request_id\CAN\SOH \STX(\rR\trequestId\DC2)\n\
+      \\DLEoperation_status\CAN\STX \STX(\rR\SIoperationStatus\DC23\n\
+      \\rerror_message\CAN\ETX \SOH(\v2\SO.shared_1.TextR\ferrorMessage\DC2\"\n\
+      \\EOTuser\CAN\EOT \SOH(\v2\SO.common_1.UserR\EOTuser\DC2\\\n\
+      \\EMlogin_entitlement_service\CAN\ENQ \ETX(\v2 .login_1.LoginEntitlementServiceR\ETBloginEntitlementService\DC2P\n\
+      \\DC4entitlement_category\CAN\ACK \ETX(\v2\GS.common_1.EntitlementCategoryR\DC3entitlementCategory\DC2M\n\
+      \\DC3entitlement_service\CAN\a \ETX(\v2\FS.common_1.EntitlementServiceR\DC2entitlementService\DC2+\n\
+      \\aprofile\CAN\b \SOH(\v2\DC1.common_1.ProfileR\aprofile\DC2T\n\
+      \\SYNunique_username_result\CAN\t \SOH(\v2\RS.cmsapi_1.UniqueUsernameResultR\DC4uniqueUsernameResult\DC2\153\SOH\n\
+      \/customer_sales_series_authorization_list_result\CAN\n\
+      \ \SOH(\v24.common_1.CustomerSalesSeriesAuthorizationListResultR*customerSalesSeriesAuthorizationListResult\DC2Q\n\
+      \\NAKlogin_settings_result\CAN\v \SOH(\v2\GS.common_1.LoginSettingsResultR\DC3loginSettingsResult\DC2x\n\
+      \$login_exchange_member_id_list_result\CAN\f \SOH(\v2).common_1.LoginExchangeMemberIdListResultR\USloginExchangeMemberIdListResult\DC2a\n\
+      \\ESClookup_property_list_result\CAN\r \SOH(\v2\".common_1.LookupPropertyListResultR\CANlookupPropertyListResult\DC2X\n\
+      \\CANauth_partner_list_result\CAN\SO \SOH(\v2\US.cmsapi_1.AuthPartnerListResultR\NAKauthPartnerListResult\DC2n\n\
+      \ login_billing_custom_data_result\CAN\SI \SOH(\v2&.common_1.LoginBillingCustomDataResultR\FSloginBillingCustomDataResult\DC2'\n\
+      \\SItracking_number\CAN\DLE \SOH(\EOTR\SOtrackingNumber\DC2W\n\
+      \\ETBtrading_features_result\CAN\DC1 \SOH(\v2\US.common_1.TradingFeaturesResultR\NAKtradingFeaturesResult"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        requestId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "request_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"requestId")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        operationStatus__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "operation_status"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"operationStatus")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        errorMessage__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "error_message"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.Common.Shared1.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'errorMessage")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        user__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "user"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.User)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'user")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        loginEntitlementService__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_entitlement_service"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Login1.LoginEntitlementService)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"loginEntitlementService")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        entitlementCategory__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "entitlement_category"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.EntitlementCategory)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"entitlementCategory")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        entitlementService__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "entitlement_service"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.EntitlementService)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"entitlementService")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        profile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Profile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profile")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        uniqueUsernameResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "unique_username_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor UniqueUsernameResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'uniqueUsernameResult")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        customerSalesSeriesAuthorizationListResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "customer_sales_series_authorization_list_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.CustomerSalesSeriesAuthorizationListResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'customerSalesSeriesAuthorizationListResult")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        loginSettingsResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_settings_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LoginSettingsResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'loginSettingsResult")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        loginExchangeMemberIdListResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_exchange_member_id_list_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LoginExchangeMemberIdListResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'loginExchangeMemberIdListResult")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        lookupPropertyListResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "lookup_property_list_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LookupPropertyListResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'lookupPropertyListResult")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        authPartnerListResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "auth_partner_list_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor AuthPartnerListResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'authPartnerListResult")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        loginBillingCustomDataResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_billing_custom_data_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LoginBillingCustomDataResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'loginBillingCustomDataResult")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        trackingNumber__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "tracking_number"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt64Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word64)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'trackingNumber")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+        tradingFeaturesResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "trading_features_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.TradingFeaturesResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'tradingFeaturesResult")) ::
+              Data.ProtoLens.FieldDescriptor InformationResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, requestId__field_descriptor),
+           (Data.ProtoLens.Tag 2, operationStatus__field_descriptor),
+           (Data.ProtoLens.Tag 3, errorMessage__field_descriptor),
+           (Data.ProtoLens.Tag 4, user__field_descriptor),
+           (Data.ProtoLens.Tag 5, loginEntitlementService__field_descriptor),
+           (Data.ProtoLens.Tag 6, entitlementCategory__field_descriptor),
+           (Data.ProtoLens.Tag 7, entitlementService__field_descriptor),
+           (Data.ProtoLens.Tag 8, profile__field_descriptor),
+           (Data.ProtoLens.Tag 9, uniqueUsernameResult__field_descriptor),
+           (Data.ProtoLens.Tag 10, 
+            customerSalesSeriesAuthorizationListResult__field_descriptor),
+           (Data.ProtoLens.Tag 11, loginSettingsResult__field_descriptor),
+           (Data.ProtoLens.Tag 12, 
+            loginExchangeMemberIdListResult__field_descriptor),
+           (Data.ProtoLens.Tag 13, 
+            lookupPropertyListResult__field_descriptor),
+           (Data.ProtoLens.Tag 14, authPartnerListResult__field_descriptor),
+           (Data.ProtoLens.Tag 15, 
+            loginBillingCustomDataResult__field_descriptor),
+           (Data.ProtoLens.Tag 16, trackingNumber__field_descriptor),
+           (Data.ProtoLens.Tag 17, tradingFeaturesResult__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _InformationResult'_unknownFields
+        (\ x__ y__ -> x__ {_InformationResult'_unknownFields = y__})
+  defMessage
+    = InformationResult'_constructor
+        {_InformationResult'requestId = Data.ProtoLens.fieldDefault,
+         _InformationResult'operationStatus = Data.ProtoLens.fieldDefault,
+         _InformationResult'errorMessage = Prelude.Nothing,
+         _InformationResult'user = Prelude.Nothing,
+         _InformationResult'loginEntitlementService = Data.Vector.Generic.empty,
+         _InformationResult'entitlementCategory = Data.Vector.Generic.empty,
+         _InformationResult'entitlementService = Data.Vector.Generic.empty,
+         _InformationResult'profile = Prelude.Nothing,
+         _InformationResult'uniqueUsernameResult = Prelude.Nothing,
+         _InformationResult'customerSalesSeriesAuthorizationListResult = Prelude.Nothing,
+         _InformationResult'loginSettingsResult = Prelude.Nothing,
+         _InformationResult'loginExchangeMemberIdListResult = Prelude.Nothing,
+         _InformationResult'lookupPropertyListResult = Prelude.Nothing,
+         _InformationResult'authPartnerListResult = Prelude.Nothing,
+         _InformationResult'loginBillingCustomDataResult = Prelude.Nothing,
+         _InformationResult'trackingNumber = Prelude.Nothing,
+         _InformationResult'tradingFeaturesResult = Prelude.Nothing,
+         _InformationResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          InformationResult
+          -> Prelude.Bool
+             -> Prelude.Bool
+                -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.EntitlementCategory
+                   -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.EntitlementService
+                      -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Login1.LoginEntitlementService
+                         -> Data.ProtoLens.Encoding.Bytes.Parser InformationResult
+        loop
+          x
+          required'operationStatus
+          required'requestId
+          mutable'entitlementCategory
+          mutable'entitlementService
+          mutable'loginEntitlementService
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'entitlementCategory <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                      (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                         mutable'entitlementCategory)
+                      frozen'entitlementService <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                     (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                        mutable'entitlementService)
+                      frozen'loginEntitlementService <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                          (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                             mutable'loginEntitlementService)
+                      (let
+                         missing
+                           = (if required'operationStatus then
+                                  (:) "operation_status"
+                              else
+                                  Prelude.id)
+                               ((if required'requestId then (:) "request_id" else Prelude.id) [])
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'entitlementCategory")
+                              frozen'entitlementCategory
+                              (Lens.Family2.set
+                                 (Data.ProtoLens.Field.field @"vec'entitlementService")
+                                 frozen'entitlementService
+                                 (Lens.Family2.set
+                                    (Data.ProtoLens.Field.field @"vec'loginEntitlementService")
+                                    frozen'loginEntitlementService x))))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "request_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"requestId") y x)
+                                  required'operationStatus Prelude.False mutable'entitlementCategory
+                                  mutable'entitlementService mutable'loginEntitlementService
+                        16
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "operation_status"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"operationStatus") y x)
+                                  Prelude.False required'requestId mutable'entitlementCategory
+                                  mutable'entitlementService mutable'loginEntitlementService
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "error_message"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"errorMessage") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "user"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"user") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        42
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "login_entitlement_service"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'loginEntitlementService y)
+                                loop
+                                  x required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService v
+                        50
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "entitlement_category"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'entitlementCategory y)
+                                loop
+                                  x required'operationStatus required'requestId v
+                                  mutable'entitlementService mutable'loginEntitlementService
+                        58
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "entitlement_service"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'entitlementService y)
+                                loop
+                                  x required'operationStatus required'requestId
+                                  mutable'entitlementCategory v mutable'loginEntitlementService
+                        66
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "profile"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profile") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        74
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "unique_username_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"uniqueUsernameResult") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        82
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "customer_sales_series_authorization_list_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"customerSalesSeriesAuthorizationListResult")
+                                     y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        90
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "login_settings_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"loginSettingsResult") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        98
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "login_exchange_member_id_list_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"loginExchangeMemberIdListResult")
+                                     y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        106
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "lookup_property_list_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"lookupPropertyListResult") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        114
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "auth_partner_list_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"authPartnerListResult") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        122
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "login_billing_custom_data_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"loginBillingCustomDataResult") y
+                                     x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        128
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       Data.ProtoLens.Encoding.Bytes.getVarInt "tracking_number"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"trackingNumber") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        138
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "trading_features_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"tradingFeaturesResult") y x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  required'operationStatus required'requestId
+                                  mutable'entitlementCategory mutable'entitlementService
+                                  mutable'loginEntitlementService
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'entitlementCategory <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                               Data.ProtoLens.Encoding.Growing.new
+              mutable'entitlementService <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                              Data.ProtoLens.Encoding.Growing.new
+              mutable'loginEntitlementService <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                   Data.ProtoLens.Encoding.Growing.new
+              loop
+                Data.ProtoLens.defMessage Prelude.True Prelude.True
+                mutable'entitlementCategory mutable'entitlementService
+                mutable'loginEntitlementService)
+          "InformationResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                ((Prelude..)
+                   Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                   (Lens.Family2.view (Data.ProtoLens.Field.field @"requestId") _x)))
+             ((Data.Monoid.<>)
+                ((Data.Monoid.<>)
+                   (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                   ((Prelude..)
+                      Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                      (Lens.Family2.view
+                         (Data.ProtoLens.Field.field @"operationStatus") _x)))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'errorMessage") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'user") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.ProtoLens.encodeMessage _v))
+                      ((Data.Monoid.<>)
+                         (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                            (\ _v
+                               -> (Data.Monoid.<>)
+                                    (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                    ((Prelude..)
+                                       (\ bs
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                  (Prelude.fromIntegral
+                                                     (Data.ByteString.length bs)))
+                                               (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                       Data.ProtoLens.encodeMessage _v))
+                            (Lens.Family2.view
+                               (Data.ProtoLens.Field.field @"vec'loginEntitlementService") _x))
+                         ((Data.Monoid.<>)
+                            (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                               (\ _v
+                                  -> (Data.Monoid.<>)
+                                       (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                       ((Prelude..)
+                                          (\ bs
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                     (Prelude.fromIntegral
+                                                        (Data.ByteString.length bs)))
+                                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                          Data.ProtoLens.encodeMessage _v))
+                               (Lens.Family2.view
+                                  (Data.ProtoLens.Field.field @"vec'entitlementCategory") _x))
+                            ((Data.Monoid.<>)
+                               (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                  (\ _v
+                                     -> (Data.Monoid.<>)
+                                          (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                                          ((Prelude..)
+                                             (\ bs
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                        (Prelude.fromIntegral
+                                                           (Data.ByteString.length bs)))
+                                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                             Data.ProtoLens.encodeMessage _v))
+                                  (Lens.Family2.view
+                                     (Data.ProtoLens.Field.field @"vec'entitlementService") _x))
+                               ((Data.Monoid.<>)
+                                  (case
+                                       Lens.Family2.view
+                                         (Data.ProtoLens.Field.field @"maybe'profile") _x
+                                   of
+                                     Prelude.Nothing -> Data.Monoid.mempty
+                                     (Prelude.Just _v)
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt 66)
+                                            ((Prelude..)
+                                               (\ bs
+                                                  -> (Data.Monoid.<>)
+                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                          (Prelude.fromIntegral
+                                                             (Data.ByteString.length bs)))
+                                                       (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                               Data.ProtoLens.encodeMessage _v))
+                                  ((Data.Monoid.<>)
+                                     (case
+                                          Lens.Family2.view
+                                            (Data.ProtoLens.Field.field
+                                               @"maybe'uniqueUsernameResult")
+                                            _x
+                                      of
+                                        Prelude.Nothing -> Data.Monoid.mempty
+                                        (Prelude.Just _v)
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt 74)
+                                               ((Prelude..)
+                                                  (\ bs
+                                                     -> (Data.Monoid.<>)
+                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                             (Prelude.fromIntegral
+                                                                (Data.ByteString.length bs)))
+                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                             bs))
+                                                  Data.ProtoLens.encodeMessage _v))
+                                     ((Data.Monoid.<>)
+                                        (case
+                                             Lens.Family2.view
+                                               (Data.ProtoLens.Field.field
+                                                  @"maybe'customerSalesSeriesAuthorizationListResult")
+                                               _x
+                                         of
+                                           Prelude.Nothing -> Data.Monoid.mempty
+                                           (Prelude.Just _v)
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt 82)
+                                                  ((Prelude..)
+                                                     (\ bs
+                                                        -> (Data.Monoid.<>)
+                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                (Prelude.fromIntegral
+                                                                   (Data.ByteString.length bs)))
+                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                bs))
+                                                     Data.ProtoLens.encodeMessage _v))
+                                        ((Data.Monoid.<>)
+                                           (case
+                                                Lens.Family2.view
+                                                  (Data.ProtoLens.Field.field
+                                                     @"maybe'loginSettingsResult")
+                                                  _x
+                                            of
+                                              Prelude.Nothing -> Data.Monoid.mempty
+                                              (Prelude.Just _v)
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt 90)
+                                                     ((Prelude..)
+                                                        (\ bs
+                                                           -> (Data.Monoid.<>)
+                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                   (Prelude.fromIntegral
+                                                                      (Data.ByteString.length bs)))
+                                                                (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                   bs))
+                                                        Data.ProtoLens.encodeMessage _v))
+                                           ((Data.Monoid.<>)
+                                              (case
+                                                   Lens.Family2.view
+                                                     (Data.ProtoLens.Field.field
+                                                        @"maybe'loginExchangeMemberIdListResult")
+                                                     _x
+                                               of
+                                                 Prelude.Nothing -> Data.Monoid.mempty
+                                                 (Prelude.Just _v)
+                                                   -> (Data.Monoid.<>)
+                                                        (Data.ProtoLens.Encoding.Bytes.putVarInt 98)
+                                                        ((Prelude..)
+                                                           (\ bs
+                                                              -> (Data.Monoid.<>)
+                                                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                      (Prelude.fromIntegral
+                                                                         (Data.ByteString.length
+                                                                            bs)))
+                                                                   (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                      bs))
+                                                           Data.ProtoLens.encodeMessage _v))
+                                              ((Data.Monoid.<>)
+                                                 (case
+                                                      Lens.Family2.view
+                                                        (Data.ProtoLens.Field.field
+                                                           @"maybe'lookupPropertyListResult")
+                                                        _x
+                                                  of
+                                                    Prelude.Nothing -> Data.Monoid.mempty
+                                                    (Prelude.Just _v)
+                                                      -> (Data.Monoid.<>)
+                                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                              106)
+                                                           ((Prelude..)
+                                                              (\ bs
+                                                                 -> (Data.Monoid.<>)
+                                                                      (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                         (Prelude.fromIntegral
+                                                                            (Data.ByteString.length
+                                                                               bs)))
+                                                                      (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                         bs))
+                                                              Data.ProtoLens.encodeMessage _v))
+                                                 ((Data.Monoid.<>)
+                                                    (case
+                                                         Lens.Family2.view
+                                                           (Data.ProtoLens.Field.field
+                                                              @"maybe'authPartnerListResult")
+                                                           _x
+                                                     of
+                                                       Prelude.Nothing -> Data.Monoid.mempty
+                                                       (Prelude.Just _v)
+                                                         -> (Data.Monoid.<>)
+                                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                 114)
+                                                              ((Prelude..)
+                                                                 (\ bs
+                                                                    -> (Data.Monoid.<>)
+                                                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                            (Prelude.fromIntegral
+                                                                               (Data.ByteString.length
+                                                                                  bs)))
+                                                                         (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                            bs))
+                                                                 Data.ProtoLens.encodeMessage _v))
+                                                    ((Data.Monoid.<>)
+                                                       (case
+                                                            Lens.Family2.view
+                                                              (Data.ProtoLens.Field.field
+                                                                 @"maybe'loginBillingCustomDataResult")
+                                                              _x
+                                                        of
+                                                          Prelude.Nothing -> Data.Monoid.mempty
+                                                          (Prelude.Just _v)
+                                                            -> (Data.Monoid.<>)
+                                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                    122)
+                                                                 ((Prelude..)
+                                                                    (\ bs
+                                                                       -> (Data.Monoid.<>)
+                                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                               (Prelude.fromIntegral
+                                                                                  (Data.ByteString.length
+                                                                                     bs)))
+                                                                            (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                               bs))
+                                                                    Data.ProtoLens.encodeMessage
+                                                                    _v))
+                                                       ((Data.Monoid.<>)
+                                                          (case
+                                                               Lens.Family2.view
+                                                                 (Data.ProtoLens.Field.field
+                                                                    @"maybe'trackingNumber")
+                                                                 _x
+                                                           of
+                                                             Prelude.Nothing -> Data.Monoid.mempty
+                                                             (Prelude.Just _v)
+                                                               -> (Data.Monoid.<>)
+                                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                       128)
+                                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                       _v))
+                                                          ((Data.Monoid.<>)
+                                                             (case
+                                                                  Lens.Family2.view
+                                                                    (Data.ProtoLens.Field.field
+                                                                       @"maybe'tradingFeaturesResult")
+                                                                    _x
+                                                              of
+                                                                Prelude.Nothing
+                                                                  -> Data.Monoid.mempty
+                                                                (Prelude.Just _v)
+                                                                  -> (Data.Monoid.<>)
+                                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                          138)
+                                                                       ((Prelude..)
+                                                                          (\ bs
+                                                                             -> (Data.Monoid.<>)
+                                                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                     (Prelude.fromIntegral
+                                                                                        (Data.ByteString.length
+                                                                                           bs)))
+                                                                                  (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                     bs))
+                                                                          Data.ProtoLens.encodeMessage
+                                                                          _v))
+                                                             (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                                (Lens.Family2.view
+                                                                   Data.ProtoLens.unknownFields
+                                                                   _x))))))))))))))))))
+instance Control.DeepSeq.NFData InformationResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_InformationResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_InformationResult'requestId x__)
+                (Control.DeepSeq.deepseq
+                   (_InformationResult'operationStatus x__)
+                   (Control.DeepSeq.deepseq
+                      (_InformationResult'errorMessage x__)
+                      (Control.DeepSeq.deepseq
+                         (_InformationResult'user x__)
+                         (Control.DeepSeq.deepseq
+                            (_InformationResult'loginEntitlementService x__)
+                            (Control.DeepSeq.deepseq
+                               (_InformationResult'entitlementCategory x__)
+                               (Control.DeepSeq.deepseq
+                                  (_InformationResult'entitlementService x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_InformationResult'profile x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_InformationResult'uniqueUsernameResult x__)
+                                        (Control.DeepSeq.deepseq
+                                           (_InformationResult'customerSalesSeriesAuthorizationListResult
+                                              x__)
+                                           (Control.DeepSeq.deepseq
+                                              (_InformationResult'loginSettingsResult x__)
+                                              (Control.DeepSeq.deepseq
+                                                 (_InformationResult'loginExchangeMemberIdListResult
+                                                    x__)
+                                                 (Control.DeepSeq.deepseq
+                                                    (_InformationResult'lookupPropertyListResult
+                                                       x__)
+                                                    (Control.DeepSeq.deepseq
+                                                       (_InformationResult'authPartnerListResult
+                                                          x__)
+                                                       (Control.DeepSeq.deepseq
+                                                          (_InformationResult'loginBillingCustomDataResult
+                                                             x__)
+                                                          (Control.DeepSeq.deepseq
+                                                             (_InformationResult'trackingNumber x__)
+                                                             (Control.DeepSeq.deepseq
+                                                                (_InformationResult'tradingFeaturesResult
+                                                                   x__)
+                                                                ())))))))))))))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.loginId' @:: Lens' LinkLoginToProfile Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginId' @:: Lens' LinkLoginToProfile (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteCustomerId' @:: Lens' LinkLoginToProfile Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteCustomerId' @:: Lens' LinkLoginToProfile (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' LinkLoginToProfile Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' LinkLoginToProfile (Prelude.Maybe Data.Text.Text)@ -}
+data LinkLoginToProfile
+  = LinkLoginToProfile'_constructor {_LinkLoginToProfile'loginId :: !(Prelude.Maybe Data.Text.Text),
+                                     _LinkLoginToProfile'obsoleteCustomerId :: !(Prelude.Maybe Data.Text.Text),
+                                     _LinkLoginToProfile'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                     _LinkLoginToProfile'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show LinkLoginToProfile where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField LinkLoginToProfile "loginId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _LinkLoginToProfile'loginId
+           (\ x__ y__ -> x__ {_LinkLoginToProfile'loginId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField LinkLoginToProfile "maybe'loginId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _LinkLoginToProfile'loginId
+           (\ x__ y__ -> x__ {_LinkLoginToProfile'loginId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField LinkLoginToProfile "obsoleteCustomerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _LinkLoginToProfile'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_LinkLoginToProfile'obsoleteCustomerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField LinkLoginToProfile "maybe'obsoleteCustomerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _LinkLoginToProfile'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_LinkLoginToProfile'obsoleteCustomerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField LinkLoginToProfile "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _LinkLoginToProfile'profileId
+           (\ x__ y__ -> x__ {_LinkLoginToProfile'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField LinkLoginToProfile "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _LinkLoginToProfile'profileId
+           (\ x__ y__ -> x__ {_LinkLoginToProfile'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message LinkLoginToProfile where
+  messageName _ = Data.Text.pack "cmsapi_1.LinkLoginToProfile"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC2LinkLoginToProfile\DC2\EM\n\
+      \\blogin_id\CAN\SOH \SOH(\tR\aloginId\DC24\n\
+      \\DC4obsolete_customer_id\CAN\STX \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\ETX \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        loginId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'loginId")) ::
+              Data.ProtoLens.FieldDescriptor LinkLoginToProfile
+        obsoleteCustomerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId")) ::
+              Data.ProtoLens.FieldDescriptor LinkLoginToProfile
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor LinkLoginToProfile
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, loginId__field_descriptor),
+           (Data.ProtoLens.Tag 2, obsoleteCustomerId__field_descriptor),
+           (Data.ProtoLens.Tag 3, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _LinkLoginToProfile'_unknownFields
+        (\ x__ y__ -> x__ {_LinkLoginToProfile'_unknownFields = y__})
+  defMessage
+    = LinkLoginToProfile'_constructor
+        {_LinkLoginToProfile'loginId = Prelude.Nothing,
+         _LinkLoginToProfile'obsoleteCustomerId = Prelude.Nothing,
+         _LinkLoginToProfile'profileId = Prelude.Nothing,
+         _LinkLoginToProfile'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          LinkLoginToProfile
+          -> Data.ProtoLens.Encoding.Bytes.Parser LinkLoginToProfile
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "login_id"
+                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"loginId") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_customer_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteCustomerId") y x)
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "LinkLoginToProfile"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'loginId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'profileId") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.Text.Encoding.encodeUtf8 _v))
+                   (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                      (Lens.Family2.view Data.ProtoLens.unknownFields _x))))
+instance Control.DeepSeq.NFData LinkLoginToProfile where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_LinkLoginToProfile'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_LinkLoginToProfile'loginId x__)
+                (Control.DeepSeq.deepseq
+                   (_LinkLoginToProfile'obsoleteCustomerId x__)
+                   (Control.DeepSeq.deepseq (_LinkLoginToProfile'profileId x__) ())))
+{- | Fields :
+      -}
+data LinkLoginToProfileResult
+  = LinkLoginToProfileResult'_constructor {_LinkLoginToProfileResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show LinkLoginToProfileResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Message LinkLoginToProfileResult where
+  messageName _ = Data.Text.pack "cmsapi_1.LinkLoginToProfileResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\CANLinkLoginToProfileResult"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag = let in Data.Map.fromList []
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _LinkLoginToProfileResult'_unknownFields
+        (\ x__ y__ -> x__ {_LinkLoginToProfileResult'_unknownFields = y__})
+  defMessage
+    = LinkLoginToProfileResult'_constructor
+        {_LinkLoginToProfileResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          LinkLoginToProfileResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser LinkLoginToProfileResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "LinkLoginToProfileResult"
+  buildMessage
+    = \ _x
+        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
+             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+instance Control.DeepSeq.NFData LinkLoginToProfileResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_LinkLoginToProfileResult'_unknownFields x__) ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.id' @:: Lens' OperationRequest Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.cloneUser' @:: Lens' OperationRequest Proto.CMS.Common1.CloneUser@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'cloneUser' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.CloneUser)@
+         * 'Proto.CMS.Cmsapi1_Fields.createProfile' @:: Lens' OperationRequest CreateProfile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'createProfile' @:: Lens' OperationRequest (Prelude.Maybe CreateProfile)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateProfile' @:: Lens' OperationRequest UpdateProfile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateProfile' @:: Lens' OperationRequest (Prelude.Maybe UpdateProfile)@
+         * 'Proto.CMS.Cmsapi1_Fields.removeProfile' @:: Lens' OperationRequest RemoveProfile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'removeProfile' @:: Lens' OperationRequest (Prelude.Maybe RemoveProfile)@
+         * 'Proto.CMS.Cmsapi1_Fields.createUser' @:: Lens' OperationRequest Proto.CMS.Common1.CreateUser@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'createUser' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.CreateUser)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateUser' @:: Lens' OperationRequest Proto.CMS.Common1.UpdateUser@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateUser' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.UpdateUser)@
+         * 'Proto.CMS.Cmsapi1_Fields.removeUser' @:: Lens' OperationRequest Proto.CMS.Common1.RemoveUser@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'removeUser' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.RemoveUser)@
+         * 'Proto.CMS.Cmsapi1_Fields.linkUserToProfile' @:: Lens' OperationRequest LinkLoginToProfile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'linkUserToProfile' @:: Lens' OperationRequest (Prelude.Maybe LinkLoginToProfile)@
+         * 'Proto.CMS.Cmsapi1_Fields.modifyLoginEntitlementService' @:: Lens' OperationRequest Proto.CMS.Login1.ModifyLoginEntitlementService@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'modifyLoginEntitlementService' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Login1.ModifyLoginEntitlementService)@
+         * 'Proto.CMS.Cmsapi1_Fields.sendWelcomeEmail' @:: Lens' OperationRequest SendWelcomeEmail@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'sendWelcomeEmail' @:: Lens' OperationRequest (Prelude.Maybe SendWelcomeEmail)@
+         * 'Proto.CMS.Cmsapi1_Fields.restoreUser' @:: Lens' OperationRequest Proto.CMS.Common1.RestoreUser@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'restoreUser' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.RestoreUser)@
+         * 'Proto.CMS.Cmsapi1_Fields.restoreProfile' @:: Lens' OperationRequest RestoreProfile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'restoreProfile' @:: Lens' OperationRequest (Prelude.Maybe RestoreProfile)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateCustomerSalesSeriesAuthorizationList' @:: Lens' OperationRequest Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationList@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateCustomerSalesSeriesAuthorizationList' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationList)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateLoginExchangeMemberIdList' @:: Lens' OperationRequest Proto.CMS.Common1.UpdateLoginExchangeMemberIdList@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginExchangeMemberIdList' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.UpdateLoginExchangeMemberIdList)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateLoginSettings' @:: Lens' OperationRequest Proto.CMS.Common1.UpdateLoginSettings@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginSettings' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.UpdateLoginSettings)@
+         * 'Proto.CMS.Cmsapi1_Fields.activateLogin' @:: Lens' OperationRequest Proto.CMS.Common1.ActivateLogin@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'activateLogin' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.ActivateLogin)@
+         * 'Proto.CMS.Cmsapi1_Fields.deactivateLogin' @:: Lens' OperationRequest Proto.CMS.Common1.DeactivateLogin@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'deactivateLogin' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.DeactivateLogin)@
+         * 'Proto.CMS.Cmsapi1_Fields.sendCredentialResetEmail' @:: Lens' OperationRequest SendCredentialResetEmail@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'sendCredentialResetEmail' @:: Lens' OperationRequest (Prelude.Maybe SendCredentialResetEmail)@
+         * 'Proto.CMS.Cmsapi1_Fields.generateServiceSecurityToken' @:: Lens' OperationRequest GenerateServiceSecurityToken@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'generateServiceSecurityToken' @:: Lens' OperationRequest (Prelude.Maybe GenerateServiceSecurityToken)@
+         * 'Proto.CMS.Cmsapi1_Fields.eraseCurrentCredentials' @:: Lens' OperationRequest Proto.CMS.Common1.EraseCurrentCredentials@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'eraseCurrentCredentials' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.EraseCurrentCredentials)@
+         * 'Proto.CMS.Cmsapi1_Fields.terminateLoginSession' @:: Lens' OperationRequest TerminateLoginSession@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'terminateLoginSession' @:: Lens' OperationRequest (Prelude.Maybe TerminateLoginSession)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateLoginBillingCustomData' @:: Lens' OperationRequest Proto.CMS.Common1.UpdateLoginBillingCustomData@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginBillingCustomData' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomData)@ -}
+data OperationRequest
+  = OperationRequest'_constructor {_OperationRequest'id :: !Data.Word.Word32,
+                                   _OperationRequest'cloneUser :: !(Prelude.Maybe Proto.CMS.Common1.CloneUser),
+                                   _OperationRequest'createProfile :: !(Prelude.Maybe CreateProfile),
+                                   _OperationRequest'updateProfile :: !(Prelude.Maybe UpdateProfile),
+                                   _OperationRequest'removeProfile :: !(Prelude.Maybe RemoveProfile),
+                                   _OperationRequest'createUser :: !(Prelude.Maybe Proto.CMS.Common1.CreateUser),
+                                   _OperationRequest'updateUser :: !(Prelude.Maybe Proto.CMS.Common1.UpdateUser),
+                                   _OperationRequest'removeUser :: !(Prelude.Maybe Proto.CMS.Common1.RemoveUser),
+                                   _OperationRequest'linkUserToProfile :: !(Prelude.Maybe LinkLoginToProfile),
+                                   _OperationRequest'modifyLoginEntitlementService :: !(Prelude.Maybe Proto.CMS.Login1.ModifyLoginEntitlementService),
+                                   _OperationRequest'sendWelcomeEmail :: !(Prelude.Maybe SendWelcomeEmail),
+                                   _OperationRequest'restoreUser :: !(Prelude.Maybe Proto.CMS.Common1.RestoreUser),
+                                   _OperationRequest'restoreProfile :: !(Prelude.Maybe RestoreProfile),
+                                   _OperationRequest'updateCustomerSalesSeriesAuthorizationList :: !(Prelude.Maybe Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationList),
+                                   _OperationRequest'updateLoginExchangeMemberIdList :: !(Prelude.Maybe Proto.CMS.Common1.UpdateLoginExchangeMemberIdList),
+                                   _OperationRequest'updateLoginSettings :: !(Prelude.Maybe Proto.CMS.Common1.UpdateLoginSettings),
+                                   _OperationRequest'activateLogin :: !(Prelude.Maybe Proto.CMS.Common1.ActivateLogin),
+                                   _OperationRequest'deactivateLogin :: !(Prelude.Maybe Proto.CMS.Common1.DeactivateLogin),
+                                   _OperationRequest'sendCredentialResetEmail :: !(Prelude.Maybe SendCredentialResetEmail),
+                                   _OperationRequest'generateServiceSecurityToken :: !(Prelude.Maybe GenerateServiceSecurityToken),
+                                   _OperationRequest'eraseCurrentCredentials :: !(Prelude.Maybe Proto.CMS.Common1.EraseCurrentCredentials),
+                                   _OperationRequest'terminateLoginSession :: !(Prelude.Maybe TerminateLoginSession),
+                                   _OperationRequest'updateLoginBillingCustomData :: !(Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomData),
+                                   _OperationRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show OperationRequest where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField OperationRequest "id" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'id
+           (\ x__ y__ -> x__ {_OperationRequest'id = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "cloneUser" Proto.CMS.Common1.CloneUser where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'cloneUser
+           (\ x__ y__ -> x__ {_OperationRequest'cloneUser = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'cloneUser" (Prelude.Maybe Proto.CMS.Common1.CloneUser) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'cloneUser
+           (\ x__ y__ -> x__ {_OperationRequest'cloneUser = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "createProfile" CreateProfile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'createProfile
+           (\ x__ y__ -> x__ {_OperationRequest'createProfile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'createProfile" (Prelude.Maybe CreateProfile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'createProfile
+           (\ x__ y__ -> x__ {_OperationRequest'createProfile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "updateProfile" UpdateProfile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateProfile
+           (\ x__ y__ -> x__ {_OperationRequest'updateProfile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'updateProfile" (Prelude.Maybe UpdateProfile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateProfile
+           (\ x__ y__ -> x__ {_OperationRequest'updateProfile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "removeProfile" RemoveProfile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'removeProfile
+           (\ x__ y__ -> x__ {_OperationRequest'removeProfile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'removeProfile" (Prelude.Maybe RemoveProfile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'removeProfile
+           (\ x__ y__ -> x__ {_OperationRequest'removeProfile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "createUser" Proto.CMS.Common1.CreateUser where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'createUser
+           (\ x__ y__ -> x__ {_OperationRequest'createUser = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'createUser" (Prelude.Maybe Proto.CMS.Common1.CreateUser) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'createUser
+           (\ x__ y__ -> x__ {_OperationRequest'createUser = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "updateUser" Proto.CMS.Common1.UpdateUser where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateUser
+           (\ x__ y__ -> x__ {_OperationRequest'updateUser = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'updateUser" (Prelude.Maybe Proto.CMS.Common1.UpdateUser) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateUser
+           (\ x__ y__ -> x__ {_OperationRequest'updateUser = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "removeUser" Proto.CMS.Common1.RemoveUser where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'removeUser
+           (\ x__ y__ -> x__ {_OperationRequest'removeUser = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'removeUser" (Prelude.Maybe Proto.CMS.Common1.RemoveUser) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'removeUser
+           (\ x__ y__ -> x__ {_OperationRequest'removeUser = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "linkUserToProfile" LinkLoginToProfile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'linkUserToProfile
+           (\ x__ y__ -> x__ {_OperationRequest'linkUserToProfile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'linkUserToProfile" (Prelude.Maybe LinkLoginToProfile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'linkUserToProfile
+           (\ x__ y__ -> x__ {_OperationRequest'linkUserToProfile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "modifyLoginEntitlementService" Proto.CMS.Login1.ModifyLoginEntitlementService where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'modifyLoginEntitlementService
+           (\ x__ y__
+              -> x__ {_OperationRequest'modifyLoginEntitlementService = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'modifyLoginEntitlementService" (Prelude.Maybe Proto.CMS.Login1.ModifyLoginEntitlementService) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'modifyLoginEntitlementService
+           (\ x__ y__
+              -> x__ {_OperationRequest'modifyLoginEntitlementService = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "sendWelcomeEmail" SendWelcomeEmail where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'sendWelcomeEmail
+           (\ x__ y__ -> x__ {_OperationRequest'sendWelcomeEmail = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'sendWelcomeEmail" (Prelude.Maybe SendWelcomeEmail) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'sendWelcomeEmail
+           (\ x__ y__ -> x__ {_OperationRequest'sendWelcomeEmail = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "restoreUser" Proto.CMS.Common1.RestoreUser where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'restoreUser
+           (\ x__ y__ -> x__ {_OperationRequest'restoreUser = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'restoreUser" (Prelude.Maybe Proto.CMS.Common1.RestoreUser) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'restoreUser
+           (\ x__ y__ -> x__ {_OperationRequest'restoreUser = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "restoreProfile" RestoreProfile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'restoreProfile
+           (\ x__ y__ -> x__ {_OperationRequest'restoreProfile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'restoreProfile" (Prelude.Maybe RestoreProfile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'restoreProfile
+           (\ x__ y__ -> x__ {_OperationRequest'restoreProfile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "updateCustomerSalesSeriesAuthorizationList" Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationList where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateCustomerSalesSeriesAuthorizationList
+           (\ x__ y__
+              -> x__
+                   {_OperationRequest'updateCustomerSalesSeriesAuthorizationList = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'updateCustomerSalesSeriesAuthorizationList" (Prelude.Maybe Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationList) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateCustomerSalesSeriesAuthorizationList
+           (\ x__ y__
+              -> x__
+                   {_OperationRequest'updateCustomerSalesSeriesAuthorizationList = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "updateLoginExchangeMemberIdList" Proto.CMS.Common1.UpdateLoginExchangeMemberIdList where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateLoginExchangeMemberIdList
+           (\ x__ y__
+              -> x__ {_OperationRequest'updateLoginExchangeMemberIdList = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'updateLoginExchangeMemberIdList" (Prelude.Maybe Proto.CMS.Common1.UpdateLoginExchangeMemberIdList) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateLoginExchangeMemberIdList
+           (\ x__ y__
+              -> x__ {_OperationRequest'updateLoginExchangeMemberIdList = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "updateLoginSettings" Proto.CMS.Common1.UpdateLoginSettings where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateLoginSettings
+           (\ x__ y__ -> x__ {_OperationRequest'updateLoginSettings = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'updateLoginSettings" (Prelude.Maybe Proto.CMS.Common1.UpdateLoginSettings) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateLoginSettings
+           (\ x__ y__ -> x__ {_OperationRequest'updateLoginSettings = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "activateLogin" Proto.CMS.Common1.ActivateLogin where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'activateLogin
+           (\ x__ y__ -> x__ {_OperationRequest'activateLogin = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'activateLogin" (Prelude.Maybe Proto.CMS.Common1.ActivateLogin) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'activateLogin
+           (\ x__ y__ -> x__ {_OperationRequest'activateLogin = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "deactivateLogin" Proto.CMS.Common1.DeactivateLogin where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'deactivateLogin
+           (\ x__ y__ -> x__ {_OperationRequest'deactivateLogin = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'deactivateLogin" (Prelude.Maybe Proto.CMS.Common1.DeactivateLogin) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'deactivateLogin
+           (\ x__ y__ -> x__ {_OperationRequest'deactivateLogin = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "sendCredentialResetEmail" SendCredentialResetEmail where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'sendCredentialResetEmail
+           (\ x__ y__
+              -> x__ {_OperationRequest'sendCredentialResetEmail = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'sendCredentialResetEmail" (Prelude.Maybe SendCredentialResetEmail) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'sendCredentialResetEmail
+           (\ x__ y__
+              -> x__ {_OperationRequest'sendCredentialResetEmail = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "generateServiceSecurityToken" GenerateServiceSecurityToken where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'generateServiceSecurityToken
+           (\ x__ y__
+              -> x__ {_OperationRequest'generateServiceSecurityToken = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'generateServiceSecurityToken" (Prelude.Maybe GenerateServiceSecurityToken) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'generateServiceSecurityToken
+           (\ x__ y__
+              -> x__ {_OperationRequest'generateServiceSecurityToken = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "eraseCurrentCredentials" Proto.CMS.Common1.EraseCurrentCredentials where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'eraseCurrentCredentials
+           (\ x__ y__
+              -> x__ {_OperationRequest'eraseCurrentCredentials = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'eraseCurrentCredentials" (Prelude.Maybe Proto.CMS.Common1.EraseCurrentCredentials) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'eraseCurrentCredentials
+           (\ x__ y__
+              -> x__ {_OperationRequest'eraseCurrentCredentials = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "terminateLoginSession" TerminateLoginSession where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'terminateLoginSession
+           (\ x__ y__ -> x__ {_OperationRequest'terminateLoginSession = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'terminateLoginSession" (Prelude.Maybe TerminateLoginSession) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'terminateLoginSession
+           (\ x__ y__ -> x__ {_OperationRequest'terminateLoginSession = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "updateLoginBillingCustomData" Proto.CMS.Common1.UpdateLoginBillingCustomData where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateLoginBillingCustomData
+           (\ x__ y__
+              -> x__ {_OperationRequest'updateLoginBillingCustomData = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'updateLoginBillingCustomData" (Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomData) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'updateLoginBillingCustomData
+           (\ x__ y__
+              -> x__ {_OperationRequest'updateLoginBillingCustomData = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message OperationRequest where
+  messageName _ = Data.Text.pack "cmsapi_1.OperationRequest"
+  packedMessageDescriptor _
+    = "\n\
+      \\DLEOperationRequest\DC2\SO\n\
+      \\STXid\CAN\SOH \STX(\rR\STXid\DC22\n\
+      \\n\
+      \clone_user\CAN\STX \SOH(\v2\DC3.common_1.CloneUserR\tcloneUser\DC2>\n\
+      \\SOcreate_profile\CAN\ETX \SOH(\v2\ETB.cmsapi_1.CreateProfileR\rcreateProfile\DC2>\n\
+      \\SOupdate_profile\CAN\EOT \SOH(\v2\ETB.cmsapi_1.UpdateProfileR\rupdateProfile\DC2>\n\
+      \\SOremove_profile\CAN\ENQ \SOH(\v2\ETB.cmsapi_1.RemoveProfileR\rremoveProfile\DC25\n\
+      \\vcreate_user\CAN\ACK \SOH(\v2\DC4.common_1.CreateUserR\n\
+      \createUser\DC25\n\
+      \\vupdate_user\CAN\a \SOH(\v2\DC4.common_1.UpdateUserR\n\
+      \updateUser\DC25\n\
+      \\vremove_user\CAN\b \SOH(\v2\DC4.common_1.RemoveUserR\n\
+      \removeUser\DC2M\n\
+      \\DC4link_user_to_profile\CAN\t \SOH(\v2\FS.cmsapi_1.LinkLoginToProfileR\DC1linkUserToProfile\DC2o\n\
+      \ modify_login_entitlement_service\CAN\n\
+      \ \SOH(\v2&.login_1.ModifyLoginEntitlementServiceR\GSmodifyLoginEntitlementService\DC2H\n\
+      \\DC2send_welcome_email\CAN\v \SOH(\v2\SUB.cmsapi_1.SendWelcomeEmailR\DLEsendWelcomeEmail\DC28\n\
+      \\frestore_user\CAN\f \SOH(\v2\NAK.common_1.RestoreUserR\vrestoreUser\DC2A\n\
+      \\SIrestore_profile\CAN\r \SOH(\v2\CAN.cmsapi_1.RestoreProfileR\SOrestoreProfile\DC2\153\SOH\n\
+      \/update_customer_sales_series_authorization_list\CAN\SO \SOH(\v24.common_1.UpdateCustomerSalesSeriesAuthorizationListR*updateCustomerSalesSeriesAuthorizationList\DC2x\n\
+      \$update_login_exchange_member_id_list\CAN\SI \SOH(\v2).common_1.UpdateLoginExchangeMemberIdListR\USupdateLoginExchangeMemberIdList\DC2Q\n\
+      \\NAKupdate_login_settings\CAN\DLE \SOH(\v2\GS.common_1.UpdateLoginSettingsR\DC3updateLoginSettings\DC2>\n\
+      \\SOactivate_login\CAN\DC1 \SOH(\v2\ETB.common_1.ActivateLoginR\ractivateLogin\DC2D\n\
+      \\DLEdeactivate_login\CAN\DC2 \SOH(\v2\EM.common_1.DeactivateLoginR\SIdeactivateLogin\DC2a\n\
+      \\ESCsend_credential_reset_email\CAN\DC3 \SOH(\v2\".cmsapi_1.SendCredentialResetEmailR\CANsendCredentialResetEmail\DC2m\n\
+      \\USgenerate_service_security_token\CAN\DC4 \SOH(\v2&.cmsapi_1.GenerateServiceSecurityTokenR\FSgenerateServiceSecurityToken\DC2]\n\
+      \\EMerase_current_credentials\CAN\NAK \SOH(\v2!.common_1.EraseCurrentCredentialsR\ETBeraseCurrentCredentials\DC2W\n\
+      \\ETBterminate_login_session\CAN\SYN \SOH(\v2\US.cmsapi_1.TerminateLoginSessionR\NAKterminateLoginSession\DC2n\n\
+      \ update_login_billing_custom_data\CAN\ETB \SOH(\v2&.common_1.UpdateLoginBillingCustomDataR\FSupdateLoginBillingCustomData"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        id__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required (Data.ProtoLens.Field.field @"id")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        cloneUser__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "clone_user"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.CloneUser)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'cloneUser")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        createProfile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "create_profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor CreateProfile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'createProfile")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        updateProfile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor UpdateProfile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'updateProfile")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        removeProfile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "remove_profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor RemoveProfile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'removeProfile")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        createUser__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "create_user"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.CreateUser)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'createUser")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        updateUser__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_user"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateUser)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'updateUser")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        removeUser__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "remove_user"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.RemoveUser)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'removeUser")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        linkUserToProfile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "link_user_to_profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor LinkLoginToProfile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'linkUserToProfile")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        modifyLoginEntitlementService__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "modify_login_entitlement_service"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Login1.ModifyLoginEntitlementService)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'modifyLoginEntitlementService")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        sendWelcomeEmail__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "send_welcome_email"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor SendWelcomeEmail)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'sendWelcomeEmail")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        restoreUser__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "restore_user"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.RestoreUser)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'restoreUser")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        restoreProfile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "restore_profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor RestoreProfile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'restoreProfile")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        updateCustomerSalesSeriesAuthorizationList__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_customer_sales_series_authorization_list"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationList)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'updateCustomerSalesSeriesAuthorizationList")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        updateLoginExchangeMemberIdList__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_login_exchange_member_id_list"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateLoginExchangeMemberIdList)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'updateLoginExchangeMemberIdList")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        updateLoginSettings__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_login_settings"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateLoginSettings)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'updateLoginSettings")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        activateLogin__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "activate_login"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.ActivateLogin)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'activateLogin")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        deactivateLogin__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "deactivate_login"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.DeactivateLogin)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'deactivateLogin")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        sendCredentialResetEmail__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "send_credential_reset_email"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor SendCredentialResetEmail)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'sendCredentialResetEmail")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        generateServiceSecurityToken__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "generate_service_security_token"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor GenerateServiceSecurityToken)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'generateServiceSecurityToken")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        eraseCurrentCredentials__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "erase_current_credentials"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.EraseCurrentCredentials)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'eraseCurrentCredentials")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        terminateLoginSession__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "terminate_login_session"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor TerminateLoginSession)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'terminateLoginSession")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+        updateLoginBillingCustomData__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_login_billing_custom_data"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateLoginBillingCustomData)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'updateLoginBillingCustomData")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, id__field_descriptor),
+           (Data.ProtoLens.Tag 2, cloneUser__field_descriptor),
+           (Data.ProtoLens.Tag 3, createProfile__field_descriptor),
+           (Data.ProtoLens.Tag 4, updateProfile__field_descriptor),
+           (Data.ProtoLens.Tag 5, removeProfile__field_descriptor),
+           (Data.ProtoLens.Tag 6, createUser__field_descriptor),
+           (Data.ProtoLens.Tag 7, updateUser__field_descriptor),
+           (Data.ProtoLens.Tag 8, removeUser__field_descriptor),
+           (Data.ProtoLens.Tag 9, linkUserToProfile__field_descriptor),
+           (Data.ProtoLens.Tag 10, 
+            modifyLoginEntitlementService__field_descriptor),
+           (Data.ProtoLens.Tag 11, sendWelcomeEmail__field_descriptor),
+           (Data.ProtoLens.Tag 12, restoreUser__field_descriptor),
+           (Data.ProtoLens.Tag 13, restoreProfile__field_descriptor),
+           (Data.ProtoLens.Tag 14, 
+            updateCustomerSalesSeriesAuthorizationList__field_descriptor),
+           (Data.ProtoLens.Tag 15, 
+            updateLoginExchangeMemberIdList__field_descriptor),
+           (Data.ProtoLens.Tag 16, updateLoginSettings__field_descriptor),
+           (Data.ProtoLens.Tag 17, activateLogin__field_descriptor),
+           (Data.ProtoLens.Tag 18, deactivateLogin__field_descriptor),
+           (Data.ProtoLens.Tag 19, 
+            sendCredentialResetEmail__field_descriptor),
+           (Data.ProtoLens.Tag 20, 
+            generateServiceSecurityToken__field_descriptor),
+           (Data.ProtoLens.Tag 21, eraseCurrentCredentials__field_descriptor),
+           (Data.ProtoLens.Tag 22, terminateLoginSession__field_descriptor),
+           (Data.ProtoLens.Tag 23, 
+            updateLoginBillingCustomData__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _OperationRequest'_unknownFields
+        (\ x__ y__ -> x__ {_OperationRequest'_unknownFields = y__})
+  defMessage
+    = OperationRequest'_constructor
+        {_OperationRequest'id = Data.ProtoLens.fieldDefault,
+         _OperationRequest'cloneUser = Prelude.Nothing,
+         _OperationRequest'createProfile = Prelude.Nothing,
+         _OperationRequest'updateProfile = Prelude.Nothing,
+         _OperationRequest'removeProfile = Prelude.Nothing,
+         _OperationRequest'createUser = Prelude.Nothing,
+         _OperationRequest'updateUser = Prelude.Nothing,
+         _OperationRequest'removeUser = Prelude.Nothing,
+         _OperationRequest'linkUserToProfile = Prelude.Nothing,
+         _OperationRequest'modifyLoginEntitlementService = Prelude.Nothing,
+         _OperationRequest'sendWelcomeEmail = Prelude.Nothing,
+         _OperationRequest'restoreUser = Prelude.Nothing,
+         _OperationRequest'restoreProfile = Prelude.Nothing,
+         _OperationRequest'updateCustomerSalesSeriesAuthorizationList = Prelude.Nothing,
+         _OperationRequest'updateLoginExchangeMemberIdList = Prelude.Nothing,
+         _OperationRequest'updateLoginSettings = Prelude.Nothing,
+         _OperationRequest'activateLogin = Prelude.Nothing,
+         _OperationRequest'deactivateLogin = Prelude.Nothing,
+         _OperationRequest'sendCredentialResetEmail = Prelude.Nothing,
+         _OperationRequest'generateServiceSecurityToken = Prelude.Nothing,
+         _OperationRequest'eraseCurrentCredentials = Prelude.Nothing,
+         _OperationRequest'terminateLoginSession = Prelude.Nothing,
+         _OperationRequest'updateLoginBillingCustomData = Prelude.Nothing,
+         _OperationRequest'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          OperationRequest
+          -> Prelude.Bool
+             -> Data.ProtoLens.Encoding.Bytes.Parser OperationRequest
+        loop x required'id
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = (if required'id then (:) "id" else Prelude.id) []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"id") y x)
+                                  Prelude.False
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "clone_user"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"cloneUser") y x)
+                                  required'id
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "create_profile"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"createProfile") y x)
+                                  required'id
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_profile"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"updateProfile") y x)
+                                  required'id
+                        42
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "remove_profile"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"removeProfile") y x)
+                                  required'id
+                        50
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "create_user"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"createUser") y x)
+                                  required'id
+                        58
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_user"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"updateUser") y x)
+                                  required'id
+                        66
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "remove_user"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"removeUser") y x)
+                                  required'id
+                        74
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "link_user_to_profile"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"linkUserToProfile") y x)
+                                  required'id
+                        82
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "modify_login_entitlement_service"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"modifyLoginEntitlementService") y
+                                     x)
+                                  required'id
+                        90
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "send_welcome_email"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"sendWelcomeEmail") y x)
+                                  required'id
+                        98
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "restore_user"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"restoreUser") y x)
+                                  required'id
+                        106
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "restore_profile"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"restoreProfile") y x)
+                                  required'id
+                        114
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_customer_sales_series_authorization_list"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"updateCustomerSalesSeriesAuthorizationList")
+                                     y x)
+                                  required'id
+                        122
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_login_exchange_member_id_list"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"updateLoginExchangeMemberIdList")
+                                     y x)
+                                  required'id
+                        130
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_login_settings"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"updateLoginSettings") y x)
+                                  required'id
+                        138
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "activate_login"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"activateLogin") y x)
+                                  required'id
+                        146
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "deactivate_login"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"deactivateLogin") y x)
+                                  required'id
+                        154
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "send_credential_reset_email"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"sendCredentialResetEmail") y x)
+                                  required'id
+                        162
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "generate_service_security_token"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"generateServiceSecurityToken") y
+                                     x)
+                                  required'id
+                        170
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "erase_current_credentials"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"eraseCurrentCredentials") y x)
+                                  required'id
+                        178
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "terminate_login_session"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"terminateLoginSession") y x)
+                                  required'id
+                        186
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_login_billing_custom_data"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"updateLoginBillingCustomData") y
+                                     x)
+                                  required'id
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  required'id
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage Prelude.True) "OperationRequest"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                ((Prelude..)
+                   Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                   (Lens.Family2.view (Data.ProtoLens.Field.field @"id") _x)))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'cloneUser") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.ProtoLens.encodeMessage _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'createProfile") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field @"maybe'updateProfile") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.ProtoLens.encodeMessage _v))
+                      ((Data.Monoid.<>)
+                         (case
+                              Lens.Family2.view
+                                (Data.ProtoLens.Field.field @"maybe'removeProfile") _x
+                          of
+                            Prelude.Nothing -> Data.Monoid.mempty
+                            (Prelude.Just _v)
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                   ((Prelude..)
+                                      (\ bs
+                                         -> (Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                 (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                              (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                      Data.ProtoLens.encodeMessage _v))
+                         ((Data.Monoid.<>)
+                            (case
+                                 Lens.Family2.view
+                                   (Data.ProtoLens.Field.field @"maybe'createUser") _x
+                             of
+                               Prelude.Nothing -> Data.Monoid.mempty
+                               (Prelude.Just _v)
+                                 -> (Data.Monoid.<>)
+                                      (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                      ((Prelude..)
+                                         (\ bs
+                                            -> (Data.Monoid.<>)
+                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                    (Prelude.fromIntegral
+                                                       (Data.ByteString.length bs)))
+                                                 (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                         Data.ProtoLens.encodeMessage _v))
+                            ((Data.Monoid.<>)
+                               (case
+                                    Lens.Family2.view
+                                      (Data.ProtoLens.Field.field @"maybe'updateUser") _x
+                                of
+                                  Prelude.Nothing -> Data.Monoid.mempty
+                                  (Prelude.Just _v)
+                                    -> (Data.Monoid.<>)
+                                         (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                                         ((Prelude..)
+                                            (\ bs
+                                               -> (Data.Monoid.<>)
+                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                       (Prelude.fromIntegral
+                                                          (Data.ByteString.length bs)))
+                                                    (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                            Data.ProtoLens.encodeMessage _v))
+                               ((Data.Monoid.<>)
+                                  (case
+                                       Lens.Family2.view
+                                         (Data.ProtoLens.Field.field @"maybe'removeUser") _x
+                                   of
+                                     Prelude.Nothing -> Data.Monoid.mempty
+                                     (Prelude.Just _v)
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt 66)
+                                            ((Prelude..)
+                                               (\ bs
+                                                  -> (Data.Monoid.<>)
+                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                          (Prelude.fromIntegral
+                                                             (Data.ByteString.length bs)))
+                                                       (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                               Data.ProtoLens.encodeMessage _v))
+                                  ((Data.Monoid.<>)
+                                     (case
+                                          Lens.Family2.view
+                                            (Data.ProtoLens.Field.field @"maybe'linkUserToProfile")
+                                            _x
+                                      of
+                                        Prelude.Nothing -> Data.Monoid.mempty
+                                        (Prelude.Just _v)
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt 74)
+                                               ((Prelude..)
+                                                  (\ bs
+                                                     -> (Data.Monoid.<>)
+                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                             (Prelude.fromIntegral
+                                                                (Data.ByteString.length bs)))
+                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                             bs))
+                                                  Data.ProtoLens.encodeMessage _v))
+                                     ((Data.Monoid.<>)
+                                        (case
+                                             Lens.Family2.view
+                                               (Data.ProtoLens.Field.field
+                                                  @"maybe'modifyLoginEntitlementService")
+                                               _x
+                                         of
+                                           Prelude.Nothing -> Data.Monoid.mempty
+                                           (Prelude.Just _v)
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt 82)
+                                                  ((Prelude..)
+                                                     (\ bs
+                                                        -> (Data.Monoid.<>)
+                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                (Prelude.fromIntegral
+                                                                   (Data.ByteString.length bs)))
+                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                bs))
+                                                     Data.ProtoLens.encodeMessage _v))
+                                        ((Data.Monoid.<>)
+                                           (case
+                                                Lens.Family2.view
+                                                  (Data.ProtoLens.Field.field
+                                                     @"maybe'sendWelcomeEmail")
+                                                  _x
+                                            of
+                                              Prelude.Nothing -> Data.Monoid.mempty
+                                              (Prelude.Just _v)
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt 90)
+                                                     ((Prelude..)
+                                                        (\ bs
+                                                           -> (Data.Monoid.<>)
+                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                   (Prelude.fromIntegral
+                                                                      (Data.ByteString.length bs)))
+                                                                (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                   bs))
+                                                        Data.ProtoLens.encodeMessage _v))
+                                           ((Data.Monoid.<>)
+                                              (case
+                                                   Lens.Family2.view
+                                                     (Data.ProtoLens.Field.field
+                                                        @"maybe'restoreUser")
+                                                     _x
+                                               of
+                                                 Prelude.Nothing -> Data.Monoid.mempty
+                                                 (Prelude.Just _v)
+                                                   -> (Data.Monoid.<>)
+                                                        (Data.ProtoLens.Encoding.Bytes.putVarInt 98)
+                                                        ((Prelude..)
+                                                           (\ bs
+                                                              -> (Data.Monoid.<>)
+                                                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                      (Prelude.fromIntegral
+                                                                         (Data.ByteString.length
+                                                                            bs)))
+                                                                   (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                      bs))
+                                                           Data.ProtoLens.encodeMessage _v))
+                                              ((Data.Monoid.<>)
+                                                 (case
+                                                      Lens.Family2.view
+                                                        (Data.ProtoLens.Field.field
+                                                           @"maybe'restoreProfile")
+                                                        _x
+                                                  of
+                                                    Prelude.Nothing -> Data.Monoid.mempty
+                                                    (Prelude.Just _v)
+                                                      -> (Data.Monoid.<>)
+                                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                              106)
+                                                           ((Prelude..)
+                                                              (\ bs
+                                                                 -> (Data.Monoid.<>)
+                                                                      (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                         (Prelude.fromIntegral
+                                                                            (Data.ByteString.length
+                                                                               bs)))
+                                                                      (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                         bs))
+                                                              Data.ProtoLens.encodeMessage _v))
+                                                 ((Data.Monoid.<>)
+                                                    (case
+                                                         Lens.Family2.view
+                                                           (Data.ProtoLens.Field.field
+                                                              @"maybe'updateCustomerSalesSeriesAuthorizationList")
+                                                           _x
+                                                     of
+                                                       Prelude.Nothing -> Data.Monoid.mempty
+                                                       (Prelude.Just _v)
+                                                         -> (Data.Monoid.<>)
+                                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                 114)
+                                                              ((Prelude..)
+                                                                 (\ bs
+                                                                    -> (Data.Monoid.<>)
+                                                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                            (Prelude.fromIntegral
+                                                                               (Data.ByteString.length
+                                                                                  bs)))
+                                                                         (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                            bs))
+                                                                 Data.ProtoLens.encodeMessage _v))
+                                                    ((Data.Monoid.<>)
+                                                       (case
+                                                            Lens.Family2.view
+                                                              (Data.ProtoLens.Field.field
+                                                                 @"maybe'updateLoginExchangeMemberIdList")
+                                                              _x
+                                                        of
+                                                          Prelude.Nothing -> Data.Monoid.mempty
+                                                          (Prelude.Just _v)
+                                                            -> (Data.Monoid.<>)
+                                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                    122)
+                                                                 ((Prelude..)
+                                                                    (\ bs
+                                                                       -> (Data.Monoid.<>)
+                                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                               (Prelude.fromIntegral
+                                                                                  (Data.ByteString.length
+                                                                                     bs)))
+                                                                            (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                               bs))
+                                                                    Data.ProtoLens.encodeMessage
+                                                                    _v))
+                                                       ((Data.Monoid.<>)
+                                                          (case
+                                                               Lens.Family2.view
+                                                                 (Data.ProtoLens.Field.field
+                                                                    @"maybe'updateLoginSettings")
+                                                                 _x
+                                                           of
+                                                             Prelude.Nothing -> Data.Monoid.mempty
+                                                             (Prelude.Just _v)
+                                                               -> (Data.Monoid.<>)
+                                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                       130)
+                                                                    ((Prelude..)
+                                                                       (\ bs
+                                                                          -> (Data.Monoid.<>)
+                                                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                  (Prelude.fromIntegral
+                                                                                     (Data.ByteString.length
+                                                                                        bs)))
+                                                                               (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                  bs))
+                                                                       Data.ProtoLens.encodeMessage
+                                                                       _v))
+                                                          ((Data.Monoid.<>)
+                                                             (case
+                                                                  Lens.Family2.view
+                                                                    (Data.ProtoLens.Field.field
+                                                                       @"maybe'activateLogin")
+                                                                    _x
+                                                              of
+                                                                Prelude.Nothing
+                                                                  -> Data.Monoid.mempty
+                                                                (Prelude.Just _v)
+                                                                  -> (Data.Monoid.<>)
+                                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                          138)
+                                                                       ((Prelude..)
+                                                                          (\ bs
+                                                                             -> (Data.Monoid.<>)
+                                                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                     (Prelude.fromIntegral
+                                                                                        (Data.ByteString.length
+                                                                                           bs)))
+                                                                                  (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                     bs))
+                                                                          Data.ProtoLens.encodeMessage
+                                                                          _v))
+                                                             ((Data.Monoid.<>)
+                                                                (case
+                                                                     Lens.Family2.view
+                                                                       (Data.ProtoLens.Field.field
+                                                                          @"maybe'deactivateLogin")
+                                                                       _x
+                                                                 of
+                                                                   Prelude.Nothing
+                                                                     -> Data.Monoid.mempty
+                                                                   (Prelude.Just _v)
+                                                                     -> (Data.Monoid.<>)
+                                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                             146)
+                                                                          ((Prelude..)
+                                                                             (\ bs
+                                                                                -> (Data.Monoid.<>)
+                                                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                        (Prelude.fromIntegral
+                                                                                           (Data.ByteString.length
+                                                                                              bs)))
+                                                                                     (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                        bs))
+                                                                             Data.ProtoLens.encodeMessage
+                                                                             _v))
+                                                                ((Data.Monoid.<>)
+                                                                   (case
+                                                                        Lens.Family2.view
+                                                                          (Data.ProtoLens.Field.field
+                                                                             @"maybe'sendCredentialResetEmail")
+                                                                          _x
+                                                                    of
+                                                                      Prelude.Nothing
+                                                                        -> Data.Monoid.mempty
+                                                                      (Prelude.Just _v)
+                                                                        -> (Data.Monoid.<>)
+                                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                154)
+                                                                             ((Prelude..)
+                                                                                (\ bs
+                                                                                   -> (Data.Monoid.<>)
+                                                                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                           (Prelude.fromIntegral
+                                                                                              (Data.ByteString.length
+                                                                                                 bs)))
+                                                                                        (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                           bs))
+                                                                                Data.ProtoLens.encodeMessage
+                                                                                _v))
+                                                                   ((Data.Monoid.<>)
+                                                                      (case
+                                                                           Lens.Family2.view
+                                                                             (Data.ProtoLens.Field.field
+                                                                                @"maybe'generateServiceSecurityToken")
+                                                                             _x
+                                                                       of
+                                                                         Prelude.Nothing
+                                                                           -> Data.Monoid.mempty
+                                                                         (Prelude.Just _v)
+                                                                           -> (Data.Monoid.<>)
+                                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                   162)
+                                                                                ((Prelude..)
+                                                                                   (\ bs
+                                                                                      -> (Data.Monoid.<>)
+                                                                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                              (Prelude.fromIntegral
+                                                                                                 (Data.ByteString.length
+                                                                                                    bs)))
+                                                                                           (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                              bs))
+                                                                                   Data.ProtoLens.encodeMessage
+                                                                                   _v))
+                                                                      ((Data.Monoid.<>)
+                                                                         (case
+                                                                              Lens.Family2.view
+                                                                                (Data.ProtoLens.Field.field
+                                                                                   @"maybe'eraseCurrentCredentials")
+                                                                                _x
+                                                                          of
+                                                                            Prelude.Nothing
+                                                                              -> Data.Monoid.mempty
+                                                                            (Prelude.Just _v)
+                                                                              -> (Data.Monoid.<>)
+                                                                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                      170)
+                                                                                   ((Prelude..)
+                                                                                      (\ bs
+                                                                                         -> (Data.Monoid.<>)
+                                                                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                 (Prelude.fromIntegral
+                                                                                                    (Data.ByteString.length
+                                                                                                       bs)))
+                                                                                              (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                 bs))
+                                                                                      Data.ProtoLens.encodeMessage
+                                                                                      _v))
+                                                                         ((Data.Monoid.<>)
+                                                                            (case
+                                                                                 Lens.Family2.view
+                                                                                   (Data.ProtoLens.Field.field
+                                                                                      @"maybe'terminateLoginSession")
+                                                                                   _x
+                                                                             of
+                                                                               Prelude.Nothing
+                                                                                 -> Data.Monoid.mempty
+                                                                               (Prelude.Just _v)
+                                                                                 -> (Data.Monoid.<>)
+                                                                                      (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                         178)
+                                                                                      ((Prelude..)
+                                                                                         (\ bs
+                                                                                            -> (Data.Monoid.<>)
+                                                                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                    (Prelude.fromIntegral
+                                                                                                       (Data.ByteString.length
+                                                                                                          bs)))
+                                                                                                 (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                    bs))
+                                                                                         Data.ProtoLens.encodeMessage
+                                                                                         _v))
+                                                                            ((Data.Monoid.<>)
+                                                                               (case
+                                                                                    Lens.Family2.view
+                                                                                      (Data.ProtoLens.Field.field
+                                                                                         @"maybe'updateLoginBillingCustomData")
+                                                                                      _x
+                                                                                of
+                                                                                  Prelude.Nothing
+                                                                                    -> Data.Monoid.mempty
+                                                                                  (Prelude.Just _v)
+                                                                                    -> (Data.Monoid.<>)
+                                                                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                            186)
+                                                                                         ((Prelude..)
+                                                                                            (\ bs
+                                                                                               -> (Data.Monoid.<>)
+                                                                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                       (Prelude.fromIntegral
+                                                                                                          (Data.ByteString.length
+                                                                                                             bs)))
+                                                                                                    (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                       bs))
+                                                                                            Data.ProtoLens.encodeMessage
+                                                                                            _v))
+                                                                               (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                                                  (Lens.Family2.view
+                                                                                     Data.ProtoLens.unknownFields
+                                                                                     _x))))))))))))))))))))))))
+instance Control.DeepSeq.NFData OperationRequest where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_OperationRequest'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_OperationRequest'id x__)
+                (Control.DeepSeq.deepseq
+                   (_OperationRequest'cloneUser x__)
+                   (Control.DeepSeq.deepseq
+                      (_OperationRequest'createProfile x__)
+                      (Control.DeepSeq.deepseq
+                         (_OperationRequest'updateProfile x__)
+                         (Control.DeepSeq.deepseq
+                            (_OperationRequest'removeProfile x__)
+                            (Control.DeepSeq.deepseq
+                               (_OperationRequest'createUser x__)
+                               (Control.DeepSeq.deepseq
+                                  (_OperationRequest'updateUser x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_OperationRequest'removeUser x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_OperationRequest'linkUserToProfile x__)
+                                        (Control.DeepSeq.deepseq
+                                           (_OperationRequest'modifyLoginEntitlementService x__)
+                                           (Control.DeepSeq.deepseq
+                                              (_OperationRequest'sendWelcomeEmail x__)
+                                              (Control.DeepSeq.deepseq
+                                                 (_OperationRequest'restoreUser x__)
+                                                 (Control.DeepSeq.deepseq
+                                                    (_OperationRequest'restoreProfile x__)
+                                                    (Control.DeepSeq.deepseq
+                                                       (_OperationRequest'updateCustomerSalesSeriesAuthorizationList
+                                                          x__)
+                                                       (Control.DeepSeq.deepseq
+                                                          (_OperationRequest'updateLoginExchangeMemberIdList
+                                                             x__)
+                                                          (Control.DeepSeq.deepseq
+                                                             (_OperationRequest'updateLoginSettings
+                                                                x__)
+                                                             (Control.DeepSeq.deepseq
+                                                                (_OperationRequest'activateLogin
+                                                                   x__)
+                                                                (Control.DeepSeq.deepseq
+                                                                   (_OperationRequest'deactivateLogin
+                                                                      x__)
+                                                                   (Control.DeepSeq.deepseq
+                                                                      (_OperationRequest'sendCredentialResetEmail
+                                                                         x__)
+                                                                      (Control.DeepSeq.deepseq
+                                                                         (_OperationRequest'generateServiceSecurityToken
+                                                                            x__)
+                                                                         (Control.DeepSeq.deepseq
+                                                                            (_OperationRequest'eraseCurrentCredentials
+                                                                               x__)
+                                                                            (Control.DeepSeq.deepseq
+                                                                               (_OperationRequest'terminateLoginSession
+                                                                                  x__)
+                                                                               (Control.DeepSeq.deepseq
+                                                                                  (_OperationRequest'updateLoginBillingCustomData
+                                                                                     x__)
+                                                                                  ())))))))))))))))))))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.requestId' @:: Lens' OperationResult Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.operationStatus' @:: Lens' OperationResult Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.errorMessage' @:: Lens' OperationResult Proto.Common.Shared1.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'errorMessage' @:: Lens' OperationResult (Prelude.Maybe Proto.Common.Shared1.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.cloneUserResult' @:: Lens' OperationResult Proto.CMS.Common1.CloneUserResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'cloneUserResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.CloneUserResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.createProfileResult' @:: Lens' OperationResult CreateProfileResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'createProfileResult' @:: Lens' OperationResult (Prelude.Maybe CreateProfileResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateProfileResult' @:: Lens' OperationResult UpdateProfileResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateProfileResult' @:: Lens' OperationResult (Prelude.Maybe UpdateProfileResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.removeProfileResult' @:: Lens' OperationResult RemoveProfileResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'removeProfileResult' @:: Lens' OperationResult (Prelude.Maybe RemoveProfileResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.createUserResult' @:: Lens' OperationResult Proto.CMS.Common1.CreateUserResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'createUserResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.CreateUserResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateUserResult' @:: Lens' OperationResult Proto.CMS.Common1.UpdateUserResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateUserResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.UpdateUserResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.removeUserResult' @:: Lens' OperationResult Proto.CMS.Common1.RemoveUserResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'removeUserResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.RemoveUserResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.linkLoginToProfileResult' @:: Lens' OperationResult LinkLoginToProfileResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'linkLoginToProfileResult' @:: Lens' OperationResult (Prelude.Maybe LinkLoginToProfileResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.modifyLoginEntitlementServiceResult' @:: Lens' OperationResult Proto.CMS.Login1.ModifyLoginEntitlementServiceResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'modifyLoginEntitlementServiceResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Login1.ModifyLoginEntitlementServiceResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.sendWelcomeEmailResult' @:: Lens' OperationResult SendWelcomeEmailResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'sendWelcomeEmailResult' @:: Lens' OperationResult (Prelude.Maybe SendWelcomeEmailResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.restoreUserResult' @:: Lens' OperationResult Proto.CMS.Common1.RestoreUserResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'restoreUserResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.RestoreUserResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.restoreProfileResult' @:: Lens' OperationResult RestoreProfileResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'restoreProfileResult' @:: Lens' OperationResult (Prelude.Maybe RestoreProfileResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateCustomerSalesSeriesAuthorizationListResult' @:: Lens' OperationResult Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationListResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateCustomerSalesSeriesAuthorizationListResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationListResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateLoginExchangeMemberIdListResult' @:: Lens' OperationResult Proto.CMS.Common1.UpdateLoginExchangeMemberIdListResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginExchangeMemberIdListResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.UpdateLoginExchangeMemberIdListResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateLoginSettingsResult' @:: Lens' OperationResult Proto.CMS.Common1.UpdateLoginSettingsResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginSettingsResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.UpdateLoginSettingsResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.activateLoginResult' @:: Lens' OperationResult Proto.CMS.Common1.ActivateLoginResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'activateLoginResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.ActivateLoginResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.deactivateLoginResult' @:: Lens' OperationResult Proto.CMS.Common1.DeactivateLoginResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'deactivateLoginResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.DeactivateLoginResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.sendCredentialResetEmailResult' @:: Lens' OperationResult SendCredentialResetEmailResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'sendCredentialResetEmailResult' @:: Lens' OperationResult (Prelude.Maybe SendCredentialResetEmailResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.generateServiceSecurityTokenResult' @:: Lens' OperationResult GenerateServiceSecurityTokenResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'generateServiceSecurityTokenResult' @:: Lens' OperationResult (Prelude.Maybe GenerateServiceSecurityTokenResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.eraseCurrentCredentialsResult' @:: Lens' OperationResult Proto.CMS.Common1.EraseCurrentCredentialsResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'eraseCurrentCredentialsResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.EraseCurrentCredentialsResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.terminateLoginSessionResult' @:: Lens' OperationResult TerminateLoginSessionResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'terminateLoginSessionResult' @:: Lens' OperationResult (Prelude.Maybe TerminateLoginSessionResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.updateLoginBillingCustomDataResult' @:: Lens' OperationResult Proto.CMS.Common1.UpdateLoginBillingCustomDataResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginBillingCustomDataResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomDataResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.trackingNumber' @:: Lens' OperationResult Data.Word.Word64@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'trackingNumber' @:: Lens' OperationResult (Prelude.Maybe Data.Word.Word64)@ -}
+data OperationResult
+  = OperationResult'_constructor {_OperationResult'requestId :: !Data.Word.Word32,
+                                  _OperationResult'operationStatus :: !Data.Word.Word32,
+                                  _OperationResult'errorMessage :: !(Prelude.Maybe Proto.Common.Shared1.Text),
+                                  _OperationResult'cloneUserResult :: !(Prelude.Maybe Proto.CMS.Common1.CloneUserResult),
+                                  _OperationResult'createProfileResult :: !(Prelude.Maybe CreateProfileResult),
+                                  _OperationResult'updateProfileResult :: !(Prelude.Maybe UpdateProfileResult),
+                                  _OperationResult'removeProfileResult :: !(Prelude.Maybe RemoveProfileResult),
+                                  _OperationResult'createUserResult :: !(Prelude.Maybe Proto.CMS.Common1.CreateUserResult),
+                                  _OperationResult'updateUserResult :: !(Prelude.Maybe Proto.CMS.Common1.UpdateUserResult),
+                                  _OperationResult'removeUserResult :: !(Prelude.Maybe Proto.CMS.Common1.RemoveUserResult),
+                                  _OperationResult'linkLoginToProfileResult :: !(Prelude.Maybe LinkLoginToProfileResult),
+                                  _OperationResult'modifyLoginEntitlementServiceResult :: !(Prelude.Maybe Proto.CMS.Login1.ModifyLoginEntitlementServiceResult),
+                                  _OperationResult'sendWelcomeEmailResult :: !(Prelude.Maybe SendWelcomeEmailResult),
+                                  _OperationResult'restoreUserResult :: !(Prelude.Maybe Proto.CMS.Common1.RestoreUserResult),
+                                  _OperationResult'restoreProfileResult :: !(Prelude.Maybe RestoreProfileResult),
+                                  _OperationResult'updateCustomerSalesSeriesAuthorizationListResult :: !(Prelude.Maybe Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationListResult),
+                                  _OperationResult'updateLoginExchangeMemberIdListResult :: !(Prelude.Maybe Proto.CMS.Common1.UpdateLoginExchangeMemberIdListResult),
+                                  _OperationResult'updateLoginSettingsResult :: !(Prelude.Maybe Proto.CMS.Common1.UpdateLoginSettingsResult),
+                                  _OperationResult'activateLoginResult :: !(Prelude.Maybe Proto.CMS.Common1.ActivateLoginResult),
+                                  _OperationResult'deactivateLoginResult :: !(Prelude.Maybe Proto.CMS.Common1.DeactivateLoginResult),
+                                  _OperationResult'sendCredentialResetEmailResult :: !(Prelude.Maybe SendCredentialResetEmailResult),
+                                  _OperationResult'generateServiceSecurityTokenResult :: !(Prelude.Maybe GenerateServiceSecurityTokenResult),
+                                  _OperationResult'eraseCurrentCredentialsResult :: !(Prelude.Maybe Proto.CMS.Common1.EraseCurrentCredentialsResult),
+                                  _OperationResult'terminateLoginSessionResult :: !(Prelude.Maybe TerminateLoginSessionResult),
+                                  _OperationResult'updateLoginBillingCustomDataResult :: !(Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomDataResult),
+                                  _OperationResult'trackingNumber :: !(Prelude.Maybe Data.Word.Word64),
+                                  _OperationResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show OperationResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField OperationResult "requestId" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'requestId
+           (\ x__ y__ -> x__ {_OperationResult'requestId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "operationStatus" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'operationStatus
+           (\ x__ y__ -> x__ {_OperationResult'operationStatus = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "errorMessage" Proto.Common.Shared1.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'errorMessage
+           (\ x__ y__ -> x__ {_OperationResult'errorMessage = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'errorMessage" (Prelude.Maybe Proto.Common.Shared1.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'errorMessage
+           (\ x__ y__ -> x__ {_OperationResult'errorMessage = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "cloneUserResult" Proto.CMS.Common1.CloneUserResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'cloneUserResult
+           (\ x__ y__ -> x__ {_OperationResult'cloneUserResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'cloneUserResult" (Prelude.Maybe Proto.CMS.Common1.CloneUserResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'cloneUserResult
+           (\ x__ y__ -> x__ {_OperationResult'cloneUserResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "createProfileResult" CreateProfileResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'createProfileResult
+           (\ x__ y__ -> x__ {_OperationResult'createProfileResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'createProfileResult" (Prelude.Maybe CreateProfileResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'createProfileResult
+           (\ x__ y__ -> x__ {_OperationResult'createProfileResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "updateProfileResult" UpdateProfileResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateProfileResult
+           (\ x__ y__ -> x__ {_OperationResult'updateProfileResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'updateProfileResult" (Prelude.Maybe UpdateProfileResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateProfileResult
+           (\ x__ y__ -> x__ {_OperationResult'updateProfileResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "removeProfileResult" RemoveProfileResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'removeProfileResult
+           (\ x__ y__ -> x__ {_OperationResult'removeProfileResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'removeProfileResult" (Prelude.Maybe RemoveProfileResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'removeProfileResult
+           (\ x__ y__ -> x__ {_OperationResult'removeProfileResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "createUserResult" Proto.CMS.Common1.CreateUserResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'createUserResult
+           (\ x__ y__ -> x__ {_OperationResult'createUserResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'createUserResult" (Prelude.Maybe Proto.CMS.Common1.CreateUserResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'createUserResult
+           (\ x__ y__ -> x__ {_OperationResult'createUserResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "updateUserResult" Proto.CMS.Common1.UpdateUserResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateUserResult
+           (\ x__ y__ -> x__ {_OperationResult'updateUserResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'updateUserResult" (Prelude.Maybe Proto.CMS.Common1.UpdateUserResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateUserResult
+           (\ x__ y__ -> x__ {_OperationResult'updateUserResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "removeUserResult" Proto.CMS.Common1.RemoveUserResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'removeUserResult
+           (\ x__ y__ -> x__ {_OperationResult'removeUserResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'removeUserResult" (Prelude.Maybe Proto.CMS.Common1.RemoveUserResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'removeUserResult
+           (\ x__ y__ -> x__ {_OperationResult'removeUserResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "linkLoginToProfileResult" LinkLoginToProfileResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'linkLoginToProfileResult
+           (\ x__ y__
+              -> x__ {_OperationResult'linkLoginToProfileResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'linkLoginToProfileResult" (Prelude.Maybe LinkLoginToProfileResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'linkLoginToProfileResult
+           (\ x__ y__
+              -> x__ {_OperationResult'linkLoginToProfileResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "modifyLoginEntitlementServiceResult" Proto.CMS.Login1.ModifyLoginEntitlementServiceResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'modifyLoginEntitlementServiceResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'modifyLoginEntitlementServiceResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'modifyLoginEntitlementServiceResult" (Prelude.Maybe Proto.CMS.Login1.ModifyLoginEntitlementServiceResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'modifyLoginEntitlementServiceResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'modifyLoginEntitlementServiceResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "sendWelcomeEmailResult" SendWelcomeEmailResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'sendWelcomeEmailResult
+           (\ x__ y__ -> x__ {_OperationResult'sendWelcomeEmailResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'sendWelcomeEmailResult" (Prelude.Maybe SendWelcomeEmailResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'sendWelcomeEmailResult
+           (\ x__ y__ -> x__ {_OperationResult'sendWelcomeEmailResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "restoreUserResult" Proto.CMS.Common1.RestoreUserResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'restoreUserResult
+           (\ x__ y__ -> x__ {_OperationResult'restoreUserResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'restoreUserResult" (Prelude.Maybe Proto.CMS.Common1.RestoreUserResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'restoreUserResult
+           (\ x__ y__ -> x__ {_OperationResult'restoreUserResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "restoreProfileResult" RestoreProfileResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'restoreProfileResult
+           (\ x__ y__ -> x__ {_OperationResult'restoreProfileResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'restoreProfileResult" (Prelude.Maybe RestoreProfileResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'restoreProfileResult
+           (\ x__ y__ -> x__ {_OperationResult'restoreProfileResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "updateCustomerSalesSeriesAuthorizationListResult" Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationListResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateCustomerSalesSeriesAuthorizationListResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'updateCustomerSalesSeriesAuthorizationListResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'updateCustomerSalesSeriesAuthorizationListResult" (Prelude.Maybe Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationListResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateCustomerSalesSeriesAuthorizationListResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'updateCustomerSalesSeriesAuthorizationListResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "updateLoginExchangeMemberIdListResult" Proto.CMS.Common1.UpdateLoginExchangeMemberIdListResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateLoginExchangeMemberIdListResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'updateLoginExchangeMemberIdListResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'updateLoginExchangeMemberIdListResult" (Prelude.Maybe Proto.CMS.Common1.UpdateLoginExchangeMemberIdListResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateLoginExchangeMemberIdListResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'updateLoginExchangeMemberIdListResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "updateLoginSettingsResult" Proto.CMS.Common1.UpdateLoginSettingsResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateLoginSettingsResult
+           (\ x__ y__
+              -> x__ {_OperationResult'updateLoginSettingsResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'updateLoginSettingsResult" (Prelude.Maybe Proto.CMS.Common1.UpdateLoginSettingsResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateLoginSettingsResult
+           (\ x__ y__
+              -> x__ {_OperationResult'updateLoginSettingsResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "activateLoginResult" Proto.CMS.Common1.ActivateLoginResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'activateLoginResult
+           (\ x__ y__ -> x__ {_OperationResult'activateLoginResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'activateLoginResult" (Prelude.Maybe Proto.CMS.Common1.ActivateLoginResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'activateLoginResult
+           (\ x__ y__ -> x__ {_OperationResult'activateLoginResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "deactivateLoginResult" Proto.CMS.Common1.DeactivateLoginResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'deactivateLoginResult
+           (\ x__ y__ -> x__ {_OperationResult'deactivateLoginResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'deactivateLoginResult" (Prelude.Maybe Proto.CMS.Common1.DeactivateLoginResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'deactivateLoginResult
+           (\ x__ y__ -> x__ {_OperationResult'deactivateLoginResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "sendCredentialResetEmailResult" SendCredentialResetEmailResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'sendCredentialResetEmailResult
+           (\ x__ y__
+              -> x__ {_OperationResult'sendCredentialResetEmailResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'sendCredentialResetEmailResult" (Prelude.Maybe SendCredentialResetEmailResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'sendCredentialResetEmailResult
+           (\ x__ y__
+              -> x__ {_OperationResult'sendCredentialResetEmailResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "generateServiceSecurityTokenResult" GenerateServiceSecurityTokenResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'generateServiceSecurityTokenResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'generateServiceSecurityTokenResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'generateServiceSecurityTokenResult" (Prelude.Maybe GenerateServiceSecurityTokenResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'generateServiceSecurityTokenResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'generateServiceSecurityTokenResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "eraseCurrentCredentialsResult" Proto.CMS.Common1.EraseCurrentCredentialsResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'eraseCurrentCredentialsResult
+           (\ x__ y__
+              -> x__ {_OperationResult'eraseCurrentCredentialsResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'eraseCurrentCredentialsResult" (Prelude.Maybe Proto.CMS.Common1.EraseCurrentCredentialsResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'eraseCurrentCredentialsResult
+           (\ x__ y__
+              -> x__ {_OperationResult'eraseCurrentCredentialsResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "terminateLoginSessionResult" TerminateLoginSessionResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'terminateLoginSessionResult
+           (\ x__ y__
+              -> x__ {_OperationResult'terminateLoginSessionResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'terminateLoginSessionResult" (Prelude.Maybe TerminateLoginSessionResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'terminateLoginSessionResult
+           (\ x__ y__
+              -> x__ {_OperationResult'terminateLoginSessionResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "updateLoginBillingCustomDataResult" Proto.CMS.Common1.UpdateLoginBillingCustomDataResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateLoginBillingCustomDataResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'updateLoginBillingCustomDataResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'updateLoginBillingCustomDataResult" (Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomDataResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'updateLoginBillingCustomDataResult
+           (\ x__ y__
+              -> x__
+                   {_OperationResult'updateLoginBillingCustomDataResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "trackingNumber" Data.Word.Word64 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'trackingNumber
+           (\ x__ y__ -> x__ {_OperationResult'trackingNumber = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'trackingNumber" (Prelude.Maybe Data.Word.Word64) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'trackingNumber
+           (\ x__ y__ -> x__ {_OperationResult'trackingNumber = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message OperationResult where
+  messageName _ = Data.Text.pack "cmsapi_1.OperationResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\SIOperationResult\DC2\GS\n\
+      \\n\
+      \request_id\CAN\SOH \STX(\rR\trequestId\DC2)\n\
+      \\DLEoperation_status\CAN\STX \STX(\rR\SIoperationStatus\DC23\n\
+      \\rerror_message\CAN\ETX \SOH(\v2\SO.shared_1.TextR\ferrorMessage\DC2E\n\
+      \\DC1clone_user_result\CAN\EOT \SOH(\v2\EM.common_1.CloneUserResultR\SIcloneUserResult\DC2Q\n\
+      \\NAKcreate_profile_result\CAN\ENQ \SOH(\v2\GS.cmsapi_1.CreateProfileResultR\DC3createProfileResult\DC2Q\n\
+      \\NAKupdate_profile_result\CAN\ACK \SOH(\v2\GS.cmsapi_1.UpdateProfileResultR\DC3updateProfileResult\DC2Q\n\
+      \\NAKremove_profile_result\CAN\a \SOH(\v2\GS.cmsapi_1.RemoveProfileResultR\DC3removeProfileResult\DC2H\n\
+      \\DC2create_user_result\CAN\b \SOH(\v2\SUB.common_1.CreateUserResultR\DLEcreateUserResult\DC2H\n\
+      \\DC2update_user_result\CAN\t \SOH(\v2\SUB.common_1.UpdateUserResultR\DLEupdateUserResult\DC2H\n\
+      \\DC2remove_user_result\CAN\n\
+      \ \SOH(\v2\SUB.common_1.RemoveUserResultR\DLEremoveUserResult\DC2b\n\
+      \\FSlink_login_to_profile_result\CAN\v \SOH(\v2\".cmsapi_1.LinkLoginToProfileResultR\CANlinkLoginToProfileResult\DC2\130\SOH\n\
+      \'modify_login_entitlement_service_result\CAN\f \SOH(\v2,.login_1.ModifyLoginEntitlementServiceResultR#modifyLoginEntitlementServiceResult\DC2[\n\
+      \\EMsend_welcome_email_result\CAN\r \SOH(\v2 .cmsapi_1.SendWelcomeEmailResultR\SYNsendWelcomeEmailResult\DC2K\n\
+      \\DC3restore_user_result\CAN\SO \SOH(\v2\ESC.common_1.RestoreUserResultR\DC1restoreUserResult\DC2T\n\
+      \\SYNrestore_profile_result\CAN\SI \SOH(\v2\RS.cmsapi_1.RestoreProfileResultR\DC4restoreProfileResult\DC2\172\SOH\n\
+      \6update_customer_sales_series_authorization_list_result\CAN\DLE \SOH(\v2:.common_1.UpdateCustomerSalesSeriesAuthorizationListResultR0updateCustomerSalesSeriesAuthorizationListResult\DC2\139\SOH\n\
+      \+update_login_exchange_member_id_list_result\CAN\DC1 \SOH(\v2/.common_1.UpdateLoginExchangeMemberIdListResultR%updateLoginExchangeMemberIdListResult\DC2d\n\
+      \\FSupdate_login_settings_result\CAN\DC2 \SOH(\v2#.common_1.UpdateLoginSettingsResultR\EMupdateLoginSettingsResult\DC2Q\n\
+      \\NAKactivate_login_result\CAN\DC3 \SOH(\v2\GS.common_1.ActivateLoginResultR\DC3activateLoginResult\DC2W\n\
+      \\ETBdeactivate_login_result\CAN\DC4 \SOH(\v2\US.common_1.DeactivateLoginResultR\NAKdeactivateLoginResult\DC2t\n\
+      \\"send_credential_reset_email_result\CAN\NAK \SOH(\v2(.cmsapi_1.SendCredentialResetEmailResultR\RSsendCredentialResetEmailResult\DC2\128\SOH\n\
+      \&generate_service_security_token_result\CAN\SYN \SOH(\v2,.cmsapi_1.GenerateServiceSecurityTokenResultR\"generateServiceSecurityTokenResult\DC2p\n\
+      \ erase_current_credentials_result\CAN\ETB \SOH(\v2'.common_1.EraseCurrentCredentialsResultR\GSeraseCurrentCredentialsResult\DC2j\n\
+      \\RSterminate_login_session_result\CAN\CAN \SOH(\v2%.cmsapi_1.TerminateLoginSessionResultR\ESCterminateLoginSessionResult\DC2\129\SOH\n\
+      \'update_login_billing_custom_data_result\CAN\EM \SOH(\v2,.common_1.UpdateLoginBillingCustomDataResultR\"updateLoginBillingCustomDataResult\DC2'\n\
+      \\SItracking_number\CAN\SUB \SOH(\EOTR\SOtrackingNumber"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        requestId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "request_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"requestId")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        operationStatus__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "operation_status"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"operationStatus")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        errorMessage__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "error_message"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.Common.Shared1.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'errorMessage")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        cloneUserResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "clone_user_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.CloneUserResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'cloneUserResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        createProfileResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "create_profile_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor CreateProfileResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'createProfileResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        updateProfileResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_profile_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor UpdateProfileResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'updateProfileResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        removeProfileResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "remove_profile_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor RemoveProfileResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'removeProfileResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        createUserResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "create_user_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.CreateUserResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'createUserResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        updateUserResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_user_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateUserResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'updateUserResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        removeUserResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "remove_user_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.RemoveUserResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'removeUserResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        linkLoginToProfileResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "link_login_to_profile_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor LinkLoginToProfileResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'linkLoginToProfileResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        modifyLoginEntitlementServiceResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "modify_login_entitlement_service_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Login1.ModifyLoginEntitlementServiceResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'modifyLoginEntitlementServiceResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        sendWelcomeEmailResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "send_welcome_email_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor SendWelcomeEmailResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'sendWelcomeEmailResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        restoreUserResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "restore_user_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.RestoreUserResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'restoreUserResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        restoreProfileResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "restore_profile_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor RestoreProfileResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'restoreProfileResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        updateCustomerSalesSeriesAuthorizationListResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_customer_sales_series_authorization_list_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateCustomerSalesSeriesAuthorizationListResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'updateCustomerSalesSeriesAuthorizationListResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        updateLoginExchangeMemberIdListResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_login_exchange_member_id_list_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateLoginExchangeMemberIdListResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'updateLoginExchangeMemberIdListResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        updateLoginSettingsResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_login_settings_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateLoginSettingsResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'updateLoginSettingsResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        activateLoginResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "activate_login_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.ActivateLoginResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'activateLoginResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        deactivateLoginResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "deactivate_login_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.DeactivateLoginResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'deactivateLoginResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        sendCredentialResetEmailResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "send_credential_reset_email_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor SendCredentialResetEmailResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'sendCredentialResetEmailResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        generateServiceSecurityTokenResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "generate_service_security_token_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor GenerateServiceSecurityTokenResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'generateServiceSecurityTokenResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        eraseCurrentCredentialsResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "erase_current_credentials_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.EraseCurrentCredentialsResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'eraseCurrentCredentialsResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        terminateLoginSessionResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "terminate_login_session_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor TerminateLoginSessionResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'terminateLoginSessionResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        updateLoginBillingCustomDataResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "update_login_billing_custom_data_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UpdateLoginBillingCustomDataResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'updateLoginBillingCustomDataResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+        trackingNumber__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "tracking_number"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt64Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word64)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'trackingNumber")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, requestId__field_descriptor),
+           (Data.ProtoLens.Tag 2, operationStatus__field_descriptor),
+           (Data.ProtoLens.Tag 3, errorMessage__field_descriptor),
+           (Data.ProtoLens.Tag 4, cloneUserResult__field_descriptor),
+           (Data.ProtoLens.Tag 5, createProfileResult__field_descriptor),
+           (Data.ProtoLens.Tag 6, updateProfileResult__field_descriptor),
+           (Data.ProtoLens.Tag 7, removeProfileResult__field_descriptor),
+           (Data.ProtoLens.Tag 8, createUserResult__field_descriptor),
+           (Data.ProtoLens.Tag 9, updateUserResult__field_descriptor),
+           (Data.ProtoLens.Tag 10, removeUserResult__field_descriptor),
+           (Data.ProtoLens.Tag 11, 
+            linkLoginToProfileResult__field_descriptor),
+           (Data.ProtoLens.Tag 12, 
+            modifyLoginEntitlementServiceResult__field_descriptor),
+           (Data.ProtoLens.Tag 13, sendWelcomeEmailResult__field_descriptor),
+           (Data.ProtoLens.Tag 14, restoreUserResult__field_descriptor),
+           (Data.ProtoLens.Tag 15, restoreProfileResult__field_descriptor),
+           (Data.ProtoLens.Tag 16, 
+            updateCustomerSalesSeriesAuthorizationListResult__field_descriptor),
+           (Data.ProtoLens.Tag 17, 
+            updateLoginExchangeMemberIdListResult__field_descriptor),
+           (Data.ProtoLens.Tag 18, 
+            updateLoginSettingsResult__field_descriptor),
+           (Data.ProtoLens.Tag 19, activateLoginResult__field_descriptor),
+           (Data.ProtoLens.Tag 20, deactivateLoginResult__field_descriptor),
+           (Data.ProtoLens.Tag 21, 
+            sendCredentialResetEmailResult__field_descriptor),
+           (Data.ProtoLens.Tag 22, 
+            generateServiceSecurityTokenResult__field_descriptor),
+           (Data.ProtoLens.Tag 23, 
+            eraseCurrentCredentialsResult__field_descriptor),
+           (Data.ProtoLens.Tag 24, 
+            terminateLoginSessionResult__field_descriptor),
+           (Data.ProtoLens.Tag 25, 
+            updateLoginBillingCustomDataResult__field_descriptor),
+           (Data.ProtoLens.Tag 26, trackingNumber__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _OperationResult'_unknownFields
+        (\ x__ y__ -> x__ {_OperationResult'_unknownFields = y__})
+  defMessage
+    = OperationResult'_constructor
+        {_OperationResult'requestId = Data.ProtoLens.fieldDefault,
+         _OperationResult'operationStatus = Data.ProtoLens.fieldDefault,
+         _OperationResult'errorMessage = Prelude.Nothing,
+         _OperationResult'cloneUserResult = Prelude.Nothing,
+         _OperationResult'createProfileResult = Prelude.Nothing,
+         _OperationResult'updateProfileResult = Prelude.Nothing,
+         _OperationResult'removeProfileResult = Prelude.Nothing,
+         _OperationResult'createUserResult = Prelude.Nothing,
+         _OperationResult'updateUserResult = Prelude.Nothing,
+         _OperationResult'removeUserResult = Prelude.Nothing,
+         _OperationResult'linkLoginToProfileResult = Prelude.Nothing,
+         _OperationResult'modifyLoginEntitlementServiceResult = Prelude.Nothing,
+         _OperationResult'sendWelcomeEmailResult = Prelude.Nothing,
+         _OperationResult'restoreUserResult = Prelude.Nothing,
+         _OperationResult'restoreProfileResult = Prelude.Nothing,
+         _OperationResult'updateCustomerSalesSeriesAuthorizationListResult = Prelude.Nothing,
+         _OperationResult'updateLoginExchangeMemberIdListResult = Prelude.Nothing,
+         _OperationResult'updateLoginSettingsResult = Prelude.Nothing,
+         _OperationResult'activateLoginResult = Prelude.Nothing,
+         _OperationResult'deactivateLoginResult = Prelude.Nothing,
+         _OperationResult'sendCredentialResetEmailResult = Prelude.Nothing,
+         _OperationResult'generateServiceSecurityTokenResult = Prelude.Nothing,
+         _OperationResult'eraseCurrentCredentialsResult = Prelude.Nothing,
+         _OperationResult'terminateLoginSessionResult = Prelude.Nothing,
+         _OperationResult'updateLoginBillingCustomDataResult = Prelude.Nothing,
+         _OperationResult'trackingNumber = Prelude.Nothing,
+         _OperationResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          OperationResult
+          -> Prelude.Bool
+             -> Prelude.Bool
+                -> Data.ProtoLens.Encoding.Bytes.Parser OperationResult
+        loop x required'operationStatus required'requestId
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let
+                         missing
+                           = (if required'operationStatus then
+                                  (:) "operation_status"
+                              else
+                                  Prelude.id)
+                               ((if required'requestId then (:) "request_id" else Prelude.id) [])
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "request_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"requestId") y x)
+                                  required'operationStatus Prelude.False
+                        16
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "operation_status"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"operationStatus") y x)
+                                  Prelude.False required'requestId
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "error_message"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"errorMessage") y x)
+                                  required'operationStatus required'requestId
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "clone_user_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"cloneUserResult") y x)
+                                  required'operationStatus required'requestId
+                        42
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "create_profile_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"createProfileResult") y x)
+                                  required'operationStatus required'requestId
+                        50
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_profile_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"updateProfileResult") y x)
+                                  required'operationStatus required'requestId
+                        58
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "remove_profile_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"removeProfileResult") y x)
+                                  required'operationStatus required'requestId
+                        66
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "create_user_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"createUserResult") y x)
+                                  required'operationStatus required'requestId
+                        74
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_user_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"updateUserResult") y x)
+                                  required'operationStatus required'requestId
+                        82
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "remove_user_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"removeUserResult") y x)
+                                  required'operationStatus required'requestId
+                        90
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "link_login_to_profile_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"linkLoginToProfileResult") y x)
+                                  required'operationStatus required'requestId
+                        98
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "modify_login_entitlement_service_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"modifyLoginEntitlementServiceResult")
+                                     y x)
+                                  required'operationStatus required'requestId
+                        106
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "send_welcome_email_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"sendWelcomeEmailResult") y x)
+                                  required'operationStatus required'requestId
+                        114
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "restore_user_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"restoreUserResult") y x)
+                                  required'operationStatus required'requestId
+                        122
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "restore_profile_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"restoreProfileResult") y x)
+                                  required'operationStatus required'requestId
+                        130
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_customer_sales_series_authorization_list_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"updateCustomerSalesSeriesAuthorizationListResult")
+                                     y x)
+                                  required'operationStatus required'requestId
+                        138
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_login_exchange_member_id_list_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"updateLoginExchangeMemberIdListResult")
+                                     y x)
+                                  required'operationStatus required'requestId
+                        146
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_login_settings_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"updateLoginSettingsResult") y x)
+                                  required'operationStatus required'requestId
+                        154
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "activate_login_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"activateLoginResult") y x)
+                                  required'operationStatus required'requestId
+                        162
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "deactivate_login_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"deactivateLoginResult") y x)
+                                  required'operationStatus required'requestId
+                        170
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "send_credential_reset_email_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"sendCredentialResetEmailResult")
+                                     y x)
+                                  required'operationStatus required'requestId
+                        178
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "generate_service_security_token_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"generateServiceSecurityTokenResult")
+                                     y x)
+                                  required'operationStatus required'requestId
+                        186
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "erase_current_credentials_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"eraseCurrentCredentialsResult") y
+                                     x)
+                                  required'operationStatus required'requestId
+                        194
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "terminate_login_session_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"terminateLoginSessionResult") y
+                                     x)
+                                  required'operationStatus required'requestId
+                        202
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "update_login_billing_custom_data_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"updateLoginBillingCustomDataResult")
+                                     y x)
+                                  required'operationStatus required'requestId
+                        208
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       Data.ProtoLens.Encoding.Bytes.getVarInt "tracking_number"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"trackingNumber") y x)
+                                  required'operationStatus required'requestId
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  required'operationStatus required'requestId
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage Prelude.True Prelude.True)
+          "OperationResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                ((Prelude..)
+                   Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                   (Lens.Family2.view (Data.ProtoLens.Field.field @"requestId") _x)))
+             ((Data.Monoid.<>)
+                ((Data.Monoid.<>)
+                   (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                   ((Prelude..)
+                      Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                      (Lens.Family2.view
+                         (Data.ProtoLens.Field.field @"operationStatus") _x)))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'errorMessage") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field @"maybe'cloneUserResult") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.ProtoLens.encodeMessage _v))
+                      ((Data.Monoid.<>)
+                         (case
+                              Lens.Family2.view
+                                (Data.ProtoLens.Field.field @"maybe'createProfileResult") _x
+                          of
+                            Prelude.Nothing -> Data.Monoid.mempty
+                            (Prelude.Just _v)
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                   ((Prelude..)
+                                      (\ bs
+                                         -> (Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                 (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                              (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                      Data.ProtoLens.encodeMessage _v))
+                         ((Data.Monoid.<>)
+                            (case
+                                 Lens.Family2.view
+                                   (Data.ProtoLens.Field.field @"maybe'updateProfileResult") _x
+                             of
+                               Prelude.Nothing -> Data.Monoid.mempty
+                               (Prelude.Just _v)
+                                 -> (Data.Monoid.<>)
+                                      (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                      ((Prelude..)
+                                         (\ bs
+                                            -> (Data.Monoid.<>)
+                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                    (Prelude.fromIntegral
+                                                       (Data.ByteString.length bs)))
+                                                 (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                         Data.ProtoLens.encodeMessage _v))
+                            ((Data.Monoid.<>)
+                               (case
+                                    Lens.Family2.view
+                                      (Data.ProtoLens.Field.field @"maybe'removeProfileResult") _x
+                                of
+                                  Prelude.Nothing -> Data.Monoid.mempty
+                                  (Prelude.Just _v)
+                                    -> (Data.Monoid.<>)
+                                         (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                                         ((Prelude..)
+                                            (\ bs
+                                               -> (Data.Monoid.<>)
+                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                       (Prelude.fromIntegral
+                                                          (Data.ByteString.length bs)))
+                                                    (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                            Data.ProtoLens.encodeMessage _v))
+                               ((Data.Monoid.<>)
+                                  (case
+                                       Lens.Family2.view
+                                         (Data.ProtoLens.Field.field @"maybe'createUserResult") _x
+                                   of
+                                     Prelude.Nothing -> Data.Monoid.mempty
+                                     (Prelude.Just _v)
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt 66)
+                                            ((Prelude..)
+                                               (\ bs
+                                                  -> (Data.Monoid.<>)
+                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                          (Prelude.fromIntegral
+                                                             (Data.ByteString.length bs)))
+                                                       (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                               Data.ProtoLens.encodeMessage _v))
+                                  ((Data.Monoid.<>)
+                                     (case
+                                          Lens.Family2.view
+                                            (Data.ProtoLens.Field.field @"maybe'updateUserResult")
+                                            _x
+                                      of
+                                        Prelude.Nothing -> Data.Monoid.mempty
+                                        (Prelude.Just _v)
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt 74)
+                                               ((Prelude..)
+                                                  (\ bs
+                                                     -> (Data.Monoid.<>)
+                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                             (Prelude.fromIntegral
+                                                                (Data.ByteString.length bs)))
+                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                             bs))
+                                                  Data.ProtoLens.encodeMessage _v))
+                                     ((Data.Monoid.<>)
+                                        (case
+                                             Lens.Family2.view
+                                               (Data.ProtoLens.Field.field
+                                                  @"maybe'removeUserResult")
+                                               _x
+                                         of
+                                           Prelude.Nothing -> Data.Monoid.mempty
+                                           (Prelude.Just _v)
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt 82)
+                                                  ((Prelude..)
+                                                     (\ bs
+                                                        -> (Data.Monoid.<>)
+                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                (Prelude.fromIntegral
+                                                                   (Data.ByteString.length bs)))
+                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                bs))
+                                                     Data.ProtoLens.encodeMessage _v))
+                                        ((Data.Monoid.<>)
+                                           (case
+                                                Lens.Family2.view
+                                                  (Data.ProtoLens.Field.field
+                                                     @"maybe'linkLoginToProfileResult")
+                                                  _x
+                                            of
+                                              Prelude.Nothing -> Data.Monoid.mempty
+                                              (Prelude.Just _v)
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt 90)
+                                                     ((Prelude..)
+                                                        (\ bs
+                                                           -> (Data.Monoid.<>)
+                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                   (Prelude.fromIntegral
+                                                                      (Data.ByteString.length bs)))
+                                                                (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                   bs))
+                                                        Data.ProtoLens.encodeMessage _v))
+                                           ((Data.Monoid.<>)
+                                              (case
+                                                   Lens.Family2.view
+                                                     (Data.ProtoLens.Field.field
+                                                        @"maybe'modifyLoginEntitlementServiceResult")
+                                                     _x
+                                               of
+                                                 Prelude.Nothing -> Data.Monoid.mempty
+                                                 (Prelude.Just _v)
+                                                   -> (Data.Monoid.<>)
+                                                        (Data.ProtoLens.Encoding.Bytes.putVarInt 98)
+                                                        ((Prelude..)
+                                                           (\ bs
+                                                              -> (Data.Monoid.<>)
+                                                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                      (Prelude.fromIntegral
+                                                                         (Data.ByteString.length
+                                                                            bs)))
+                                                                   (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                      bs))
+                                                           Data.ProtoLens.encodeMessage _v))
+                                              ((Data.Monoid.<>)
+                                                 (case
+                                                      Lens.Family2.view
+                                                        (Data.ProtoLens.Field.field
+                                                           @"maybe'sendWelcomeEmailResult")
+                                                        _x
+                                                  of
+                                                    Prelude.Nothing -> Data.Monoid.mempty
+                                                    (Prelude.Just _v)
+                                                      -> (Data.Monoid.<>)
+                                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                              106)
+                                                           ((Prelude..)
+                                                              (\ bs
+                                                                 -> (Data.Monoid.<>)
+                                                                      (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                         (Prelude.fromIntegral
+                                                                            (Data.ByteString.length
+                                                                               bs)))
+                                                                      (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                         bs))
+                                                              Data.ProtoLens.encodeMessage _v))
+                                                 ((Data.Monoid.<>)
+                                                    (case
+                                                         Lens.Family2.view
+                                                           (Data.ProtoLens.Field.field
+                                                              @"maybe'restoreUserResult")
+                                                           _x
+                                                     of
+                                                       Prelude.Nothing -> Data.Monoid.mempty
+                                                       (Prelude.Just _v)
+                                                         -> (Data.Monoid.<>)
+                                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                 114)
+                                                              ((Prelude..)
+                                                                 (\ bs
+                                                                    -> (Data.Monoid.<>)
+                                                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                            (Prelude.fromIntegral
+                                                                               (Data.ByteString.length
+                                                                                  bs)))
+                                                                         (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                            bs))
+                                                                 Data.ProtoLens.encodeMessage _v))
+                                                    ((Data.Monoid.<>)
+                                                       (case
+                                                            Lens.Family2.view
+                                                              (Data.ProtoLens.Field.field
+                                                                 @"maybe'restoreProfileResult")
+                                                              _x
+                                                        of
+                                                          Prelude.Nothing -> Data.Monoid.mempty
+                                                          (Prelude.Just _v)
+                                                            -> (Data.Monoid.<>)
+                                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                    122)
+                                                                 ((Prelude..)
+                                                                    (\ bs
+                                                                       -> (Data.Monoid.<>)
+                                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                               (Prelude.fromIntegral
+                                                                                  (Data.ByteString.length
+                                                                                     bs)))
+                                                                            (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                               bs))
+                                                                    Data.ProtoLens.encodeMessage
+                                                                    _v))
+                                                       ((Data.Monoid.<>)
+                                                          (case
+                                                               Lens.Family2.view
+                                                                 (Data.ProtoLens.Field.field
+                                                                    @"maybe'updateCustomerSalesSeriesAuthorizationListResult")
+                                                                 _x
+                                                           of
+                                                             Prelude.Nothing -> Data.Monoid.mempty
+                                                             (Prelude.Just _v)
+                                                               -> (Data.Monoid.<>)
+                                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                       130)
+                                                                    ((Prelude..)
+                                                                       (\ bs
+                                                                          -> (Data.Monoid.<>)
+                                                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                  (Prelude.fromIntegral
+                                                                                     (Data.ByteString.length
+                                                                                        bs)))
+                                                                               (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                  bs))
+                                                                       Data.ProtoLens.encodeMessage
+                                                                       _v))
+                                                          ((Data.Monoid.<>)
+                                                             (case
+                                                                  Lens.Family2.view
+                                                                    (Data.ProtoLens.Field.field
+                                                                       @"maybe'updateLoginExchangeMemberIdListResult")
+                                                                    _x
+                                                              of
+                                                                Prelude.Nothing
+                                                                  -> Data.Monoid.mempty
+                                                                (Prelude.Just _v)
+                                                                  -> (Data.Monoid.<>)
+                                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                          138)
+                                                                       ((Prelude..)
+                                                                          (\ bs
+                                                                             -> (Data.Monoid.<>)
+                                                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                     (Prelude.fromIntegral
+                                                                                        (Data.ByteString.length
+                                                                                           bs)))
+                                                                                  (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                     bs))
+                                                                          Data.ProtoLens.encodeMessage
+                                                                          _v))
+                                                             ((Data.Monoid.<>)
+                                                                (case
+                                                                     Lens.Family2.view
+                                                                       (Data.ProtoLens.Field.field
+                                                                          @"maybe'updateLoginSettingsResult")
+                                                                       _x
+                                                                 of
+                                                                   Prelude.Nothing
+                                                                     -> Data.Monoid.mempty
+                                                                   (Prelude.Just _v)
+                                                                     -> (Data.Monoid.<>)
+                                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                             146)
+                                                                          ((Prelude..)
+                                                                             (\ bs
+                                                                                -> (Data.Monoid.<>)
+                                                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                        (Prelude.fromIntegral
+                                                                                           (Data.ByteString.length
+                                                                                              bs)))
+                                                                                     (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                        bs))
+                                                                             Data.ProtoLens.encodeMessage
+                                                                             _v))
+                                                                ((Data.Monoid.<>)
+                                                                   (case
+                                                                        Lens.Family2.view
+                                                                          (Data.ProtoLens.Field.field
+                                                                             @"maybe'activateLoginResult")
+                                                                          _x
+                                                                    of
+                                                                      Prelude.Nothing
+                                                                        -> Data.Monoid.mempty
+                                                                      (Prelude.Just _v)
+                                                                        -> (Data.Monoid.<>)
+                                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                154)
+                                                                             ((Prelude..)
+                                                                                (\ bs
+                                                                                   -> (Data.Monoid.<>)
+                                                                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                           (Prelude.fromIntegral
+                                                                                              (Data.ByteString.length
+                                                                                                 bs)))
+                                                                                        (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                           bs))
+                                                                                Data.ProtoLens.encodeMessage
+                                                                                _v))
+                                                                   ((Data.Monoid.<>)
+                                                                      (case
+                                                                           Lens.Family2.view
+                                                                             (Data.ProtoLens.Field.field
+                                                                                @"maybe'deactivateLoginResult")
+                                                                             _x
+                                                                       of
+                                                                         Prelude.Nothing
+                                                                           -> Data.Monoid.mempty
+                                                                         (Prelude.Just _v)
+                                                                           -> (Data.Monoid.<>)
+                                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                   162)
+                                                                                ((Prelude..)
+                                                                                   (\ bs
+                                                                                      -> (Data.Monoid.<>)
+                                                                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                              (Prelude.fromIntegral
+                                                                                                 (Data.ByteString.length
+                                                                                                    bs)))
+                                                                                           (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                              bs))
+                                                                                   Data.ProtoLens.encodeMessage
+                                                                                   _v))
+                                                                      ((Data.Monoid.<>)
+                                                                         (case
+                                                                              Lens.Family2.view
+                                                                                (Data.ProtoLens.Field.field
+                                                                                   @"maybe'sendCredentialResetEmailResult")
+                                                                                _x
+                                                                          of
+                                                                            Prelude.Nothing
+                                                                              -> Data.Monoid.mempty
+                                                                            (Prelude.Just _v)
+                                                                              -> (Data.Monoid.<>)
+                                                                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                      170)
+                                                                                   ((Prelude..)
+                                                                                      (\ bs
+                                                                                         -> (Data.Monoid.<>)
+                                                                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                 (Prelude.fromIntegral
+                                                                                                    (Data.ByteString.length
+                                                                                                       bs)))
+                                                                                              (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                 bs))
+                                                                                      Data.ProtoLens.encodeMessage
+                                                                                      _v))
+                                                                         ((Data.Monoid.<>)
+                                                                            (case
+                                                                                 Lens.Family2.view
+                                                                                   (Data.ProtoLens.Field.field
+                                                                                      @"maybe'generateServiceSecurityTokenResult")
+                                                                                   _x
+                                                                             of
+                                                                               Prelude.Nothing
+                                                                                 -> Data.Monoid.mempty
+                                                                               (Prelude.Just _v)
+                                                                                 -> (Data.Monoid.<>)
+                                                                                      (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                         178)
+                                                                                      ((Prelude..)
+                                                                                         (\ bs
+                                                                                            -> (Data.Monoid.<>)
+                                                                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                    (Prelude.fromIntegral
+                                                                                                       (Data.ByteString.length
+                                                                                                          bs)))
+                                                                                                 (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                    bs))
+                                                                                         Data.ProtoLens.encodeMessage
+                                                                                         _v))
+                                                                            ((Data.Monoid.<>)
+                                                                               (case
+                                                                                    Lens.Family2.view
+                                                                                      (Data.ProtoLens.Field.field
+                                                                                         @"maybe'eraseCurrentCredentialsResult")
+                                                                                      _x
+                                                                                of
+                                                                                  Prelude.Nothing
+                                                                                    -> Data.Monoid.mempty
+                                                                                  (Prelude.Just _v)
+                                                                                    -> (Data.Monoid.<>)
+                                                                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                            186)
+                                                                                         ((Prelude..)
+                                                                                            (\ bs
+                                                                                               -> (Data.Monoid.<>)
+                                                                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                       (Prelude.fromIntegral
+                                                                                                          (Data.ByteString.length
+                                                                                                             bs)))
+                                                                                                    (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                       bs))
+                                                                                            Data.ProtoLens.encodeMessage
+                                                                                            _v))
+                                                                               ((Data.Monoid.<>)
+                                                                                  (case
+                                                                                       Lens.Family2.view
+                                                                                         (Data.ProtoLens.Field.field
+                                                                                            @"maybe'terminateLoginSessionResult")
+                                                                                         _x
+                                                                                   of
+                                                                                     Prelude.Nothing
+                                                                                       -> Data.Monoid.mempty
+                                                                                     (Prelude.Just _v)
+                                                                                       -> (Data.Monoid.<>)
+                                                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                               194)
+                                                                                            ((Prelude..)
+                                                                                               (\ bs
+                                                                                                  -> (Data.Monoid.<>)
+                                                                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                          (Prelude.fromIntegral
+                                                                                                             (Data.ByteString.length
+                                                                                                                bs)))
+                                                                                                       (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                          bs))
+                                                                                               Data.ProtoLens.encodeMessage
+                                                                                               _v))
+                                                                                  ((Data.Monoid.<>)
+                                                                                     (case
+                                                                                          Lens.Family2.view
+                                                                                            (Data.ProtoLens.Field.field
+                                                                                               @"maybe'updateLoginBillingCustomDataResult")
+                                                                                            _x
+                                                                                      of
+                                                                                        Prelude.Nothing
+                                                                                          -> Data.Monoid.mempty
+                                                                                        (Prelude.Just _v)
+                                                                                          -> (Data.Monoid.<>)
+                                                                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                  202)
+                                                                                               ((Prelude..)
+                                                                                                  (\ bs
+                                                                                                     -> (Data.Monoid.<>)
+                                                                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                             (Prelude.fromIntegral
+                                                                                                                (Data.ByteString.length
+                                                                                                                   bs)))
+                                                                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                             bs))
+                                                                                                  Data.ProtoLens.encodeMessage
+                                                                                                  _v))
+                                                                                     ((Data.Monoid.<>)
+                                                                                        (case
+                                                                                             Lens.Family2.view
+                                                                                               (Data.ProtoLens.Field.field
+                                                                                                  @"maybe'trackingNumber")
+                                                                                               _x
+                                                                                         of
+                                                                                           Prelude.Nothing
+                                                                                             -> Data.Monoid.mempty
+                                                                                           (Prelude.Just _v)
+                                                                                             -> (Data.Monoid.<>)
+                                                                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                     208)
+                                                                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                     _v))
+                                                                                        (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                                                           (Lens.Family2.view
+                                                                                              Data.ProtoLens.unknownFields
+                                                                                              _x)))))))))))))))))))))))))))
+instance Control.DeepSeq.NFData OperationResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_OperationResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_OperationResult'requestId x__)
+                (Control.DeepSeq.deepseq
+                   (_OperationResult'operationStatus x__)
+                   (Control.DeepSeq.deepseq
+                      (_OperationResult'errorMessage x__)
+                      (Control.DeepSeq.deepseq
+                         (_OperationResult'cloneUserResult x__)
+                         (Control.DeepSeq.deepseq
+                            (_OperationResult'createProfileResult x__)
+                            (Control.DeepSeq.deepseq
+                               (_OperationResult'updateProfileResult x__)
+                               (Control.DeepSeq.deepseq
+                                  (_OperationResult'removeProfileResult x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_OperationResult'createUserResult x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_OperationResult'updateUserResult x__)
+                                        (Control.DeepSeq.deepseq
+                                           (_OperationResult'removeUserResult x__)
+                                           (Control.DeepSeq.deepseq
+                                              (_OperationResult'linkLoginToProfileResult x__)
+                                              (Control.DeepSeq.deepseq
+                                                 (_OperationResult'modifyLoginEntitlementServiceResult
+                                                    x__)
+                                                 (Control.DeepSeq.deepseq
+                                                    (_OperationResult'sendWelcomeEmailResult x__)
+                                                    (Control.DeepSeq.deepseq
+                                                       (_OperationResult'restoreUserResult x__)
+                                                       (Control.DeepSeq.deepseq
+                                                          (_OperationResult'restoreProfileResult
+                                                             x__)
+                                                          (Control.DeepSeq.deepseq
+                                                             (_OperationResult'updateCustomerSalesSeriesAuthorizationListResult
+                                                                x__)
+                                                             (Control.DeepSeq.deepseq
+                                                                (_OperationResult'updateLoginExchangeMemberIdListResult
+                                                                   x__)
+                                                                (Control.DeepSeq.deepseq
+                                                                   (_OperationResult'updateLoginSettingsResult
+                                                                      x__)
+                                                                   (Control.DeepSeq.deepseq
+                                                                      (_OperationResult'activateLoginResult
+                                                                         x__)
+                                                                      (Control.DeepSeq.deepseq
+                                                                         (_OperationResult'deactivateLoginResult
+                                                                            x__)
+                                                                         (Control.DeepSeq.deepseq
+                                                                            (_OperationResult'sendCredentialResetEmailResult
+                                                                               x__)
+                                                                            (Control.DeepSeq.deepseq
+                                                                               (_OperationResult'generateServiceSecurityTokenResult
+                                                                                  x__)
+                                                                               (Control.DeepSeq.deepseq
+                                                                                  (_OperationResult'eraseCurrentCredentialsResult
+                                                                                     x__)
+                                                                                  (Control.DeepSeq.deepseq
+                                                                                     (_OperationResult'terminateLoginSessionResult
+                                                                                        x__)
+                                                                                     (Control.DeepSeq.deepseq
+                                                                                        (_OperationResult'updateLoginBillingCustomDataResult
+                                                                                           x__)
+                                                                                        (Control.DeepSeq.deepseq
+                                                                                           (_OperationResult'trackingNumber
+                                                                                              x__)
+                                                                                           ()))))))))))))))))))))))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.token' @:: Lens' Ping Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'token' @:: Lens' Ping (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.pingUtcTime' @:: Lens' Ping Data.Int.Int64@ -}
+data Ping
+  = Ping'_constructor {_Ping'token :: !(Prelude.Maybe Data.Text.Text),
+                       _Ping'pingUtcTime :: !Data.Int.Int64,
+                       _Ping'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show Ping where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField Ping "token" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _Ping'token (\ x__ y__ -> x__ {_Ping'token = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField Ping "maybe'token" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _Ping'token (\ x__ y__ -> x__ {_Ping'token = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField Ping "pingUtcTime" Data.Int.Int64 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _Ping'pingUtcTime (\ x__ y__ -> x__ {_Ping'pingUtcTime = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message Ping where
+  messageName _ = Data.Text.pack "cmsapi_1.Ping"
+  packedMessageDescriptor _
+    = "\n\
+      \\EOTPing\DC2\DC4\n\
+      \\ENQtoken\CAN\SOH \SOH(\tR\ENQtoken\DC2\"\n\
+      \\rping_utc_time\CAN\STX \STX(\DC2R\vpingUtcTime"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        token__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "token"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'token")) ::
+              Data.ProtoLens.FieldDescriptor Ping
+        pingUtcTime__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "ping_utc_time"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.SInt64Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Int.Int64)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"pingUtcTime")) ::
+              Data.ProtoLens.FieldDescriptor Ping
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, token__field_descriptor),
+           (Data.ProtoLens.Tag 2, pingUtcTime__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _Ping'_unknownFields
+        (\ x__ y__ -> x__ {_Ping'_unknownFields = y__})
+  defMessage
+    = Ping'_constructor
+        {_Ping'token = Prelude.Nothing,
+         _Ping'pingUtcTime = Data.ProtoLens.fieldDefault,
+         _Ping'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          Ping -> Prelude.Bool -> Data.ProtoLens.Encoding.Bytes.Parser Ping
+        loop x required'pingUtcTime
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let
+                         missing
+                           = (if required'pingUtcTime then
+                                  (:) "ping_utc_time"
+                              else
+                                  Prelude.id)
+                               []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "token"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"token") y x)
+                                  required'pingUtcTime
+                        16
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Data.ProtoLens.Encoding.Bytes.wordToSignedInt64
+                                          (Prelude.fmap
+                                             Prelude.fromIntegral
+                                             Data.ProtoLens.Encoding.Bytes.getVarInt))
+                                       "ping_utc_time"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"pingUtcTime") y x)
+                                  Prelude.False
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  required'pingUtcTime
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage Prelude.True) "Ping"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'token") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                ((Data.Monoid.<>)
+                   (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                   ((Prelude..)
+                      ((Prelude..)
+                         Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral)
+                      Data.ProtoLens.Encoding.Bytes.signedInt64ToWord
+                      (Lens.Family2.view
+                         (Data.ProtoLens.Field.field @"pingUtcTime") _x)))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData Ping where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_Ping'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_Ping'token x__)
+                (Control.DeepSeq.deepseq (_Ping'pingUtcTime x__) ()))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.token' @:: Lens' Pong Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'token' @:: Lens' Pong (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.pingUtcTime' @:: Lens' Pong Data.Int.Int64@
+         * 'Proto.CMS.Cmsapi1_Fields.pongUtcTime' @:: Lens' Pong Data.Int.Int64@ -}
+data Pong
+  = Pong'_constructor {_Pong'token :: !(Prelude.Maybe Data.Text.Text),
+                       _Pong'pingUtcTime :: !Data.Int.Int64,
+                       _Pong'pongUtcTime :: !Data.Int.Int64,
+                       _Pong'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show Pong where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField Pong "token" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _Pong'token (\ x__ y__ -> x__ {_Pong'token = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField Pong "maybe'token" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _Pong'token (\ x__ y__ -> x__ {_Pong'token = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField Pong "pingUtcTime" Data.Int.Int64 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _Pong'pingUtcTime (\ x__ y__ -> x__ {_Pong'pingUtcTime = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField Pong "pongUtcTime" Data.Int.Int64 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _Pong'pongUtcTime (\ x__ y__ -> x__ {_Pong'pongUtcTime = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message Pong where
+  messageName _ = Data.Text.pack "cmsapi_1.Pong"
+  packedMessageDescriptor _
+    = "\n\
+      \\EOTPong\DC2\DC4\n\
+      \\ENQtoken\CAN\SOH \SOH(\tR\ENQtoken\DC2\"\n\
+      \\rping_utc_time\CAN\STX \STX(\DC2R\vpingUtcTime\DC2\"\n\
+      \\rpong_utc_time\CAN\ETX \STX(\DC2R\vpongUtcTime"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        token__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "token"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'token")) ::
+              Data.ProtoLens.FieldDescriptor Pong
+        pingUtcTime__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "ping_utc_time"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.SInt64Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Int.Int64)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"pingUtcTime")) ::
+              Data.ProtoLens.FieldDescriptor Pong
+        pongUtcTime__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "pong_utc_time"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.SInt64Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Int.Int64)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"pongUtcTime")) ::
+              Data.ProtoLens.FieldDescriptor Pong
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, token__field_descriptor),
+           (Data.ProtoLens.Tag 2, pingUtcTime__field_descriptor),
+           (Data.ProtoLens.Tag 3, pongUtcTime__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _Pong'_unknownFields
+        (\ x__ y__ -> x__ {_Pong'_unknownFields = y__})
+  defMessage
+    = Pong'_constructor
+        {_Pong'token = Prelude.Nothing,
+         _Pong'pingUtcTime = Data.ProtoLens.fieldDefault,
+         _Pong'pongUtcTime = Data.ProtoLens.fieldDefault,
+         _Pong'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          Pong
+          -> Prelude.Bool
+             -> Prelude.Bool -> Data.ProtoLens.Encoding.Bytes.Parser Pong
+        loop x required'pingUtcTime required'pongUtcTime
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let
+                         missing
+                           = (if required'pingUtcTime then
+                                  (:) "ping_utc_time"
+                              else
+                                  Prelude.id)
+                               ((if required'pongUtcTime then (:) "pong_utc_time" else Prelude.id)
+                                  [])
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "token"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"token") y x)
+                                  required'pingUtcTime required'pongUtcTime
+                        16
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Data.ProtoLens.Encoding.Bytes.wordToSignedInt64
+                                          (Prelude.fmap
+                                             Prelude.fromIntegral
+                                             Data.ProtoLens.Encoding.Bytes.getVarInt))
+                                       "ping_utc_time"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"pingUtcTime") y x)
+                                  Prelude.False required'pongUtcTime
+                        24
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Data.ProtoLens.Encoding.Bytes.wordToSignedInt64
+                                          (Prelude.fmap
+                                             Prelude.fromIntegral
+                                             Data.ProtoLens.Encoding.Bytes.getVarInt))
+                                       "pong_utc_time"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"pongUtcTime") y x)
+                                  required'pingUtcTime Prelude.False
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  required'pingUtcTime required'pongUtcTime
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage Prelude.True Prelude.True)
+          "Pong"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'token") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                ((Data.Monoid.<>)
+                   (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                   ((Prelude..)
+                      ((Prelude..)
+                         Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral)
+                      Data.ProtoLens.Encoding.Bytes.signedInt64ToWord
+                      (Lens.Family2.view
+                         (Data.ProtoLens.Field.field @"pingUtcTime") _x)))
+                ((Data.Monoid.<>)
+                   ((Data.Monoid.<>)
+                      (Data.ProtoLens.Encoding.Bytes.putVarInt 24)
+                      ((Prelude..)
+                         ((Prelude..)
+                            Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral)
+                         Data.ProtoLens.Encoding.Bytes.signedInt64ToWord
+                         (Lens.Family2.view
+                            (Data.ProtoLens.Field.field @"pongUtcTime") _x)))
+                   (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                      (Lens.Family2.view Data.ProtoLens.unknownFields _x))))
+instance Control.DeepSeq.NFData Pong where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_Pong'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_Pong'token x__)
+                (Control.DeepSeq.deepseq
+                   (_Pong'pingUtcTime x__)
+                   (Control.DeepSeq.deepseq (_Pong'pongUtcTime x__) ())))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteCustomerId' @:: Lens' ProfileRequest Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteCustomerId' @:: Lens' ProfileRequest (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' ProfileRequest Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' ProfileRequest (Prelude.Maybe Data.Text.Text)@ -}
+data ProfileRequest
+  = ProfileRequest'_constructor {_ProfileRequest'obsoleteCustomerId :: !(Prelude.Maybe Data.Text.Text),
+                                 _ProfileRequest'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                 _ProfileRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show ProfileRequest where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField ProfileRequest "obsoleteCustomerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileRequest'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_ProfileRequest'obsoleteCustomerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileRequest "maybe'obsoleteCustomerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileRequest'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_ProfileRequest'obsoleteCustomerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileRequest "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileRequest'profileId
+           (\ x__ y__ -> x__ {_ProfileRequest'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileRequest "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileRequest'profileId
+           (\ x__ y__ -> x__ {_ProfileRequest'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message ProfileRequest where
+  messageName _ = Data.Text.pack "cmsapi_1.ProfileRequest"
+  packedMessageDescriptor _
+    = "\n\
+      \\SOProfileRequest\DC24\n\
+      \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\STX \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        obsoleteCustomerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId")) ::
+              Data.ProtoLens.FieldDescriptor ProfileRequest
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor ProfileRequest
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, obsoleteCustomerId__field_descriptor),
+           (Data.ProtoLens.Tag 2, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _ProfileRequest'_unknownFields
+        (\ x__ y__ -> x__ {_ProfileRequest'_unknownFields = y__})
+  defMessage
+    = ProfileRequest'_constructor
+        {_ProfileRequest'obsoleteCustomerId = Prelude.Nothing,
+         _ProfileRequest'profileId = Prelude.Nothing,
+         _ProfileRequest'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          ProfileRequest
+          -> Data.ProtoLens.Encoding.Bytes.Parser ProfileRequest
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_customer_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteCustomerId") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "ProfileRequest"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'profileId") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData ProfileRequest where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_ProfileRequest'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_ProfileRequest'obsoleteCustomerId x__)
+                (Control.DeepSeq.deepseq (_ProfileRequest'profileId x__) ()))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteText' @:: Lens' ProfileSearchRequest Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteText' @:: Lens' ProfileSearchRequest (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteSearchCriteria' @:: Lens' ProfileSearchRequest [Data.Word.Word32]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'obsoleteSearchCriteria' @:: Lens' ProfileSearchRequest (Data.Vector.Unboxed.Vector Data.Word.Word32)@
+         * 'Proto.CMS.Cmsapi1_Fields.searchOptions' @:: Lens' ProfileSearchRequest [Proto.CMS.Common1.SearchOption]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'searchOptions' @:: Lens' ProfileSearchRequest (Data.Vector.Vector Proto.CMS.Common1.SearchOption)@
+         * 'Proto.CMS.Cmsapi1_Fields.allMatchMode' @:: Lens' ProfileSearchRequest Prelude.Bool@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'allMatchMode' @:: Lens' ProfileSearchRequest (Prelude.Maybe Prelude.Bool)@ -}
+data ProfileSearchRequest
+  = ProfileSearchRequest'_constructor {_ProfileSearchRequest'obsoleteText :: !(Prelude.Maybe Data.Text.Text),
+                                       _ProfileSearchRequest'obsoleteSearchCriteria :: !(Data.Vector.Unboxed.Vector Data.Word.Word32),
+                                       _ProfileSearchRequest'searchOptions :: !(Data.Vector.Vector Proto.CMS.Common1.SearchOption),
+                                       _ProfileSearchRequest'allMatchMode :: !(Prelude.Maybe Prelude.Bool),
+                                       _ProfileSearchRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show ProfileSearchRequest where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField ProfileSearchRequest "obsoleteText" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchRequest'obsoleteText
+           (\ x__ y__ -> x__ {_ProfileSearchRequest'obsoleteText = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchRequest "maybe'obsoleteText" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchRequest'obsoleteText
+           (\ x__ y__ -> x__ {_ProfileSearchRequest'obsoleteText = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchRequest "obsoleteSearchCriteria" [Data.Word.Word32] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchRequest'obsoleteSearchCriteria
+           (\ x__ y__
+              -> x__ {_ProfileSearchRequest'obsoleteSearchCriteria = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ProfileSearchRequest "vec'obsoleteSearchCriteria" (Data.Vector.Unboxed.Vector Data.Word.Word32) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchRequest'obsoleteSearchCriteria
+           (\ x__ y__
+              -> x__ {_ProfileSearchRequest'obsoleteSearchCriteria = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchRequest "searchOptions" [Proto.CMS.Common1.SearchOption] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchRequest'searchOptions
+           (\ x__ y__ -> x__ {_ProfileSearchRequest'searchOptions = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ProfileSearchRequest "vec'searchOptions" (Data.Vector.Vector Proto.CMS.Common1.SearchOption) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchRequest'searchOptions
+           (\ x__ y__ -> x__ {_ProfileSearchRequest'searchOptions = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchRequest "allMatchMode" Prelude.Bool where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchRequest'allMatchMode
+           (\ x__ y__ -> x__ {_ProfileSearchRequest'allMatchMode = y__}))
+        (Data.ProtoLens.maybeLens Prelude.False)
+instance Data.ProtoLens.Field.HasField ProfileSearchRequest "maybe'allMatchMode" (Prelude.Maybe Prelude.Bool) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchRequest'allMatchMode
+           (\ x__ y__ -> x__ {_ProfileSearchRequest'allMatchMode = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message ProfileSearchRequest where
+  messageName _ = Data.Text.pack "cmsapi_1.ProfileSearchRequest"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC4ProfileSearchRequest\DC2'\n\
+      \\robsolete_text\CAN\SOH \SOH(\tR\fobsoleteTextB\STX\CAN\SOH\DC2<\n\
+      \\CANobsolete_search_criteria\CAN\STX \ETX(\rR\SYNobsoleteSearchCriteriaB\STX\CAN\SOH\DC2=\n\
+      \\SOsearch_options\CAN\ETX \ETX(\v2\SYN.common_1.SearchOptionR\rsearchOptions\DC2+\n\
+      \\SOall_match_mode\CAN\EOT \SOH(\b:\ENQfalseR\fallMatchMode\"\145\SOH\n\
+      \\SOSearchCriteria\DC2\SI\n\
+      \\vCUSTOMER_ID\DLE\SOH\DC2\b\n\
+      \\EOTNAME\DLE\STX\DC2\SO\n\
+      \\n\
+      \FIRST_NAME\DLE\ETX\DC2\r\n\
+      \\tLAST_NAME\DLE\EOT\DC2\ETB\n\
+      \\DC3LINKED_BROKERAGE_ID\DLE\ENQ\DC2\n\
+      \\n\
+      \\ACKNUMBER\DLE\ACK\DC2\SO\n\
+      \\n\
+      \PROFILE_ID\DLE\a\DC2\DLE\n\
+      \\fPROFILE_TYPE\DLE\b"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        obsoleteText__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_text"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteText")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchRequest
+        obsoleteSearchCriteria__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_search_criteria"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"obsoleteSearchCriteria")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchRequest
+        searchOptions__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "search_options"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.SearchOption)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"searchOptions")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchRequest
+        allMatchMode__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "all_match_mode"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.BoolField ::
+                 Data.ProtoLens.FieldTypeDescriptor Prelude.Bool)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'allMatchMode")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchRequest
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, obsoleteText__field_descriptor),
+           (Data.ProtoLens.Tag 2, obsoleteSearchCriteria__field_descriptor),
+           (Data.ProtoLens.Tag 3, searchOptions__field_descriptor),
+           (Data.ProtoLens.Tag 4, allMatchMode__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _ProfileSearchRequest'_unknownFields
+        (\ x__ y__ -> x__ {_ProfileSearchRequest'_unknownFields = y__})
+  defMessage
+    = ProfileSearchRequest'_constructor
+        {_ProfileSearchRequest'obsoleteText = Prelude.Nothing,
+         _ProfileSearchRequest'obsoleteSearchCriteria = Data.Vector.Generic.empty,
+         _ProfileSearchRequest'searchOptions = Data.Vector.Generic.empty,
+         _ProfileSearchRequest'allMatchMode = Prelude.Nothing,
+         _ProfileSearchRequest'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          ProfileSearchRequest
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Unboxed.Vector Data.ProtoLens.Encoding.Growing.RealWorld Data.Word.Word32
+             -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.SearchOption
+                -> Data.ProtoLens.Encoding.Bytes.Parser ProfileSearchRequest
+        loop x mutable'obsoleteSearchCriteria mutable'searchOptions
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'obsoleteSearchCriteria <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                         (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                            mutable'obsoleteSearchCriteria)
+                      frozen'searchOptions <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                   mutable'searchOptions)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'obsoleteSearchCriteria")
+                              frozen'obsoleteSearchCriteria
+                              (Lens.Family2.set
+                                 (Data.ProtoLens.Field.field @"vec'searchOptions")
+                                 frozen'searchOptions x)))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_text"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteText") y x)
+                                  mutable'obsoleteSearchCriteria mutable'searchOptions
+                        16
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (Prelude.fmap
+                                           Prelude.fromIntegral
+                                           Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                        "obsolete_search_criteria"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'obsoleteSearchCriteria y)
+                                loop x v mutable'searchOptions
+                        18
+                          -> do y <- do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                        Data.ProtoLens.Encoding.Bytes.isolate
+                                          (Prelude.fromIntegral len)
+                                          ((let
+                                              ploop qs
+                                                = do packedEnd <- Data.ProtoLens.Encoding.Bytes.atEnd
+                                                     if packedEnd then
+                                                         Prelude.return qs
+                                                     else
+                                                         do !q <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                                                    (Prelude.fmap
+                                                                       Prelude.fromIntegral
+                                                                       Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                                                    "obsolete_search_criteria"
+                                                            qs' <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                                     (Data.ProtoLens.Encoding.Growing.append
+                                                                        qs q)
+                                                            ploop qs'
+                                            in ploop)
+                                             mutable'obsoleteSearchCriteria)
+                                loop x y mutable'searchOptions
+                        26
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "search_options"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'searchOptions y)
+                                loop x mutable'obsoleteSearchCriteria v
+                        32
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          ((Prelude./=) 0) Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "all_match_mode"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"allMatchMode") y x)
+                                  mutable'obsoleteSearchCriteria mutable'searchOptions
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'obsoleteSearchCriteria mutable'searchOptions
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'obsoleteSearchCriteria <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                  Data.ProtoLens.Encoding.Growing.new
+              mutable'searchOptions <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                         Data.ProtoLens.Encoding.Growing.new
+              loop
+                Data.ProtoLens.defMessage mutable'obsoleteSearchCriteria
+                mutable'searchOptions)
+          "ProfileSearchRequest"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'obsoleteText") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                   (\ _v
+                      -> (Data.Monoid.<>)
+                           (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                           ((Prelude..)
+                              Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral _v))
+                   (Lens.Family2.view
+                      (Data.ProtoLens.Field.field @"vec'obsoleteSearchCriteria") _x))
+                ((Data.Monoid.<>)
+                   (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                      (\ _v
+                         -> (Data.Monoid.<>)
+                              (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                              ((Prelude..)
+                                 (\ bs
+                                    -> (Data.Monoid.<>)
+                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                            (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                         (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                 Data.ProtoLens.encodeMessage _v))
+                      (Lens.Family2.view
+                         (Data.ProtoLens.Field.field @"vec'searchOptions") _x))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field @"maybe'allMatchMode") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 32)
+                                ((Prelude..)
+                                   Data.ProtoLens.Encoding.Bytes.putVarInt
+                                   (\ b -> if b then 1 else 0) _v))
+                      (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                         (Lens.Family2.view Data.ProtoLens.unknownFields _x)))))
+instance Control.DeepSeq.NFData ProfileSearchRequest where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_ProfileSearchRequest'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_ProfileSearchRequest'obsoleteText x__)
+                (Control.DeepSeq.deepseq
+                   (_ProfileSearchRequest'obsoleteSearchCriteria x__)
+                   (Control.DeepSeq.deepseq
+                      (_ProfileSearchRequest'searchOptions x__)
+                      (Control.DeepSeq.deepseq
+                         (_ProfileSearchRequest'allMatchMode x__) ()))))
+data ProfileSearchRequest'SearchCriteria
+  = ProfileSearchRequest'CUSTOMER_ID |
+    ProfileSearchRequest'NAME |
+    ProfileSearchRequest'FIRST_NAME |
+    ProfileSearchRequest'LAST_NAME |
+    ProfileSearchRequest'LINKED_BROKERAGE_ID |
+    ProfileSearchRequest'NUMBER |
+    ProfileSearchRequest'PROFILE_ID |
+    ProfileSearchRequest'PROFILE_TYPE
+  deriving stock (Prelude.Show, Prelude.Eq, Prelude.Ord)
+instance Data.ProtoLens.MessageEnum ProfileSearchRequest'SearchCriteria where
+  maybeToEnum 1 = Prelude.Just ProfileSearchRequest'CUSTOMER_ID
+  maybeToEnum 2 = Prelude.Just ProfileSearchRequest'NAME
+  maybeToEnum 3 = Prelude.Just ProfileSearchRequest'FIRST_NAME
+  maybeToEnum 4 = Prelude.Just ProfileSearchRequest'LAST_NAME
+  maybeToEnum 5
+    = Prelude.Just ProfileSearchRequest'LINKED_BROKERAGE_ID
+  maybeToEnum 6 = Prelude.Just ProfileSearchRequest'NUMBER
+  maybeToEnum 7 = Prelude.Just ProfileSearchRequest'PROFILE_ID
+  maybeToEnum 8 = Prelude.Just ProfileSearchRequest'PROFILE_TYPE
+  maybeToEnum _ = Prelude.Nothing
+  showEnum ProfileSearchRequest'CUSTOMER_ID = "CUSTOMER_ID"
+  showEnum ProfileSearchRequest'NAME = "NAME"
+  showEnum ProfileSearchRequest'FIRST_NAME = "FIRST_NAME"
+  showEnum ProfileSearchRequest'LAST_NAME = "LAST_NAME"
+  showEnum ProfileSearchRequest'LINKED_BROKERAGE_ID
+    = "LINKED_BROKERAGE_ID"
+  showEnum ProfileSearchRequest'NUMBER = "NUMBER"
+  showEnum ProfileSearchRequest'PROFILE_ID = "PROFILE_ID"
+  showEnum ProfileSearchRequest'PROFILE_TYPE = "PROFILE_TYPE"
+  readEnum k
+    | (Prelude.==) k "CUSTOMER_ID"
+    = Prelude.Just ProfileSearchRequest'CUSTOMER_ID
+    | (Prelude.==) k "NAME" = Prelude.Just ProfileSearchRequest'NAME
+    | (Prelude.==) k "FIRST_NAME"
+    = Prelude.Just ProfileSearchRequest'FIRST_NAME
+    | (Prelude.==) k "LAST_NAME"
+    = Prelude.Just ProfileSearchRequest'LAST_NAME
+    | (Prelude.==) k "LINKED_BROKERAGE_ID"
+    = Prelude.Just ProfileSearchRequest'LINKED_BROKERAGE_ID
+    | (Prelude.==) k "NUMBER"
+    = Prelude.Just ProfileSearchRequest'NUMBER
+    | (Prelude.==) k "PROFILE_ID"
+    = Prelude.Just ProfileSearchRequest'PROFILE_ID
+    | (Prelude.==) k "PROFILE_TYPE"
+    = Prelude.Just ProfileSearchRequest'PROFILE_TYPE
+    | Prelude.otherwise
+    = (Prelude.>>=) (Text.Read.readMaybe k) Data.ProtoLens.maybeToEnum
+instance Prelude.Bounded ProfileSearchRequest'SearchCriteria where
+  minBound = ProfileSearchRequest'CUSTOMER_ID
+  maxBound = ProfileSearchRequest'PROFILE_TYPE
+instance Prelude.Enum ProfileSearchRequest'SearchCriteria where
+  toEnum k__
+    = Prelude.maybe
+        (Prelude.error
+           ((Prelude.++)
+              "toEnum: unknown value for enum SearchCriteria: "
+              (Prelude.show k__)))
+        Prelude.id (Data.ProtoLens.maybeToEnum k__)
+  fromEnum ProfileSearchRequest'CUSTOMER_ID = 1
+  fromEnum ProfileSearchRequest'NAME = 2
+  fromEnum ProfileSearchRequest'FIRST_NAME = 3
+  fromEnum ProfileSearchRequest'LAST_NAME = 4
+  fromEnum ProfileSearchRequest'LINKED_BROKERAGE_ID = 5
+  fromEnum ProfileSearchRequest'NUMBER = 6
+  fromEnum ProfileSearchRequest'PROFILE_ID = 7
+  fromEnum ProfileSearchRequest'PROFILE_TYPE = 8
+  succ ProfileSearchRequest'PROFILE_TYPE
+    = Prelude.error
+        "ProfileSearchRequest'SearchCriteria.succ: bad argument ProfileSearchRequest'PROFILE_TYPE. This value would be out of bounds."
+  succ ProfileSearchRequest'CUSTOMER_ID = ProfileSearchRequest'NAME
+  succ ProfileSearchRequest'NAME = ProfileSearchRequest'FIRST_NAME
+  succ ProfileSearchRequest'FIRST_NAME
+    = ProfileSearchRequest'LAST_NAME
+  succ ProfileSearchRequest'LAST_NAME
+    = ProfileSearchRequest'LINKED_BROKERAGE_ID
+  succ ProfileSearchRequest'LINKED_BROKERAGE_ID
+    = ProfileSearchRequest'NUMBER
+  succ ProfileSearchRequest'NUMBER = ProfileSearchRequest'PROFILE_ID
+  succ ProfileSearchRequest'PROFILE_ID
+    = ProfileSearchRequest'PROFILE_TYPE
+  pred ProfileSearchRequest'CUSTOMER_ID
+    = Prelude.error
+        "ProfileSearchRequest'SearchCriteria.pred: bad argument ProfileSearchRequest'CUSTOMER_ID. This value would be out of bounds."
+  pred ProfileSearchRequest'NAME = ProfileSearchRequest'CUSTOMER_ID
+  pred ProfileSearchRequest'FIRST_NAME = ProfileSearchRequest'NAME
+  pred ProfileSearchRequest'LAST_NAME
+    = ProfileSearchRequest'FIRST_NAME
+  pred ProfileSearchRequest'LINKED_BROKERAGE_ID
+    = ProfileSearchRequest'LAST_NAME
+  pred ProfileSearchRequest'NUMBER
+    = ProfileSearchRequest'LINKED_BROKERAGE_ID
+  pred ProfileSearchRequest'PROFILE_ID = ProfileSearchRequest'NUMBER
+  pred ProfileSearchRequest'PROFILE_TYPE
+    = ProfileSearchRequest'PROFILE_ID
+  enumFrom = Data.ProtoLens.Message.Enum.messageEnumFrom
+  enumFromTo = Data.ProtoLens.Message.Enum.messageEnumFromTo
+  enumFromThen = Data.ProtoLens.Message.Enum.messageEnumFromThen
+  enumFromThenTo = Data.ProtoLens.Message.Enum.messageEnumFromThenTo
+instance Data.ProtoLens.FieldDefault ProfileSearchRequest'SearchCriteria where
+  fieldDefault = ProfileSearchRequest'CUSTOMER_ID
+instance Control.DeepSeq.NFData ProfileSearchRequest'SearchCriteria where
+  rnf x__ = Prelude.seq x__ ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.customerId' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'customerId' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.name' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'name' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.linkedBrokerageName' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'linkedBrokerageName' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.firstName' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'firstName' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.lastName' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'lastName' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.linkedBrokerageId' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'linkedBrokerageId' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.removed' @:: Lens' ProfileSearchResultRecord Prelude.Bool@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'removed' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Prelude.Bool)@
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteAuthenticationSystem' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteAuthenticationSystem' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileType' @:: Lens' ProfileSearchResultRecord Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileType' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Word.Word32)@
+         * 'Proto.CMS.Cmsapi1_Fields.number' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'number' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.salesSeriesId' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'salesSeriesId' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@ -}
+data ProfileSearchResultRecord
+  = ProfileSearchResultRecord'_constructor {_ProfileSearchResultRecord'customerId :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'name :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'linkedBrokerageName :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'firstName :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'lastName :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'linkedBrokerageId :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'removed :: !(Prelude.Maybe Prelude.Bool),
+                                            _ProfileSearchResultRecord'obsoleteAuthenticationSystem :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'profileType :: !(Prelude.Maybe Data.Word.Word32),
+                                            _ProfileSearchResultRecord'number :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'salesSeriesId :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show ProfileSearchResultRecord where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "customerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'customerId
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'customerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'customerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'customerId
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'customerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "name" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'name
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'name = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'name" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'name
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'name = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "linkedBrokerageName" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'linkedBrokerageName
+           (\ x__ y__
+              -> x__ {_ProfileSearchResultRecord'linkedBrokerageName = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'linkedBrokerageName" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'linkedBrokerageName
+           (\ x__ y__
+              -> x__ {_ProfileSearchResultRecord'linkedBrokerageName = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "firstName" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'firstName
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'firstName = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'firstName" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'firstName
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'firstName = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "lastName" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'lastName
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'lastName = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'lastName" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'lastName
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'lastName = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "linkedBrokerageId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'linkedBrokerageId
+           (\ x__ y__
+              -> x__ {_ProfileSearchResultRecord'linkedBrokerageId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'linkedBrokerageId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'linkedBrokerageId
+           (\ x__ y__
+              -> x__ {_ProfileSearchResultRecord'linkedBrokerageId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "removed" Prelude.Bool where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'removed
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'removed = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'removed" (Prelude.Maybe Prelude.Bool) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'removed
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'removed = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "obsoleteAuthenticationSystem" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'obsoleteAuthenticationSystem
+           (\ x__ y__
+              -> x__
+                   {_ProfileSearchResultRecord'obsoleteAuthenticationSystem = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'obsoleteAuthenticationSystem" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'obsoleteAuthenticationSystem
+           (\ x__ y__
+              -> x__
+                   {_ProfileSearchResultRecord'obsoleteAuthenticationSystem = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "profileType" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'profileType
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'profileType = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'profileType" (Prelude.Maybe Data.Word.Word32) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'profileType
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'profileType = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "number" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'number
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'number = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'number" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'number
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'number = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "salesSeriesId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'salesSeriesId
+           (\ x__ y__
+              -> x__ {_ProfileSearchResultRecord'salesSeriesId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'salesSeriesId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'salesSeriesId
+           (\ x__ y__
+              -> x__ {_ProfileSearchResultRecord'salesSeriesId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'profileId
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'profileId
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message ProfileSearchResultRecord where
+  messageName _ = Data.Text.pack "cmsapi_1.ProfileSearchResultRecord"
+  packedMessageDescriptor _
+    = "\n\
+      \\EMProfileSearchResultRecord\DC2\US\n\
+      \\vcustomer_id\CAN\SOH \SOH(\tR\n\
+      \customerId\DC2\DC2\n\
+      \\EOTname\CAN\STX \SOH(\tR\EOTname\DC22\n\
+      \\NAKlinked_brokerage_name\CAN\ETX \SOH(\tR\DC3linkedBrokerageName\DC2\GS\n\
+      \\n\
+      \first_name\CAN\EOT \SOH(\tR\tfirstName\DC2\ESC\n\
+      \\tlast_name\CAN\ENQ \SOH(\tR\blastName\DC2.\n\
+      \\DC3linked_brokerage_id\CAN\ACK \SOH(\tR\DC1linkedBrokerageId\DC2\CAN\n\
+      \\aremoved\CAN\a \SOH(\bR\aremoved\DC2H\n\
+      \\RSobsolete_authentication_system\CAN\b \SOH(\tR\FSobsoleteAuthenticationSystemB\STX\CAN\SOH\DC2!\n\
+      \\fprofile_type\CAN\t \SOH(\rR\vprofileType\DC2\SYN\n\
+      \\ACKnumber\CAN\n\
+      \ \SOH(\tR\ACKnumber\DC2&\n\
+      \\SIsales_series_id\CAN\v \SOH(\tR\rsalesSeriesId\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\f \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        customerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'customerId")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        name__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "name"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'name")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        linkedBrokerageName__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "linked_brokerage_name"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'linkedBrokerageName")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        firstName__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "first_name"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'firstName")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        lastName__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "last_name"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'lastName")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        linkedBrokerageId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "linked_brokerage_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'linkedBrokerageId")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        removed__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "removed"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.BoolField ::
+                 Data.ProtoLens.FieldTypeDescriptor Prelude.Bool)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'removed")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        obsoleteAuthenticationSystem__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_authentication_system"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'obsoleteAuthenticationSystem")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        profileType__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_type"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileType")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        number__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "number"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'number")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        salesSeriesId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "sales_series_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'salesSeriesId")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, customerId__field_descriptor),
+           (Data.ProtoLens.Tag 2, name__field_descriptor),
+           (Data.ProtoLens.Tag 3, linkedBrokerageName__field_descriptor),
+           (Data.ProtoLens.Tag 4, firstName__field_descriptor),
+           (Data.ProtoLens.Tag 5, lastName__field_descriptor),
+           (Data.ProtoLens.Tag 6, linkedBrokerageId__field_descriptor),
+           (Data.ProtoLens.Tag 7, removed__field_descriptor),
+           (Data.ProtoLens.Tag 8, 
+            obsoleteAuthenticationSystem__field_descriptor),
+           (Data.ProtoLens.Tag 9, profileType__field_descriptor),
+           (Data.ProtoLens.Tag 10, number__field_descriptor),
+           (Data.ProtoLens.Tag 11, salesSeriesId__field_descriptor),
+           (Data.ProtoLens.Tag 12, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _ProfileSearchResultRecord'_unknownFields
+        (\ x__ y__
+           -> x__ {_ProfileSearchResultRecord'_unknownFields = y__})
+  defMessage
+    = ProfileSearchResultRecord'_constructor
+        {_ProfileSearchResultRecord'customerId = Prelude.Nothing,
+         _ProfileSearchResultRecord'name = Prelude.Nothing,
+         _ProfileSearchResultRecord'linkedBrokerageName = Prelude.Nothing,
+         _ProfileSearchResultRecord'firstName = Prelude.Nothing,
+         _ProfileSearchResultRecord'lastName = Prelude.Nothing,
+         _ProfileSearchResultRecord'linkedBrokerageId = Prelude.Nothing,
+         _ProfileSearchResultRecord'removed = Prelude.Nothing,
+         _ProfileSearchResultRecord'obsoleteAuthenticationSystem = Prelude.Nothing,
+         _ProfileSearchResultRecord'profileType = Prelude.Nothing,
+         _ProfileSearchResultRecord'number = Prelude.Nothing,
+         _ProfileSearchResultRecord'salesSeriesId = Prelude.Nothing,
+         _ProfileSearchResultRecord'profileId = Prelude.Nothing,
+         _ProfileSearchResultRecord'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          ProfileSearchResultRecord
+          -> Data.ProtoLens.Encoding.Bytes.Parser ProfileSearchResultRecord
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "customer_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"customerId") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "name"
+                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"name") y x)
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "linked_brokerage_name"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"linkedBrokerageName") y x)
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "first_name"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"firstName") y x)
+                        42
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "last_name"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"lastName") y x)
+                        50
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "linked_brokerage_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"linkedBrokerageId") y x)
+                        56
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          ((Prelude./=) 0) Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "removed"
+                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"removed") y x)
+                        66
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_authentication_system"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteAuthenticationSystem") y
+                                     x)
+                        72
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "profile_type"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileType") y x)
+                        82
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "number"
+                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"number") y x)
+                        90
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "sales_series_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"salesSeriesId") y x)
+                        98
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "ProfileSearchResultRecord"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'customerId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'name") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'linkedBrokerageName") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.Text.Encoding.encodeUtf8 _v))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field @"maybe'firstName") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.Text.Encoding.encodeUtf8 _v))
+                      ((Data.Monoid.<>)
+                         (case
+                              Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'lastName") _x
+                          of
+                            Prelude.Nothing -> Data.Monoid.mempty
+                            (Prelude.Just _v)
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                   ((Prelude..)
+                                      (\ bs
+                                         -> (Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                 (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                              (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                      Data.Text.Encoding.encodeUtf8 _v))
+                         ((Data.Monoid.<>)
+                            (case
+                                 Lens.Family2.view
+                                   (Data.ProtoLens.Field.field @"maybe'linkedBrokerageId") _x
+                             of
+                               Prelude.Nothing -> Data.Monoid.mempty
+                               (Prelude.Just _v)
+                                 -> (Data.Monoid.<>)
+                                      (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                      ((Prelude..)
+                                         (\ bs
+                                            -> (Data.Monoid.<>)
+                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                    (Prelude.fromIntegral
+                                                       (Data.ByteString.length bs)))
+                                                 (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                         Data.Text.Encoding.encodeUtf8 _v))
+                            ((Data.Monoid.<>)
+                               (case
+                                    Lens.Family2.view
+                                      (Data.ProtoLens.Field.field @"maybe'removed") _x
+                                of
+                                  Prelude.Nothing -> Data.Monoid.mempty
+                                  (Prelude.Just _v)
+                                    -> (Data.Monoid.<>)
+                                         (Data.ProtoLens.Encoding.Bytes.putVarInt 56)
+                                         ((Prelude..)
+                                            Data.ProtoLens.Encoding.Bytes.putVarInt
+                                            (\ b -> if b then 1 else 0) _v))
+                               ((Data.Monoid.<>)
+                                  (case
+                                       Lens.Family2.view
+                                         (Data.ProtoLens.Field.field
+                                            @"maybe'obsoleteAuthenticationSystem")
+                                         _x
+                                   of
+                                     Prelude.Nothing -> Data.Monoid.mempty
+                                     (Prelude.Just _v)
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt 66)
+                                            ((Prelude..)
+                                               (\ bs
+                                                  -> (Data.Monoid.<>)
+                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                          (Prelude.fromIntegral
+                                                             (Data.ByteString.length bs)))
+                                                       (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                               Data.Text.Encoding.encodeUtf8 _v))
+                                  ((Data.Monoid.<>)
+                                     (case
+                                          Lens.Family2.view
+                                            (Data.ProtoLens.Field.field @"maybe'profileType") _x
+                                      of
+                                        Prelude.Nothing -> Data.Monoid.mempty
+                                        (Prelude.Just _v)
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt 72)
+                                               ((Prelude..)
+                                                  Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                  Prelude.fromIntegral _v))
+                                     ((Data.Monoid.<>)
+                                        (case
+                                             Lens.Family2.view
+                                               (Data.ProtoLens.Field.field @"maybe'number") _x
+                                         of
+                                           Prelude.Nothing -> Data.Monoid.mempty
+                                           (Prelude.Just _v)
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt 82)
+                                                  ((Prelude..)
+                                                     (\ bs
+                                                        -> (Data.Monoid.<>)
+                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                (Prelude.fromIntegral
+                                                                   (Data.ByteString.length bs)))
+                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                bs))
+                                                     Data.Text.Encoding.encodeUtf8 _v))
+                                        ((Data.Monoid.<>)
+                                           (case
+                                                Lens.Family2.view
+                                                  (Data.ProtoLens.Field.field
+                                                     @"maybe'salesSeriesId")
+                                                  _x
+                                            of
+                                              Prelude.Nothing -> Data.Monoid.mempty
+                                              (Prelude.Just _v)
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt 90)
+                                                     ((Prelude..)
+                                                        (\ bs
+                                                           -> (Data.Monoid.<>)
+                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                   (Prelude.fromIntegral
+                                                                      (Data.ByteString.length bs)))
+                                                                (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                   bs))
+                                                        Data.Text.Encoding.encodeUtf8 _v))
+                                           ((Data.Monoid.<>)
+                                              (case
+                                                   Lens.Family2.view
+                                                     (Data.ProtoLens.Field.field @"maybe'profileId")
+                                                     _x
+                                               of
+                                                 Prelude.Nothing -> Data.Monoid.mempty
+                                                 (Prelude.Just _v)
+                                                   -> (Data.Monoid.<>)
+                                                        (Data.ProtoLens.Encoding.Bytes.putVarInt 98)
+                                                        ((Prelude..)
+                                                           (\ bs
+                                                              -> (Data.Monoid.<>)
+                                                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                      (Prelude.fromIntegral
+                                                                         (Data.ByteString.length
+                                                                            bs)))
+                                                                   (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                      bs))
+                                                           Data.Text.Encoding.encodeUtf8 _v))
+                                              (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                 (Lens.Family2.view
+                                                    Data.ProtoLens.unknownFields _x)))))))))))))
+instance Control.DeepSeq.NFData ProfileSearchResultRecord where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_ProfileSearchResultRecord'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_ProfileSearchResultRecord'customerId x__)
+                (Control.DeepSeq.deepseq
+                   (_ProfileSearchResultRecord'name x__)
+                   (Control.DeepSeq.deepseq
+                      (_ProfileSearchResultRecord'linkedBrokerageName x__)
+                      (Control.DeepSeq.deepseq
+                         (_ProfileSearchResultRecord'firstName x__)
+                         (Control.DeepSeq.deepseq
+                            (_ProfileSearchResultRecord'lastName x__)
+                            (Control.DeepSeq.deepseq
+                               (_ProfileSearchResultRecord'linkedBrokerageId x__)
+                               (Control.DeepSeq.deepseq
+                                  (_ProfileSearchResultRecord'removed x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_ProfileSearchResultRecord'obsoleteAuthenticationSystem x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_ProfileSearchResultRecord'profileType x__)
+                                        (Control.DeepSeq.deepseq
+                                           (_ProfileSearchResultRecord'number x__)
+                                           (Control.DeepSeq.deepseq
+                                              (_ProfileSearchResultRecord'salesSeriesId x__)
+                                              (Control.DeepSeq.deepseq
+                                                 (_ProfileSearchResultRecord'profileId x__)
+                                                 ()))))))))))))
+data ProtocolVersion
+  = PROTOCOL_VERSION_MAJOR | PROTOCOL_VERSION_MINOR
+  deriving stock (Prelude.Show, Prelude.Eq, Prelude.Ord)
+instance Data.ProtoLens.MessageEnum ProtocolVersion where
+  maybeToEnum 1 = Prelude.Just PROTOCOL_VERSION_MAJOR
+  maybeToEnum 36 = Prelude.Just PROTOCOL_VERSION_MINOR
+  maybeToEnum _ = Prelude.Nothing
+  showEnum PROTOCOL_VERSION_MAJOR = "PROTOCOL_VERSION_MAJOR"
+  showEnum PROTOCOL_VERSION_MINOR = "PROTOCOL_VERSION_MINOR"
+  readEnum k
+    | (Prelude.==) k "PROTOCOL_VERSION_MAJOR"
+    = Prelude.Just PROTOCOL_VERSION_MAJOR
+    | (Prelude.==) k "PROTOCOL_VERSION_MINOR"
+    = Prelude.Just PROTOCOL_VERSION_MINOR
+    | Prelude.otherwise
+    = (Prelude.>>=) (Text.Read.readMaybe k) Data.ProtoLens.maybeToEnum
+instance Prelude.Bounded ProtocolVersion where
+  minBound = PROTOCOL_VERSION_MAJOR
+  maxBound = PROTOCOL_VERSION_MINOR
+instance Prelude.Enum ProtocolVersion where
+  toEnum k__
+    = Prelude.maybe
+        (Prelude.error
+           ((Prelude.++)
+              "toEnum: unknown value for enum ProtocolVersion: "
+              (Prelude.show k__)))
+        Prelude.id (Data.ProtoLens.maybeToEnum k__)
+  fromEnum PROTOCOL_VERSION_MAJOR = 1
+  fromEnum PROTOCOL_VERSION_MINOR = 36
+  succ PROTOCOL_VERSION_MINOR
+    = Prelude.error
+        "ProtocolVersion.succ: bad argument PROTOCOL_VERSION_MINOR. This value would be out of bounds."
+  succ PROTOCOL_VERSION_MAJOR = PROTOCOL_VERSION_MINOR
+  pred PROTOCOL_VERSION_MAJOR
+    = Prelude.error
+        "ProtocolVersion.pred: bad argument PROTOCOL_VERSION_MAJOR. This value would be out of bounds."
+  pred PROTOCOL_VERSION_MINOR = PROTOCOL_VERSION_MAJOR
+  enumFrom = Data.ProtoLens.Message.Enum.messageEnumFrom
+  enumFromTo = Data.ProtoLens.Message.Enum.messageEnumFromTo
+  enumFromThen = Data.ProtoLens.Message.Enum.messageEnumFromThen
+  enumFromThenTo = Data.ProtoLens.Message.Enum.messageEnumFromThenTo
+instance Data.ProtoLens.FieldDefault ProtocolVersion where
+  fieldDefault = PROTOCOL_VERSION_MAJOR
+instance Control.DeepSeq.NFData ProtocolVersion where
+  rnf x__ = Prelude.seq x__ ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteCustomerId' @:: Lens' RemoveProfile Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteCustomerId' @:: Lens' RemoveProfile (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' RemoveProfile Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' RemoveProfile (Prelude.Maybe Data.Text.Text)@ -}
+data RemoveProfile
+  = RemoveProfile'_constructor {_RemoveProfile'obsoleteCustomerId :: !(Prelude.Maybe Data.Text.Text),
+                                _RemoveProfile'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                _RemoveProfile'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show RemoveProfile where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField RemoveProfile "obsoleteCustomerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _RemoveProfile'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_RemoveProfile'obsoleteCustomerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField RemoveProfile "maybe'obsoleteCustomerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _RemoveProfile'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_RemoveProfile'obsoleteCustomerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField RemoveProfile "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _RemoveProfile'profileId
+           (\ x__ y__ -> x__ {_RemoveProfile'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField RemoveProfile "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _RemoveProfile'profileId
+           (\ x__ y__ -> x__ {_RemoveProfile'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message RemoveProfile where
+  messageName _ = Data.Text.pack "cmsapi_1.RemoveProfile"
+  packedMessageDescriptor _
+    = "\n\
+      \\rRemoveProfile\DC24\n\
+      \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\STX \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        obsoleteCustomerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId")) ::
+              Data.ProtoLens.FieldDescriptor RemoveProfile
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor RemoveProfile
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, obsoleteCustomerId__field_descriptor),
+           (Data.ProtoLens.Tag 2, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _RemoveProfile'_unknownFields
+        (\ x__ y__ -> x__ {_RemoveProfile'_unknownFields = y__})
+  defMessage
+    = RemoveProfile'_constructor
+        {_RemoveProfile'obsoleteCustomerId = Prelude.Nothing,
+         _RemoveProfile'profileId = Prelude.Nothing,
+         _RemoveProfile'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          RemoveProfile -> Data.ProtoLens.Encoding.Bytes.Parser RemoveProfile
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_customer_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteCustomerId") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "RemoveProfile"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'profileId") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData RemoveProfile where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_RemoveProfile'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_RemoveProfile'obsoleteCustomerId x__)
+                (Control.DeepSeq.deepseq (_RemoveProfile'profileId x__) ()))
+{- | Fields :
+      -}
+data RemoveProfileResult
+  = RemoveProfileResult'_constructor {_RemoveProfileResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show RemoveProfileResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Message RemoveProfileResult where
+  messageName _ = Data.Text.pack "cmsapi_1.RemoveProfileResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC3RemoveProfileResult"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag = let in Data.Map.fromList []
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _RemoveProfileResult'_unknownFields
+        (\ x__ y__ -> x__ {_RemoveProfileResult'_unknownFields = y__})
+  defMessage
+    = RemoveProfileResult'_constructor
+        {_RemoveProfileResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          RemoveProfileResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser RemoveProfileResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "RemoveProfileResult"
+  buildMessage
+    = \ _x
+        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
+             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+instance Control.DeepSeq.NFData RemoveProfileResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_RemoveProfileResult'_unknownFields x__) ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteCustomerId' @:: Lens' RestoreProfile Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteCustomerId' @:: Lens' RestoreProfile (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' RestoreProfile Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' RestoreProfile (Prelude.Maybe Data.Text.Text)@ -}
+data RestoreProfile
+  = RestoreProfile'_constructor {_RestoreProfile'obsoleteCustomerId :: !(Prelude.Maybe Data.Text.Text),
+                                 _RestoreProfile'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                 _RestoreProfile'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show RestoreProfile where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField RestoreProfile "obsoleteCustomerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _RestoreProfile'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_RestoreProfile'obsoleteCustomerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField RestoreProfile "maybe'obsoleteCustomerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _RestoreProfile'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_RestoreProfile'obsoleteCustomerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField RestoreProfile "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _RestoreProfile'profileId
+           (\ x__ y__ -> x__ {_RestoreProfile'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField RestoreProfile "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _RestoreProfile'profileId
+           (\ x__ y__ -> x__ {_RestoreProfile'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message RestoreProfile where
+  messageName _ = Data.Text.pack "cmsapi_1.RestoreProfile"
+  packedMessageDescriptor _
+    = "\n\
+      \\SORestoreProfile\DC24\n\
+      \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\STX \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        obsoleteCustomerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId")) ::
+              Data.ProtoLens.FieldDescriptor RestoreProfile
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor RestoreProfile
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, obsoleteCustomerId__field_descriptor),
+           (Data.ProtoLens.Tag 2, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _RestoreProfile'_unknownFields
+        (\ x__ y__ -> x__ {_RestoreProfile'_unknownFields = y__})
+  defMessage
+    = RestoreProfile'_constructor
+        {_RestoreProfile'obsoleteCustomerId = Prelude.Nothing,
+         _RestoreProfile'profileId = Prelude.Nothing,
+         _RestoreProfile'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          RestoreProfile
+          -> Data.ProtoLens.Encoding.Bytes.Parser RestoreProfile
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_customer_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteCustomerId") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "RestoreProfile"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'profileId") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData RestoreProfile where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_RestoreProfile'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_RestoreProfile'obsoleteCustomerId x__)
+                (Control.DeepSeq.deepseq (_RestoreProfile'profileId x__) ()))
+{- | Fields :
+      -}
+data RestoreProfileResult
+  = RestoreProfileResult'_constructor {_RestoreProfileResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show RestoreProfileResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Message RestoreProfileResult where
+  messageName _ = Data.Text.pack "cmsapi_1.RestoreProfileResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC4RestoreProfileResult"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag = let in Data.Map.fromList []
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _RestoreProfileResult'_unknownFields
+        (\ x__ y__ -> x__ {_RestoreProfileResult'_unknownFields = y__})
+  defMessage
+    = RestoreProfileResult'_constructor
+        {_RestoreProfileResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          RestoreProfileResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser RestoreProfileResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "RestoreProfileResult"
+  buildMessage
+    = \ _x
+        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
+             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+instance Control.DeepSeq.NFData RestoreProfileResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_RestoreProfileResult'_unknownFields x__) ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.id' @:: Lens' SearchRequest Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.top' @:: Lens' SearchRequest Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'top' @:: Lens' SearchRequest (Prelude.Maybe Data.Word.Word32)@
+         * 'Proto.CMS.Cmsapi1_Fields.userSearchRequest' @:: Lens' SearchRequest Proto.CMS.Common1.UserSearchRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'userSearchRequest' @:: Lens' SearchRequest (Prelude.Maybe Proto.CMS.Common1.UserSearchRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileSearchRequest' @:: Lens' SearchRequest ProfileSearchRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileSearchRequest' @:: Lens' SearchRequest (Prelude.Maybe ProfileSearchRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteSalesSeriesSearchRequest' @:: Lens' SearchRequest Proto.CMS.Common1.SalesSeriesSearchRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteSalesSeriesSearchRequest' @:: Lens' SearchRequest (Prelude.Maybe Proto.CMS.Common1.SalesSeriesSearchRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.includeRemoved' @:: Lens' SearchRequest Prelude.Bool@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'includeRemoved' @:: Lens' SearchRequest (Prelude.Maybe Prelude.Bool)@
+         * 'Proto.CMS.Cmsapi1_Fields.eventLogSearchRequest' @:: Lens' SearchRequest Proto.CMS.LogEvent1.EventLogSearchRequest@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'eventLogSearchRequest' @:: Lens' SearchRequest (Prelude.Maybe Proto.CMS.LogEvent1.EventLogSearchRequest)@ -}
+data SearchRequest
+  = SearchRequest'_constructor {_SearchRequest'id :: !Data.Word.Word32,
+                                _SearchRequest'top :: !(Prelude.Maybe Data.Word.Word32),
+                                _SearchRequest'userSearchRequest :: !(Prelude.Maybe Proto.CMS.Common1.UserSearchRequest),
+                                _SearchRequest'profileSearchRequest :: !(Prelude.Maybe ProfileSearchRequest),
+                                _SearchRequest'obsoleteSalesSeriesSearchRequest :: !(Prelude.Maybe Proto.CMS.Common1.SalesSeriesSearchRequest),
+                                _SearchRequest'includeRemoved :: !(Prelude.Maybe Prelude.Bool),
+                                _SearchRequest'eventLogSearchRequest :: !(Prelude.Maybe Proto.CMS.LogEvent1.EventLogSearchRequest),
+                                _SearchRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show SearchRequest where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField SearchRequest "id" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'id (\ x__ y__ -> x__ {_SearchRequest'id = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchRequest "top" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'top (\ x__ y__ -> x__ {_SearchRequest'top = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField SearchRequest "maybe'top" (Prelude.Maybe Data.Word.Word32) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'top (\ x__ y__ -> x__ {_SearchRequest'top = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchRequest "userSearchRequest" Proto.CMS.Common1.UserSearchRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'userSearchRequest
+           (\ x__ y__ -> x__ {_SearchRequest'userSearchRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField SearchRequest "maybe'userSearchRequest" (Prelude.Maybe Proto.CMS.Common1.UserSearchRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'userSearchRequest
+           (\ x__ y__ -> x__ {_SearchRequest'userSearchRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchRequest "profileSearchRequest" ProfileSearchRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'profileSearchRequest
+           (\ x__ y__ -> x__ {_SearchRequest'profileSearchRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField SearchRequest "maybe'profileSearchRequest" (Prelude.Maybe ProfileSearchRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'profileSearchRequest
+           (\ x__ y__ -> x__ {_SearchRequest'profileSearchRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchRequest "obsoleteSalesSeriesSearchRequest" Proto.CMS.Common1.SalesSeriesSearchRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'obsoleteSalesSeriesSearchRequest
+           (\ x__ y__
+              -> x__ {_SearchRequest'obsoleteSalesSeriesSearchRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField SearchRequest "maybe'obsoleteSalesSeriesSearchRequest" (Prelude.Maybe Proto.CMS.Common1.SalesSeriesSearchRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'obsoleteSalesSeriesSearchRequest
+           (\ x__ y__
+              -> x__ {_SearchRequest'obsoleteSalesSeriesSearchRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchRequest "includeRemoved" Prelude.Bool where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'includeRemoved
+           (\ x__ y__ -> x__ {_SearchRequest'includeRemoved = y__}))
+        (Data.ProtoLens.maybeLens Prelude.False)
+instance Data.ProtoLens.Field.HasField SearchRequest "maybe'includeRemoved" (Prelude.Maybe Prelude.Bool) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'includeRemoved
+           (\ x__ y__ -> x__ {_SearchRequest'includeRemoved = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchRequest "eventLogSearchRequest" Proto.CMS.LogEvent1.EventLogSearchRequest where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'eventLogSearchRequest
+           (\ x__ y__ -> x__ {_SearchRequest'eventLogSearchRequest = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField SearchRequest "maybe'eventLogSearchRequest" (Prelude.Maybe Proto.CMS.LogEvent1.EventLogSearchRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchRequest'eventLogSearchRequest
+           (\ x__ y__ -> x__ {_SearchRequest'eventLogSearchRequest = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message SearchRequest where
+  messageName _ = Data.Text.pack "cmsapi_1.SearchRequest"
+  packedMessageDescriptor _
+    = "\n\
+      \\rSearchRequest\DC2\SO\n\
+      \\STXid\CAN\SOH \STX(\rR\STXid\DC2\DLE\n\
+      \\ETXtop\CAN\STX \SOH(\rR\ETXtop\DC2K\n\
+      \\DC3user_search_request\CAN\ETX \SOH(\v2\ESC.common_1.UserSearchRequestR\DC1userSearchRequest\DC2T\n\
+      \\SYNprofile_search_request\CAN\EOT \SOH(\v2\RS.cmsapi_1.ProfileSearchRequestR\DC4profileSearchRequest\DC2v\n\
+      \$obsolete_sales_series_search_request\CAN\ENQ \SOH(\v2\".common_1.SalesSeriesSearchRequestR obsoleteSalesSeriesSearchRequestB\STX\CAN\SOH\DC2.\n\
+      \\SIinclude_removed\CAN\ACK \SOH(\b:\ENQfalseR\SOincludeRemoved\DC2[\n\
+      \\CANevent_log_search_request\CAN\a \SOH(\v2\".log_event_1.EventLogSearchRequestR\NAKeventLogSearchRequest"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        id__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required (Data.ProtoLens.Field.field @"id")) ::
+              Data.ProtoLens.FieldDescriptor SearchRequest
+        top__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "top"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'top")) ::
+              Data.ProtoLens.FieldDescriptor SearchRequest
+        userSearchRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "user_search_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UserSearchRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'userSearchRequest")) ::
+              Data.ProtoLens.FieldDescriptor SearchRequest
+        profileSearchRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_search_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor ProfileSearchRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileSearchRequest")) ::
+              Data.ProtoLens.FieldDescriptor SearchRequest
+        obsoleteSalesSeriesSearchRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_sales_series_search_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.SalesSeriesSearchRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'obsoleteSalesSeriesSearchRequest")) ::
+              Data.ProtoLens.FieldDescriptor SearchRequest
+        includeRemoved__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "include_removed"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.BoolField ::
+                 Data.ProtoLens.FieldTypeDescriptor Prelude.Bool)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'includeRemoved")) ::
+              Data.ProtoLens.FieldDescriptor SearchRequest
+        eventLogSearchRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "event_log_search_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.LogEvent1.EventLogSearchRequest)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'eventLogSearchRequest")) ::
+              Data.ProtoLens.FieldDescriptor SearchRequest
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, id__field_descriptor),
+           (Data.ProtoLens.Tag 2, top__field_descriptor),
+           (Data.ProtoLens.Tag 3, userSearchRequest__field_descriptor),
+           (Data.ProtoLens.Tag 4, profileSearchRequest__field_descriptor),
+           (Data.ProtoLens.Tag 5, 
+            obsoleteSalesSeriesSearchRequest__field_descriptor),
+           (Data.ProtoLens.Tag 6, includeRemoved__field_descriptor),
+           (Data.ProtoLens.Tag 7, eventLogSearchRequest__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _SearchRequest'_unknownFields
+        (\ x__ y__ -> x__ {_SearchRequest'_unknownFields = y__})
+  defMessage
+    = SearchRequest'_constructor
+        {_SearchRequest'id = Data.ProtoLens.fieldDefault,
+         _SearchRequest'top = Prelude.Nothing,
+         _SearchRequest'userSearchRequest = Prelude.Nothing,
+         _SearchRequest'profileSearchRequest = Prelude.Nothing,
+         _SearchRequest'obsoleteSalesSeriesSearchRequest = Prelude.Nothing,
+         _SearchRequest'includeRemoved = Prelude.Nothing,
+         _SearchRequest'eventLogSearchRequest = Prelude.Nothing,
+         _SearchRequest'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          SearchRequest
+          -> Prelude.Bool
+             -> Data.ProtoLens.Encoding.Bytes.Parser SearchRequest
+        loop x required'id
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = (if required'id then (:) "id" else Prelude.id) []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"id") y x)
+                                  Prelude.False
+                        16
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "top"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"top") y x)
+                                  required'id
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "user_search_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"userSearchRequest") y x)
+                                  required'id
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "profile_search_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"profileSearchRequest") y x)
+                                  required'id
+                        42
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "obsolete_sales_series_search_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field
+                                        @"obsoleteSalesSeriesSearchRequest")
+                                     y x)
+                                  required'id
+                        48
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          ((Prelude./=) 0) Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "include_removed"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"includeRemoved") y x)
+                                  required'id
+                        58
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "event_log_search_request"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"eventLogSearchRequest") y x)
+                                  required'id
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  required'id
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage Prelude.True) "SearchRequest"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                ((Prelude..)
+                   Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                   (Lens.Family2.view (Data.ProtoLens.Field.field @"id") _x)))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'top") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                          ((Prelude..)
+                             Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'userSearchRequest") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field @"maybe'profileSearchRequest") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.ProtoLens.encodeMessage _v))
+                      ((Data.Monoid.<>)
+                         (case
+                              Lens.Family2.view
+                                (Data.ProtoLens.Field.field
+                                   @"maybe'obsoleteSalesSeriesSearchRequest")
+                                _x
+                          of
+                            Prelude.Nothing -> Data.Monoid.mempty
+                            (Prelude.Just _v)
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                   ((Prelude..)
+                                      (\ bs
+                                         -> (Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                 (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                              (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                      Data.ProtoLens.encodeMessage _v))
+                         ((Data.Monoid.<>)
+                            (case
+                                 Lens.Family2.view
+                                   (Data.ProtoLens.Field.field @"maybe'includeRemoved") _x
+                             of
+                               Prelude.Nothing -> Data.Monoid.mempty
+                               (Prelude.Just _v)
+                                 -> (Data.Monoid.<>)
+                                      (Data.ProtoLens.Encoding.Bytes.putVarInt 48)
+                                      ((Prelude..)
+                                         Data.ProtoLens.Encoding.Bytes.putVarInt
+                                         (\ b -> if b then 1 else 0) _v))
+                            ((Data.Monoid.<>)
+                               (case
+                                    Lens.Family2.view
+                                      (Data.ProtoLens.Field.field @"maybe'eventLogSearchRequest") _x
+                                of
+                                  Prelude.Nothing -> Data.Monoid.mempty
+                                  (Prelude.Just _v)
+                                    -> (Data.Monoid.<>)
+                                         (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                                         ((Prelude..)
+                                            (\ bs
+                                               -> (Data.Monoid.<>)
+                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                       (Prelude.fromIntegral
+                                                          (Data.ByteString.length bs)))
+                                                    (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                            Data.ProtoLens.encodeMessage _v))
+                               (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                  (Lens.Family2.view Data.ProtoLens.unknownFields _x))))))))
+instance Control.DeepSeq.NFData SearchRequest where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_SearchRequest'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_SearchRequest'id x__)
+                (Control.DeepSeq.deepseq
+                   (_SearchRequest'top x__)
+                   (Control.DeepSeq.deepseq
+                      (_SearchRequest'userSearchRequest x__)
+                      (Control.DeepSeq.deepseq
+                         (_SearchRequest'profileSearchRequest x__)
+                         (Control.DeepSeq.deepseq
+                            (_SearchRequest'obsoleteSalesSeriesSearchRequest x__)
+                            (Control.DeepSeq.deepseq
+                               (_SearchRequest'includeRemoved x__)
+                               (Control.DeepSeq.deepseq
+                                  (_SearchRequest'eventLogSearchRequest x__) ())))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.requestId' @:: Lens' SearchResult Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.operationStatus' @:: Lens' SearchResult Data.Word.Word32@
+         * 'Proto.CMS.Cmsapi1_Fields.isComplete' @:: Lens' SearchResult Prelude.Bool@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'isComplete' @:: Lens' SearchResult (Prelude.Maybe Prelude.Bool)@
+         * 'Proto.CMS.Cmsapi1_Fields.errorMessage' @:: Lens' SearchResult Proto.Common.Shared1.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'errorMessage' @:: Lens' SearchResult (Prelude.Maybe Proto.Common.Shared1.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.userRecord' @:: Lens' SearchResult [Proto.CMS.Common1.UserSearchResultRecord]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'userRecord' @:: Lens' SearchResult (Data.Vector.Vector Proto.CMS.Common1.UserSearchResultRecord)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileRecord' @:: Lens' SearchResult [ProfileSearchResultRecord]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'profileRecord' @:: Lens' SearchResult (Data.Vector.Vector ProfileSearchResultRecord)@
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteSalesSeriesRecord' @:: Lens' SearchResult [Proto.CMS.Common1.SalesSeriesSearchResultRecord]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'obsoleteSalesSeriesRecord' @:: Lens' SearchResult (Data.Vector.Vector Proto.CMS.Common1.SalesSeriesSearchResultRecord)@
+         * 'Proto.CMS.Cmsapi1_Fields.trackingNumber' @:: Lens' SearchResult Data.Word.Word64@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'trackingNumber' @:: Lens' SearchResult (Prelude.Maybe Data.Word.Word64)@
+         * 'Proto.CMS.Cmsapi1_Fields.eventLogRecord' @:: Lens' SearchResult [Proto.CMS.LogEvent1.EventLogSearchResultRecord]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'eventLogRecord' @:: Lens' SearchResult (Data.Vector.Vector Proto.CMS.LogEvent1.EventLogSearchResultRecord)@ -}
+data SearchResult
+  = SearchResult'_constructor {_SearchResult'requestId :: !Data.Word.Word32,
+                               _SearchResult'operationStatus :: !Data.Word.Word32,
+                               _SearchResult'isComplete :: !(Prelude.Maybe Prelude.Bool),
+                               _SearchResult'errorMessage :: !(Prelude.Maybe Proto.Common.Shared1.Text),
+                               _SearchResult'userRecord :: !(Data.Vector.Vector Proto.CMS.Common1.UserSearchResultRecord),
+                               _SearchResult'profileRecord :: !(Data.Vector.Vector ProfileSearchResultRecord),
+                               _SearchResult'obsoleteSalesSeriesRecord :: !(Data.Vector.Vector Proto.CMS.Common1.SalesSeriesSearchResultRecord),
+                               _SearchResult'trackingNumber :: !(Prelude.Maybe Data.Word.Word64),
+                               _SearchResult'eventLogRecord :: !(Data.Vector.Vector Proto.CMS.LogEvent1.EventLogSearchResultRecord),
+                               _SearchResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show SearchResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField SearchResult "requestId" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'requestId
+           (\ x__ y__ -> x__ {_SearchResult'requestId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchResult "operationStatus" Data.Word.Word32 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'operationStatus
+           (\ x__ y__ -> x__ {_SearchResult'operationStatus = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchResult "isComplete" Prelude.Bool where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'isComplete
+           (\ x__ y__ -> x__ {_SearchResult'isComplete = y__}))
+        (Data.ProtoLens.maybeLens Prelude.True)
+instance Data.ProtoLens.Field.HasField SearchResult "maybe'isComplete" (Prelude.Maybe Prelude.Bool) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'isComplete
+           (\ x__ y__ -> x__ {_SearchResult'isComplete = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchResult "errorMessage" Proto.Common.Shared1.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'errorMessage
+           (\ x__ y__ -> x__ {_SearchResult'errorMessage = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField SearchResult "maybe'errorMessage" (Prelude.Maybe Proto.Common.Shared1.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'errorMessage
+           (\ x__ y__ -> x__ {_SearchResult'errorMessage = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchResult "userRecord" [Proto.CMS.Common1.UserSearchResultRecord] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'userRecord
+           (\ x__ y__ -> x__ {_SearchResult'userRecord = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField SearchResult "vec'userRecord" (Data.Vector.Vector Proto.CMS.Common1.UserSearchResultRecord) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'userRecord
+           (\ x__ y__ -> x__ {_SearchResult'userRecord = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchResult "profileRecord" [ProfileSearchResultRecord] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'profileRecord
+           (\ x__ y__ -> x__ {_SearchResult'profileRecord = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField SearchResult "vec'profileRecord" (Data.Vector.Vector ProfileSearchResultRecord) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'profileRecord
+           (\ x__ y__ -> x__ {_SearchResult'profileRecord = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchResult "obsoleteSalesSeriesRecord" [Proto.CMS.Common1.SalesSeriesSearchResultRecord] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'obsoleteSalesSeriesRecord
+           (\ x__ y__ -> x__ {_SearchResult'obsoleteSalesSeriesRecord = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField SearchResult "vec'obsoleteSalesSeriesRecord" (Data.Vector.Vector Proto.CMS.Common1.SalesSeriesSearchResultRecord) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'obsoleteSalesSeriesRecord
+           (\ x__ y__ -> x__ {_SearchResult'obsoleteSalesSeriesRecord = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchResult "trackingNumber" Data.Word.Word64 where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'trackingNumber
+           (\ x__ y__ -> x__ {_SearchResult'trackingNumber = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField SearchResult "maybe'trackingNumber" (Prelude.Maybe Data.Word.Word64) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'trackingNumber
+           (\ x__ y__ -> x__ {_SearchResult'trackingNumber = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SearchResult "eventLogRecord" [Proto.CMS.LogEvent1.EventLogSearchResultRecord] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'eventLogRecord
+           (\ x__ y__ -> x__ {_SearchResult'eventLogRecord = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField SearchResult "vec'eventLogRecord" (Data.Vector.Vector Proto.CMS.LogEvent1.EventLogSearchResultRecord) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SearchResult'eventLogRecord
+           (\ x__ y__ -> x__ {_SearchResult'eventLogRecord = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message SearchResult where
+  messageName _ = Data.Text.pack "cmsapi_1.SearchResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\fSearchResult\DC2\GS\n\
+      \\n\
+      \request_id\CAN\SOH \STX(\rR\trequestId\DC2)\n\
+      \\DLEoperation_status\CAN\STX \STX(\rR\SIoperationStatus\DC2%\n\
+      \\vis_complete\CAN\ETX \SOH(\b:\EOTtrueR\n\
+      \isComplete\DC23\n\
+      \\rerror_message\CAN\EOT \SOH(\v2\SO.shared_1.TextR\ferrorMessage\DC2A\n\
+      \\vuser_record\CAN\ENQ \ETX(\v2 .common_1.UserSearchResultRecordR\n\
+      \userRecord\DC2J\n\
+      \\SOprofile_record\CAN\ACK \ETX(\v2#.cmsapi_1.ProfileSearchResultRecordR\rprofileRecord\DC2l\n\
+      \\FSobsolete_sales_series_record\CAN\a \ETX(\v2'.common_1.SalesSeriesSearchResultRecordR\EMobsoleteSalesSeriesRecordB\STX\CAN\SOH\DC2'\n\
+      \\SItracking_number\CAN\b \SOH(\EOTR\SOtrackingNumber\DC2Q\n\
+      \\DLEevent_log_record\CAN\t \ETX(\v2'.log_event_1.EventLogSearchResultRecordR\SOeventLogRecord"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        requestId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "request_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"requestId")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+        operationStatus__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "operation_status"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.PlainField
+                 Data.ProtoLens.Required
+                 (Data.ProtoLens.Field.field @"operationStatus")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+        isComplete__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "is_complete"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.BoolField ::
+                 Data.ProtoLens.FieldTypeDescriptor Prelude.Bool)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'isComplete")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+        errorMessage__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "error_message"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.Common.Shared1.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'errorMessage")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+        userRecord__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "user_record"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UserSearchResultRecord)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"userRecord")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+        profileRecord__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_record"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor ProfileSearchResultRecord)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"profileRecord")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+        obsoleteSalesSeriesRecord__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_sales_series_record"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.SalesSeriesSearchResultRecord)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"obsoleteSalesSeriesRecord")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+        trackingNumber__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "tracking_number"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt64Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word64)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'trackingNumber")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+        eventLogRecord__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "event_log_record"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.LogEvent1.EventLogSearchResultRecord)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"eventLogRecord")) ::
+              Data.ProtoLens.FieldDescriptor SearchResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, requestId__field_descriptor),
+           (Data.ProtoLens.Tag 2, operationStatus__field_descriptor),
+           (Data.ProtoLens.Tag 3, isComplete__field_descriptor),
+           (Data.ProtoLens.Tag 4, errorMessage__field_descriptor),
+           (Data.ProtoLens.Tag 5, userRecord__field_descriptor),
+           (Data.ProtoLens.Tag 6, profileRecord__field_descriptor),
+           (Data.ProtoLens.Tag 7, 
+            obsoleteSalesSeriesRecord__field_descriptor),
+           (Data.ProtoLens.Tag 8, trackingNumber__field_descriptor),
+           (Data.ProtoLens.Tag 9, eventLogRecord__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _SearchResult'_unknownFields
+        (\ x__ y__ -> x__ {_SearchResult'_unknownFields = y__})
+  defMessage
+    = SearchResult'_constructor
+        {_SearchResult'requestId = Data.ProtoLens.fieldDefault,
+         _SearchResult'operationStatus = Data.ProtoLens.fieldDefault,
+         _SearchResult'isComplete = Prelude.Nothing,
+         _SearchResult'errorMessage = Prelude.Nothing,
+         _SearchResult'userRecord = Data.Vector.Generic.empty,
+         _SearchResult'profileRecord = Data.Vector.Generic.empty,
+         _SearchResult'obsoleteSalesSeriesRecord = Data.Vector.Generic.empty,
+         _SearchResult'trackingNumber = Prelude.Nothing,
+         _SearchResult'eventLogRecord = Data.Vector.Generic.empty,
+         _SearchResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          SearchResult
+          -> Prelude.Bool
+             -> Prelude.Bool
+                -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.LogEvent1.EventLogSearchResultRecord
+                   -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.SalesSeriesSearchResultRecord
+                      -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld ProfileSearchResultRecord
+                         -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.UserSearchResultRecord
+                            -> Data.ProtoLens.Encoding.Bytes.Parser SearchResult
+        loop
+          x
+          required'operationStatus
+          required'requestId
+          mutable'eventLogRecord
+          mutable'obsoleteSalesSeriesRecord
+          mutable'profileRecord
+          mutable'userRecord
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'eventLogRecord <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                 (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                    mutable'eventLogRecord)
+                      frozen'obsoleteSalesSeriesRecord <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                            (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                               mutable'obsoleteSalesSeriesRecord)
+                      frozen'profileRecord <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                   mutable'profileRecord)
+                      frozen'userRecord <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                             (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                mutable'userRecord)
+                      (let
+                         missing
+                           = (if required'operationStatus then
+                                  (:) "operation_status"
+                              else
+                                  Prelude.id)
+                               ((if required'requestId then (:) "request_id" else Prelude.id) [])
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'eventLogRecord")
+                              frozen'eventLogRecord
+                              (Lens.Family2.set
+                                 (Data.ProtoLens.Field.field @"vec'obsoleteSalesSeriesRecord")
+                                 frozen'obsoleteSalesSeriesRecord
+                                 (Lens.Family2.set
+                                    (Data.ProtoLens.Field.field @"vec'profileRecord")
+                                    frozen'profileRecord
+                                    (Lens.Family2.set
+                                       (Data.ProtoLens.Field.field @"vec'userRecord")
+                                       frozen'userRecord x)))))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "request_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"requestId") y x)
+                                  required'operationStatus Prelude.False mutable'eventLogRecord
+                                  mutable'obsoleteSalesSeriesRecord mutable'profileRecord
+                                  mutable'userRecord
+                        16
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          Prelude.fromIntegral
+                                          Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "operation_status"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"operationStatus") y x)
+                                  Prelude.False required'requestId mutable'eventLogRecord
+                                  mutable'obsoleteSalesSeriesRecord mutable'profileRecord
+                                  mutable'userRecord
+                        24
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          ((Prelude./=) 0) Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "is_complete"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"isComplete") y x)
+                                  required'operationStatus required'requestId mutable'eventLogRecord
+                                  mutable'obsoleteSalesSeriesRecord mutable'profileRecord
+                                  mutable'userRecord
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "error_message"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"errorMessage") y x)
+                                  required'operationStatus required'requestId mutable'eventLogRecord
+                                  mutable'obsoleteSalesSeriesRecord mutable'profileRecord
+                                  mutable'userRecord
+                        42
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "user_record"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append mutable'userRecord y)
+                                loop
+                                  x required'operationStatus required'requestId
+                                  mutable'eventLogRecord mutable'obsoleteSalesSeriesRecord
+                                  mutable'profileRecord v
+                        50
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "profile_record"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'profileRecord y)
+                                loop
+                                  x required'operationStatus required'requestId
+                                  mutable'eventLogRecord mutable'obsoleteSalesSeriesRecord v
+                                  mutable'userRecord
+                        58
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "obsolete_sales_series_record"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'obsoleteSalesSeriesRecord y)
+                                loop
+                                  x required'operationStatus required'requestId
+                                  mutable'eventLogRecord v mutable'profileRecord mutable'userRecord
+                        64
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       Data.ProtoLens.Encoding.Bytes.getVarInt "tracking_number"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"trackingNumber") y x)
+                                  required'operationStatus required'requestId mutable'eventLogRecord
+                                  mutable'obsoleteSalesSeriesRecord mutable'profileRecord
+                                  mutable'userRecord
+                        74
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "event_log_record"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'eventLogRecord y)
+                                loop
+                                  x required'operationStatus required'requestId v
+                                  mutable'obsoleteSalesSeriesRecord mutable'profileRecord
+                                  mutable'userRecord
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  required'operationStatus required'requestId mutable'eventLogRecord
+                                  mutable'obsoleteSalesSeriesRecord mutable'profileRecord
+                                  mutable'userRecord
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'eventLogRecord <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                          Data.ProtoLens.Encoding.Growing.new
+              mutable'obsoleteSalesSeriesRecord <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                     Data.ProtoLens.Encoding.Growing.new
+              mutable'profileRecord <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                         Data.ProtoLens.Encoding.Growing.new
+              mutable'userRecord <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                      Data.ProtoLens.Encoding.Growing.new
+              loop
+                Data.ProtoLens.defMessage Prelude.True Prelude.True
+                mutable'eventLogRecord mutable'obsoleteSalesSeriesRecord
+                mutable'profileRecord mutable'userRecord)
+          "SearchResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                ((Prelude..)
+                   Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                   (Lens.Family2.view (Data.ProtoLens.Field.field @"requestId") _x)))
+             ((Data.Monoid.<>)
+                ((Data.Monoid.<>)
+                   (Data.ProtoLens.Encoding.Bytes.putVarInt 16)
+                   ((Prelude..)
+                      Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral
+                      (Lens.Family2.view
+                         (Data.ProtoLens.Field.field @"operationStatus") _x)))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'isComplete") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 24)
+                             ((Prelude..)
+                                Data.ProtoLens.Encoding.Bytes.putVarInt (\ b -> if b then 1 else 0)
+                                _v))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field @"maybe'errorMessage") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.ProtoLens.encodeMessage _v))
+                      ((Data.Monoid.<>)
+                         (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                            (\ _v
+                               -> (Data.Monoid.<>)
+                                    (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                    ((Prelude..)
+                                       (\ bs
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                  (Prelude.fromIntegral
+                                                     (Data.ByteString.length bs)))
+                                               (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                       Data.ProtoLens.encodeMessage _v))
+                            (Lens.Family2.view
+                               (Data.ProtoLens.Field.field @"vec'userRecord") _x))
+                         ((Data.Monoid.<>)
+                            (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                               (\ _v
+                                  -> (Data.Monoid.<>)
+                                       (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                       ((Prelude..)
+                                          (\ bs
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                     (Prelude.fromIntegral
+                                                        (Data.ByteString.length bs)))
+                                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                          Data.ProtoLens.encodeMessage _v))
+                               (Lens.Family2.view
+                                  (Data.ProtoLens.Field.field @"vec'profileRecord") _x))
+                            ((Data.Monoid.<>)
+                               (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                  (\ _v
+                                     -> (Data.Monoid.<>)
+                                          (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                                          ((Prelude..)
+                                             (\ bs
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                        (Prelude.fromIntegral
+                                                           (Data.ByteString.length bs)))
+                                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                             Data.ProtoLens.encodeMessage _v))
+                                  (Lens.Family2.view
+                                     (Data.ProtoLens.Field.field @"vec'obsoleteSalesSeriesRecord")
+                                     _x))
+                               ((Data.Monoid.<>)
+                                  (case
+                                       Lens.Family2.view
+                                         (Data.ProtoLens.Field.field @"maybe'trackingNumber") _x
+                                   of
+                                     Prelude.Nothing -> Data.Monoid.mempty
+                                     (Prelude.Just _v)
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt 64)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt _v))
+                                  ((Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                        (\ _v
+                                           -> (Data.Monoid.<>)
+                                                (Data.ProtoLens.Encoding.Bytes.putVarInt 74)
+                                                ((Prelude..)
+                                                   (\ bs
+                                                      -> (Data.Monoid.<>)
+                                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                              (Prelude.fromIntegral
+                                                                 (Data.ByteString.length bs)))
+                                                           (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                              bs))
+                                                   Data.ProtoLens.encodeMessage _v))
+                                        (Lens.Family2.view
+                                           (Data.ProtoLens.Field.field @"vec'eventLogRecord") _x))
+                                     (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                        (Lens.Family2.view Data.ProtoLens.unknownFields _x))))))))))
+instance Control.DeepSeq.NFData SearchResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_SearchResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_SearchResult'requestId x__)
+                (Control.DeepSeq.deepseq
+                   (_SearchResult'operationStatus x__)
+                   (Control.DeepSeq.deepseq
+                      (_SearchResult'isComplete x__)
+                      (Control.DeepSeq.deepseq
+                         (_SearchResult'errorMessage x__)
+                         (Control.DeepSeq.deepseq
+                            (_SearchResult'userRecord x__)
+                            (Control.DeepSeq.deepseq
+                               (_SearchResult'profileRecord x__)
+                               (Control.DeepSeq.deepseq
+                                  (_SearchResult'obsoleteSalesSeriesRecord x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_SearchResult'trackingNumber x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_SearchResult'eventLogRecord x__) ())))))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteCustomerId' @:: Lens' SendCredentialResetEmail Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteCustomerId' @:: Lens' SendCredentialResetEmail (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginId' @:: Lens' SendCredentialResetEmail Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginId' @:: Lens' SendCredentialResetEmail (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.operation' @:: Lens' SendCredentialResetEmail [Data.Word.Word32]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'operation' @:: Lens' SendCredentialResetEmail (Data.Vector.Unboxed.Vector Data.Word.Word32)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' SendCredentialResetEmail Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' SendCredentialResetEmail (Prelude.Maybe Data.Text.Text)@ -}
+data SendCredentialResetEmail
+  = SendCredentialResetEmail'_constructor {_SendCredentialResetEmail'obsoleteCustomerId :: !(Prelude.Maybe Data.Text.Text),
+                                           _SendCredentialResetEmail'loginId :: !(Prelude.Maybe Data.Text.Text),
+                                           _SendCredentialResetEmail'operation :: !(Data.Vector.Unboxed.Vector Data.Word.Word32),
+                                           _SendCredentialResetEmail'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                           _SendCredentialResetEmail'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show SendCredentialResetEmail where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField SendCredentialResetEmail "obsoleteCustomerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendCredentialResetEmail'obsoleteCustomerId
+           (\ x__ y__
+              -> x__ {_SendCredentialResetEmail'obsoleteCustomerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField SendCredentialResetEmail "maybe'obsoleteCustomerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendCredentialResetEmail'obsoleteCustomerId
+           (\ x__ y__
+              -> x__ {_SendCredentialResetEmail'obsoleteCustomerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SendCredentialResetEmail "loginId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendCredentialResetEmail'loginId
+           (\ x__ y__ -> x__ {_SendCredentialResetEmail'loginId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField SendCredentialResetEmail "maybe'loginId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendCredentialResetEmail'loginId
+           (\ x__ y__ -> x__ {_SendCredentialResetEmail'loginId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SendCredentialResetEmail "operation" [Data.Word.Word32] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendCredentialResetEmail'operation
+           (\ x__ y__ -> x__ {_SendCredentialResetEmail'operation = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField SendCredentialResetEmail "vec'operation" (Data.Vector.Unboxed.Vector Data.Word.Word32) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendCredentialResetEmail'operation
+           (\ x__ y__ -> x__ {_SendCredentialResetEmail'operation = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SendCredentialResetEmail "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendCredentialResetEmail'profileId
+           (\ x__ y__ -> x__ {_SendCredentialResetEmail'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField SendCredentialResetEmail "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendCredentialResetEmail'profileId
+           (\ x__ y__ -> x__ {_SendCredentialResetEmail'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message SendCredentialResetEmail where
+  messageName _ = Data.Text.pack "cmsapi_1.SendCredentialResetEmail"
+  packedMessageDescriptor _
+    = "\n\
+      \\CANSendCredentialResetEmail\DC24\n\
+      \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\EM\n\
+      \\blogin_id\CAN\STX \SOH(\tR\aloginId\DC2\FS\n\
+      \\toperation\CAN\ETX \ETX(\rR\toperation\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\EOT \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        obsoleteCustomerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId")) ::
+              Data.ProtoLens.FieldDescriptor SendCredentialResetEmail
+        loginId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'loginId")) ::
+              Data.ProtoLens.FieldDescriptor SendCredentialResetEmail
+        operation__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "operation"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.UInt32Field ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Word.Word32)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"operation")) ::
+              Data.ProtoLens.FieldDescriptor SendCredentialResetEmail
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor SendCredentialResetEmail
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, obsoleteCustomerId__field_descriptor),
+           (Data.ProtoLens.Tag 2, loginId__field_descriptor),
+           (Data.ProtoLens.Tag 3, operation__field_descriptor),
+           (Data.ProtoLens.Tag 4, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _SendCredentialResetEmail'_unknownFields
+        (\ x__ y__ -> x__ {_SendCredentialResetEmail'_unknownFields = y__})
+  defMessage
+    = SendCredentialResetEmail'_constructor
+        {_SendCredentialResetEmail'obsoleteCustomerId = Prelude.Nothing,
+         _SendCredentialResetEmail'loginId = Prelude.Nothing,
+         _SendCredentialResetEmail'operation = Data.Vector.Generic.empty,
+         _SendCredentialResetEmail'profileId = Prelude.Nothing,
+         _SendCredentialResetEmail'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          SendCredentialResetEmail
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Unboxed.Vector Data.ProtoLens.Encoding.Growing.RealWorld Data.Word.Word32
+             -> Data.ProtoLens.Encoding.Bytes.Parser SendCredentialResetEmail
+        loop x mutable'operation
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'operation <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                            (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                               mutable'operation)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'operation") frozen'operation x))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_customer_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteCustomerId") y x)
+                                  mutable'operation
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "login_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"loginId") y x)
+                                  mutable'operation
+                        24
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (Prelude.fmap
+                                           Prelude.fromIntegral
+                                           Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                        "operation"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append mutable'operation y)
+                                loop x v
+                        26
+                          -> do y <- do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                        Data.ProtoLens.Encoding.Bytes.isolate
+                                          (Prelude.fromIntegral len)
+                                          ((let
+                                              ploop qs
+                                                = do packedEnd <- Data.ProtoLens.Encoding.Bytes.atEnd
+                                                     if packedEnd then
+                                                         Prelude.return qs
+                                                     else
+                                                         do !q <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                                                    (Prelude.fmap
+                                                                       Prelude.fromIntegral
+                                                                       Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                                                    "operation"
+                                                            qs' <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                                     (Data.ProtoLens.Encoding.Growing.append
+                                                                        qs q)
+                                                            ploop qs'
+                                            in ploop)
+                                             mutable'operation)
+                                loop x y
+                        34
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                                  mutable'operation
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'operation
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'operation <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                     Data.ProtoLens.Encoding.Growing.new
+              loop Data.ProtoLens.defMessage mutable'operation)
+          "SendCredentialResetEmail"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'loginId") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                ((Data.Monoid.<>)
+                   (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                      (\ _v
+                         -> (Data.Monoid.<>)
+                              (Data.ProtoLens.Encoding.Bytes.putVarInt 24)
+                              ((Prelude..)
+                                 Data.ProtoLens.Encoding.Bytes.putVarInt Prelude.fromIntegral _v))
+                      (Lens.Family2.view
+                         (Data.ProtoLens.Field.field @"vec'operation") _x))
+                   ((Data.Monoid.<>)
+                      (case
+                           Lens.Family2.view
+                             (Data.ProtoLens.Field.field @"maybe'profileId") _x
+                       of
+                         Prelude.Nothing -> Data.Monoid.mempty
+                         (Prelude.Just _v)
+                           -> (Data.Monoid.<>)
+                                (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                ((Prelude..)
+                                   (\ bs
+                                      -> (Data.Monoid.<>)
+                                           (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                              (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                           (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                   Data.Text.Encoding.encodeUtf8 _v))
+                      (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                         (Lens.Family2.view Data.ProtoLens.unknownFields _x)))))
+instance Control.DeepSeq.NFData SendCredentialResetEmail where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_SendCredentialResetEmail'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_SendCredentialResetEmail'obsoleteCustomerId x__)
+                (Control.DeepSeq.deepseq
+                   (_SendCredentialResetEmail'loginId x__)
+                   (Control.DeepSeq.deepseq
+                      (_SendCredentialResetEmail'operation x__)
+                      (Control.DeepSeq.deepseq
+                         (_SendCredentialResetEmail'profileId x__) ()))))
+{- | Fields :
+      -}
+data SendCredentialResetEmailResult
+  = SendCredentialResetEmailResult'_constructor {_SendCredentialResetEmailResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show SendCredentialResetEmailResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Message SendCredentialResetEmailResult where
+  messageName _
+    = Data.Text.pack "cmsapi_1.SendCredentialResetEmailResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\RSSendCredentialResetEmailResult"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag = let in Data.Map.fromList []
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _SendCredentialResetEmailResult'_unknownFields
+        (\ x__ y__
+           -> x__ {_SendCredentialResetEmailResult'_unknownFields = y__})
+  defMessage
+    = SendCredentialResetEmailResult'_constructor
+        {_SendCredentialResetEmailResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          SendCredentialResetEmailResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser SendCredentialResetEmailResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage)
+          "SendCredentialResetEmailResult"
+  buildMessage
+    = \ _x
+        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
+             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+instance Control.DeepSeq.NFData SendCredentialResetEmailResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_SendCredentialResetEmailResult'_unknownFields x__) ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteCustomerId' @:: Lens' SendWelcomeEmail Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteCustomerId' @:: Lens' SendWelcomeEmail (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.loginId' @:: Lens' SendWelcomeEmail [Data.Text.Text]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'loginId' @:: Lens' SendWelcomeEmail (Data.Vector.Vector Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' SendWelcomeEmail Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' SendWelcomeEmail (Prelude.Maybe Data.Text.Text)@ -}
+data SendWelcomeEmail
+  = SendWelcomeEmail'_constructor {_SendWelcomeEmail'obsoleteCustomerId :: !(Prelude.Maybe Data.Text.Text),
+                                   _SendWelcomeEmail'loginId :: !(Data.Vector.Vector Data.Text.Text),
+                                   _SendWelcomeEmail'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                   _SendWelcomeEmail'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show SendWelcomeEmail where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField SendWelcomeEmail "obsoleteCustomerId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendWelcomeEmail'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_SendWelcomeEmail'obsoleteCustomerId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField SendWelcomeEmail "maybe'obsoleteCustomerId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendWelcomeEmail'obsoleteCustomerId
+           (\ x__ y__ -> x__ {_SendWelcomeEmail'obsoleteCustomerId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SendWelcomeEmail "loginId" [Data.Text.Text] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendWelcomeEmail'loginId
+           (\ x__ y__ -> x__ {_SendWelcomeEmail'loginId = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField SendWelcomeEmail "vec'loginId" (Data.Vector.Vector Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendWelcomeEmail'loginId
+           (\ x__ y__ -> x__ {_SendWelcomeEmail'loginId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField SendWelcomeEmail "profileId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendWelcomeEmail'profileId
+           (\ x__ y__ -> x__ {_SendWelcomeEmail'profileId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField SendWelcomeEmail "maybe'profileId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _SendWelcomeEmail'profileId
+           (\ x__ y__ -> x__ {_SendWelcomeEmail'profileId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message SendWelcomeEmail where
+  messageName _ = Data.Text.pack "cmsapi_1.SendWelcomeEmail"
+  packedMessageDescriptor _
+    = "\n\
+      \\DLESendWelcomeEmail\DC24\n\
+      \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\EM\n\
+      \\blogin_id\CAN\STX \ETX(\tR\aloginId\DC2\GS\n\
+      \\n\
+      \profile_id\CAN\ETX \SOH(\tR\tprofileId"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        obsoleteCustomerId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_customer_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId")) ::
+              Data.ProtoLens.FieldDescriptor SendWelcomeEmail
+        loginId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked (Data.ProtoLens.Field.field @"loginId")) ::
+              Data.ProtoLens.FieldDescriptor SendWelcomeEmail
+        profileId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profileId")) ::
+              Data.ProtoLens.FieldDescriptor SendWelcomeEmail
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, obsoleteCustomerId__field_descriptor),
+           (Data.ProtoLens.Tag 2, loginId__field_descriptor),
+           (Data.ProtoLens.Tag 3, profileId__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _SendWelcomeEmail'_unknownFields
+        (\ x__ y__ -> x__ {_SendWelcomeEmail'_unknownFields = y__})
+  defMessage
+    = SendWelcomeEmail'_constructor
+        {_SendWelcomeEmail'obsoleteCustomerId = Prelude.Nothing,
+         _SendWelcomeEmail'loginId = Data.Vector.Generic.empty,
+         _SendWelcomeEmail'profileId = Prelude.Nothing,
+         _SendWelcomeEmail'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          SendWelcomeEmail
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Data.Text.Text
+             -> Data.ProtoLens.Encoding.Bytes.Parser SendWelcomeEmail
+        loop x mutable'loginId
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'loginId <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                          (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                             mutable'loginId)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'loginId") frozen'loginId x))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "obsolete_customer_id"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteCustomerId") y x)
+                                  mutable'loginId
+                        18
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.getText
+                                              (Prelude.fromIntegral len))
+                                        "login_id"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append mutable'loginId y)
+                                loop x v
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "profile_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                                  mutable'loginId
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'loginId
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'loginId <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                   Data.ProtoLens.Encoding.Growing.new
+              loop Data.ProtoLens.defMessage mutable'loginId)
+          "SendWelcomeEmail"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'obsoleteCustomerId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                   (\ _v
+                      -> (Data.Monoid.<>)
+                           (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                           ((Prelude..)
+                              (\ bs
+                                 -> (Data.Monoid.<>)
+                                      (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                         (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                      (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                              Data.Text.Encoding.encodeUtf8 _v))
+                   (Lens.Family2.view (Data.ProtoLens.Field.field @"vec'loginId") _x))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'profileId") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.Text.Encoding.encodeUtf8 _v))
+                   (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                      (Lens.Family2.view Data.ProtoLens.unknownFields _x))))
+instance Control.DeepSeq.NFData SendWelcomeEmail where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_SendWelcomeEmail'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_SendWelcomeEmail'obsoleteCustomerId x__)
+                (Control.DeepSeq.deepseq
+                   (_SendWelcomeEmail'loginId x__)
+                   (Control.DeepSeq.deepseq (_SendWelcomeEmail'profileId x__) ())))
+{- | Fields :
+      -}
+data SendWelcomeEmailResult
+  = SendWelcomeEmailResult'_constructor {_SendWelcomeEmailResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show SendWelcomeEmailResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Message SendWelcomeEmailResult where
+  messageName _ = Data.Text.pack "cmsapi_1.SendWelcomeEmailResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\SYNSendWelcomeEmailResult"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag = let in Data.Map.fromList []
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _SendWelcomeEmailResult'_unknownFields
+        (\ x__ y__ -> x__ {_SendWelcomeEmailResult'_unknownFields = y__})
+  defMessage
+    = SendWelcomeEmailResult'_constructor
+        {_SendWelcomeEmailResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          SendWelcomeEmailResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser SendWelcomeEmailResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "SendWelcomeEmailResult"
+  buildMessage
+    = \ _x
+        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
+             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+instance Control.DeepSeq.NFData SendWelcomeEmailResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_SendWelcomeEmailResult'_unknownFields x__) ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.logonResult' @:: Lens' ServerMessage Proto.CMS.Common1.LogonResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'logonResult' @:: Lens' ServerMessage (Prelude.Maybe Proto.CMS.Common1.LogonResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.loggedOff' @:: Lens' ServerMessage Proto.CMS.Common1.LoggedOff@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loggedOff' @:: Lens' ServerMessage (Prelude.Maybe Proto.CMS.Common1.LoggedOff)@
+         * 'Proto.CMS.Cmsapi1_Fields.restoreOrJoinSessionResult' @:: Lens' ServerMessage Proto.CMS.Common1.RestoreOrJoinSessionResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'restoreOrJoinSessionResult' @:: Lens' ServerMessage (Prelude.Maybe Proto.CMS.Common1.RestoreOrJoinSessionResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.informationResult' @:: Lens' ServerMessage [InformationResult]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'informationResult' @:: Lens' ServerMessage (Data.Vector.Vector InformationResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.searchResult' @:: Lens' ServerMessage [SearchResult]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'searchResult' @:: Lens' ServerMessage (Data.Vector.Vector SearchResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.operationResult' @:: Lens' ServerMessage [OperationResult]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'operationResult' @:: Lens' ServerMessage (Data.Vector.Vector OperationResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.tradeRoutingResult' @:: Lens' ServerMessage [Proto.CMS.Traderouting1.TradeRoutingResult]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'tradeRoutingResult' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.Traderouting1.TradeRoutingResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.userMessage' @:: Lens' ServerMessage [Proto.CMS.Common1.UserMessage]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'userMessage' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.Common1.UserMessage)@
+         * 'Proto.CMS.Cmsapi1_Fields.ping' @:: Lens' ServerMessage Ping@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'ping' @:: Lens' ServerMessage (Prelude.Maybe Ping)@
+         * 'Proto.CMS.Cmsapi1_Fields.pong' @:: Lens' ServerMessage Pong@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'pong' @:: Lens' ServerMessage (Prelude.Maybe Pong)@
+         * 'Proto.CMS.Cmsapi1_Fields.cancelDeferredRequestResult' @:: Lens' ServerMessage CancelDeferredRequestResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'cancelDeferredRequestResult' @:: Lens' ServerMessage (Prelude.Maybe CancelDeferredRequestResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.metadataResult' @:: Lens' ServerMessage [Proto.CMS.Metadata1.MetadataScopeResult]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'metadataResult' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.Metadata1.MetadataScopeResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.sessionContextScopeResult' @:: Lens' ServerMessage [Proto.CMS.SessionContext1.SessionContextScopeResult]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'sessionContextScopeResult' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.locationScopeResult' @:: Lens' ServerMessage [Proto.CMS.Location1.LocationScopeResult]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'locationScopeResult' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.Location1.LocationScopeResult)@ -}
+data ServerMessage
+  = ServerMessage'_constructor {_ServerMessage'logonResult :: !(Prelude.Maybe Proto.CMS.Common1.LogonResult),
+                                _ServerMessage'loggedOff :: !(Prelude.Maybe Proto.CMS.Common1.LoggedOff),
+                                _ServerMessage'restoreOrJoinSessionResult :: !(Prelude.Maybe Proto.CMS.Common1.RestoreOrJoinSessionResult),
+                                _ServerMessage'informationResult :: !(Data.Vector.Vector InformationResult),
+                                _ServerMessage'searchResult :: !(Data.Vector.Vector SearchResult),
+                                _ServerMessage'operationResult :: !(Data.Vector.Vector OperationResult),
+                                _ServerMessage'tradeRoutingResult :: !(Data.Vector.Vector Proto.CMS.Traderouting1.TradeRoutingResult),
+                                _ServerMessage'userMessage :: !(Data.Vector.Vector Proto.CMS.Common1.UserMessage),
+                                _ServerMessage'ping :: !(Prelude.Maybe Ping),
+                                _ServerMessage'pong :: !(Prelude.Maybe Pong),
+                                _ServerMessage'cancelDeferredRequestResult :: !(Prelude.Maybe CancelDeferredRequestResult),
+                                _ServerMessage'metadataResult :: !(Data.Vector.Vector Proto.CMS.Metadata1.MetadataScopeResult),
+                                _ServerMessage'sessionContextScopeResult :: !(Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeResult),
+                                _ServerMessage'locationScopeResult :: !(Data.Vector.Vector Proto.CMS.Location1.LocationScopeResult),
+                                _ServerMessage'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show ServerMessage where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField ServerMessage "logonResult" Proto.CMS.Common1.LogonResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'logonResult
+           (\ x__ y__ -> x__ {_ServerMessage'logonResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ServerMessage "maybe'logonResult" (Prelude.Maybe Proto.CMS.Common1.LogonResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'logonResult
+           (\ x__ y__ -> x__ {_ServerMessage'logonResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "loggedOff" Proto.CMS.Common1.LoggedOff where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'loggedOff
+           (\ x__ y__ -> x__ {_ServerMessage'loggedOff = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ServerMessage "maybe'loggedOff" (Prelude.Maybe Proto.CMS.Common1.LoggedOff) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'loggedOff
+           (\ x__ y__ -> x__ {_ServerMessage'loggedOff = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "restoreOrJoinSessionResult" Proto.CMS.Common1.RestoreOrJoinSessionResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'restoreOrJoinSessionResult
+           (\ x__ y__
+              -> x__ {_ServerMessage'restoreOrJoinSessionResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ServerMessage "maybe'restoreOrJoinSessionResult" (Prelude.Maybe Proto.CMS.Common1.RestoreOrJoinSessionResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'restoreOrJoinSessionResult
+           (\ x__ y__
+              -> x__ {_ServerMessage'restoreOrJoinSessionResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "informationResult" [InformationResult] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'informationResult
+           (\ x__ y__ -> x__ {_ServerMessage'informationResult = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'informationResult" (Data.Vector.Vector InformationResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'informationResult
+           (\ x__ y__ -> x__ {_ServerMessage'informationResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "searchResult" [SearchResult] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'searchResult
+           (\ x__ y__ -> x__ {_ServerMessage'searchResult = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'searchResult" (Data.Vector.Vector SearchResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'searchResult
+           (\ x__ y__ -> x__ {_ServerMessage'searchResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "operationResult" [OperationResult] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'operationResult
+           (\ x__ y__ -> x__ {_ServerMessage'operationResult = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'operationResult" (Data.Vector.Vector OperationResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'operationResult
+           (\ x__ y__ -> x__ {_ServerMessage'operationResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "tradeRoutingResult" [Proto.CMS.Traderouting1.TradeRoutingResult] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'tradeRoutingResult
+           (\ x__ y__ -> x__ {_ServerMessage'tradeRoutingResult = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'tradeRoutingResult" (Data.Vector.Vector Proto.CMS.Traderouting1.TradeRoutingResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'tradeRoutingResult
+           (\ x__ y__ -> x__ {_ServerMessage'tradeRoutingResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "userMessage" [Proto.CMS.Common1.UserMessage] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'userMessage
+           (\ x__ y__ -> x__ {_ServerMessage'userMessage = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'userMessage" (Data.Vector.Vector Proto.CMS.Common1.UserMessage) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'userMessage
+           (\ x__ y__ -> x__ {_ServerMessage'userMessage = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "ping" Ping where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'ping (\ x__ y__ -> x__ {_ServerMessage'ping = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ServerMessage "maybe'ping" (Prelude.Maybe Ping) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'ping (\ x__ y__ -> x__ {_ServerMessage'ping = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "pong" Pong where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'pong (\ x__ y__ -> x__ {_ServerMessage'pong = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ServerMessage "maybe'pong" (Prelude.Maybe Pong) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'pong (\ x__ y__ -> x__ {_ServerMessage'pong = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "cancelDeferredRequestResult" CancelDeferredRequestResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'cancelDeferredRequestResult
+           (\ x__ y__
+              -> x__ {_ServerMessage'cancelDeferredRequestResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ServerMessage "maybe'cancelDeferredRequestResult" (Prelude.Maybe CancelDeferredRequestResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'cancelDeferredRequestResult
+           (\ x__ y__
+              -> x__ {_ServerMessage'cancelDeferredRequestResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "metadataResult" [Proto.CMS.Metadata1.MetadataScopeResult] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'metadataResult
+           (\ x__ y__ -> x__ {_ServerMessage'metadataResult = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'metadataResult" (Data.Vector.Vector Proto.CMS.Metadata1.MetadataScopeResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'metadataResult
+           (\ x__ y__ -> x__ {_ServerMessage'metadataResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "sessionContextScopeResult" [Proto.CMS.SessionContext1.SessionContextScopeResult] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'sessionContextScopeResult
+           (\ x__ y__
+              -> x__ {_ServerMessage'sessionContextScopeResult = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'sessionContextScopeResult" (Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'sessionContextScopeResult
+           (\ x__ y__
+              -> x__ {_ServerMessage'sessionContextScopeResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "locationScopeResult" [Proto.CMS.Location1.LocationScopeResult] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'locationScopeResult
+           (\ x__ y__ -> x__ {_ServerMessage'locationScopeResult = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'locationScopeResult" (Data.Vector.Vector Proto.CMS.Location1.LocationScopeResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'locationScopeResult
+           (\ x__ y__ -> x__ {_ServerMessage'locationScopeResult = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message ServerMessage where
+  messageName _ = Data.Text.pack "cmsapi_1.ServerMessage"
+  packedMessageDescriptor _
+    = "\n\
+      \\rServerMessage\DC28\n\
+      \\flogon_result\CAN\SOH \SOH(\v2\NAK.common_1.LogonResultR\vlogonResult\DC22\n\
+      \\n\
+      \logged_off\CAN\STX \SOH(\v2\DC3.common_1.LoggedOffR\tloggedOff\DC2h\n\
+      \\RSrestore_or_join_session_result\CAN\b \SOH(\v2$.common_1.RestoreOrJoinSessionResultR\SUBrestoreOrJoinSessionResult\DC2J\n\
+      \\DC2information_result\CAN\ETX \ETX(\v2\ESC.cmsapi_1.InformationResultR\DC1informationResult\DC2;\n\
+      \\rsearch_result\CAN\EOT \ETX(\v2\SYN.cmsapi_1.SearchResultR\fsearchResult\DC2D\n\
+      \\DLEoperation_result\CAN\ENQ \ETX(\v2\EM.cmsapi_1.OperationResultR\SIoperationResult\DC2T\n\
+      \\DC4trade_routing_result\CAN\ACK \ETX(\v2\".traderouting_1.TradeRoutingResultR\DC2tradeRoutingResult\DC28\n\
+      \\fuser_message\CAN\a \ETX(\v2\NAK.common_1.UserMessageR\vuserMessage\DC2\"\n\
+      \\EOTping\CAN\n\
+      \ \SOH(\v2\SO.cmsapi_1.PingR\EOTping\DC2\"\n\
+      \\EOTpong\CAN\v \SOH(\v2\SO.cmsapi_1.PongR\EOTpong\DC2j\n\
+      \\RScancel_deferred_request_result\CAN\f \SOH(\v2%.cmsapi_1.CancelDeferredRequestResultR\ESCcancelDeferredRequestResult\DC2H\n\
+      \\SImetadata_result\CAN\r \ETX(\v2\US.metadata_1.MetadataScopeResultR\SOmetadataResult\DC2m\n\
+      \\FSsession_context_scope_result\CAN\SO \ETX(\v2,.session_context_1.SessionContextScopeResultR\EMsessionContextScopeResult\DC2S\n\
+      \\NAKlocation_scope_result\CAN\SI \ETX(\v2\US.location_1.LocationScopeResultR\DC3locationScopeResult*\ENQ\bd\DLE\200\SOH"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        logonResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "logon_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LogonResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'logonResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        loggedOff__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "logged_off"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.LoggedOff)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'loggedOff")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        restoreOrJoinSessionResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "restore_or_join_session_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.RestoreOrJoinSessionResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'restoreOrJoinSessionResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        informationResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "information_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor InformationResult)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"informationResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        searchResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "search_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor SearchResult)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"searchResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        operationResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "operation_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor OperationResult)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"operationResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        tradeRoutingResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "trade_routing_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Traderouting1.TradeRoutingResult)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"tradeRoutingResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        userMessage__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "user_message"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.UserMessage)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"userMessage")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        ping__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "ping"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Ping)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'ping")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        pong__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "pong"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Pong)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'pong")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        cancelDeferredRequestResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "cancel_deferred_request_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor CancelDeferredRequestResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field
+                    @"maybe'cancelDeferredRequestResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        metadataResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "metadata_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Metadata1.MetadataScopeResult)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"metadataResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        sessionContextScopeResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "session_context_scope_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.SessionContext1.SessionContextScopeResult)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"sessionContextScopeResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+        locationScopeResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "location_scope_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Location1.LocationScopeResult)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"locationScopeResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, logonResult__field_descriptor),
+           (Data.ProtoLens.Tag 2, loggedOff__field_descriptor),
+           (Data.ProtoLens.Tag 8, 
+            restoreOrJoinSessionResult__field_descriptor),
+           (Data.ProtoLens.Tag 3, informationResult__field_descriptor),
+           (Data.ProtoLens.Tag 4, searchResult__field_descriptor),
+           (Data.ProtoLens.Tag 5, operationResult__field_descriptor),
+           (Data.ProtoLens.Tag 6, tradeRoutingResult__field_descriptor),
+           (Data.ProtoLens.Tag 7, userMessage__field_descriptor),
+           (Data.ProtoLens.Tag 10, ping__field_descriptor),
+           (Data.ProtoLens.Tag 11, pong__field_descriptor),
+           (Data.ProtoLens.Tag 12, 
+            cancelDeferredRequestResult__field_descriptor),
+           (Data.ProtoLens.Tag 13, metadataResult__field_descriptor),
+           (Data.ProtoLens.Tag 14, 
+            sessionContextScopeResult__field_descriptor),
+           (Data.ProtoLens.Tag 15, locationScopeResult__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _ServerMessage'_unknownFields
+        (\ x__ y__ -> x__ {_ServerMessage'_unknownFields = y__})
+  defMessage
+    = ServerMessage'_constructor
+        {_ServerMessage'logonResult = Prelude.Nothing,
+         _ServerMessage'loggedOff = Prelude.Nothing,
+         _ServerMessage'restoreOrJoinSessionResult = Prelude.Nothing,
+         _ServerMessage'informationResult = Data.Vector.Generic.empty,
+         _ServerMessage'searchResult = Data.Vector.Generic.empty,
+         _ServerMessage'operationResult = Data.Vector.Generic.empty,
+         _ServerMessage'tradeRoutingResult = Data.Vector.Generic.empty,
+         _ServerMessage'userMessage = Data.Vector.Generic.empty,
+         _ServerMessage'ping = Prelude.Nothing,
+         _ServerMessage'pong = Prelude.Nothing,
+         _ServerMessage'cancelDeferredRequestResult = Prelude.Nothing,
+         _ServerMessage'metadataResult = Data.Vector.Generic.empty,
+         _ServerMessage'sessionContextScopeResult = Data.Vector.Generic.empty,
+         _ServerMessage'locationScopeResult = Data.Vector.Generic.empty,
+         _ServerMessage'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          ServerMessage
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld InformationResult
+             -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Location1.LocationScopeResult
+                -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Metadata1.MetadataScopeResult
+                   -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld OperationResult
+                      -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld SearchResult
+                         -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.SessionContext1.SessionContextScopeResult
+                            -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Traderouting1.TradeRoutingResult
+                               -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.UserMessage
+                                  -> Data.ProtoLens.Encoding.Bytes.Parser ServerMessage
+        loop
+          x
+          mutable'informationResult
+          mutable'locationScopeResult
+          mutable'metadataResult
+          mutable'operationResult
+          mutable'searchResult
+          mutable'sessionContextScopeResult
+          mutable'tradeRoutingResult
+          mutable'userMessage
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'informationResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                    (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                       mutable'informationResult)
+                      frozen'locationScopeResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                      (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                         mutable'locationScopeResult)
+                      frozen'metadataResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                 (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                    mutable'metadataResult)
+                      frozen'operationResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                  (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                     mutable'operationResult)
+                      frozen'searchResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                               (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                  mutable'searchResult)
+                      frozen'sessionContextScopeResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                            (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                               mutable'sessionContextScopeResult)
+                      frozen'tradeRoutingResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                     (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                        mutable'tradeRoutingResult)
+                      frozen'userMessage <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                              (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                 mutable'userMessage)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'informationResult")
+                              frozen'informationResult
+                              (Lens.Family2.set
+                                 (Data.ProtoLens.Field.field @"vec'locationScopeResult")
+                                 frozen'locationScopeResult
+                                 (Lens.Family2.set
+                                    (Data.ProtoLens.Field.field @"vec'metadataResult")
+                                    frozen'metadataResult
+                                    (Lens.Family2.set
+                                       (Data.ProtoLens.Field.field @"vec'operationResult")
+                                       frozen'operationResult
+                                       (Lens.Family2.set
+                                          (Data.ProtoLens.Field.field @"vec'searchResult")
+                                          frozen'searchResult
+                                          (Lens.Family2.set
+                                             (Data.ProtoLens.Field.field
+                                                @"vec'sessionContextScopeResult")
+                                             frozen'sessionContextScopeResult
+                                             (Lens.Family2.set
+                                                (Data.ProtoLens.Field.field
+                                                   @"vec'tradeRoutingResult")
+                                                frozen'tradeRoutingResult
+                                                (Lens.Family2.set
+                                                   (Data.ProtoLens.Field.field @"vec'userMessage")
+                                                   frozen'userMessage x)))))))))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "logon_result"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"logonResult") y x)
+                                  mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "logged_off"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"loggedOff") y x)
+                                  mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
+                        66
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "restore_or_join_session_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"restoreOrJoinSessionResult") y x)
+                                  mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
+                        26
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "information_result"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'informationResult y)
+                                loop
+                                  x v mutable'locationScopeResult mutable'metadataResult
+                                  mutable'operationResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
+                        34
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "search_result"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'searchResult y)
+                                loop
+                                  x mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult v
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
+                        42
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "operation_result"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'operationResult y)
+                                loop
+                                  x mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult v mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
+                        50
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "trade_routing_result"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'tradeRoutingResult y)
+                                loop
+                                  x mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult v
+                                  mutable'userMessage
+                        58
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "user_message"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'userMessage y)
+                                loop
+                                  x mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult v
+                        82
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "ping"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"ping") y x)
+                                  mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
+                        90
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "pong"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"pong") y x)
+                                  mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
+                        98
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "cancel_deferred_request_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"cancelDeferredRequestResult") y
+                                     x)
+                                  mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
+                        106
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "metadata_result"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'metadataResult y)
+                                loop
+                                  x mutable'informationResult mutable'locationScopeResult v
+                                  mutable'operationResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
+                        114
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "session_context_scope_result"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'sessionContextScopeResult y)
+                                loop
+                                  x mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult v mutable'tradeRoutingResult
+                                  mutable'userMessage
+                        122
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "location_scope_result"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'locationScopeResult y)
+                                loop
+                                  x mutable'informationResult v mutable'metadataResult
+                                  mutable'operationResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'informationResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                             Data.ProtoLens.Encoding.Growing.new
+              mutable'locationScopeResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                               Data.ProtoLens.Encoding.Growing.new
+              mutable'metadataResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                          Data.ProtoLens.Encoding.Growing.new
+              mutable'operationResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                           Data.ProtoLens.Encoding.Growing.new
+              mutable'searchResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                        Data.ProtoLens.Encoding.Growing.new
+              mutable'sessionContextScopeResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                     Data.ProtoLens.Encoding.Growing.new
+              mutable'tradeRoutingResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                              Data.ProtoLens.Encoding.Growing.new
+              mutable'userMessage <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       Data.ProtoLens.Encoding.Growing.new
+              loop
+                Data.ProtoLens.defMessage mutable'informationResult
+                mutable'locationScopeResult mutable'metadataResult
+                mutable'operationResult mutable'searchResult
+                mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                mutable'userMessage)
+          "ServerMessage"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'logonResult") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.ProtoLens.encodeMessage _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'loggedOff") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.ProtoLens.encodeMessage _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view
+                          (Data.ProtoLens.Field.field @"maybe'restoreOrJoinSessionResult") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 66)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   ((Data.Monoid.<>)
+                      (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                         (\ _v
+                            -> (Data.Monoid.<>)
+                                 (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                                 ((Prelude..)
+                                    (\ bs
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                               (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                            (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                    Data.ProtoLens.encodeMessage _v))
+                         (Lens.Family2.view
+                            (Data.ProtoLens.Field.field @"vec'informationResult") _x))
+                      ((Data.Monoid.<>)
+                         (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                            (\ _v
+                               -> (Data.Monoid.<>)
+                                    (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                    ((Prelude..)
+                                       (\ bs
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                  (Prelude.fromIntegral
+                                                     (Data.ByteString.length bs)))
+                                               (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                       Data.ProtoLens.encodeMessage _v))
+                            (Lens.Family2.view
+                               (Data.ProtoLens.Field.field @"vec'searchResult") _x))
+                         ((Data.Monoid.<>)
+                            (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                               (\ _v
+                                  -> (Data.Monoid.<>)
+                                       (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                       ((Prelude..)
+                                          (\ bs
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                     (Prelude.fromIntegral
+                                                        (Data.ByteString.length bs)))
+                                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                          Data.ProtoLens.encodeMessage _v))
+                               (Lens.Family2.view
+                                  (Data.ProtoLens.Field.field @"vec'operationResult") _x))
+                            ((Data.Monoid.<>)
+                               (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                  (\ _v
+                                     -> (Data.Monoid.<>)
+                                          (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                          ((Prelude..)
+                                             (\ bs
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                        (Prelude.fromIntegral
+                                                           (Data.ByteString.length bs)))
+                                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                             Data.ProtoLens.encodeMessage _v))
+                                  (Lens.Family2.view
+                                     (Data.ProtoLens.Field.field @"vec'tradeRoutingResult") _x))
+                               ((Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                     (\ _v
+                                        -> (Data.Monoid.<>)
+                                             (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                                             ((Prelude..)
+                                                (\ bs
+                                                   -> (Data.Monoid.<>)
+                                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                           (Prelude.fromIntegral
+                                                              (Data.ByteString.length bs)))
+                                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                                Data.ProtoLens.encodeMessage _v))
+                                     (Lens.Family2.view
+                                        (Data.ProtoLens.Field.field @"vec'userMessage") _x))
+                                  ((Data.Monoid.<>)
+                                     (case
+                                          Lens.Family2.view
+                                            (Data.ProtoLens.Field.field @"maybe'ping") _x
+                                      of
+                                        Prelude.Nothing -> Data.Monoid.mempty
+                                        (Prelude.Just _v)
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt 82)
+                                               ((Prelude..)
+                                                  (\ bs
+                                                     -> (Data.Monoid.<>)
+                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                             (Prelude.fromIntegral
+                                                                (Data.ByteString.length bs)))
+                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                             bs))
+                                                  Data.ProtoLens.encodeMessage _v))
+                                     ((Data.Monoid.<>)
+                                        (case
+                                             Lens.Family2.view
+                                               (Data.ProtoLens.Field.field @"maybe'pong") _x
+                                         of
+                                           Prelude.Nothing -> Data.Monoid.mempty
+                                           (Prelude.Just _v)
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt 90)
+                                                  ((Prelude..)
+                                                     (\ bs
+                                                        -> (Data.Monoid.<>)
+                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                (Prelude.fromIntegral
+                                                                   (Data.ByteString.length bs)))
+                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                bs))
+                                                     Data.ProtoLens.encodeMessage _v))
+                                        ((Data.Monoid.<>)
+                                           (case
+                                                Lens.Family2.view
+                                                  (Data.ProtoLens.Field.field
+                                                     @"maybe'cancelDeferredRequestResult")
+                                                  _x
+                                            of
+                                              Prelude.Nothing -> Data.Monoid.mempty
+                                              (Prelude.Just _v)
+                                                -> (Data.Monoid.<>)
+                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt 98)
+                                                     ((Prelude..)
+                                                        (\ bs
+                                                           -> (Data.Monoid.<>)
+                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                   (Prelude.fromIntegral
+                                                                      (Data.ByteString.length bs)))
+                                                                (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                   bs))
+                                                        Data.ProtoLens.encodeMessage _v))
+                                           ((Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                                 (\ _v
+                                                    -> (Data.Monoid.<>)
+                                                         (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                            106)
+                                                         ((Prelude..)
+                                                            (\ bs
+                                                               -> (Data.Monoid.<>)
+                                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                       (Prelude.fromIntegral
+                                                                          (Data.ByteString.length
+                                                                             bs)))
+                                                                    (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                       bs))
+                                                            Data.ProtoLens.encodeMessage _v))
+                                                 (Lens.Family2.view
+                                                    (Data.ProtoLens.Field.field
+                                                       @"vec'metadataResult")
+                                                    _x))
+                                              ((Data.Monoid.<>)
+                                                 (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                                    (\ _v
+                                                       -> (Data.Monoid.<>)
+                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                               114)
+                                                            ((Prelude..)
+                                                               (\ bs
+                                                                  -> (Data.Monoid.<>)
+                                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                          (Prelude.fromIntegral
+                                                                             (Data.ByteString.length
+                                                                                bs)))
+                                                                       (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                          bs))
+                                                               Data.ProtoLens.encodeMessage _v))
+                                                    (Lens.Family2.view
+                                                       (Data.ProtoLens.Field.field
+                                                          @"vec'sessionContextScopeResult")
+                                                       _x))
+                                                 ((Data.Monoid.<>)
+                                                    (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                                       (\ _v
+                                                          -> (Data.Monoid.<>)
+                                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                  122)
+                                                               ((Prelude..)
+                                                                  (\ bs
+                                                                     -> (Data.Monoid.<>)
+                                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                             (Prelude.fromIntegral
+                                                                                (Data.ByteString.length
+                                                                                   bs)))
+                                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                             bs))
+                                                                  Data.ProtoLens.encodeMessage _v))
+                                                       (Lens.Family2.view
+                                                          (Data.ProtoLens.Field.field
+                                                             @"vec'locationScopeResult")
+                                                          _x))
+                                                    (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                       (Lens.Family2.view
+                                                          Data.ProtoLens.unknownFields
+                                                          _x)))))))))))))))
+instance Control.DeepSeq.NFData ServerMessage where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_ServerMessage'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_ServerMessage'logonResult x__)
+                (Control.DeepSeq.deepseq
+                   (_ServerMessage'loggedOff x__)
+                   (Control.DeepSeq.deepseq
+                      (_ServerMessage'restoreOrJoinSessionResult x__)
+                      (Control.DeepSeq.deepseq
+                         (_ServerMessage'informationResult x__)
+                         (Control.DeepSeq.deepseq
+                            (_ServerMessage'searchResult x__)
+                            (Control.DeepSeq.deepseq
+                               (_ServerMessage'operationResult x__)
+                               (Control.DeepSeq.deepseq
+                                  (_ServerMessage'tradeRoutingResult x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_ServerMessage'userMessage x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_ServerMessage'ping x__)
+                                        (Control.DeepSeq.deepseq
+                                           (_ServerMessage'pong x__)
+                                           (Control.DeepSeq.deepseq
+                                              (_ServerMessage'cancelDeferredRequestResult x__)
+                                              (Control.DeepSeq.deepseq
+                                                 (_ServerMessage'metadataResult x__)
+                                                 (Control.DeepSeq.deepseq
+                                                    (_ServerMessage'sessionContextScopeResult x__)
+                                                    (Control.DeepSeq.deepseq
+                                                       (_ServerMessage'locationScopeResult x__)
+                                                       ()))))))))))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.loginId' @:: Lens' TerminateLoginSession Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginId' @:: Lens' TerminateLoginSession (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.sessionIds' @:: Lens' TerminateLoginSession [Data.Text.Text]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'sessionIds' @:: Lens' TerminateLoginSession (Data.Vector.Vector Data.Text.Text)@ -}
+data TerminateLoginSession
+  = TerminateLoginSession'_constructor {_TerminateLoginSession'loginId :: !(Prelude.Maybe Data.Text.Text),
+                                        _TerminateLoginSession'sessionIds :: !(Data.Vector.Vector Data.Text.Text),
+                                        _TerminateLoginSession'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show TerminateLoginSession where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField TerminateLoginSession "loginId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _TerminateLoginSession'loginId
+           (\ x__ y__ -> x__ {_TerminateLoginSession'loginId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField TerminateLoginSession "maybe'loginId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _TerminateLoginSession'loginId
+           (\ x__ y__ -> x__ {_TerminateLoginSession'loginId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField TerminateLoginSession "sessionIds" [Data.Text.Text] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _TerminateLoginSession'sessionIds
+           (\ x__ y__ -> x__ {_TerminateLoginSession'sessionIds = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField TerminateLoginSession "vec'sessionIds" (Data.Vector.Vector Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _TerminateLoginSession'sessionIds
+           (\ x__ y__ -> x__ {_TerminateLoginSession'sessionIds = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message TerminateLoginSession where
+  messageName _ = Data.Text.pack "cmsapi_1.TerminateLoginSession"
+  packedMessageDescriptor _
+    = "\n\
+      \\NAKTerminateLoginSession\DC2\EM\n\
+      \\blogin_id\CAN\SOH \SOH(\tR\aloginId\DC2\US\n\
+      \\vsession_ids\CAN\STX \ETX(\tR\n\
+      \sessionIds"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        loginId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'loginId")) ::
+              Data.ProtoLens.FieldDescriptor TerminateLoginSession
+        sessionIds__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "session_ids"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"sessionIds")) ::
+              Data.ProtoLens.FieldDescriptor TerminateLoginSession
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, loginId__field_descriptor),
+           (Data.ProtoLens.Tag 2, sessionIds__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _TerminateLoginSession'_unknownFields
+        (\ x__ y__ -> x__ {_TerminateLoginSession'_unknownFields = y__})
+  defMessage
+    = TerminateLoginSession'_constructor
+        {_TerminateLoginSession'loginId = Prelude.Nothing,
+         _TerminateLoginSession'sessionIds = Data.Vector.Generic.empty,
+         _TerminateLoginSession'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          TerminateLoginSession
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Data.Text.Text
+             -> Data.ProtoLens.Encoding.Bytes.Parser TerminateLoginSession
+        loop x mutable'sessionIds
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'sessionIds <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                             (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                mutable'sessionIds)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'sessionIds") frozen'sessionIds
+                              x))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "login_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"loginId") y x)
+                                  mutable'sessionIds
+                        18
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.getText
+                                              (Prelude.fromIntegral len))
+                                        "session_ids"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append mutable'sessionIds y)
+                                loop x v
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'sessionIds
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'sessionIds <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                      Data.ProtoLens.Encoding.Growing.new
+              loop Data.ProtoLens.defMessage mutable'sessionIds)
+          "TerminateLoginSession"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'loginId") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                   (\ _v
+                      -> (Data.Monoid.<>)
+                           (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                           ((Prelude..)
+                              (\ bs
+                                 -> (Data.Monoid.<>)
+                                      (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                         (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                      (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                              Data.Text.Encoding.encodeUtf8 _v))
+                   (Lens.Family2.view
+                      (Data.ProtoLens.Field.field @"vec'sessionIds") _x))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData TerminateLoginSession where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_TerminateLoginSession'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_TerminateLoginSession'loginId x__)
+                (Control.DeepSeq.deepseq
+                   (_TerminateLoginSession'sessionIds x__) ()))
+{- | Fields :
+      -}
+data TerminateLoginSessionResult
+  = TerminateLoginSessionResult'_constructor {_TerminateLoginSessionResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show TerminateLoginSessionResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Message TerminateLoginSessionResult where
+  messageName _
+    = Data.Text.pack "cmsapi_1.TerminateLoginSessionResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\ESCTerminateLoginSessionResult"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag = let in Data.Map.fromList []
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _TerminateLoginSessionResult'_unknownFields
+        (\ x__ y__
+           -> x__ {_TerminateLoginSessionResult'_unknownFields = y__})
+  defMessage
+    = TerminateLoginSessionResult'_constructor
+        {_TerminateLoginSessionResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          TerminateLoginSessionResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser TerminateLoginSessionResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "TerminateLoginSessionResult"
+  buildMessage
+    = \ _x
+        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
+             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+instance Control.DeepSeq.NFData TerminateLoginSessionResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_TerminateLoginSessionResult'_unknownFields x__) ()
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.username' @:: Lens' UniqueUsernameResult Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'username' @:: Lens' UniqueUsernameResult (Prelude.Maybe Data.Text.Text)@ -}
+data UniqueUsernameResult
+  = UniqueUsernameResult'_constructor {_UniqueUsernameResult'username :: !(Prelude.Maybe Data.Text.Text),
+                                       _UniqueUsernameResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show UniqueUsernameResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField UniqueUsernameResult "username" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _UniqueUsernameResult'username
+           (\ x__ y__ -> x__ {_UniqueUsernameResult'username = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField UniqueUsernameResult "maybe'username" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _UniqueUsernameResult'username
+           (\ x__ y__ -> x__ {_UniqueUsernameResult'username = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message UniqueUsernameResult where
+  messageName _ = Data.Text.pack "cmsapi_1.UniqueUsernameResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC4UniqueUsernameResult\DC2\SUB\n\
+      \\busername\CAN\SOH \SOH(\tR\busername"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        username__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "username"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'username")) ::
+              Data.ProtoLens.FieldDescriptor UniqueUsernameResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, username__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _UniqueUsernameResult'_unknownFields
+        (\ x__ y__ -> x__ {_UniqueUsernameResult'_unknownFields = y__})
+  defMessage
+    = UniqueUsernameResult'_constructor
+        {_UniqueUsernameResult'username = Prelude.Nothing,
+         _UniqueUsernameResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          UniqueUsernameResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser UniqueUsernameResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "username"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"username") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "UniqueUsernameResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'username") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                (Lens.Family2.view Data.ProtoLens.unknownFields _x))
+instance Control.DeepSeq.NFData UniqueUsernameResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_UniqueUsernameResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq (_UniqueUsernameResult'username x__) ())
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.profile' @:: Lens' UpdateProfile Proto.CMS.Common1.Profile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profile' @:: Lens' UpdateProfile (Prelude.Maybe Proto.CMS.Common1.Profile)@
+         * 'Proto.CMS.Cmsapi1_Fields.obsoleteOriginalProfile' @:: Lens' UpdateProfile Proto.CMS.Common1.Profile@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obsoleteOriginalProfile' @:: Lens' UpdateProfile (Prelude.Maybe Proto.CMS.Common1.Profile)@ -}
+data UpdateProfile
+  = UpdateProfile'_constructor {_UpdateProfile'profile :: !(Prelude.Maybe Proto.CMS.Common1.Profile),
+                                _UpdateProfile'obsoleteOriginalProfile :: !(Prelude.Maybe Proto.CMS.Common1.Profile),
+                                _UpdateProfile'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show UpdateProfile where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField UpdateProfile "profile" Proto.CMS.Common1.Profile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _UpdateProfile'profile
+           (\ x__ y__ -> x__ {_UpdateProfile'profile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField UpdateProfile "maybe'profile" (Prelude.Maybe Proto.CMS.Common1.Profile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _UpdateProfile'profile
+           (\ x__ y__ -> x__ {_UpdateProfile'profile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField UpdateProfile "obsoleteOriginalProfile" Proto.CMS.Common1.Profile where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _UpdateProfile'obsoleteOriginalProfile
+           (\ x__ y__ -> x__ {_UpdateProfile'obsoleteOriginalProfile = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField UpdateProfile "maybe'obsoleteOriginalProfile" (Prelude.Maybe Proto.CMS.Common1.Profile) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _UpdateProfile'obsoleteOriginalProfile
+           (\ x__ y__ -> x__ {_UpdateProfile'obsoleteOriginalProfile = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message UpdateProfile where
+  messageName _ = Data.Text.pack "cmsapi_1.UpdateProfile"
+  packedMessageDescriptor _
+    = "\n\
+      \\rUpdateProfile\DC2+\n\
+      \\aprofile\CAN\SOH \SOH(\v2\DC1.common_1.ProfileR\aprofile\DC2Q\n\
+      \\EMobsolete_original_profile\CAN\STX \SOH(\v2\DC1.common_1.ProfileR\ETBobsoleteOriginalProfileB\STX\CAN\SOH"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        profile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Profile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'profile")) ::
+              Data.ProtoLens.FieldDescriptor UpdateProfile
+        obsoleteOriginalProfile__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obsolete_original_profile"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Profile)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obsoleteOriginalProfile")) ::
+              Data.ProtoLens.FieldDescriptor UpdateProfile
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, profile__field_descriptor),
+           (Data.ProtoLens.Tag 2, obsoleteOriginalProfile__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _UpdateProfile'_unknownFields
+        (\ x__ y__ -> x__ {_UpdateProfile'_unknownFields = y__})
+  defMessage
+    = UpdateProfile'_constructor
+        {_UpdateProfile'profile = Prelude.Nothing,
+         _UpdateProfile'obsoleteOriginalProfile = Prelude.Nothing,
+         _UpdateProfile'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          UpdateProfile -> Data.ProtoLens.Encoding.Bytes.Parser UpdateProfile
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "profile"
+                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"profile") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "obsolete_original_profile"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obsoleteOriginalProfile") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "UpdateProfile"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'profile") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.ProtoLens.encodeMessage _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'obsoleteOriginalProfile") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.ProtoLens.encodeMessage _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData UpdateProfile where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_UpdateProfile'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_UpdateProfile'profile x__)
+                (Control.DeepSeq.deepseq
+                   (_UpdateProfile'obsoleteOriginalProfile x__) ()))
+{- | Fields :
+      -}
+data UpdateProfileResult
+  = UpdateProfileResult'_constructor {_UpdateProfileResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show UpdateProfileResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Message UpdateProfileResult where
+  messageName _ = Data.Text.pack "cmsapi_1.UpdateProfileResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\DC3UpdateProfileResult"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag = let in Data.Map.fromList []
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _UpdateProfileResult'_unknownFields
+        (\ x__ y__ -> x__ {_UpdateProfileResult'_unknownFields = y__})
+  defMessage
+    = UpdateProfileResult'_constructor
+        {_UpdateProfileResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          UpdateProfileResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser UpdateProfileResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "UpdateProfileResult"
+  buildMessage
+    = \ _x
+        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
+             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+instance Control.DeepSeq.NFData UpdateProfileResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_UpdateProfileResult'_unknownFields x__) ()
+packedFileDescriptor :: Data.ByteString.ByteString
+packedFileDescriptor
+  = "\n\
+    \\DC2CMS/cmsapi_1.proto\DC2\bcmsapi_1\SUB\NAKcommon/shared_1.proto\SUB\DC2CMS/common_1.proto\SUB\CANCMS/traderouting_1.proto\SUB\DC4CMS/metadata_1.proto\SUB\NAKCMS/log_event_1.proto\SUB\ESCCMS/session_context_1.proto\SUB\DC1CMS/login_1.proto\SUB\DC4CMS/location_1.proto\"\167\a\n\
+    \\rClientMessage\DC2%\n\
+    \\ENQlogon\CAN\SOH \SOH(\v2\SI.common_1.LogonR\ENQlogon\DC2(\n\
+    \\ACKlogoff\CAN\STX \SOH(\v2\DLE.common_1.LogoffR\ACKlogoff\DC2U\n\
+    \\ETBrestore_or_join_session\CAN\a \SOH(\v2\RS.common_1.RestoreOrJoinSessionR\DC4restoreOrJoinSession\DC2M\n\
+    \\DC3information_request\CAN\ETX \ETX(\v2\FS.cmsapi_1.InformationRequestR\DC2informationRequest\DC2>\n\
+    \\SOsearch_request\CAN\EOT \ETX(\v2\ETB.cmsapi_1.SearchRequestR\rsearchRequest\DC2G\n\
+    \\DC1operation_request\CAN\ENQ \ETX(\v2\SUB.cmsapi_1.OperationRequestR\DLEoperationRequest\DC2W\n\
+    \\NAKtrade_routing_request\CAN\ACK \ETX(\v2#.traderouting_1.TradeRoutingRequestR\DC3tradeRoutingRequest\DC2\"\n\
+    \\EOTping\CAN\t \SOH(\v2\SO.cmsapi_1.PingR\EOTping\DC2\"\n\
+    \\EOTpong\CAN\n\
+    \ \SOH(\v2\SO.cmsapi_1.PongR\EOTpong\DC2W\n\
+    \\ETBcancel_deferred_request\CAN\v \SOH(\v2\US.cmsapi_1.CancelDeferredRequestR\NAKcancelDeferredRequest\DC2K\n\
+    \\DLEmetadata_request\CAN\f \ETX(\v2 .metadata_1.MetadataScopeRequestR\SImetadataRequest\DC2p\n\
+    \\GSsession_context_scope_request\CAN\r \ETX(\v2-.session_context_1.SessionContextScopeRequestR\SUBsessionContextScopeRequest\DC2V\n\
+    \\SYNlocation_scope_request\CAN\SO \ETX(\v2 .location_1.LocationScopeRequestR\DC4locationScopeRequest*\ENQ\bd\DLE\200\SOH\"\201\v\n\
+    \\DC2InformationRequest\DC2\SO\n\
+    \\STXid\CAN\SOH \STX(\rR\STXid\DC2E\n\
+    \\DC1user_info_request\CAN\STX \SOH(\v2\EM.common_1.UserInfoRequestR\SIuserInfoRequest\DC2f\n\
+    \!login_entitlement_service_request\CAN\ETX \SOH(\v2\ESC.common_1.EntityDataRequestR\RSloginEntitlementServiceRequest\DC2s\n\
+    \!entitlement_category_list_request\CAN\EOT \SOH(\v2(.common_1.EntitlementCategoryListRequestR\RSentitlementCategoryListRequest\DC2c\n\
+    \\ESCentitlement_service_request\CAN\ENQ \SOH(\v2#.common_1.EntitlementServiceRequestR\EMentitlementServiceRequest\DC2A\n\
+    \\SIprofile_request\CAN\ACK \SOH(\v2\CAN.cmsapi_1.ProfileRequestR\SOprofileRequest\DC2p\n\
+    \ entitlement_service_list_request\CAN\a \SOH(\v2'.common_1.EntitlementServiceListRequestR\GSentitlementServiceListRequest\DC2a\n\
+    \\ESCget_unique_username_request\CAN\b \SOH(\v2\".cmsapi_1.GetUniqueUsernameRequestR\CANgetUniqueUsernameRequest\DC2\156\SOH\n\
+    \0customer_sales_series_authorization_list_request\CAN\t \SOH(\v25.common_1.CustomerSalesSeriesAuthorizationListRequestR+customerSalesSeriesAuthorizationListRequest\DC2T\n\
+    \\SYNlogin_settings_request\CAN\n\
+    \ \SOH(\v2\RS.common_1.LoginSettingsRequestR\DC4loginSettingsRequest\DC2{\n\
+    \%login_exchange_member_id_list_request\CAN\v \SOH(\v2*.common_1.LoginExchangeMemberIdListRequestR loginExchangeMemberIdListRequest\DC2d\n\
+    \\FSlookup_property_list_request\CAN\f \SOH(\v2#.common_1.LookupPropertyListRequestR\EMlookupPropertyListRequest\DC2[\n\
+    \\EMauth_partner_list_request\CAN\r \SOH(\v2 .cmsapi_1.AuthPartnerListRequestR\SYNauthPartnerListRequest\DC2q\n\
+    \!login_billing_custom_data_request\CAN\SO \SOH(\v2'.common_1.LoginBillingCustomDataRequestR\GSloginBillingCustomDataRequest\DC2Z\n\
+    \\CANtrading_features_request\CAN\SI \SOH(\v2 .common_1.TradingFeaturesRequestR\SYNtradingFeaturesRequest\"\217\ETX\n\
+    \\rSearchRequest\DC2\SO\n\
+    \\STXid\CAN\SOH \STX(\rR\STXid\DC2\DLE\n\
+    \\ETXtop\CAN\STX \SOH(\rR\ETXtop\DC2K\n\
+    \\DC3user_search_request\CAN\ETX \SOH(\v2\ESC.common_1.UserSearchRequestR\DC1userSearchRequest\DC2T\n\
+    \\SYNprofile_search_request\CAN\EOT \SOH(\v2\RS.cmsapi_1.ProfileSearchRequestR\DC4profileSearchRequest\DC2v\n\
+    \$obsolete_sales_series_search_request\CAN\ENQ \SOH(\v2\".common_1.SalesSeriesSearchRequestR obsoleteSalesSeriesSearchRequestB\STX\CAN\SOH\DC2.\n\
+    \\SIinclude_removed\CAN\ACK \SOH(\b:\ENQfalseR\SOincludeRemoved\DC2[\n\
+    \\CANevent_log_search_request\CAN\a \SOH(\v2\".log_event_1.EventLogSearchRequestR\NAKeventLogSearchRequest\"\171\SO\n\
+    \\DLEOperationRequest\DC2\SO\n\
+    \\STXid\CAN\SOH \STX(\rR\STXid\DC22\n\
+    \\n\
+    \clone_user\CAN\STX \SOH(\v2\DC3.common_1.CloneUserR\tcloneUser\DC2>\n\
+    \\SOcreate_profile\CAN\ETX \SOH(\v2\ETB.cmsapi_1.CreateProfileR\rcreateProfile\DC2>\n\
+    \\SOupdate_profile\CAN\EOT \SOH(\v2\ETB.cmsapi_1.UpdateProfileR\rupdateProfile\DC2>\n\
+    \\SOremove_profile\CAN\ENQ \SOH(\v2\ETB.cmsapi_1.RemoveProfileR\rremoveProfile\DC25\n\
+    \\vcreate_user\CAN\ACK \SOH(\v2\DC4.common_1.CreateUserR\n\
+    \createUser\DC25\n\
+    \\vupdate_user\CAN\a \SOH(\v2\DC4.common_1.UpdateUserR\n\
+    \updateUser\DC25\n\
+    \\vremove_user\CAN\b \SOH(\v2\DC4.common_1.RemoveUserR\n\
+    \removeUser\DC2M\n\
+    \\DC4link_user_to_profile\CAN\t \SOH(\v2\FS.cmsapi_1.LinkLoginToProfileR\DC1linkUserToProfile\DC2o\n\
+    \ modify_login_entitlement_service\CAN\n\
+    \ \SOH(\v2&.login_1.ModifyLoginEntitlementServiceR\GSmodifyLoginEntitlementService\DC2H\n\
+    \\DC2send_welcome_email\CAN\v \SOH(\v2\SUB.cmsapi_1.SendWelcomeEmailR\DLEsendWelcomeEmail\DC28\n\
+    \\frestore_user\CAN\f \SOH(\v2\NAK.common_1.RestoreUserR\vrestoreUser\DC2A\n\
+    \\SIrestore_profile\CAN\r \SOH(\v2\CAN.cmsapi_1.RestoreProfileR\SOrestoreProfile\DC2\153\SOH\n\
+    \/update_customer_sales_series_authorization_list\CAN\SO \SOH(\v24.common_1.UpdateCustomerSalesSeriesAuthorizationListR*updateCustomerSalesSeriesAuthorizationList\DC2x\n\
+    \$update_login_exchange_member_id_list\CAN\SI \SOH(\v2).common_1.UpdateLoginExchangeMemberIdListR\USupdateLoginExchangeMemberIdList\DC2Q\n\
+    \\NAKupdate_login_settings\CAN\DLE \SOH(\v2\GS.common_1.UpdateLoginSettingsR\DC3updateLoginSettings\DC2>\n\
+    \\SOactivate_login\CAN\DC1 \SOH(\v2\ETB.common_1.ActivateLoginR\ractivateLogin\DC2D\n\
+    \\DLEdeactivate_login\CAN\DC2 \SOH(\v2\EM.common_1.DeactivateLoginR\SIdeactivateLogin\DC2a\n\
+    \\ESCsend_credential_reset_email\CAN\DC3 \SOH(\v2\".cmsapi_1.SendCredentialResetEmailR\CANsendCredentialResetEmail\DC2m\n\
+    \\USgenerate_service_security_token\CAN\DC4 \SOH(\v2&.cmsapi_1.GenerateServiceSecurityTokenR\FSgenerateServiceSecurityToken\DC2]\n\
+    \\EMerase_current_credentials\CAN\NAK \SOH(\v2!.common_1.EraseCurrentCredentialsR\ETBeraseCurrentCredentials\DC2W\n\
+    \\ETBterminate_login_session\CAN\SYN \SOH(\v2\US.cmsapi_1.TerminateLoginSessionR\NAKterminateLoginSession\DC2n\n\
+    \ update_login_billing_custom_data\CAN\ETB \SOH(\v2&.common_1.UpdateLoginBillingCustomDataR\FSupdateLoginBillingCustomData\"P\n\
+    \\NAKCancelDeferredRequest\DC2\SO\n\
+    \\STXid\CAN\SOH \SOH(\rR\STXid\DC2'\n\
+    \\SItracking_number\CAN\STX \SOH(\EOTR\SOtrackingNumber\"\143\b\n\
+    \\rServerMessage\DC28\n\
+    \\flogon_result\CAN\SOH \SOH(\v2\NAK.common_1.LogonResultR\vlogonResult\DC22\n\
+    \\n\
+    \logged_off\CAN\STX \SOH(\v2\DC3.common_1.LoggedOffR\tloggedOff\DC2h\n\
+    \\RSrestore_or_join_session_result\CAN\b \SOH(\v2$.common_1.RestoreOrJoinSessionResultR\SUBrestoreOrJoinSessionResult\DC2J\n\
+    \\DC2information_result\CAN\ETX \ETX(\v2\ESC.cmsapi_1.InformationResultR\DC1informationResult\DC2;\n\
+    \\rsearch_result\CAN\EOT \ETX(\v2\SYN.cmsapi_1.SearchResultR\fsearchResult\DC2D\n\
+    \\DLEoperation_result\CAN\ENQ \ETX(\v2\EM.cmsapi_1.OperationResultR\SIoperationResult\DC2T\n\
+    \\DC4trade_routing_result\CAN\ACK \ETX(\v2\".traderouting_1.TradeRoutingResultR\DC2tradeRoutingResult\DC28\n\
+    \\fuser_message\CAN\a \ETX(\v2\NAK.common_1.UserMessageR\vuserMessage\DC2\"\n\
+    \\EOTping\CAN\n\
+    \ \SOH(\v2\SO.cmsapi_1.PingR\EOTping\DC2\"\n\
+    \\EOTpong\CAN\v \SOH(\v2\SO.cmsapi_1.PongR\EOTpong\DC2j\n\
+    \\RScancel_deferred_request_result\CAN\f \SOH(\v2%.cmsapi_1.CancelDeferredRequestResultR\ESCcancelDeferredRequestResult\DC2H\n\
+    \\SImetadata_result\CAN\r \ETX(\v2\US.metadata_1.MetadataScopeResultR\SOmetadataResult\DC2m\n\
+    \\FSsession_context_scope_result\CAN\SO \ETX(\v2,.session_context_1.SessionContextScopeResultR\EMsessionContextScopeResult\DC2S\n\
+    \\NAKlocation_scope_result\CAN\SI \ETX(\v2\US.location_1.LocationScopeResultR\DC3locationScopeResult*\ENQ\bd\DLE\200\SOH\"\208\n\
+    \\n\
+    \\DC1InformationResult\DC2\GS\n\
+    \\n\
+    \request_id\CAN\SOH \STX(\rR\trequestId\DC2)\n\
+    \\DLEoperation_status\CAN\STX \STX(\rR\SIoperationStatus\DC23\n\
+    \\rerror_message\CAN\ETX \SOH(\v2\SO.shared_1.TextR\ferrorMessage\DC2\"\n\
+    \\EOTuser\CAN\EOT \SOH(\v2\SO.common_1.UserR\EOTuser\DC2\\\n\
+    \\EMlogin_entitlement_service\CAN\ENQ \ETX(\v2 .login_1.LoginEntitlementServiceR\ETBloginEntitlementService\DC2P\n\
+    \\DC4entitlement_category\CAN\ACK \ETX(\v2\GS.common_1.EntitlementCategoryR\DC3entitlementCategory\DC2M\n\
+    \\DC3entitlement_service\CAN\a \ETX(\v2\FS.common_1.EntitlementServiceR\DC2entitlementService\DC2+\n\
+    \\aprofile\CAN\b \SOH(\v2\DC1.common_1.ProfileR\aprofile\DC2T\n\
+    \\SYNunique_username_result\CAN\t \SOH(\v2\RS.cmsapi_1.UniqueUsernameResultR\DC4uniqueUsernameResult\DC2\153\SOH\n\
+    \/customer_sales_series_authorization_list_result\CAN\n\
+    \ \SOH(\v24.common_1.CustomerSalesSeriesAuthorizationListResultR*customerSalesSeriesAuthorizationListResult\DC2Q\n\
+    \\NAKlogin_settings_result\CAN\v \SOH(\v2\GS.common_1.LoginSettingsResultR\DC3loginSettingsResult\DC2x\n\
+    \$login_exchange_member_id_list_result\CAN\f \SOH(\v2).common_1.LoginExchangeMemberIdListResultR\USloginExchangeMemberIdListResult\DC2a\n\
+    \\ESClookup_property_list_result\CAN\r \SOH(\v2\".common_1.LookupPropertyListResultR\CANlookupPropertyListResult\DC2X\n\
+    \\CANauth_partner_list_result\CAN\SO \SOH(\v2\US.cmsapi_1.AuthPartnerListResultR\NAKauthPartnerListResult\DC2n\n\
+    \ login_billing_custom_data_result\CAN\SI \SOH(\v2&.common_1.LoginBillingCustomDataResultR\FSloginBillingCustomDataResult\DC2'\n\
+    \\SItracking_number\CAN\DLE \SOH(\EOTR\SOtrackingNumber\DC2W\n\
+    \\ETBtrading_features_result\CAN\DC1 \SOH(\v2\US.common_1.TradingFeaturesResultR\NAKtradingFeaturesResult\"\173\EOT\n\
+    \\fSearchResult\DC2\GS\n\
+    \\n\
+    \request_id\CAN\SOH \STX(\rR\trequestId\DC2)\n\
+    \\DLEoperation_status\CAN\STX \STX(\rR\SIoperationStatus\DC2%\n\
+    \\vis_complete\CAN\ETX \SOH(\b:\EOTtrueR\n\
+    \isComplete\DC23\n\
+    \\rerror_message\CAN\EOT \SOH(\v2\SO.shared_1.TextR\ferrorMessage\DC2A\n\
+    \\vuser_record\CAN\ENQ \ETX(\v2 .common_1.UserSearchResultRecordR\n\
+    \userRecord\DC2J\n\
+    \\SOprofile_record\CAN\ACK \ETX(\v2#.cmsapi_1.ProfileSearchResultRecordR\rprofileRecord\DC2l\n\
+    \\FSobsolete_sales_series_record\CAN\a \ETX(\v2'.common_1.SalesSeriesSearchResultRecordR\EMobsoleteSalesSeriesRecordB\STX\CAN\SOH\DC2'\n\
+    \\SItracking_number\CAN\b \SOH(\EOTR\SOtrackingNumber\DC2Q\n\
+    \\DLEevent_log_record\CAN\t \ETX(\v2'.log_event_1.EventLogSearchResultRecordR\SOeventLogRecord\"\234\DC2\n\
+    \\SIOperationResult\DC2\GS\n\
+    \\n\
+    \request_id\CAN\SOH \STX(\rR\trequestId\DC2)\n\
+    \\DLEoperation_status\CAN\STX \STX(\rR\SIoperationStatus\DC23\n\
+    \\rerror_message\CAN\ETX \SOH(\v2\SO.shared_1.TextR\ferrorMessage\DC2E\n\
+    \\DC1clone_user_result\CAN\EOT \SOH(\v2\EM.common_1.CloneUserResultR\SIcloneUserResult\DC2Q\n\
+    \\NAKcreate_profile_result\CAN\ENQ \SOH(\v2\GS.cmsapi_1.CreateProfileResultR\DC3createProfileResult\DC2Q\n\
+    \\NAKupdate_profile_result\CAN\ACK \SOH(\v2\GS.cmsapi_1.UpdateProfileResultR\DC3updateProfileResult\DC2Q\n\
+    \\NAKremove_profile_result\CAN\a \SOH(\v2\GS.cmsapi_1.RemoveProfileResultR\DC3removeProfileResult\DC2H\n\
+    \\DC2create_user_result\CAN\b \SOH(\v2\SUB.common_1.CreateUserResultR\DLEcreateUserResult\DC2H\n\
+    \\DC2update_user_result\CAN\t \SOH(\v2\SUB.common_1.UpdateUserResultR\DLEupdateUserResult\DC2H\n\
+    \\DC2remove_user_result\CAN\n\
+    \ \SOH(\v2\SUB.common_1.RemoveUserResultR\DLEremoveUserResult\DC2b\n\
+    \\FSlink_login_to_profile_result\CAN\v \SOH(\v2\".cmsapi_1.LinkLoginToProfileResultR\CANlinkLoginToProfileResult\DC2\130\SOH\n\
+    \'modify_login_entitlement_service_result\CAN\f \SOH(\v2,.login_1.ModifyLoginEntitlementServiceResultR#modifyLoginEntitlementServiceResult\DC2[\n\
+    \\EMsend_welcome_email_result\CAN\r \SOH(\v2 .cmsapi_1.SendWelcomeEmailResultR\SYNsendWelcomeEmailResult\DC2K\n\
+    \\DC3restore_user_result\CAN\SO \SOH(\v2\ESC.common_1.RestoreUserResultR\DC1restoreUserResult\DC2T\n\
+    \\SYNrestore_profile_result\CAN\SI \SOH(\v2\RS.cmsapi_1.RestoreProfileResultR\DC4restoreProfileResult\DC2\172\SOH\n\
+    \6update_customer_sales_series_authorization_list_result\CAN\DLE \SOH(\v2:.common_1.UpdateCustomerSalesSeriesAuthorizationListResultR0updateCustomerSalesSeriesAuthorizationListResult\DC2\139\SOH\n\
+    \+update_login_exchange_member_id_list_result\CAN\DC1 \SOH(\v2/.common_1.UpdateLoginExchangeMemberIdListResultR%updateLoginExchangeMemberIdListResult\DC2d\n\
+    \\FSupdate_login_settings_result\CAN\DC2 \SOH(\v2#.common_1.UpdateLoginSettingsResultR\EMupdateLoginSettingsResult\DC2Q\n\
+    \\NAKactivate_login_result\CAN\DC3 \SOH(\v2\GS.common_1.ActivateLoginResultR\DC3activateLoginResult\DC2W\n\
+    \\ETBdeactivate_login_result\CAN\DC4 \SOH(\v2\US.common_1.DeactivateLoginResultR\NAKdeactivateLoginResult\DC2t\n\
+    \\"send_credential_reset_email_result\CAN\NAK \SOH(\v2(.cmsapi_1.SendCredentialResetEmailResultR\RSsendCredentialResetEmailResult\DC2\128\SOH\n\
+    \&generate_service_security_token_result\CAN\SYN \SOH(\v2,.cmsapi_1.GenerateServiceSecurityTokenResultR\"generateServiceSecurityTokenResult\DC2p\n\
+    \ erase_current_credentials_result\CAN\ETB \SOH(\v2'.common_1.EraseCurrentCredentialsResultR\GSeraseCurrentCredentialsResult\DC2j\n\
+    \\RSterminate_login_session_result\CAN\CAN \SOH(\v2%.cmsapi_1.TerminateLoginSessionResultR\ESCterminateLoginSessionResult\DC2\129\SOH\n\
+    \'update_login_billing_custom_data_result\CAN\EM \SOH(\v2,.common_1.UpdateLoginBillingCustomDataResultR\"updateLoginBillingCustomDataResult\DC2'\n\
+    \\SItracking_number\CAN\SUB \SOH(\EOTR\SOtrackingNumber\"\130\SOH\n\
+    \\DLESendWelcomeEmail\DC24\n\
+    \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\EM\n\
+    \\blogin_id\CAN\STX \ETX(\tR\aloginId\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\ETX \SOH(\tR\tprofileId\"\CAN\n\
+    \\SYNSendWelcomeEmailResult\"\168\SOH\n\
+    \\CANSendCredentialResetEmail\DC24\n\
+    \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\EM\n\
+    \\blogin_id\CAN\STX \SOH(\tR\aloginId\DC2\FS\n\
+    \\toperation\CAN\ETX \ETX(\rR\toperation\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\EOT \SOH(\tR\tprofileId\" \n\
+    \\RSSendCredentialResetEmailResult\"W\n\
+    \\FSGenerateServiceSecurityToken\DC2\EM\n\
+    \\blogin_id\CAN\SOH \SOH(\tR\aloginId\DC2\FS\n\
+    \\toperation\CAN\STX \ETX(\rR\toperation\"]\n\
+    \\"GenerateServiceSecurityTokenResult\DC2%\n\
+    \\SOsecurity_token\CAN\SOH \SOH(\tR\rsecurityToken\DC2\DLE\n\
+    \\ETXurl\CAN\STX \SOH(\tR\ETXurl\"@\n\
+    \\EOTPing\DC2\DC4\n\
+    \\ENQtoken\CAN\SOH \SOH(\tR\ENQtoken\DC2\"\n\
+    \\rping_utc_time\CAN\STX \STX(\DC2R\vpingUtcTime\"d\n\
+    \\EOTPong\DC2\DC4\n\
+    \\ENQtoken\CAN\SOH \SOH(\tR\ENQtoken\DC2\"\n\
+    \\rping_utc_time\CAN\STX \STX(\DC2R\vpingUtcTime\DC2\"\n\
+    \\rpong_utc_time\CAN\ETX \STX(\DC2R\vpongUtcTime\"\CAN\n\
+    \\SYNAuthPartnerListRequest\"Q\n\
+    \\NAKAuthPartnerListResult\DC28\n\
+    \\fauth_partner\CAN\SOH \ETX(\v2\NAK.cmsapi_1.AuthPartnerR\vauthPartner\"\209\SOH\n\
+    \\vAuthPartner\DC2\SO\n\
+    \\STXid\CAN\SOH \SOH(\tR\STXid\DC2!\n\
+    \\fdisplay_name\CAN\STX \SOH(\tR\vdisplayName\DC2!\n\
+    \\fbrokerage_id\CAN\ETX \ETX(\tR\vbrokerageId\DC2.\n\
+    \\DC3logout_endpoint_uri\CAN\EOT \SOH(\tR\DC1logoutEndpointUri\DC2<\n\
+    \\SUBlogout_endpoint_parameters\CAN\ENQ \SOH(\tR\CANlogoutEndpointParameters\"<\n\
+    \\rCreateProfile\DC2+\n\
+    \\aprofile\CAN\SOH \SOH(\v2\DC1.common_1.ProfileR\aprofile\"\143\SOH\n\
+    \\rUpdateProfile\DC2+\n\
+    \\aprofile\CAN\SOH \SOH(\v2\DC1.common_1.ProfileR\aprofile\DC2Q\n\
+    \\EMobsolete_original_profile\CAN\STX \SOH(\v2\DC1.common_1.ProfileR\ETBobsoleteOriginalProfileB\STX\CAN\SOH\"d\n\
+    \\rRemoveProfile\DC24\n\
+    \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\STX \SOH(\tR\tprofileId\"e\n\
+    \\SORestoreProfile\DC24\n\
+    \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\STX \SOH(\tR\tprofileId\"j\n\
+    \\DC3CreateProfileResult\DC24\n\
+    \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\STX \SOH(\tR\tprofileId\"\NAK\n\
+    \\DC3UpdateProfileResult\"\NAK\n\
+    \\DC3RemoveProfileResult\"\SYN\n\
+    \\DC4RestoreProfileResult\"e\n\
+    \\SOProfileRequest\DC24\n\
+    \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\STX \SOH(\tR\tprofileId\"\132\SOH\n\
+    \\DC2LinkLoginToProfile\DC2\EM\n\
+    \\blogin_id\CAN\SOH \SOH(\tR\aloginId\DC24\n\
+    \\DC4obsolete_customer_id\CAN\STX \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\ETX \SOH(\tR\tprofileId\"\SUB\n\
+    \\CANLinkLoginToProfileResult\"o\n\
+    \\CANGetUniqueUsernameRequest\DC24\n\
+    \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\STX \SOH(\tR\tprofileId\"2\n\
+    \\DC4UniqueUsernameResult\DC2\SUB\n\
+    \\busername\CAN\SOH \SOH(\tR\busername\"\253\STX\n\
+    \\DC4ProfileSearchRequest\DC2'\n\
+    \\robsolete_text\CAN\SOH \SOH(\tR\fobsoleteTextB\STX\CAN\SOH\DC2<\n\
+    \\CANobsolete_search_criteria\CAN\STX \ETX(\rR\SYNobsoleteSearchCriteriaB\STX\CAN\SOH\DC2=\n\
+    \\SOsearch_options\CAN\ETX \ETX(\v2\SYN.common_1.SearchOptionR\rsearchOptions\DC2+\n\
+    \\SOall_match_mode\CAN\EOT \SOH(\b:\ENQfalseR\fallMatchMode\"\145\SOH\n\
+    \\SOSearchCriteria\DC2\SI\n\
+    \\vCUSTOMER_ID\DLE\SOH\DC2\b\n\
+    \\EOTNAME\DLE\STX\DC2\SO\n\
+    \\n\
+    \FIRST_NAME\DLE\ETX\DC2\r\n\
+    \\tLAST_NAME\DLE\EOT\DC2\ETB\n\
+    \\DC3LINKED_BROKERAGE_ID\DLE\ENQ\DC2\n\
+    \\n\
+    \\ACKNUMBER\DLE\ACK\DC2\SO\n\
+    \\n\
+    \PROFILE_ID\DLE\a\DC2\DLE\n\
+    \\fPROFILE_TYPE\DLE\b\"\214\ETX\n\
+    \\EMProfileSearchResultRecord\DC2\US\n\
+    \\vcustomer_id\CAN\SOH \SOH(\tR\n\
+    \customerId\DC2\DC2\n\
+    \\EOTname\CAN\STX \SOH(\tR\EOTname\DC22\n\
+    \\NAKlinked_brokerage_name\CAN\ETX \SOH(\tR\DC3linkedBrokerageName\DC2\GS\n\
+    \\n\
+    \first_name\CAN\EOT \SOH(\tR\tfirstName\DC2\ESC\n\
+    \\tlast_name\CAN\ENQ \SOH(\tR\blastName\DC2.\n\
+    \\DC3linked_brokerage_id\CAN\ACK \SOH(\tR\DC1linkedBrokerageId\DC2\CAN\n\
+    \\aremoved\CAN\a \SOH(\bR\aremoved\DC2H\n\
+    \\RSobsolete_authentication_system\CAN\b \SOH(\tR\FSobsoleteAuthenticationSystemB\STX\CAN\SOH\DC2!\n\
+    \\fprofile_type\CAN\t \SOH(\rR\vprofileType\DC2\SYN\n\
+    \\ACKnumber\CAN\n\
+    \ \SOH(\tR\ACKnumber\DC2&\n\
+    \\SIsales_series_id\CAN\v \SOH(\tR\rsalesSeriesId\DC2\GS\n\
+    \\n\
+    \profile_id\CAN\f \SOH(\tR\tprofileId\"\156\SOH\n\
+    \\ESCCancelDeferredRequestResult\DC2\GS\n\
+    \\n\
+    \request_id\CAN\SOH \SOH(\rR\trequestId\DC2)\n\
+    \\DLEoperation_status\CAN\STX \SOH(\rR\SIoperationStatus\DC23\n\
+    \\rerror_message\CAN\ETX \SOH(\v2\SO.shared_1.TextR\ferrorMessage\"S\n\
+    \\NAKTerminateLoginSession\DC2\EM\n\
+    \\blogin_id\CAN\SOH \SOH(\tR\aloginId\DC2\US\n\
+    \\vsession_ids\CAN\STX \ETX(\tR\n\
+    \sessionIds\"\GS\n\
+    \\ESCTerminateLoginSessionResult*I\n\
+    \\SIProtocolVersion\DC2\SUB\n\
+    \\SYNPROTOCOL_VERSION_MAJOR\DLE\SOH\DC2\SUB\n\
+    \\SYNPROTOCOL_VERSION_MINOR\DLE$J\188\234\SOH\n\
+    \\a\DC2\ENQ\DC3\NUL\212\ACK\SOH\n\
+    \\195\a\n\
+    \\SOH\f\DC2\ETX\DC3\NUL\DC22\184\a CQG Customer Management System API Protocol.\n\
+    \\n\
+    \ Protocol time attributes are 64-bit signed integers that contain offset in milliseconds from 01.01.1970 (unix timestamp).\n\
+    \\n\
+    \ The following attributes are used in comments to describe fields specifics:\n\
+    \ 1. [immutable] - field is ignored via any operation message.\n\
+    \ 2. [obsolete] - field is obsolete and candidate for remove in some next protocol version.\n\
+    \ 3. [required] - field is required for any operation message, even if it is marked as optional.\n\
+    \ Attribute can be additionally amended with operation name it is applied for. For example:\n\
+    \ [required-create] - field is required for the create message only.\n\
+    \ [required-update] - field is required for the update message only. \n\
+    \ 4. [erasable] - field number can be provided in the cleared_fields to reset the value during update operation.\n\
+    \\n\
+    \ Protocol constants:\n\
+    \ DEFAULT_RESULT_RECORDS_NUMBER = 1000.\n\
+    \\n\
+    \ Last changes were made on 21 Feb 2024\n\
+    \ Version 1.36\n\
+    \\n\
+    \\t\n\
+    \\STX\ETX\NUL\DC2\ETX\NAK\NUL\US\n\
+    \\t\n\
+    \\STX\ETX\SOH\DC2\ETX\SYN\NUL\FS\n\
+    \\t\n\
+    \\STX\ETX\STX\DC2\ETX\ETB\NUL\"\n\
+    \\t\n\
+    \\STX\ETX\ETX\DC2\ETX\CAN\NUL\RS\n\
+    \\t\n\
+    \\STX\ETX\EOT\DC2\ETX\EM\NUL\US\n\
+    \\t\n\
+    \\STX\ETX\ENQ\DC2\ETX\SUB\NUL%\n\
+    \\t\n\
+    \\STX\ETX\ACK\DC2\ETX\ESC\NUL\ESC\n\
+    \\t\n\
+    \\STX\ETX\a\DC2\ETX\FS\NUL\RS\n\
+    \\b\n\
+    \\SOH\STX\DC2\ETX\RS\NUL\DC1\n\
+    \\n\
+    \\n\
+    \\STX\ENQ\NUL\DC2\EOT \NUL'\SOH\n\
+    \\n\
+    \\n\
+    \\ETX\ENQ\NUL\SOH\DC2\ETX \ENQ\DC4\n\
+    \z\n\
+    \\EOT\ENQ\NUL\STX\NUL\DC2\ETX#\EOT\US\SUBm Major number change is required for backward incompatible protocol versions (new 'proto' file is necessary)\n\
+    \\n\
+    \\f\n\
+    \\ENQ\ENQ\NUL\STX\NUL\SOH\DC2\ETX#\EOT\SUB\n\
+    \\f\n\
+    \\ENQ\ENQ\NUL\STX\NUL\STX\DC2\ETX#\GS\RS\n\
+    \\221\SOH\n\
+    \\EOT\ENQ\NUL\STX\SOH\DC2\ETX&\EOT \SUB\207\SOH Minor number is increased for backward compatible protocol versions when new messages and/ or fields are\n\
+    \ added without removing/ changing any existing messages and fields (new 'proto' file is not created)\n\
+    \\n\
+    \\f\n\
+    \\ENQ\ENQ\NUL\STX\SOH\SOH\DC2\ETX&\EOT\SUB\n\
+    \\f\n\
+    \\ENQ\ENQ\NUL\STX\SOH\STX\DC2\ETX&\GS\US\n\
+    \\232\ENQ\n\
+    \\STX\EOT\NUL\DC2\EOT4\NUL[\SOH\SUB\153\ENQ Rate of incoming requests (sum of different requests within messages) is limited,\n\
+    \ use session_context_scope_request.api_limit_request to get limits of the current session.\n\
+    \ In addition, users should keep no more than 100 pending requests at any time.\n\
+    \ Significantly exceeding the limit of pending requests will result in the rejection of new requests.\n\
+    \ NOTE: All the limits mentioned in this protocol are not guaranteed; they are given for reference only\n\
+    \ and are subject to change without prior notice.\n\
+    \ Delay may occur and be different because of the overall load of the system. \n\
+    \ Pending requests are queued and executed as soon as the system state allows it.\n\
+    \2@//------------------------------------------\n\
+    \// Client Messages\n\
+    \\n\
+    \\n\
+    \\n\
+    \\ETX\EOT\NUL\SOH\DC2\ETX4\b\NAK\n\
+    \\153\SOH\n\
+    \\EOT\EOT\NUL\STX\NUL\DC2\ETX8\EOT&\SUB\139\SOH Session related messages.\n\
+    \ Only one session related message is expected in ClientMessage (it should not be combined with other messages).\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\NUL\EOT\DC2\ETX8\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\NUL\ACK\DC2\ETX8\r\ESC\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\NUL\SOH\DC2\ETX8\FS!\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\NUL\ETX\DC2\ETX8$%\n\
+    \\v\n\
+    \\EOT\EOT\NUL\STX\SOH\DC2\ETX9\EOT(\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\SOH\EOT\DC2\ETX9\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\SOH\ACK\DC2\ETX9\r\FS\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\SOH\SOH\DC2\ETX9\GS#\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\SOH\ETX\DC2\ETX9&'\n\
+    \\v\n\
+    \\EOT\EOT\NUL\STX\STX\DC2\ETX:\EOTG\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\STX\EOT\DC2\ETX:\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\STX\ACK\DC2\ETX:\r*\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\STX\SOH\DC2\ETX:+B\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\STX\ETX\DC2\ETX:EF\n\
+    \#\n\
+    \\EOT\EOT\NUL\STX\ETX\DC2\ETX=\EOT8\SUB\SYN Information request.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ETX\EOT\DC2\ETX=\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ETX\ACK\DC2\ETX=\r\US\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ETX\SOH\DC2\ETX= 3\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ETX\ETX\DC2\ETX=67\n\
+    \\RS\n\
+    \\EOT\EOT\NUL\STX\EOT\DC2\ETX@\EOT.\SUB\DC1 Search request.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\EOT\EOT\DC2\ETX@\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\EOT\ACK\DC2\ETX@\r\SUB\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\EOT\SOH\DC2\ETX@\ESC)\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\EOT\ETX\DC2\ETX@,-\n\
+    \!\n\
+    \\EOT\EOT\NUL\STX\ENQ\DC2\ETXC\EOT4\SUB\DC4 Operation request.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ENQ\EOT\DC2\ETXC\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ENQ\ACK\DC2\ETXC\r\GS\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ENQ\SOH\DC2\ETXC\RS/\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ENQ\ETX\DC2\ETXC23\n\
+    \0\n\
+    \\EOT\EOT\NUL\STX\ACK\DC2\ETXF\EOTJ\SUB# Trade routing related operations.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ACK\EOT\DC2\ETXF\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ACK\ACK\DC2\ETXF\r/\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ACK\SOH\DC2\ETXF0E\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\ACK\ETX\DC2\ETXFHI\n\
+    \0\n\
+    \\EOT\EOT\NUL\STX\a\DC2\ETXI\EOT\ESC\SUB# Ping request initiated by client.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\a\EOT\DC2\ETXI\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\a\ACK\DC2\ETXI\r\DC1\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\a\SOH\DC2\ETXI\DC2\SYN\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\a\ETX\DC2\ETXI\EM\SUB\n\
+    \7\n\
+    \\EOT\EOT\NUL\STX\b\DC2\ETXL\EOT\FS\SUB* Pong message in response to server Ping.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\b\EOT\DC2\ETXL\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\b\ACK\DC2\ETXL\r\DC1\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\b\SOH\DC2\ETXL\DC2\SYN\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\b\ETX\DC2\ETXL\EM\ESC\n\
+    \<\n\
+    \\EOT\EOT\NUL\STX\t\DC2\ETXO\EOT@\SUB/ Request to cancel previously deferred request\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\t\EOT\DC2\ETXO\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\t\ACK\DC2\ETXO\r\"\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\t\SOH\DC2\ETXO#:\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\t\ETX\DC2\ETXO=?\n\
+    \\v\n\
+    \\EOT\EOT\NUL\STX\n\
+    \\DC2\ETXQ\EOTC\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\n\
+    \\EOT\DC2\ETXQ\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\n\
+    \\ACK\DC2\ETXQ\r,\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\n\
+    \\SOH\DC2\ETXQ-=\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\n\
+    \\ETX\DC2\ETXQ@B\n\
+    \P\n\
+    \\EOT\EOT\NUL\STX\v\DC2\ETXT\EOT]\SUBC Requests related to configuration/information of current session.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\v\EOT\DC2\ETXT\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\v\ACK\DC2\ETXT\r9\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\v\SOH\DC2\ETXT:W\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\v\ETX\DC2\ETXTZ\\\n\
+    \,\n\
+    \\EOT\EOT\NUL\STX\f\DC2\ETXW\EOTI\SUB\US Location management requests.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\f\EOT\DC2\ETXW\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\f\ACK\DC2\ETXW\r,\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\f\SOH\DC2\ETXW-C\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\f\ETX\DC2\ETXWFH\n\
+    \(\n\
+    \\ETX\EOT\NUL\ENQ\DC2\ETXZ\EOT\SUB\SUB\FS Reserved for internal use.\n\
+    \\n\
+    \\v\n\
+    \\EOT\EOT\NUL\ENQ\NUL\DC2\ETXZ\SI\EM\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\ENQ\NUL\SOH\DC2\ETXZ\SI\DC2\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\ENQ\NUL\STX\DC2\ETXZ\SYN\EM\n\
+    \_\n\
+    \\STX\EOT\SOH\DC2\ENQ_\NUL\144\SOH\SOH\SUBR Information request message.\n\
+    \ One of the operational request fields is expected.\n\
+    \\n\
+    \\n\
+    \\n\
+    \\ETX\EOT\SOH\SOH\DC2\ETX_\b\SUB\n\
+    \W\n\
+    \\EOT\EOT\SOH\STX\NUL\DC2\ETXc\EOT\ESC\SUBJ Request identifier.\n\
+    \ It should be unique to match with operation result.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\NUL\EOT\DC2\ETXc\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\NUL\ENQ\DC2\ETXc\r\DC3\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\NUL\SOH\DC2\ETXc\DC4\SYN\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\NUL\ETX\DC2\ETXc\EM\SUB\n\
+    \+\n\
+    \\EOT\EOT\SOH\STX\SOH\DC2\ETXf\EOT<\SUB\RS Request of user information.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\SOH\EOT\DC2\ETXf\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\SOH\ACK\DC2\ETXf\r%\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\SOH\SOH\DC2\ETXf&7\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\SOH\ETX\DC2\ETXf:;\n\
+    \.\n\
+    \\EOT\EOT\SOH\STX\STX\DC2\ETXi\EOTN\SUB! Request of user's entitlements.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\STX\EOT\DC2\ETXi\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\STX\ACK\DC2\ETXi\r'\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\STX\SOH\DC2\ETXi(I\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\STX\ETX\DC2\ETXiLM\n\
+    \1\n\
+    \\EOT\EOT\SOH\STX\ETX\DC2\ETXl\EOT[\SUB$ Request of entitlement categories.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ETX\EOT\DC2\ETXl\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ETX\ACK\DC2\ETXl\r4\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ETX\SOH\DC2\ETXl5V\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ETX\ETX\DC2\ETXlYZ\n\
+    \:\n\
+    \\EOT\EOT\SOH\STX\EOT\DC2\ETXo\EOTP\SUB- Request of entitlement service information.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\EOT\EOT\DC2\ETXo\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\EOT\ACK\DC2\ETXo\r/\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\EOT\SOH\DC2\ETXo0K\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\EOT\ETX\DC2\ETXoNO\n\
+    \.\n\
+    \\EOT\EOT\SOH\STX\ENQ\DC2\ETXr\EOT0\SUB! Request of profile information.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ENQ\EOT\DC2\ETXr\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ENQ\ACK\DC2\ETXr\r\ESC\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ENQ\SOH\DC2\ETXr\FS+\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ENQ\ETX\DC2\ETXr./\n\
+    \-\n\
+    \\EOT\EOT\SOH\STX\ACK\DC2\ETXu\EOTY\SUB  Request for all services list.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ACK\EOT\DC2\ETXu\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ACK\ACK\DC2\ETXu\r3\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ACK\SOH\DC2\ETXu4T\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\ACK\ETX\DC2\ETXuWX\n\
+    \)\n\
+    \\EOT\EOT\SOH\STX\a\DC2\ETXx\EOTF\SUB\FS Request of unique username\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\a\EOT\DC2\ETXx\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\a\ACK\DC2\ETXx\r%\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\a\SOH\DC2\ETXx&A\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\a\ETX\DC2\ETXxDE\n\
+    \6\n\
+    \\EOT\EOT\SOH\STX\b\DC2\ETX{\EOTw\SUB) Customer to sales series links request.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\b\EOT\DC2\ETX{\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\b\ACK\DC2\ETX{\rA\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\b\SOH\DC2\ETX{Br\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\b\ETX\DC2\ETX{uv\n\
+    \1\n\
+    \\EOT\EOT\SOH\STX\t\DC2\ETX~\EOTG\SUB$ Login additional settings request.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\t\EOT\DC2\ETX~\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\t\ACK\DC2\ETX~\r*\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\t\SOH\DC2\ETX~+A\n\
+    \\f\n\
+    \\ENQ\EOT\SOH\STX\t\ETX\DC2\ETX~DF\n\
+    \U\n\
+    \\EOT\EOT\SOH\STX\n\
+    \\DC2\EOT\130\SOH\EOTb\SUBG Requests login's member ids.\n\
+    \ Supported login domains: trade-routing.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\n\
+    \\EOT\DC2\EOT\130\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\n\
+    \\ACK\DC2\EOT\130\SOH\r6\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\n\
+    \\SOH\DC2\EOT\130\SOH7\\\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\n\
+    \\ETX\DC2\EOT\130\SOH_a\n\
+    \u\n\
+    \\EOT\EOT\SOH\STX\v\DC2\EOT\134\SOH\EOTR\SUBg Get a list of lookup properties.\n\
+    \ Lookup Property types are defined by CommonLookupPropertyType enum.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\v\EOT\DC2\EOT\134\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\v\ACK\DC2\EOT\134\SOH\r/\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\v\SOH\DC2\EOT\134\SOH0L\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\v\ETX\DC2\EOT\134\SOHOQ\n\
+    \4\n\
+    \\EOT\EOT\SOH\STX\f\DC2\EOT\137\SOH\EOTC\SUB& Get list of authentication partners.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\f\EOT\DC2\EOT\137\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\f\ACK\DC2\EOT\137\SOH\r#\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\f\SOH\DC2\EOT\137\SOH$=\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\f\ETX\DC2\EOT\137\SOH@B\n\
+    \5\n\
+    \\EOT\EOT\SOH\STX\r\DC2\EOT\140\SOH\EOT[\SUB' Request of login billing custom data.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\r\EOT\DC2\EOT\140\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\r\ACK\DC2\EOT\140\SOH\r3\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\r\SOH\DC2\EOT\140\SOH4U\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\r\ETX\DC2\EOT\140\SOHXZ\n\
+    \,\n\
+    \\EOT\EOT\SOH\STX\SO\DC2\EOT\143\SOH\EOTK\SUB\RS Request of trading features.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\SO\EOT\DC2\EOT\143\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\SO\ACK\DC2\EOT\143\SOH\r,\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\SO\SOH\DC2\EOT\143\SOH-E\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\SO\ETX\DC2\EOT\143\SOHHJ\n\
+    \\222\SOH\n\
+    \\STX\EOT\STX\DC2\ACK\150\SOH\NUL\173\SOH\SOH\SUB\207\SOH Request message to search for information.\n\
+    \ One optional field is expected.\n\
+    \ By default result contains at most DEFAULT_RESULT_RECORDS_NUMBER records.\n\
+    \ Set parameter top to a larger number to receive more.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\STX\SOH\DC2\EOT\150\SOH\b\NAK\n\
+    \X\n\
+    \\EOT\EOT\STX\STX\NUL\DC2\EOT\154\SOH\EOT\ESC\SUBJ Request identifier.\n\
+    \ It should be unique to match with operation result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\NUL\EOT\DC2\EOT\154\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\NUL\ENQ\DC2\EOT\154\SOH\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\NUL\SOH\DC2\EOT\154\SOH\DC4\SYN\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\NUL\ETX\DC2\EOT\154\SOH\EM\SUB\n\
+    \Y\n\
+    \\EOT\EOT\STX\STX\SOH\DC2\EOT\157\SOH\EOT\FS\SUBK Optionally restrict matched results by returning the first 'top' records.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\SOH\EOT\DC2\EOT\157\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\SOH\ENQ\DC2\EOT\157\SOH\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\SOH\SOH\DC2\EOT\157\SOH\DC4\ETB\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\SOH\ETX\DC2\EOT\157\SOH\SUB\ESC\n\
+    \!\n\
+    \\EOT\EOT\STX\STX\STX\DC2\EOT\160\SOH\EOT@\SUB\DC3 Search for users.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\STX\EOT\DC2\EOT\160\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\STX\ACK\DC2\EOT\160\SOH\r'\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\STX\SOH\DC2\EOT\160\SOH(;\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\STX\ETX\DC2\EOT\160\SOH>?\n\
+    \$\n\
+    \\EOT\EOT\STX\STX\ETX\DC2\EOT\163\SOH\EOT=\SUB\SYN Search for profiles.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ETX\EOT\DC2\EOT\163\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ETX\ACK\DC2\EOT\163\SOH\r!\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ETX\SOH\DC2\EOT\163\SOH\"8\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ETX\ETX\DC2\EOT\163\SOH;<\n\
+    \<\n\
+    \\EOT\EOT\STX\STX\EOT\DC2\EOT\166\SOH\EOTj\SUB. [obsolete] Use ProfileSearchRequest instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\EOT\EOT\DC2\EOT\166\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\EOT\ACK\DC2\EOT\166\SOH\r.\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\EOT\SOH\DC2\EOT\166\SOH/S\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\EOT\ETX\DC2\EOT\166\SOHVW\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\EOT\b\DC2\EOT\166\SOHXi\n\
+    \\SO\n\
+    \\ACK\EOT\STX\STX\EOT\b\ETX\DC2\EOT\166\SOHYh\n\
+    \R\n\
+    \\EOT\EOT\STX\STX\ENQ\DC2\EOT\169\SOH\EOT8\SUBD Determines whether removed entities are included in search result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ENQ\EOT\DC2\EOT\169\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ENQ\ENQ\DC2\EOT\169\SOH\r\DC1\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ENQ\SOH\DC2\EOT\169\SOH\DC2!\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ENQ\ETX\DC2\EOT\169\SOH$%\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ENQ\b\DC2\EOT\169\SOH&7\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ENQ\a\DC2\EOT\169\SOH16\n\
+    \&\n\
+    \\EOT\EOT\STX\STX\ACK\DC2\EOT\172\SOH\EOTL\SUB\CAN Search for log events.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ACK\EOT\DC2\EOT\172\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ACK\ACK\DC2\EOT\172\SOH\r.\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ACK\SOH\DC2\EOT\172\SOH/G\n\
+    \\r\n\
+    \\ENQ\EOT\STX\STX\ACK\ETX\DC2\EOT\172\SOHJK\n\
+    \\186\ACK\n\
+    \\STX\EOT\ETX\DC2\ACK\185\SOH\NUL\138\STX\SOH\SUB\171\ACK Operation request message.\n\
+    \ One of the request fields is expected.\n\
+    \ Create operations ignore entity id fields (set it to an empty string).\n\
+    \ Update operations use entity id fields as a key to update corresponding entities.\n\
+    \ Also update operations have optional original entity fields (last know information before changes).\n\
+    \ If the original entity is specified then it is used to identify which fields are updated and\n\
+    \ which stay untouched so to update only fields that are different from the provided original.\n\
+    \ Update operation does not fail if some of the updated fields have been changed already.\n\
+    \ This means that if two clients change the same entity field at the same time then the last one is set\n\
+    \ but if two clients change different fields of this entity at the same time then both changes are applied.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\ETX\SOH\DC2\EOT\185\SOH\b\CAN\n\
+    \X\n\
+    \\EOT\EOT\ETX\STX\NUL\DC2\EOT\189\SOH\EOT\ESC\SUBJ Request identifier.\n\
+    \ It should be unique to match with operation result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\NUL\EOT\DC2\EOT\189\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\NUL\ENQ\DC2\EOT\189\SOH\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\NUL\SOH\DC2\EOT\189\SOH\DC4\SYN\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\NUL\ETX\DC2\EOT\189\SOH\EM\SUB\n\
+    \X\n\
+    \\EOT\EOT\ETX\STX\SOH\DC2\EOT\193\SOH\EOT/\SUBJ Clone template or regular user.\n\
+    \ Supported login domains: trade-routing.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SOH\EOT\DC2\EOT\193\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SOH\ACK\DC2\EOT\193\SOH\r\US\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SOH\SOH\DC2\EOT\193\SOH *\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SOH\ETX\DC2\EOT\193\SOH-.\n\
+    \\US\n\
+    \\EOT\EOT\ETX\STX\STX\DC2\EOT\196\SOH\EOT.\SUB\DC1 Create profile.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\STX\EOT\DC2\EOT\196\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\STX\ACK\DC2\EOT\196\SOH\r\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\STX\SOH\DC2\EOT\196\SOH\ESC)\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\STX\ETX\DC2\EOT\196\SOH,-\n\
+    \\US\n\
+    \\EOT\EOT\ETX\STX\ETX\DC2\EOT\199\SOH\EOT.\SUB\DC1 Update profile.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ETX\EOT\DC2\EOT\199\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ETX\ACK\DC2\EOT\199\SOH\r\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ETX\SOH\DC2\EOT\199\SOH\ESC)\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ETX\ETX\DC2\EOT\199\SOH,-\n\
+    \\US\n\
+    \\EOT\EOT\ETX\STX\EOT\DC2\EOT\202\SOH\EOT.\SUB\DC1 Remove profile.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\EOT\EOT\DC2\EOT\202\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\EOT\ACK\DC2\EOT\202\SOH\r\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\EOT\SOH\DC2\EOT\202\SOH\ESC)\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\EOT\ETX\DC2\EOT\202\SOH,-\n\
+    \\FS\n\
+    \\EOT\EOT\ETX\STX\ENQ\DC2\EOT\205\SOH\EOT1\SUB\SO Create user.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ENQ\EOT\DC2\EOT\205\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ENQ\ACK\DC2\EOT\205\SOH\r \n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ENQ\SOH\DC2\EOT\205\SOH!,\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ENQ\ETX\DC2\EOT\205\SOH/0\n\
+    \\FS\n\
+    \\EOT\EOT\ETX\STX\ACK\DC2\EOT\208\SOH\EOT1\SUB\SO Update user.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ACK\EOT\DC2\EOT\208\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ACK\ACK\DC2\EOT\208\SOH\r \n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ACK\SOH\DC2\EOT\208\SOH!,\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ACK\ETX\DC2\EOT\208\SOH/0\n\
+    \\FS\n\
+    \\EOT\EOT\ETX\STX\a\DC2\EOT\211\SOH\EOT1\SUB\SO Remove user.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\a\EOT\DC2\EOT\211\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\a\ACK\DC2\EOT\211\SOH\r \n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\a\SOH\DC2\EOT\211\SOH!,\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\a\ETX\DC2\EOT\211\SOH/0\n\
+    \X\n\
+    \\EOT\EOT\ETX\STX\b\DC2\EOT\215\SOH\EOT9\SUBJ [re-]link login to a profile.\n\
+    \ Supported profile types: admin, customer.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\b\EOT\DC2\EOT\215\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\b\ACK\DC2\EOT\215\SOH\r\US\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\b\SOH\DC2\EOT\215\SOH 4\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\b\ETX\DC2\EOT\215\SOH78\n\
+    \=\n\
+    \\EOT\EOT\ETX\STX\t\DC2\EOT\218\SOH\EOTY\SUB/ Modify the list of user entitlement services.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\t\EOT\DC2\EOT\218\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\t\ACK\DC2\EOT\218\SOH\r2\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\t\SOH\DC2\EOT\218\SOH3S\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\t\ETX\DC2\EOT\218\SOHVX\n\
+    \Z\n\
+    \\EOT\EOT\ETX\STX\n\
+    \\DC2\EOT\222\SOH\EOT6\SUBL Send welcome e-mail to profile.\n\
+    \ Supported profile types: admin, customer.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\n\
+    \\EOT\DC2\EOT\222\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\n\
+    \\ACK\DC2\EOT\222\SOH\r\GS\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\n\
+    \\SOH\DC2\EOT\222\SOH\RS0\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\n\
+    \\ETX\DC2\EOT\222\SOH35\n\
+    \\GS\n\
+    \\EOT\EOT\ETX\STX\v\DC2\EOT\225\SOH\EOT4\SUB\SI Restore user.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\v\EOT\DC2\EOT\225\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\v\ACK\DC2\EOT\225\SOH\r!\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\v\SOH\DC2\EOT\225\SOH\".\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\v\ETX\DC2\EOT\225\SOH13\n\
+    \ \n\
+    \\EOT\EOT\ETX\STX\f\DC2\EOT\228\SOH\EOT1\SUB\DC2 Restore profile.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\f\EOT\DC2\EOT\228\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\f\ACK\DC2\EOT\228\SOH\r\ESC\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\f\SOH\DC2\EOT\228\SOH\FS+\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\f\ETX\DC2\EOT\228\SOH.0\n\
+    \M\n\
+    \\EOT\EOT\ETX\STX\r\DC2\EOT\231\SOH\EOTv\SUB? Update customer to sales series authorization list operation.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\r\EOT\DC2\EOT\231\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\r\ACK\DC2\EOT\231\SOH\r@\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\r\SOH\DC2\EOT\231\SOHAp\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\r\ETX\DC2\EOT\231\SOHsu\n\
+    \^\n\
+    \\EOT\EOT\ETX\STX\SO\DC2\EOT\235\SOH\EOT`\SUBP Update login exchange member id list.\n\
+    \ Supported login domains: trade-routing.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SO\EOT\DC2\EOT\235\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SO\ACK\DC2\EOT\235\SOH\r5\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SO\SOH\DC2\EOT\235\SOH6Z\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SO\ETX\DC2\EOT\235\SOH]_\n\
+    \&\n\
+    \\EOT\EOT\ETX\STX\SI\DC2\EOT\238\SOH\EOTE\SUB\CAN Update Login settings.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SI\EOT\DC2\EOT\238\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SI\ACK\DC2\EOT\238\SOH\r)\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SI\SOH\DC2\EOT\238\SOH*?\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SI\ETX\DC2\EOT\238\SOHBD\n\
+    \R\n\
+    \\EOT\EOT\ETX\STX\DLE\DC2\EOT\242\SOH\EOT8\SUBD Activate login operation.\n\
+    \ Supported login domains: trade-routing.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DLE\EOT\DC2\EOT\242\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DLE\ACK\DC2\EOT\242\SOH\r#\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DLE\SOH\DC2\EOT\242\SOH$2\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DLE\ETX\DC2\EOT\242\SOH57\n\
+    \T\n\
+    \\EOT\EOT\ETX\STX\DC1\DC2\EOT\246\SOH\EOT<\SUBF Deactivate login operation.\n\
+    \ Supported login domains: trade-routing.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC1\EOT\DC2\EOT\246\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC1\ACK\DC2\EOT\246\SOH\r%\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC1\SOH\DC2\EOT\246\SOH&6\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC1\ETX\DC2\EOT\246\SOH9;\n\
+    \\\\n\
+    \\EOT\EOT\ETX\STX\DC2\DC2\EOT\250\SOH\EOTG\SUBN Send credential reset email.\n\
+    \ Supported login domains: trade-routing, admin.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC2\EOT\DC2\EOT\250\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC2\ACK\DC2\EOT\250\SOH\r%\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC2\SOH\DC2\EOT\250\SOH&A\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC2\ETX\DC2\EOT\250\SOHDF\n\
+    \\133\SOH\n\
+    \\EOT\EOT\ETX\STX\DC3\DC2\EOT\254\SOH\EOTO\SUBw Generate a service security token for a special AuthServer operation.\n\
+    \ Supported login domains: trade-routing, admin.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC3\EOT\DC2\EOT\254\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC3\ACK\DC2\EOT\254\SOH\r)\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC3\SOH\DC2\EOT\254\SOH*I\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC3\ETX\DC2\EOT\254\SOHLN\n\
+    \n\n\
+    \\EOT\EOT\ETX\STX\DC4\DC2\EOT\130\STX\EOTM\SUB` Erases current credentials of specified types.\n\
+    \ Supported login domains: trade-routing, admin.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC4\EOT\DC2\EOT\130\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC4\ACK\DC2\EOT\130\STX\r-\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC4\SOH\DC2\EOT\130\STX.G\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\DC4\ETX\DC2\EOT\130\STXJL\n\
+    \>\n\
+    \\EOT\EOT\ETX\STX\NAK\DC2\EOT\133\STX\EOT@\SUB0 Supported login domains: trade-routing, admin.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\NAK\EOT\DC2\EOT\133\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\NAK\ACK\DC2\EOT\133\STX\r\"\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\NAK\SOH\DC2\EOT\133\STX#:\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\NAK\ETX\DC2\EOT\133\STX=?\n\
+    \Z\n\
+    \\EOT\EOT\ETX\STX\SYN\DC2\EOT\137\STX\EOTY\SUBL Update login billing custom data.\n\
+    \ Supported login domains: trade-routing.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SYN\EOT\DC2\EOT\137\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SYN\ACK\DC2\EOT\137\STX\r2\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SYN\SOH\DC2\EOT\137\STX3S\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\SYN\ETX\DC2\EOT\137\STXVX\n\
+    \\160\EOT\n\
+    \\STX\EOT\EOT\DC2\ACK\150\STX\NUL\158\STX\SOH\SUB\145\EOT Request used to cancel previously sent request that was deferred in Waiting Queue\n\
+    \ Only next requests can be deferred and canceled:\n\
+    \    cmsapi.InformationRequest\n\
+    \    cmsapi.OperationRequest\n\
+    \    cmsapi.SearchRequest\n\
+    \    trapi.TradeRoutingRequest\n\
+    \ Requests cancelation is available only if client was logged on or join session\n\
+    \ with subscribe_on_request_status_change flag set to true.\n\
+    \ If request with this tracking_number is not present in Waiting Queue or it was initiated from\n\
+    \ another connection than it will not be canceled\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\EOT\SOH\DC2\EOT\150\STX\b\GS\n\
+    \V\n\
+    \\EOT\EOT\EOT\STX\NUL\DC2\EOT\154\STX\EOT\ESC\SUBH Request identifier\n\
+    \ it should be unique to match with operation result\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\EOT\STX\NUL\EOT\DC2\EOT\154\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\EOT\STX\NUL\ENQ\DC2\EOT\154\STX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\EOT\STX\NUL\SOH\DC2\EOT\154\STX\DC4\SYN\n\
+    \\r\n\
+    \\ENQ\EOT\EOT\STX\NUL\ETX\DC2\EOT\154\STX\EM\SUB\n\
+    \L\n\
+    \\EOT\EOT\EOT\STX\SOH\DC2\EOT\157\STX\EOT(\SUB> Tracking Number of request to be canceled from Waiting Queue\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\EOT\STX\SOH\EOT\DC2\EOT\157\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\EOT\STX\SOH\ENQ\DC2\EOT\157\STX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\EOT\STX\SOH\SOH\DC2\EOT\157\STX\DC4#\n\
+    \\r\n\
+    \\ENQ\EOT\EOT\STX\SOH\ETX\DC2\EOT\157\STX&'\n\
+    \l\n\
+    \\STX\EOT\ENQ\DC2\ACK\164\STX\NUL\205\STX\SOH\SUB\ESC Server to Client message.\n\
+    \2A//------------------------------------------\n\
+    \// Server Messages.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\ENQ\SOH\DC2\EOT\164\STX\b\NAK\n\
+    \/\n\
+    \\EOT\EOT\ENQ\STX\NUL\DC2\EOT\167\STX\EOT3\SUB! Session level messages results.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\NUL\EOT\DC2\EOT\167\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\NUL\ACK\DC2\EOT\167\STX\r!\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\NUL\SOH\DC2\EOT\167\STX\".\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\NUL\ETX\DC2\EOT\167\STX12\n\
+    \\f\n\
+    \\EOT\EOT\ENQ\STX\SOH\DC2\EOT\168\STX\EOT/\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\SOH\EOT\DC2\EOT\168\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\SOH\ACK\DC2\EOT\168\STX\r\US\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\SOH\SOH\DC2\EOT\168\STX *\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\SOH\ETX\DC2\EOT\168\STX-.\n\
+    \\f\n\
+    \\EOT\EOT\ENQ\STX\STX\DC2\EOT\169\STX\EOTT\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\STX\EOT\DC2\EOT\169\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\STX\ACK\DC2\EOT\169\STX\r0\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\STX\SOH\DC2\EOT\169\STX1O\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\STX\ETX\DC2\EOT\169\STXRS\n\
+    \.\n\
+    \\EOT\EOT\ENQ\STX\ETX\DC2\EOT\172\STX\EOT6\SUB  Result of information request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ETX\EOT\DC2\EOT\172\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ETX\ACK\DC2\EOT\172\STX\r\RS\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ETX\SOH\DC2\EOT\172\STX\US1\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ETX\ETX\DC2\EOT\172\STX45\n\
+    \)\n\
+    \\EOT\EOT\ENQ\STX\EOT\DC2\EOT\175\STX\EOT,\SUB\ESC Result of search request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\EOT\EOT\DC2\EOT\175\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\EOT\ACK\DC2\EOT\175\STX\r\EM\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\EOT\SOH\DC2\EOT\175\STX\SUB'\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\EOT\ETX\DC2\EOT\175\STX*+\n\
+    \,\n\
+    \\EOT\EOT\ENQ\STX\ENQ\DC2\EOT\178\STX\EOT2\SUB\RS Result of operation request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ENQ\EOT\DC2\EOT\178\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ENQ\ACK\DC2\EOT\178\STX\r\FS\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ENQ\SOH\DC2\EOT\178\STX\GS-\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ENQ\ETX\DC2\EOT\178\STX01\n\
+    \0\n\
+    \\EOT\EOT\ENQ\STX\ACK\DC2\EOT\181\STX\EOTH\SUB\" Trade routing operation results.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ACK\EOT\DC2\EOT\181\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ACK\ACK\DC2\EOT\181\STX\r.\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ACK\SOH\DC2\EOT\181\STX/C\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\ACK\ETX\DC2\EOT\181\STXFG\n\
+    \$\n\
+    \\EOT\EOT\ENQ\STX\a\DC2\EOT\184\STX\EOT3\SUB\SYN Message from server.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\a\EOT\DC2\EOT\184\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\a\ACK\DC2\EOT\184\STX\r!\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\a\SOH\DC2\EOT\184\STX\".\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\a\ETX\DC2\EOT\184\STX12\n\
+    \\GS\n\
+    \\EOT\EOT\ENQ\STX\b\DC2\EOT\187\STX\EOT\FS\SUB\SI Ping request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\b\EOT\DC2\EOT\187\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\b\ACK\DC2\EOT\187\STX\r\DC1\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\b\SOH\DC2\EOT\187\STX\DC2\SYN\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\b\ETX\DC2\EOT\187\STX\EM\ESC\n\
+    \@\n\
+    \\EOT\EOT\ENQ\STX\t\DC2\EOT\190\STX\EOT\FS\SUB2 Pong message in response to client Ping request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\t\EOT\DC2\EOT\190\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\t\ACK\DC2\EOT\190\STX\r\DC1\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\t\SOH\DC2\EOT\190\STX\DC2\SYN\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\t\ETX\DC2\EOT\190\STX\EM\ESC\n\
+    \1\n\
+    \\EOT\EOT\ENQ\STX\n\
+    \\DC2\EOT\193\STX\EOTM\SUB# Result of cancel_deferred_request\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\n\
+    \\EOT\DC2\EOT\193\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\n\
+    \\ACK\DC2\EOT\193\STX\r(\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\n\
+    \\SOH\DC2\EOT\193\STX)G\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\n\
+    \\ETX\DC2\EOT\193\STXJL\n\
+    \\f\n\
+    \\EOT\EOT\ENQ\STX\v\DC2\EOT\195\STX\EOTA\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\v\EOT\DC2\EOT\195\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\v\ACK\DC2\EOT\195\STX\r+\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\v\SOH\DC2\EOT\195\STX,;\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\v\ETX\DC2\EOT\195\STX>@\n\
+    \8\n\
+    \\EOT\EOT\ENQ\STX\f\DC2\EOT\198\STX\EOT[\SUB* Result of session_context_scope_request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\f\EOT\DC2\EOT\198\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\f\ACK\DC2\EOT\198\STX\r8\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\f\SOH\DC2\EOT\198\STX9U\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\f\ETX\DC2\EOT\198\STXXZ\n\
+    \,\n\
+    \\EOT\EOT\ENQ\STX\r\DC2\EOT\201\STX\EOTG\SUB\RS Location management results.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\r\EOT\DC2\EOT\201\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\r\ACK\DC2\EOT\201\STX\r+\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\r\SOH\DC2\EOT\201\STX,A\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\r\ETX\DC2\EOT\201\STXDF\n\
+    \)\n\
+    \\ETX\EOT\ENQ\ENQ\DC2\EOT\204\STX\EOT\SUB\SUB\FS Reserved for internal use.\n\
+    \\n\
+    \\f\n\
+    \\EOT\EOT\ENQ\ENQ\NUL\DC2\EOT\204\STX\SI\EM\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\ENQ\NUL\SOH\DC2\EOT\204\STX\SI\DC2\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\ENQ\NUL\STX\DC2\EOT\204\STX\SYN\EM\n\
+    \\140\SOH\n\
+    \\STX\EOT\ACK\DC2\ACK\209\STX\NUL\135\ETX\SOH\SUB~ Result of information request.\n\
+    \ Information is filtered according to permissions of logged-in user (or 'on-behalf-of' user).\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\ACK\SOH\DC2\EOT\209\STX\b\EM\n\
+    \.\n\
+    \\EOT\EOT\ACK\STX\NUL\DC2\EOT\212\STX\EOT#\SUB  ID of a corresponding request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\NUL\EOT\DC2\EOT\212\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\NUL\ENQ\DC2\EOT\212\STX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\NUL\SOH\DC2\EOT\212\STX\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\NUL\ETX\DC2\EOT\212\STX!\"\n\
+    \_\n\
+    \\EOT\EOT\ACK\STX\SOH\DC2\EOT\216\STX\EOT)\SUBQ Operation status.\n\
+    \ This field is associated with common_1.OperationStatus enum.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SOH\EOT\DC2\EOT\216\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SOH\ENQ\DC2\EOT\216\STX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SOH\SOH\DC2\EOT\216\STX\DC4$\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SOH\ETX\DC2\EOT\216\STX'(\n\
+    \ \n\
+    \\EOT\EOT\ACK\STX\STX\DC2\EOT\219\STX\EOT-\SUB\DC2 Failure details.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\STX\EOT\DC2\EOT\219\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\STX\ACK\DC2\EOT\219\STX\r\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\STX\SOH\DC2\EOT\219\STX\ESC(\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\STX\ETX\DC2\EOT\219\STX+,\n\
+    \!\n\
+    \\EOT\EOT\ACK\STX\ETX\DC2\EOT\222\STX\EOT$\SUB\DC3 User information.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ETX\EOT\DC2\EOT\222\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ETX\ACK\DC2\EOT\222\STX\r\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ETX\SOH\DC2\EOT\222\STX\ESC\US\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ETX\ETX\DC2\EOT\222\STX\"#\n\
+    \2\n\
+    \\EOT\EOT\ACK\STX\EOT\DC2\EOT\225\STX\EOTK\SUB$ List of user entitlement services.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\EOT\EOT\DC2\EOT\225\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\EOT\ACK\DC2\EOT\225\STX\r,\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\EOT\SOH\DC2\EOT\225\STX-F\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\EOT\ETX\DC2\EOT\225\STXIJ\n\
+    \,\n\
+    \\EOT\EOT\ACK\STX\ENQ\DC2\EOT\228\STX\EOTC\SUB\RS Entitlement categories list.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ENQ\EOT\DC2\EOT\228\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ENQ\ACK\DC2\EOT\228\STX\r)\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ENQ\SOH\DC2\EOT\228\STX*>\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ENQ\ETX\DC2\EOT\228\STXAB\n\
+    \)\n\
+    \\EOT\EOT\ACK\STX\ACK\DC2\EOT\231\STX\EOTA\SUB\ESC Entitlement service list.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ACK\EOT\DC2\EOT\231\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ACK\ACK\DC2\EOT\231\STX\r(\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ACK\SOH\DC2\EOT\231\STX)<\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\ACK\ETX\DC2\EOT\231\STX?@\n\
+    \\CAN\n\
+    \\EOT\EOT\ACK\STX\a\DC2\EOT\234\STX\EOT*\SUB\n\
+    \ Profile.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\a\EOT\DC2\EOT\234\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\a\ACK\DC2\EOT\234\STX\r\GS\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\a\SOH\DC2\EOT\234\STX\RS%\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\a\ETX\DC2\EOT\234\STX()\n\
+    \*\n\
+    \\EOT\EOT\ACK\STX\b\DC2\EOT\237\STX\EOT=\SUB\FS Get unique username result\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\b\EOT\DC2\EOT\237\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\b\ACK\DC2\EOT\237\STX\r!\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\b\SOH\DC2\EOT\237\STX\"8\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\b\ETX\DC2\EOT\237\STX;<\n\
+    \K\n\
+    \\EOT\EOT\ACK\STX\t\DC2\EOT\240\STX\EOTv\SUB= Customer to sales series authorization list result message.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\t\EOT\DC2\EOT\240\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\t\ACK\DC2\EOT\240\STX\r@\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\t\SOH\DC2\EOT\240\STXAp\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\t\ETX\DC2\EOT\240\STXsu\n\
+    \/\n\
+    \\EOT\EOT\ACK\STX\n\
+    \\DC2\EOT\243\STX\EOTE\SUB! Result of LoginSettingsRequest.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\n\
+    \\EOT\DC2\EOT\243\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\n\
+    \\ACK\DC2\EOT\243\STX\r)\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\n\
+    \\SOH\DC2\EOT\243\STX*?\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\n\
+    \\ETX\DC2\EOT\243\STXBD\n\
+    \:\n\
+    \\EOT\EOT\ACK\STX\v\DC2\EOT\246\STX\EOT`\SUB, Result of LoginExchangeMemberIdListRequest\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\v\EOT\DC2\EOT\246\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\v\ACK\DC2\EOT\246\STX\r5\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\v\SOH\DC2\EOT\246\STX6Z\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\v\ETX\DC2\EOT\246\STX]_\n\
+    \7\n\
+    \\EOT\EOT\ACK\STX\f\DC2\EOT\249\STX\EOTP\SUB) Result of lookup_property_list_request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\f\EOT\DC2\EOT\249\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\f\ACK\DC2\EOT\249\STX\r.\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\f\SOH\DC2\EOT\249\STX/J\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\f\ETX\DC2\EOT\249\STXMO\n\
+    \1\n\
+    \\EOT\EOT\ACK\STX\r\DC2\EOT\252\STX\EOTA\SUB# Result of AuthPartnerListRequest.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\r\EOT\DC2\EOT\252\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\r\ACK\DC2\EOT\252\STX\r\"\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\r\SOH\DC2\EOT\252\STX#;\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\r\ETX\DC2\EOT\252\STX>@\n\
+    \8\n\
+    \\EOT\EOT\ACK\STX\SO\DC2\EOT\255\STX\EOTY\SUB* Result of LoginBillingCustomDataRequest.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SO\EOT\DC2\EOT\255\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SO\ACK\DC2\EOT\255\STX\r2\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SO\SOH\DC2\EOT\255\STX3S\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SO\ETX\DC2\EOT\255\STXVX\n\
+    \g\n\
+    \\EOT\EOT\ACK\STX\SI\DC2\EOT\131\ETX\EOT)\SUBY Request tracking number generated by CMS API\n\
+    \ Used by client to cancel deferred request\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SI\EOT\DC2\EOT\131\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SI\ENQ\DC2\EOT\131\ETX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SI\SOH\DC2\EOT\131\ETX\DC4#\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SI\ETX\DC2\EOT\131\ETX&(\n\
+    \1\n\
+    \\EOT\EOT\ACK\STX\DLE\DC2\EOT\134\ETX\EOTI\SUB# Result of TradingFeaturesRequest.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\DLE\EOT\DC2\EOT\134\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\DLE\ACK\DC2\EOT\134\ETX\r+\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\DLE\SOH\DC2\EOT\134\ETX,C\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\DLE\ETX\DC2\EOT\134\ETXFH\n\
+    \(\n\
+    \\STX\EOT\a\DC2\ACK\138\ETX\NUL\169\ETX\SOH\SUB\SUB Search operation result.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\a\SOH\DC2\EOT\138\ETX\b\DC4\n\
+    \.\n\
+    \\EOT\EOT\a\STX\NUL\DC2\EOT\141\ETX\EOT#\SUB  ID of a corresponding request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\NUL\EOT\DC2\EOT\141\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\NUL\ENQ\DC2\EOT\141\ETX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\NUL\SOH\DC2\EOT\141\ETX\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\NUL\ETX\DC2\EOT\141\ETX!\"\n\
+    \_\n\
+    \\EOT\EOT\a\STX\SOH\DC2\EOT\145\ETX\EOT)\SUBQ Operation status.\n\
+    \ This field is associated with common_1.OperationStatus enum.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\SOH\EOT\DC2\EOT\145\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\SOH\ENQ\DC2\EOT\145\ETX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\SOH\SOH\DC2\EOT\145\ETX\DC4$\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\SOH\ETX\DC2\EOT\145\ETX'(\n\
+    \y\n\
+    \\EOT\EOT\a\STX\STX\DC2\EOT\149\ETX\EOT3\SUBk This flag is set to True if all search results are sent\n\
+    \ and nothing was filtered out by 'top' parameter.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\STX\EOT\DC2\EOT\149\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\STX\ENQ\DC2\EOT\149\ETX\r\DC1\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\STX\SOH\DC2\EOT\149\ETX\DC2\GS\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\STX\ETX\DC2\EOT\149\ETX !\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\STX\b\DC2\EOT\149\ETX\"2\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\STX\a\DC2\EOT\149\ETX-1\n\
+    \ \n\
+    \\EOT\EOT\a\STX\ETX\DC2\EOT\152\ETX\EOT-\SUB\DC2 Failure details.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ETX\EOT\DC2\EOT\152\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ETX\ACK\DC2\EOT\152\ETX\r\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ETX\SOH\DC2\EOT\152\ETX\ESC(\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ETX\ETX\DC2\EOT\152\ETX+,\n\
+    \+\n\
+    \\EOT\EOT\a\STX\EOT\DC2\EOT\155\ETX\EOT=\SUB\GS User search result records.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\EOT\EOT\DC2\EOT\155\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\EOT\ACK\DC2\EOT\155\ETX\r,\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\EOT\SOH\DC2\EOT\155\ETX-8\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\EOT\ETX\DC2\EOT\155\ETX;<\n\
+    \.\n\
+    \\EOT\EOT\a\STX\ENQ\DC2\EOT\158\ETX\EOT:\SUB  Profile search result records.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ENQ\EOT\DC2\EOT\158\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ENQ\ACK\DC2\EOT\158\ETX\r&\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ENQ\SOH\DC2\EOT\158\ETX'5\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ENQ\ETX\DC2\EOT\158\ETX89\n\
+    \A\n\
+    \\EOT\EOT\a\STX\ACK\DC2\EOT\161\ETX\EOTg\SUB3 [obsolete] Use ProfileSearchResultRecord instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ACK\EOT\DC2\EOT\161\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ACK\ACK\DC2\EOT\161\ETX\r3\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ACK\SOH\DC2\EOT\161\ETX4P\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ACK\ETX\DC2\EOT\161\ETXST\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\ACK\b\DC2\EOT\161\ETXUf\n\
+    \\SO\n\
+    \\ACK\EOT\a\STX\ACK\b\ETX\DC2\EOT\161\ETXVe\n\
+    \g\n\
+    \\EOT\EOT\a\STX\a\DC2\EOT\165\ETX\EOT(\SUBY Request tracking number generated by CMS API\n\
+    \ Used by client to cancel deferred request\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\a\EOT\DC2\EOT\165\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\a\ENQ\DC2\EOT\165\ETX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\a\SOH\DC2\EOT\165\ETX\DC4#\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\a\ETX\DC2\EOT\165\ETX&'\n\
+    \0\n\
+    \\EOT\EOT\a\STX\b\DC2\EOT\168\ETX\EOTI\SUB\" Log event search result records.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\b\EOT\DC2\EOT\168\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\b\ACK\DC2\EOT\168\ETX\r3\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\b\SOH\DC2\EOT\168\ETX4D\n\
+    \\r\n\
+    \\ENQ\EOT\a\STX\b\ETX\DC2\EOT\168\ETXGH\n\
+    \,\n\
+    \\STX\EOT\b\DC2\ACK\172\ETX\NUL\252\ETX\SOH\SUB\RS Result of operation request.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\b\SOH\DC2\EOT\172\ETX\b\ETB\n\
+    \.\n\
+    \\EOT\EOT\b\STX\NUL\DC2\EOT\175\ETX\EOT#\SUB  ID of a corresponding request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\NUL\EOT\DC2\EOT\175\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\NUL\ENQ\DC2\EOT\175\ETX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\NUL\SOH\DC2\EOT\175\ETX\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\NUL\ETX\DC2\EOT\175\ETX!\"\n\
+    \_\n\
+    \\EOT\EOT\b\STX\SOH\DC2\EOT\179\ETX\EOT)\SUBQ Operation status.\n\
+    \ This field is associated with common_1.OperationStatus enum.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SOH\EOT\DC2\EOT\179\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SOH\ENQ\DC2\EOT\179\ETX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SOH\SOH\DC2\EOT\179\ETX\DC4$\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SOH\ETX\DC2\EOT\179\ETX'(\n\
+    \ \n\
+    \\EOT\EOT\b\STX\STX\DC2\EOT\182\ETX\EOT-\SUB\DC2 Failure details.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\STX\EOT\DC2\EOT\182\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\STX\ACK\DC2\EOT\182\ETX\r\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\STX\SOH\DC2\EOT\182\ETX\ESC(\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\STX\ETX\DC2\EOT\182\ETX+,\n\
+    \\"\n\
+    \\EOT\EOT\b\STX\ETX\DC2\EOT\185\ETX\EOT<\SUB\DC4 Clone user result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ETX\EOT\DC2\EOT\185\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ETX\ACK\DC2\EOT\185\ETX\r%\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ETX\SOH\DC2\EOT\185\ETX&7\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ETX\ETX\DC2\EOT\185\ETX:;\n\
+    \&\n\
+    \\EOT\EOT\b\STX\EOT\DC2\EOT\188\ETX\EOT;\SUB\CAN Create profile result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\EOT\EOT\DC2\EOT\188\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\EOT\ACK\DC2\EOT\188\ETX\r \n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\EOT\SOH\DC2\EOT\188\ETX!6\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\EOT\ETX\DC2\EOT\188\ETX9:\n\
+    \&\n\
+    \\EOT\EOT\b\STX\ENQ\DC2\EOT\191\ETX\EOT;\SUB\CAN Update profile result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ENQ\EOT\DC2\EOT\191\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ENQ\ACK\DC2\EOT\191\ETX\r \n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ENQ\SOH\DC2\EOT\191\ETX!6\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ENQ\ETX\DC2\EOT\191\ETX9:\n\
+    \&\n\
+    \\EOT\EOT\b\STX\ACK\DC2\EOT\194\ETX\EOT;\SUB\CAN Remove profile result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ACK\EOT\DC2\EOT\194\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ACK\ACK\DC2\EOT\194\ETX\r \n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ACK\SOH\DC2\EOT\194\ETX!6\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ACK\ETX\DC2\EOT\194\ETX9:\n\
+    \#\n\
+    \\EOT\EOT\b\STX\a\DC2\EOT\197\ETX\EOT>\SUB\NAK Create user result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\a\EOT\DC2\EOT\197\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\a\ACK\DC2\EOT\197\ETX\r&\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\a\SOH\DC2\EOT\197\ETX'9\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\a\ETX\DC2\EOT\197\ETX<=\n\
+    \#\n\
+    \\EOT\EOT\b\STX\b\DC2\EOT\200\ETX\EOT>\SUB\NAK Update user result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\b\EOT\DC2\EOT\200\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\b\ACK\DC2\EOT\200\ETX\r&\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\b\SOH\DC2\EOT\200\ETX'9\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\b\ETX\DC2\EOT\200\ETX<=\n\
+    \#\n\
+    \\EOT\EOT\b\STX\t\DC2\EOT\203\ETX\EOT?\SUB\NAK Remove user result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\t\EOT\DC2\EOT\203\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\t\ACK\DC2\EOT\203\ETX\r&\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\t\SOH\DC2\EOT\203\ETX'9\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\t\ETX\DC2\EOT\203\ETX<>\n\
+    \2\n\
+    \\EOT\EOT\b\STX\n\
+    \\DC2\EOT\206\ETX\EOTH\SUB$ [re-]link login to profile result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\n\
+    \\EOT\DC2\EOT\206\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\n\
+    \\ACK\DC2\EOT\206\ETX\r%\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\n\
+    \\SOH\DC2\EOT\206\ETX&B\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\n\
+    \\ETX\DC2\EOT\206\ETXEG\n\
+    \7\n\
+    \\EOT\EOT\b\STX\v\DC2\EOT\209\ETX\EOTf\SUB) Modify user entitlement service result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\v\EOT\DC2\EOT\209\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\v\ACK\DC2\EOT\209\ETX\r8\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\v\SOH\DC2\EOT\209\ETX9`\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\v\ETX\DC2\EOT\209\ETXce\n\
+    \+\n\
+    \\EOT\EOT\b\STX\f\DC2\EOT\212\ETX\EOTC\SUB\GS Send welcome e-mail result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\f\EOT\DC2\EOT\212\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\f\ACK\DC2\EOT\212\ETX\r#\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\f\SOH\DC2\EOT\212\ETX$=\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\f\ETX\DC2\EOT\212\ETX@B\n\
+    \$\n\
+    \\EOT\EOT\b\STX\r\DC2\EOT\215\ETX\EOTA\SUB\SYN Restore user result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\r\EOT\DC2\EOT\215\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\r\ACK\DC2\EOT\215\ETX\r'\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\r\SOH\DC2\EOT\215\ETX(;\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\r\ETX\DC2\EOT\215\ETX>@\n\
+    \'\n\
+    \\EOT\EOT\b\STX\SO\DC2\EOT\218\ETX\EOT>\SUB\EM Restore profile result.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SO\EOT\DC2\EOT\218\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SO\ACK\DC2\EOT\218\ETX\r!\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SO\SOH\DC2\EOT\218\ETX\"8\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SO\ETX\DC2\EOT\218\ETX;=\n\
+    \N\n\
+    \\EOT\EOT\b\STX\SI\DC2\ENQ\221\ETX\EOT\131\SOH\SUB? Result of customer to sales series authorization list update.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SI\EOT\DC2\EOT\221\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SI\ACK\DC2\EOT\221\ETX\rF\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SI\SOH\DC2\EOT\221\ETXG}\n\
+    \\SI\n\
+    \\ENQ\EOT\b\STX\SI\ETX\DC2\ACK\221\ETX\128\SOH\130\SOH\n\
+    \:\n\
+    \\EOT\EOT\b\STX\DLE\DC2\EOT\224\ETX\EOTm\SUB, Result of UpdateLoginExchangeMemberIdList.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DLE\EOT\DC2\EOT\224\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DLE\ACK\DC2\EOT\224\ETX\r;\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DLE\SOH\DC2\EOT\224\ETX<g\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DLE\ETX\DC2\EOT\224\ETXjl\n\
+    \.\n\
+    \\EOT\EOT\b\STX\DC1\DC2\EOT\227\ETX\EOTR\SUB  Result of UpdateLoginSettings.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC1\EOT\DC2\EOT\227\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC1\ACK\DC2\EOT\227\ETX\r/\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC1\SOH\DC2\EOT\227\ETX0L\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC1\ETX\DC2\EOT\227\ETXOQ\n\
+    \'\n\
+    \\EOT\EOT\b\STX\DC2\DC2\EOT\230\ETX\EOTE\SUB\EM Result of ActivateLogin\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC2\EOT\DC2\EOT\230\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC2\ACK\DC2\EOT\230\ETX\r)\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC2\SOH\DC2\EOT\230\ETX*?\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC2\ETX\DC2\EOT\230\ETXBD\n\
+    \)\n\
+    \\EOT\EOT\b\STX\DC3\DC2\EOT\233\ETX\EOTI\SUB\ESC Result of DeactivateLogin\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC3\EOT\DC2\EOT\233\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC3\ACK\DC2\EOT\233\ETX\r+\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC3\SOH\DC2\EOT\233\ETX,C\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC3\ETX\DC2\EOT\233\ETXFH\n\
+    \6\n\
+    \\EOT\EOT\b\STX\DC4\DC2\EOT\236\ETX\EOTT\SUB( Result of send credential reset email.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC4\EOT\DC2\EOT\236\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC4\ACK\DC2\EOT\236\ETX\r+\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC4\SOH\DC2\EOT\236\ETX,N\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\DC4\ETX\DC2\EOT\236\ETXQS\n\
+    \_\n\
+    \\EOT\EOT\b\STX\NAK\DC2\EOT\239\ETX\EOT\\\SUBQ Result of generate a service security token for a special AuthServer operation.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\NAK\EOT\DC2\EOT\239\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\NAK\ACK\DC2\EOT\239\ETX\r/\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\NAK\SOH\DC2\EOT\239\ETX0V\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\NAK\ETX\DC2\EOT\239\ETXY[\n\
+    \2\n\
+    \\EOT\EOT\b\STX\SYN\DC2\EOT\242\ETX\EOTZ\SUB$ Result of EraseCurrentCredentials.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SYN\EOT\DC2\EOT\242\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SYN\ACK\DC2\EOT\242\ETX\r3\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SYN\SOH\DC2\EOT\242\ETX4T\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SYN\ETX\DC2\EOT\242\ETXWY\n\
+    \\f\n\
+    \\EOT\EOT\b\STX\ETB\DC2\EOT\244\ETX\EOTM\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ETB\EOT\DC2\EOT\244\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ETB\ACK\DC2\EOT\244\ETX\r(\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ETB\SOH\DC2\EOT\244\ETX)G\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\ETB\ETX\DC2\EOT\244\ETXJL\n\
+    \7\n\
+    \\EOT\EOT\b\STX\CAN\DC2\EOT\247\ETX\EOTf\SUB) Result of UpdateLoginBillingCustomData.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\CAN\EOT\DC2\EOT\247\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\CAN\ACK\DC2\EOT\247\ETX\r8\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\CAN\SOH\DC2\EOT\247\ETX9`\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\CAN\ETX\DC2\EOT\247\ETXce\n\
+    \g\n\
+    \\EOT\EOT\b\STX\EM\DC2\EOT\251\ETX\EOT)\SUBY Request tracking number generated by CMS API\n\
+    \ Used by client to cancel deferred request\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\EM\EOT\DC2\EOT\251\ETX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\EM\ENQ\DC2\EOT\251\ETX\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\EM\SOH\DC2\EOT\251\ETX\DC4#\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\EM\ETX\DC2\EOT\251\ETX&(\n\
+    \.\n\
+    \\STX\EOT\t\DC2\ACK\255\ETX\NUL\139\EOT\SOH\SUB  Send welcome e-mail operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\t\SOH\DC2\EOT\255\ETX\b\CAN\n\
+    \2\n\
+    \\EOT\EOT\t\STX\NUL\DC2\EOT\130\EOT\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\NUL\EOT\DC2\EOT\130\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\NUL\ENQ\DC2\EOT\130\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\NUL\SOH\DC2\EOT\130\EOT\DC4(\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\NUL\ETX\DC2\EOT\130\EOT+,\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\NUL\b\DC2\EOT\130\EOT->\n\
+    \\SO\n\
+    \\ACK\EOT\t\STX\NUL\b\ETX\DC2\EOT\130\EOT.=\n\
+    \~\n\
+    \\EOT\EOT\t\STX\SOH\DC2\EOT\134\EOT\EOT!\SUBp Optional list of logins to be included into this e-mail.\n\
+    \ All profile's system logins are included if omitted.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\SOH\EOT\DC2\EOT\134\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\SOH\ENQ\DC2\EOT\134\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\SOH\SOH\DC2\EOT\134\EOT\DC4\FS\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\SOH\ETX\DC2\EOT\134\EOT\US \n\
+    \>\n\
+    \\EOT\EOT\t\STX\STX\DC2\EOT\138\EOT\EOT#\SUB0 Profile id of a recipient.\n\
+    \ Supported profiles\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\STX\EOT\DC2\EOT\138\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\STX\ENQ\DC2\EOT\138\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\STX\SOH\DC2\EOT\138\EOT\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\t\STX\STX\ETX\DC2\EOT\138\EOT!\"\n\
+    \8\n\
+    \\STX\EOT\n\
+    \\DC2\ACK\142\EOT\NUL\144\EOT\SOH\SUB* Result of send welcome e-mail operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\n\
+    \\SOH\DC2\EOT\142\EOT\b\RS\n\
+    \:\n\
+    \\STX\EOT\v\DC2\ACK\147\EOT\NUL\162\EOT\SOH\SUB, Send credential reset e-mail to a profile.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\v\SOH\DC2\EOT\147\EOT\b \n\
+    \2\n\
+    \\EOT\EOT\v\STX\NUL\DC2\EOT\150\EOT\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\NUL\EOT\DC2\EOT\150\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\NUL\ENQ\DC2\EOT\150\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\NUL\SOH\DC2\EOT\150\EOT\DC4(\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\NUL\ETX\DC2\EOT\150\EOT+,\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\NUL\b\DC2\EOT\150\EOT->\n\
+    \\SO\n\
+    \\ACK\EOT\v\STX\NUL\b\ETX\DC2\EOT\150\EOT.=\n\
+    \\134\SOH\n\
+    \\EOT\EOT\v\STX\SOH\DC2\EOT\154\EOT\EOT!\SUBx [required] A login linked to a profile for which the reset is requested.\n\
+    \ Only trade-routing logins are supported now.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\SOH\EOT\DC2\EOT\154\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\SOH\ENQ\DC2\EOT\154\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\SOH\SOH\DC2\EOT\154\EOT\DC4\FS\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\SOH\ETX\DC2\EOT\154\EOT\US \n\
+    \\151\SOH\n\
+    \\EOT\EOT\v\STX\STX\DC2\EOT\158\EOT\EOT\"\SUB\136\SOH List of special operations that are requested for this login.\n\
+    \ This filed is associated with common_1.AuthServerSpecialOperation enum.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\STX\EOT\DC2\EOT\158\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\STX\ENQ\DC2\EOT\158\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\STX\SOH\DC2\EOT\158\EOT\DC4\GS\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\STX\ETX\DC2\EOT\158\EOT !\n\
+    \*\n\
+    \\EOT\EOT\v\STX\ETX\DC2\EOT\161\EOT\EOT#\SUB\FS Profile id of a recipient.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\ETX\EOT\DC2\EOT\161\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\ETX\ENQ\DC2\EOT\161\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\ETX\SOH\DC2\EOT\161\EOT\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\v\STX\ETX\ETX\DC2\EOT\161\EOT!\"\n\
+    \0\n\
+    \\STX\EOT\f\DC2\ACK\165\EOT\NUL\167\EOT\SOH\SUB\" Result of send e-mail operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\f\SOH\DC2\EOT\165\EOT\b&\n\
+    \\f\n\
+    \\STX\EOT\r\DC2\ACK\169\EOT\NUL\178\EOT\SOH\n\
+    \\v\n\
+    \\ETX\EOT\r\SOH\DC2\EOT\169\EOT\b$\n\
+    \e\n\
+    \\EOT\EOT\r\STX\NUL\DC2\EOT\173\EOT\EOT!\SUBW [required] Generate SST for this login.\n\
+    \ Only trade-routing logins are supported now.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\r\STX\NUL\EOT\DC2\EOT\173\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\r\STX\NUL\ENQ\DC2\EOT\173\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\r\STX\NUL\SOH\DC2\EOT\173\EOT\DC4\FS\n\
+    \\r\n\
+    \\ENQ\EOT\r\STX\NUL\ETX\DC2\EOT\173\EOT\US \n\
+    \\151\SOH\n\
+    \\EOT\EOT\r\STX\SOH\DC2\EOT\177\EOT\EOT\"\SUB\136\SOH List of special operations that are requested for this login.\n\
+    \ This filed is associated with common_1.AuthServerSpecialOperation enum.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\r\STX\SOH\EOT\DC2\EOT\177\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\r\STX\SOH\ENQ\DC2\EOT\177\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\r\STX\SOH\SOH\DC2\EOT\177\EOT\DC4\GS\n\
+    \\r\n\
+    \\ENQ\EOT\r\STX\SOH\ETX\DC2\EOT\177\EOT !\n\
+    \\f\n\
+    \\STX\EOT\SO\DC2\ACK\180\EOT\NUL\188\EOT\SOH\n\
+    \\v\n\
+    \\ETX\EOT\SO\SOH\DC2\EOT\180\EOT\b*\n\
+    \ \n\
+    \\EOT\EOT\SO\STX\NUL\DC2\EOT\183\EOT\EOT'\SUB\DC2 Generated token.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SO\STX\NUL\EOT\DC2\EOT\183\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SO\STX\NUL\ENQ\DC2\EOT\183\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\SO\STX\NUL\SOH\DC2\EOT\183\EOT\DC4\"\n\
+    \\r\n\
+    \\ENQ\EOT\SO\STX\NUL\ETX\DC2\EOT\183\EOT%&\n\
+    \i\n\
+    \\EOT\EOT\SO\STX\SOH\DC2\EOT\187\EOT\EOT\FS\SUB[ URL that can be visited by a client to execute special operations using\n\
+    \ generated token.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SO\STX\SOH\EOT\DC2\EOT\187\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SO\STX\SOH\ENQ\DC2\EOT\187\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\SO\STX\SOH\SOH\DC2\EOT\187\EOT\DC4\ETB\n\
+    \\r\n\
+    \\ENQ\EOT\SO\STX\SOH\ETX\DC2\EOT\187\EOT\SUB\ESC\n\
+    \\162\SOH\n\
+    \\STX\EOT\SI\DC2\ACK\192\EOT\NUL\199\EOT\SOH\SUB\147\SOH Ping request which can be initiated by any side to ensure connection is alive.\n\
+    \ Both client and server sides must respond such request with Pong.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\SI\SOH\DC2\EOT\192\EOT\b\f\n\
+    \3\n\
+    \\EOT\EOT\SI\STX\NUL\DC2\EOT\195\EOT\ETX\GS\SUB% Token routed back in Pong response.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SI\STX\NUL\EOT\DC2\EOT\195\EOT\ETX\v\n\
+    \\r\n\
+    \\ENQ\EOT\SI\STX\NUL\ENQ\DC2\EOT\195\EOT\f\DC2\n\
+    \\r\n\
+    \\ENQ\EOT\SI\STX\NUL\SOH\DC2\EOT\195\EOT\DC3\CAN\n\
+    \\r\n\
+    \\ENQ\EOT\SI\STX\NUL\ETX\DC2\EOT\195\EOT\ESC\FS\n\
+    \^\n\
+    \\EOT\EOT\SI\STX\SOH\DC2\EOT\198\EOT\ETX%\SUBP UTC time when this request was composed. Used for network latency diagnostics.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SI\STX\SOH\EOT\DC2\EOT\198\EOT\ETX\v\n\
+    \\r\n\
+    \\ENQ\EOT\SI\STX\SOH\ENQ\DC2\EOT\198\EOT\f\DC2\n\
+    \\r\n\
+    \\ENQ\EOT\SI\STX\SOH\SOH\DC2\EOT\198\EOT\DC3 \n\
+    \\r\n\
+    \\ENQ\EOT\SI\STX\SOH\ETX\DC2\EOT\198\EOT#$\n\
+    \M\n\
+    \\STX\EOT\DLE\DC2\ACK\202\EOT\NUL\212\EOT\SOH\SUB? Pong response which must be sent in response on Ping request.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\DLE\SOH\DC2\EOT\202\EOT\b\f\n\
+    \-\n\
+    \\EOT\EOT\DLE\STX\NUL\DC2\EOT\205\EOT\ETX\GS\SUB\US Token passed in Ping request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\NUL\EOT\DC2\EOT\205\EOT\ETX\v\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\NUL\ENQ\DC2\EOT\205\EOT\f\DC2\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\NUL\SOH\DC2\EOT\205\EOT\DC3\CAN\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\NUL\ETX\DC2\EOT\205\EOT\ESC\FS\n\
+    \6\n\
+    \\EOT\EOT\DLE\STX\SOH\DC2\EOT\208\EOT\ETX%\SUB( Corresponding value from Ping request.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\SOH\EOT\DC2\EOT\208\EOT\ETX\v\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\SOH\ENQ\DC2\EOT\208\EOT\f\DC2\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\SOH\SOH\DC2\EOT\208\EOT\DC3 \n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\SOH\ETX\DC2\EOT\208\EOT#$\n\
+    \9\n\
+    \\EOT\EOT\DLE\STX\STX\DC2\EOT\211\EOT\ETX%\SUB+ UTC time when this response was composed.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\STX\EOT\DC2\EOT\211\EOT\ETX\v\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\STX\ENQ\DC2\EOT\211\EOT\f\DC2\n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\STX\SOH\DC2\EOT\211\EOT\DC3 \n\
+    \\r\n\
+    \\ENQ\EOT\DLE\STX\STX\ETX\DC2\EOT\211\EOT#$\n\
+    \<\n\
+    \\STX\EOT\DC1\DC2\ACK\215\EOT\NUL\217\EOT\SOH\SUB. Request for list of authentication partners.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\DC1\SOH\DC2\EOT\215\EOT\b\RS\n\
+    \0\n\
+    \\STX\EOT\DC2\DC2\ACK\220\EOT\NUL\223\EOT\SOH\SUB\" Reply to AuthPartnerListRequest.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\DC2\SOH\DC2\EOT\220\EOT\b\GS\n\
+    \\f\n\
+    \\EOT\EOT\DC2\STX\NUL\DC2\EOT\222\EOT\EOT*\n\
+    \\r\n\
+    \\ENQ\EOT\DC2\STX\NUL\EOT\DC2\EOT\222\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\DC2\STX\NUL\ACK\DC2\EOT\222\EOT\r\CAN\n\
+    \\r\n\
+    \\ENQ\EOT\DC2\STX\NUL\SOH\DC2\EOT\222\EOT\EM%\n\
+    \\r\n\
+    \\ENQ\EOT\DC2\STX\NUL\ETX\DC2\EOT\222\EOT()\n\
+    \9\n\
+    \\STX\EOT\DC3\DC2\ACK\226\EOT\NUL\242\EOT\SOH\SUB+ Information about authentication partner.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\DC3\SOH\DC2\EOT\226\EOT\b\DC3\n\
+    \\GS\n\
+    \\EOT\EOT\DC3\STX\NUL\DC2\EOT\229\EOT\EOT\ESC\SUB\SI Partner's ID.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\NUL\EOT\DC2\EOT\229\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\NUL\ENQ\DC2\EOT\229\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\NUL\SOH\DC2\EOT\229\EOT\DC4\SYN\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\NUL\ETX\DC2\EOT\229\EOT\EM\SUB\n\
+    \'\n\
+    \\EOT\EOT\DC3\STX\SOH\DC2\EOT\232\EOT\EOT%\SUB\EM Partner's display name.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\SOH\EOT\DC2\EOT\232\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\SOH\ENQ\DC2\EOT\232\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\SOH\SOH\DC2\EOT\232\EOT\DC4 \n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\SOH\ETX\DC2\EOT\232\EOT#$\n\
+    \D\n\
+    \\EOT\EOT\DC3\STX\STX\DC2\EOT\235\EOT\EOT%\SUB6 List of brokerage (FCM) IDs the partner enabled for.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\STX\EOT\DC2\EOT\235\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\STX\ENQ\DC2\EOT\235\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\STX\SOH\DC2\EOT\235\EOT\DC4 \n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\STX\ETX\DC2\EOT\235\EOT#$\n\
+    \5\n\
+    \\EOT\EOT\DC3\STX\ETX\DC2\EOT\238\EOT\EOT,\SUB' Logout endpoint URI for this partner.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\ETX\EOT\DC2\EOT\238\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\ETX\ENQ\DC2\EOT\238\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\ETX\SOH\DC2\EOT\238\EOT\DC4'\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\ETX\ETX\DC2\EOT\238\EOT*+\n\
+    \<\n\
+    \\EOT\EOT\DC3\STX\EOT\DC2\EOT\241\EOT\EOT3\SUB. Logout endpoint parameters for this partner.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\EOT\EOT\DC2\EOT\241\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\EOT\ENQ\DC2\EOT\241\EOT\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\EOT\SOH\DC2\EOT\241\EOT\DC4.\n\
+    \\r\n\
+    \\ENQ\EOT\DC3\STX\EOT\ETX\DC2\EOT\241\EOT12\n\
+    \)\n\
+    \\STX\EOT\DC4\DC2\ACK\245\EOT\NUL\249\EOT\SOH\SUB\ESC Create profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\DC4\SOH\DC2\EOT\245\EOT\b\NAK\n\
+    \-\n\
+    \\EOT\EOT\DC4\STX\NUL\DC2\EOT\248\EOT\EOT*\SUB\US [required] Profile to create.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\DC4\STX\NUL\EOT\DC2\EOT\248\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\DC4\STX\NUL\ACK\DC2\EOT\248\EOT\r\GS\n\
+    \\r\n\
+    \\ENQ\EOT\DC4\STX\NUL\SOH\DC2\EOT\248\EOT\RS%\n\
+    \\r\n\
+    \\ENQ\EOT\DC4\STX\NUL\ETX\DC2\EOT\248\EOT()\n\
+    \)\n\
+    \\STX\EOT\NAK\DC2\ACK\252\EOT\NUL\131\ENQ\SOH\SUB\ESC Update profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\NAK\SOH\DC2\EOT\252\EOT\b\NAK\n\
+    \-\n\
+    \\EOT\EOT\NAK\STX\NUL\DC2\EOT\255\EOT\EOT*\SUB\US [required] Profile to update.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\NUL\EOT\DC2\EOT\255\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\NUL\ACK\DC2\EOT\255\EOT\r\GS\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\NUL\SOH\DC2\EOT\255\EOT\RS%\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\NUL\ETX\DC2\EOT\255\EOT()\n\
+    \S\n\
+    \\EOT\EOT\NAK\STX\SOH\DC2\EOT\130\ENQ\EOTN\SUBE [obsolete] Use only profile field with changed fields only instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\SOH\EOT\DC2\EOT\130\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\SOH\ACK\DC2\EOT\130\ENQ\r\GS\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\SOH\SOH\DC2\EOT\130\ENQ\RS7\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\SOH\ETX\DC2\EOT\130\ENQ:;\n\
+    \\r\n\
+    \\ENQ\EOT\NAK\STX\SOH\b\DC2\EOT\130\ENQ<M\n\
+    \\SO\n\
+    \\ACK\EOT\NAK\STX\SOH\b\ETX\DC2\EOT\130\ENQ=L\n\
+    \)\n\
+    \\STX\EOT\SYN\DC2\ACK\134\ENQ\NUL\141\ENQ\SOH\SUB\ESC Remove profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\SYN\SOH\DC2\EOT\134\ENQ\b\NAK\n\
+    \2\n\
+    \\EOT\EOT\SYN\STX\NUL\DC2\EOT\137\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\NUL\EOT\DC2\EOT\137\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\NUL\ENQ\DC2\EOT\137\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\NUL\SOH\DC2\EOT\137\ENQ\DC4(\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\NUL\ETX\DC2\EOT\137\ENQ+,\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\NUL\b\DC2\EOT\137\ENQ->\n\
+    \\SO\n\
+    \\ACK\EOT\SYN\STX\NUL\b\ETX\DC2\EOT\137\ENQ.=\n\
+    \-\n\
+    \\EOT\EOT\SYN\STX\SOH\DC2\EOT\140\ENQ\EOT#\SUB\US Profile identifier to remove.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\SOH\EOT\DC2\EOT\140\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\SOH\ENQ\DC2\EOT\140\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\SOH\SOH\DC2\EOT\140\ENQ\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\SYN\STX\SOH\ETX\DC2\EOT\140\ENQ!\"\n\
+    \*\n\
+    \\STX\EOT\ETB\DC2\ACK\144\ENQ\NUL\151\ENQ\SOH\SUB\FS Restore profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\ETB\SOH\DC2\EOT\144\ENQ\b\SYN\n\
+    \2\n\
+    \\EOT\EOT\ETB\STX\NUL\DC2\EOT\147\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\NUL\EOT\DC2\EOT\147\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\NUL\ENQ\DC2\EOT\147\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\NUL\SOH\DC2\EOT\147\ENQ\DC4(\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\NUL\ETX\DC2\EOT\147\ENQ+,\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\NUL\b\DC2\EOT\147\ENQ->\n\
+    \\SO\n\
+    \\ACK\EOT\ETB\STX\NUL\b\ETX\DC2\EOT\147\ENQ.=\n\
+    \-\n\
+    \\EOT\EOT\ETB\STX\SOH\DC2\EOT\150\ENQ\EOT#\SUB\US Profile identifier to remove.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\SOH\EOT\DC2\EOT\150\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\SOH\ENQ\DC2\EOT\150\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\SOH\SOH\DC2\EOT\150\ENQ\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\ETB\STX\SOH\ETX\DC2\EOT\150\ENQ!\"\n\
+    \3\n\
+    \\STX\EOT\CAN\DC2\ACK\154\ENQ\NUL\161\ENQ\SOH\SUB% Result of create profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\CAN\SOH\DC2\EOT\154\ENQ\b\ESC\n\
+    \2\n\
+    \\EOT\EOT\CAN\STX\NUL\DC2\EOT\157\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\NUL\EOT\DC2\EOT\157\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\NUL\ENQ\DC2\EOT\157\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\NUL\SOH\DC2\EOT\157\ENQ\DC4(\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\NUL\ETX\DC2\EOT\157\ENQ+,\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\NUL\b\DC2\EOT\157\ENQ->\n\
+    \\SO\n\
+    \\ACK\EOT\CAN\STX\NUL\b\ETX\DC2\EOT\157\ENQ.=\n\
+    \1\n\
+    \\EOT\EOT\CAN\STX\SOH\DC2\EOT\160\ENQ\EOT#\SUB# Assigned profile id, if succeded.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\SOH\EOT\DC2\EOT\160\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\SOH\ENQ\DC2\EOT\160\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\SOH\SOH\DC2\EOT\160\ENQ\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\CAN\STX\SOH\ETX\DC2\EOT\160\ENQ!\"\n\
+    \3\n\
+    \\STX\EOT\EM\DC2\ACK\164\ENQ\NUL\166\ENQ\SOH\SUB% Result of update profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\EM\SOH\DC2\EOT\164\ENQ\b\ESC\n\
+    \3\n\
+    \\STX\EOT\SUB\DC2\ACK\169\ENQ\NUL\171\ENQ\SOH\SUB% Result of remove profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\SUB\SOH\DC2\EOT\169\ENQ\b\ESC\n\
+    \4\n\
+    \\STX\EOT\ESC\DC2\ACK\174\ENQ\NUL\176\ENQ\SOH\SUB& Result of restore profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\ESC\SOH\DC2\EOT\174\ENQ\b\FS\n\
+    \/\n\
+    \\STX\EOT\FS\DC2\ACK\179\ENQ\NUL\186\ENQ\SOH\SUB! Request of profile information.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\FS\SOH\DC2\EOT\179\ENQ\b\SYN\n\
+    \2\n\
+    \\EOT\EOT\FS\STX\NUL\DC2\EOT\182\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\NUL\EOT\DC2\EOT\182\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\NUL\ENQ\DC2\EOT\182\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\NUL\SOH\DC2\EOT\182\ENQ\DC4(\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\NUL\ETX\DC2\EOT\182\ENQ+,\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\NUL\b\DC2\EOT\182\ENQ->\n\
+    \\SO\n\
+    \\ACK\EOT\FS\STX\NUL\b\ETX\DC2\EOT\182\ENQ.=\n\
+    \*\n\
+    \\EOT\EOT\FS\STX\SOH\DC2\EOT\185\ENQ\EOT#\SUB\FS ID of a requested profile.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\SOH\EOT\DC2\EOT\185\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\SOH\ENQ\DC2\EOT\185\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\SOH\SOH\DC2\EOT\185\ENQ\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\FS\STX\SOH\ETX\DC2\EOT\185\ENQ!\"\n\
+    \1\n\
+    \\STX\EOT\GS\DC2\ACK\189\ENQ\NUL\200\ENQ\SOH\SUB# Link user to a profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\GS\SOH\DC2\EOT\189\ENQ\b\SUB\n\
+    \,\n\
+    \\EOT\EOT\GS\STX\NUL\DC2\EOT\192\ENQ\EOT!\SUB\RS [required] Login id to link.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\NUL\EOT\DC2\EOT\192\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\NUL\ENQ\DC2\EOT\192\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\NUL\SOH\DC2\EOT\192\ENQ\DC4\FS\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\NUL\ETX\DC2\EOT\192\ENQ\US \n\
+    \2\n\
+    \\EOT\EOT\GS\STX\SOH\DC2\EOT\195\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\SOH\EOT\DC2\EOT\195\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\SOH\ENQ\DC2\EOT\195\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\SOH\SOH\DC2\EOT\195\ENQ\DC4(\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\SOH\ETX\DC2\EOT\195\ENQ+,\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\SOH\b\DC2\EOT\195\ENQ->\n\
+    \\SO\n\
+    \\ACK\EOT\GS\STX\SOH\b\ETX\DC2\EOT\195\ENQ.=\n\
+    \F\n\
+    \\EOT\EOT\GS\STX\STX\DC2\EOT\199\ENQ\EOT#\SUB8 Profile id.\n\
+    \ Supported profile types: admin, customer.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\STX\EOT\DC2\EOT\199\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\STX\ENQ\DC2\EOT\199\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\STX\SOH\DC2\EOT\199\ENQ\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\GS\STX\STX\ETX\DC2\EOT\199\ENQ!\"\n\
+    \A\n\
+    \\STX\EOT\RS\DC2\ACK\203\ENQ\NUL\205\ENQ\SOH\SUB3 Result of [re-]link login to a profile operation.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\RS\SOH\DC2\EOT\203\ENQ\b \n\
+    \+\n\
+    \\STX\EOT\US\DC2\ACK\208\ENQ\NUL\215\ENQ\SOH\SUB\GS Request of unique username.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT\US\SOH\DC2\EOT\208\ENQ\b \n\
+    \2\n\
+    \\EOT\EOT\US\STX\NUL\DC2\EOT\211\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\NUL\EOT\DC2\EOT\211\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\NUL\ENQ\DC2\EOT\211\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\NUL\SOH\DC2\EOT\211\ENQ\DC4(\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\NUL\ETX\DC2\EOT\211\ENQ+,\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\NUL\b\DC2\EOT\211\ENQ->\n\
+    \\SO\n\
+    \\ACK\EOT\US\STX\NUL\b\ETX\DC2\EOT\211\ENQ.=\n\
+    \/\n\
+    \\EOT\EOT\US\STX\SOH\DC2\EOT\214\ENQ\EOT#\SUB! Profile id username created for\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\SOH\EOT\DC2\EOT\214\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\SOH\ENQ\DC2\EOT\214\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\SOH\SOH\DC2\EOT\214\ENQ\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\US\STX\SOH\ETX\DC2\EOT\214\ENQ!\"\n\
+    \2\n\
+    \\STX\EOT \DC2\ACK\218\ENQ\NUL\222\ENQ\SOH\SUB$ Result of unique username request.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT \SOH\DC2\EOT\218\ENQ\b\FS\n\
+    \'\n\
+    \\EOT\EOT \STX\NUL\DC2\EOT\221\ENQ\EOT!\SUB\EM username, if succeeded.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT \STX\NUL\EOT\DC2\EOT\221\ENQ\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT \STX\NUL\ENQ\DC2\EOT\221\ENQ\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT \STX\NUL\SOH\DC2\EOT\221\ENQ\DC4\FS\n\
+    \\r\n\
+    \\ENQ\EOT \STX\NUL\ETX\DC2\EOT\221\ENQ\US \n\
+    \+\n\
+    \\STX\EOT!\DC2\ACK\225\ENQ\NUL\139\ACK\SOH\SUB\GS Request to search profiles.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT!\SOH\DC2\EOT\225\ENQ\b\FS\n\
+    \:\n\
+    \\EOT\EOT!\EOT\NUL\DC2\ACK\228\ENQ\EOT\253\ENQ\ENQ\SUB* List of possible search refine criteria.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT!\EOT\NUL\SOH\DC2\EOT\228\ENQ\t\ETB\n\
+    \(\n\
+    \\ACK\EOT!\EOT\NUL\STX\NUL\DC2\EOT\231\ENQ\b\CAN\SUB\CAN Search by customer id.\n\
+    \\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\NUL\SOH\DC2\EOT\231\ENQ\b\DC3\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\NUL\STX\DC2\EOT\231\ENQ\SYN\ETB\n\
+    \)\n\
+    \\ACK\EOT!\EOT\NUL\STX\SOH\DC2\EOT\234\ENQ\b\DC1\SUB\EM Search by profile name.\n\
+    \\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\SOH\SOH\DC2\EOT\234\ENQ\b\f\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\SOH\STX\DC2\EOT\234\ENQ\SI\DLE\n\
+    \'\n\
+    \\ACK\EOT!\EOT\NUL\STX\STX\DC2\EOT\237\ENQ\b\ETB\SUB\ETB Search by first name.\n\
+    \\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\STX\SOH\DC2\EOT\237\ENQ\b\DC2\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\STX\STX\DC2\EOT\237\ENQ\NAK\SYN\n\
+    \&\n\
+    \\ACK\EOT!\EOT\NUL\STX\ETX\DC2\EOT\240\ENQ\b\SYN\SUB\SYN Search by last name.\n\
+    \\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\ETX\SOH\DC2\EOT\240\ENQ\b\DC1\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\ETX\STX\DC2\EOT\240\ENQ\DC4\NAK\n\
+    \)\n\
+    \\ACK\EOT!\EOT\NUL\STX\EOT\DC2\EOT\243\ENQ\b \SUB\EM Search by brokerage id.\n\
+    \\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\EOT\SOH\DC2\EOT\243\ENQ\b\ESC\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\EOT\STX\DC2\EOT\243\ENQ\RS\US\n\
+    \.\n\
+    \\ACK\EOT!\EOT\NUL\STX\ENQ\DC2\EOT\246\ENQ\b\DC3\SUB\RS Profile sales series number.\n\
+    \\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\ENQ\SOH\DC2\EOT\246\ENQ\b\SO\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\ENQ\STX\DC2\EOT\246\ENQ\DC1\DC2\n\
+    \\SO\n\
+    \\ACK\EOT!\EOT\NUL\STX\ACK\DC2\EOT\248\ENQ\b\ETB\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\ACK\SOH\DC2\EOT\248\ENQ\b\DC2\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\ACK\STX\DC2\EOT\248\ENQ\NAK\SYN\n\
+    \\187\SOH\n\
+    \\ACK\EOT!\EOT\NUL\STX\a\DC2\EOT\252\ENQ\b\EM\SUB\170\SOH This field is associated with common_1.ProfileType enum type.\n\
+    \ LIMITED USE: Only explicitly, one per search option with EXACT_EQUALITY or IN rule and in all match mode.\n\
+    \\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\a\SOH\DC2\EOT\252\ENQ\b\DC4\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\a\STX\DC2\EOT\252\ENQ\ETB\CAN\n\
+    \<\n\
+    \\EOT\EOT!\STX\NUL\DC2\EOT\128\ACK\EOT8\SUB. [obsolete] Use search_options field instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\NUL\EOT\DC2\EOT\128\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\NUL\ENQ\DC2\EOT\128\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\NUL\SOH\DC2\EOT\128\ACK\DC4!\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\NUL\ETX\DC2\EOT\128\ACK$%\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\NUL\b\DC2\EOT\128\ACK&7\n\
+    \\SO\n\
+    \\ACK\EOT!\STX\NUL\b\ETX\DC2\EOT\128\ACK'6\n\
+    \<\n\
+    \\EOT\EOT!\STX\SOH\DC2\EOT\131\ACK\EOTC\SUB. [obsolete] Use search_options field instead.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\SOH\EOT\DC2\EOT\131\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\SOH\ENQ\DC2\EOT\131\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\SOH\SOH\DC2\EOT\131\ACK\DC4,\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\SOH\ETX\DC2\EOT\131\ACK/0\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\SOH\b\DC2\EOT\131\ACK1B\n\
+    \\SO\n\
+    \\ACK\EOT!\STX\SOH\b\ETX\DC2\EOT\131\ACK2A\n\
+    \h\n\
+    \\EOT\EOT!\STX\STX\DC2\EOT\134\ACK\EOT6\SUBZ List of search options. Each option has its own search text, criteria and matching rule.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\STX\EOT\DC2\EOT\134\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\STX\ACK\DC2\EOT\134\ACK\r\"\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\STX\SOH\DC2\EOT\134\ACK#1\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\STX\ETX\DC2\EOT\134\ACK45\n\
+    \h\n\
+    \\EOT\EOT!\STX\ETX\DC2\EOT\138\ACK\EOT7\SUBZ Indicates, whether all criteria must match at once.\n\
+    \ By default any criteria must match.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\ETX\EOT\DC2\EOT\138\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\ETX\ENQ\DC2\EOT\138\ACK\r\DC1\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\ETX\SOH\DC2\EOT\138\ACK\DC2 \n\
+    \\r\n\
+    \\ENQ\EOT!\STX\ETX\ETX\DC2\EOT\138\ACK#$\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\ETX\b\DC2\EOT\138\ACK%6\n\
+    \\r\n\
+    \\ENQ\EOT!\STX\ETX\a\DC2\EOT\138\ACK05\n\
+    \\f\n\
+    \\STX\EOT\"\DC2\ACK\141\ACK\NUL\181\ACK\SOH\n\
+    \\v\n\
+    \\ETX\EOT\"\SOH\DC2\EOT\141\ACK\b!\n\
+    \/\n\
+    \\EOT\EOT\"\STX\NUL\DC2\EOT\144\ACK\EOT$\SUB! Associated Customer identifier.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\NUL\EOT\DC2\EOT\144\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\NUL\ENQ\DC2\EOT\144\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\NUL\SOH\DC2\EOT\144\ACK\DC4\US\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\NUL\ETX\DC2\EOT\144\ACK\"#\n\
+    \\GS\n\
+    \\EOT\EOT\"\STX\SOH\DC2\EOT\147\ACK\EOT\GS\SUB\SI Profile name.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\SOH\EOT\DC2\EOT\147\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\SOH\ENQ\DC2\EOT\147\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\SOH\SOH\DC2\EOT\147\ACK\DC4\CAN\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\SOH\ETX\DC2\EOT\147\ACK\ESC\FS\n\
+    \)\n\
+    \\EOT\EOT\"\STX\STX\DC2\EOT\150\ACK\EOT.\SUB\ESC Profile's brokerage name.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\STX\EOT\DC2\EOT\150\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\STX\ENQ\DC2\EOT\150\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\STX\SOH\DC2\EOT\150\ACK\DC4)\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\STX\ETX\DC2\EOT\150\ACK,-\n\
+    \#\n\
+    \\EOT\EOT\"\STX\ETX\DC2\EOT\153\ACK\EOT#\SUB\NAK Contact first name.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ETX\EOT\DC2\EOT\153\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ETX\ENQ\DC2\EOT\153\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ETX\SOH\DC2\EOT\153\ACK\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ETX\ETX\DC2\EOT\153\ACK!\"\n\
+    \\"\n\
+    \\EOT\EOT\"\STX\EOT\DC2\EOT\156\ACK\EOT\"\SUB\DC4 Contact last name.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\EOT\EOT\DC2\EOT\156\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\EOT\ENQ\DC2\EOT\156\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\EOT\SOH\DC2\EOT\156\ACK\DC4\GS\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\EOT\ETX\DC2\EOT\156\ACK !\n\
+    \.\n\
+    \\EOT\EOT\"\STX\ENQ\DC2\EOT\159\ACK\EOT,\SUB  Profile's linked brokerage id.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ENQ\EOT\DC2\EOT\159\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ENQ\ENQ\DC2\EOT\159\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ENQ\SOH\DC2\EOT\159\ACK\DC4'\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ENQ\ETX\DC2\EOT\159\ACK*+\n\
+    \\GS\n\
+    \\EOT\EOT\"\STX\ACK\DC2\EOT\162\ACK\EOT\RS\SUB\SI Removed flag.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ACK\EOT\DC2\EOT\162\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ACK\ENQ\DC2\EOT\162\ACK\r\DC1\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ACK\SOH\DC2\EOT\162\ACK\DC2\EM\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\ACK\ETX\DC2\EOT\162\ACK\FS\GS\n\
+    \\208\SOH\n\
+    \\EOT\EOT\"\STX\a\DC2\EOT\167\ACK\EOTK\SUB\193\SOH [obsolete] Authentication system of login must be used instead.\n\
+    \ Profile's authentication system.\n\
+    \ LookupPropertyListRequest { property_type = CommonLookupPropertyType.AUTHENTICATION_SYSTEM }\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\a\EOT\DC2\EOT\167\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\a\ENQ\DC2\EOT\167\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\a\SOH\DC2\EOT\167\ACK\DC42\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\a\ETX\DC2\EOT\167\ACK56\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\a\b\DC2\EOT\167\ACK7J\n\
+    \\SO\n\
+    \\ACK\EOT\"\STX\a\b\ETX\DC2\EOT\167\ACK8I\n\
+    \c\n\
+    \\EOT\EOT\"\STX\b\DC2\EOT\171\ACK\EOT%\SUBU Profile's main type.\n\
+    \ This field is associated with Customer.ProfileType enum type.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\b\EOT\DC2\EOT\171\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\b\ENQ\DC2\EOT\171\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\b\SOH\DC2\EOT\171\ACK\DC4 \n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\b\ETX\DC2\EOT\171\ACK#$\n\
+    \,\n\
+    \\EOT\EOT\"\STX\t\DC2\EOT\174\ACK\EOT \SUB\RS Sales series profile number.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\t\EOT\DC2\EOT\174\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\t\ENQ\DC2\EOT\174\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\t\SOH\DC2\EOT\174\ACK\DC4\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\t\ETX\DC2\EOT\174\ACK\GS\US\n\
+    \3\n\
+    \\EOT\EOT\"\STX\n\
+    \\DC2\EOT\177\ACK\EOT)\SUB% Associated Sales Series identifier.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\n\
+    \\EOT\DC2\EOT\177\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\n\
+    \\ENQ\DC2\EOT\177\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\n\
+    \\SOH\DC2\EOT\177\ACK\DC4#\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\n\
+    \\ETX\DC2\EOT\177\ACK&(\n\
+    \#\n\
+    \\EOT\EOT\"\STX\v\DC2\EOT\180\ACK\EOT$\SUB\NAK Profile identifier.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\v\EOT\DC2\EOT\180\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\v\ENQ\DC2\EOT\180\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\v\SOH\DC2\EOT\180\ACK\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\v\ETX\DC2\EOT\180\ACK!#\n\
+    \/\n\
+    \\STX\EOT#\DC2\ACK\184\ACK\NUL\195\ACK\SOH\SUB! Result of CancelDeferredRequest\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT#\SOH\DC2\EOT\184\ACK\b#\n\
+    \-\n\
+    \\EOT\EOT#\STX\NUL\DC2\EOT\187\ACK\EOT#\SUB\US ID of a corresponding request\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\NUL\EOT\DC2\EOT\187\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\NUL\ENQ\DC2\EOT\187\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\NUL\SOH\DC2\EOT\187\ACK\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\NUL\ETX\DC2\EOT\187\ACK!\"\n\
+    \^\n\
+    \\EOT\EOT#\STX\SOH\DC2\EOT\191\ACK\EOT)\SUBP Operation status.\n\
+    \ this field is associated with common_1.OperationStatus enum\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\SOH\EOT\DC2\EOT\191\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\SOH\ENQ\DC2\EOT\191\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\SOH\SOH\DC2\EOT\191\ACK\DC4$\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\SOH\ETX\DC2\EOT\191\ACK'(\n\
+    \\US\n\
+    \\EOT\EOT#\STX\STX\DC2\EOT\194\ACK\EOT-\SUB\DC1 Failure details\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\STX\EOT\DC2\EOT\194\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\STX\ACK\DC2\EOT\194\ACK\r\SUB\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\STX\SOH\DC2\EOT\194\ACK\ESC(\n\
+    \\r\n\
+    \\ENQ\EOT#\STX\STX\ETX\DC2\EOT\194\ACK+,\n\
+    \`\n\
+    \\STX\EOT$\DC2\ACK\199\ACK\NUL\208\ACK\SOH\SUBR Terminates all open sessions of login.\n\
+    \ When there are no sessions does nothing.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT$\SOH\DC2\EOT\199\ACK\b\GS\n\
+    \[\n\
+    \\EOT\EOT$\STX\NUL\DC2\EOT\203\ACK\EOT!\SUBM [required] Login identifier.\n\
+    \ Supported login domains: trade-routing, admin\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT$\STX\NUL\EOT\DC2\EOT\203\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT$\STX\NUL\ENQ\DC2\EOT\203\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT$\STX\NUL\SOH\DC2\EOT\203\ACK\DC4\FS\n\
+    \\r\n\
+    \\ENQ\EOT$\STX\NUL\ETX\DC2\EOT\203\ACK\US \n\
+    \\135\SOH\n\
+    \\EOT\EOT$\STX\SOH\DC2\EOT\207\ACK\EOT$\SUBy Specific login session identifiers to terminate.\n\
+    \ If not provided, all active sessions of the login will be terminated.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT$\STX\SOH\EOT\DC2\EOT\207\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT$\STX\SOH\ENQ\DC2\EOT\207\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT$\STX\SOH\SOH\DC2\EOT\207\ACK\DC4\US\n\
+    \\r\n\
+    \\ENQ\EOT$\STX\SOH\ETX\DC2\EOT\207\ACK\"#\n\
+    \\f\n\
+    \\STX\EOT%\DC2\ACK\210\ACK\NUL\212\ACK\SOH\n\
+    \\v\n\
+    \\ETX\EOT%\SOH\DC2\EOT\210\ACK\b#"
