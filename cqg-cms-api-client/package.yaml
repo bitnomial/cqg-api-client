@@ -1,0 +1,41 @@
+name:                "cqg-cms-api-client"
+version:             "0.1.0.0"
+maintainer:          "Bitnomial <support@bitnomial.com>"
+license:             "AllRightsReserved"
+author:              "Bitnomial"
+copyright:           "2024 Bitnomial, Inc"
+
+extra-source-files:
+  - README.md
+  - CHANGELOG.md
+  - proto/**/*.proto
+
+synopsis:            "CQG CMS API websocket client"
+category:            "Web"
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         "Please see the README on GitHub at <https://github.com/bitnomial/cqg-api-client/cqg-cms-api-client#readme>"
+
+dependencies:
+  - base >= 4.7 && < 5
+  - cqg-cms-api-proto
+
+ghc-options:
+  - -Wall
+  - -Wcompat
+  - -Widentities
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wmissing-export-lists
+  - -Wmissing-home-modules
+  - -Wpartial-fields
+  - -Wredundant-constraints
+  - -Wno-unused-do-bind
+  - -Wunused-packages
+  - -funbox-strict-fields
+  - -fwrite-ide-info
+
+library:
+  source-dirs: src

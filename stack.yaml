@@ -15,6 +15,7 @@ ghc-options:
   "$everything": -haddock
 
 packages:
+  - cqg-cms-api-client
   - cqg-cms-api-proto
 
 extra-deps: []
