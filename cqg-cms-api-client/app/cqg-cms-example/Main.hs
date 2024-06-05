@@ -1,9 +1,12 @@
 
-module Main where
+module Main (main) where
 
-import Lib
-
-import Wuss
+import Data.Maybe (fromMaybe)
+import Lib ()
+import Network.WebSockets (Connection)
+import System.Environment (lookupEnv)
+import Text.Read (readMaybe)
+import Wuss (runSecureClient)
 
 
 -- | Get a 'String' environment variable.
@@ -31,7 +34,7 @@ getFromEnv envVar defVal = do
     case maybeRes of
         Nothing -> pure defVal
         Just strRes -> do
-            case readMay strRes of
+            case readMaybe strRes of
                 Nothing ->
                     error $ "Can't read environment variable " <> envVar <> " value: " <> strRes
                 Just res -> pure res
@@ -44,5 +47,5 @@ main = do
   path <- getEnv "CQG_WEBSOCKETS_PATH" "/"
   runSecureClient hostname port path app
 
-app :: IO ()
+app :: Connection -> IO ()
 app = undefined
