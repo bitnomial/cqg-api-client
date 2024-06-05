@@ -30,4 +30,21 @@ library
   build-depends:
       base >=4.7 && <5
     , cqg-cms-api-proto
+    , websockets
+    , wuss
+  default-language: Haskell2010
+
+executable cqg-cms-example
+  main-is: Main.hs
+  other-modules:
+      Paths_cqg_cms_api_client
+  hs-source-dirs:
+      app/cqg-cms-example
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-unused-do-bind -Wunused-packages -funbox-strict-fields -fwrite-ide-info -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , cqg-cms-api-client
+    , cqg-cms-api-proto
+    , websockets
+    , wuss
   default-language: Haskell2010
