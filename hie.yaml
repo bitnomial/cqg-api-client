@@ -1,0 +1,11 @@
+---
+cradle:
+  stack:
+    - component: "cqg-cms-api-client:exe:cqg-cms-example"
+      path: "./cqg-cms-api-client/app/cqg-cms-example"
+
+    - component: "cqg-cms-api-client:lib"
+      path: "./cqg-cms-api-client/src"
+
+    - component: "cqg-cms-api-proto:lib"
+      path: "./cqg-cms-api-proto/src"
