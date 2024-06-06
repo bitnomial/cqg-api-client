@@ -2,34 +2,36 @@
 module Main (main) where
 
 import Data.Maybe (fromMaybe)
-import Lib ()
+import Data.String (IsString, fromString)
+import Data.Text (Text)
+import Lib
 import Network.WebSockets (Connection)
-import System.Environment (lookupEnv)
+import System.Environment (getEnv, lookupEnv)
 import Text.Read (readMaybe)
 import Wuss (runSecureClient)
 
 
 -- | Get a 'String' environment variable.
-getEnv ::
+getEnvDef ::
     -- | Environment variable to lookup
     String ->
     -- | Default value to use if the environment variable is not set.
     String ->
     IO String
-getEnv envVar defVal = fromMaybe defVal <$> lookupEnv envVar
+getEnvDef envVar defVal = fromMaybe defVal <$> lookupEnv envVar
 
 
--- | Similar to 'getEnv', but read in a value with 'read'.
+-- | Similar to 'getEnvDef', but read in a value with 'read'.
 --
 -- Throws an exception if the environment variable is set, but the value can't be 'read'.
-getFromEnv ::
+readEnvDef ::
     Read a =>
     -- | Environment variable to lookup
     String ->
     -- | Default value to use if the environment variable is not set.
     a ->
     IO a
-getFromEnv envVar defVal = do
+readEnvDef envVar defVal = do
     maybeRes <- lookupEnv envVar
     case maybeRes of
         Nothing -> pure defVal
@@ -40,12 +42,29 @@ getFromEnv envVar defVal = do
                 Just res -> pure res
 
 
+getEnvStr :: IsString s => String -> IO s
+getEnvStr envVar = fromString <$> getEnv envVar
+
+
 main :: IO ()
 main = do
-  hostname <- getEnv "CQG_WEBSOCKETS_HOSTNAME" "democmsapi.cqg.com"
-  port <- getFromEnv "CQG_WEBSOCKETS_PORT" 443
-  path <- getEnv "CQG_WEBSOCKETS_PATH" "/"
-  runSecureClient hostname port path app
+    cqgHostname <- getEnvDef "CQG_WEBSOCKETS_HOSTNAME" "democmsapi.cqg.com"
+    cqgPort <- readEnvDef "CQG_WEBSOCKETS_PORT" 443
+    cqgPath <- getEnvDef "CQG_WEBSOCKETS_PATH" "/"
+    cqgUsername <- getEnvStr "CQG_USERNAME"
+    cqgPassword <- getEnvStr "CQG_PASSWORD"
+    cqgClientAppId <- getEnvStr "CQG_CLIENT_APP_ID"
+    runSecureClient cqgHostname cqgPort cqgPath (app cqgUsername cqgPassword cqgClientAppId)
 
-app :: Connection -> IO ()
-app = undefined
+app ::
+    -- | CQG Username
+    Text ->
+    -- | CQG Password
+    Text ->
+    -- | CQG Client App ID
+    Text ->
+    Connection ->
+    IO ()
+app cqgUsername cqgPassword cqgClientAppId conn = do
+    logon cqgUsername cqgPassword cqgClientAppId conn
+  

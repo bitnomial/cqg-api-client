@@ -17,12 +17,6 @@ category: "Web"
 # common to point users to the README.md file.
 description: "Please see the README on GitHub at <https://github.com/bitnomial/cqg-api-client/cqg-cms-api-client#readme>"
 
-dependencies:
-  - base >= 4.7 && < 5
-  - cqg-cms-api-proto
-  - websockets
-  - wuss
-
 ghc-options:
   - "-Wall"
   - "-Wcompat"
@@ -40,6 +34,13 @@ ghc-options:
 
 library:
   source-dirs: src
+  dependencies:
+    - base
+    - cqg-cms-api-proto
+    - microlens
+    - proto-lens
+    - text
+    - websockets
 
 executables:
   cqg-cms-example:
@@ -50,4 +51,8 @@ executables:
       - "-rtsopts"
       - "-with-rtsopts=-N"
     dependencies:
+      - base
       - cqg-cms-api-client
+      - text
+      - websockets
+      - wuss
