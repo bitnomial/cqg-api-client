@@ -67,4 +67,3 @@ app ::
     IO ()
 app cqgUsername cqgPassword cqgClientAppId conn = do
     logon cqgUsername cqgPassword cqgClientAppId conn
-  
