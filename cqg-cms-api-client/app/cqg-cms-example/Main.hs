@@ -1,10 +1,11 @@
+{-# LANGUAGE NamedFieldPuns #-}
 
 module Main (main) where
 
 import Data.Maybe (fromMaybe)
 import Data.String (IsString, fromString)
 import Data.Text (Text)
-import Lib (logon, getBalancesForAccount)
+import Lib (Balance (..), logon, getBalancesForAccount, updateBalance)
 import Network.WebSockets (Connection)
 import System.Environment (getEnv, lookupEnv)
 import Text.Read (readMaybe)
@@ -66,7 +67,22 @@ app ::
     Connection ->
     IO ()
 app cqgUsername cqgPassword cqgClientAppId conn = do
+    putStrLn "DO logon"
     eitherLogonRes <- logon cqgUsername cqgPassword cqgClientAppId conn
     print eitherLogonRes
-    eitherBalances <- getBalancesForAccount {- TODO: how to find this value -} 17028979 conn
-    print eitherBalances
+    case eitherLogonRes of
+      Left err -> error $ "Error when logging on: " <> show err
+      Right () -> do
+        putStrLn "\nDO get balances"
+        let accountId = 17028979 {- TODO: how to find this value -}
+        eitherBalances <- getBalancesForAccount accountId conn
+        print eitherBalances
+        case eitherBalances of
+            Left err -> error $ "Error when getting balances: " <> show err
+            Right [] -> error "No balances returned! Expecting exactly one balance to be returned!"
+            Right (_ : _ : _) -> error "Multiple balances returned! Expecting exactly one balance to be returned!"
+            Right [Balance{balanceId}] -> do
+                putStrLn "\nDO update balance"
+                let newBalance = 1999
+                eitherUpdateBalance <- updateBalance balanceId newBalance conn
+                print eitherUpdateBalance

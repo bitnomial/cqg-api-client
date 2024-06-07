@@ -1,7 +1,7 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeApplications #-}
 
-module Lib (logon, getBalancesForAccount) where
+module Lib (logon, getBalancesForAccount, updateBalance, Balance(..)) where
 
 import Data.Function ((&))
 import Data.ProtoLens (defMessage, encodeMessage, decodeMessage)
@@ -11,10 +11,10 @@ import Lens.Micro ((.~), (^?), (^.))
 import Network.WebSockets (Connection, sendBinaryData, receiveData)
 import Proto.CMS.Cmsapi1 (ServerMessage, ClientMessage, ProtocolVersion (..))
 import Proto.CMS.Common1 (Logon, OperationStatus (SUCCESS))
-import Proto.CMS.Traderouting1 (TradeRoutingRequest, AccountScopeRequest, BalanceRecordsRequest, BalanceRecord)
+import Proto.CMS.Traderouting1 (TradeRoutingRequest, AccountScopeRequest, BalanceRecordsRequest, BalanceRecord, UpdateBalanceRecord)
 
 
-data CMSError = UnexpectedResponseType | UnexpectedNumOfResponses | OperationStatusFailure | ResponseNotDecodable String
+data CMSError = UnexpectedResponseType | UnexpectedNumOfResponses | OperationStatusFailure | ResponseNotDecodable String | UnexpectedResponseId
     deriving Show
 
 
@@ -87,17 +87,22 @@ getBalancesForAccount cqgAccountId conn = do
                 [tradingRouteRes] -> do
                     if (tradingRouteRes ^. field @"operationStatus") /= fromProtoEnum SUCCESS
                         then pure $ Left OperationStatusFailure
-                        else do
-                            let balanceRecords = tradingRouteRes ^. field @"accountScopeResult" . field @"balanceRecordsResult" . field @"balanceRecord"
-                            pure . Right $ fmap toBalance balanceRecords
+                        else
+                            if (tradingRouteRes ^. field @"requestId") /= requestId
+                                then pure $ Left UnexpectedResponseId
+                                else do
+                                    let balanceRecords = tradingRouteRes ^. field @"accountScopeResult" . field @"balanceRecordsResult" . field @"balanceRecord"
+                                    pure . Right $ fmap toBalance balanceRecords
   where
+    requestId = 1234 -- TODO: don't hardcode this
+
     clientMsg = defMessage @ClientMessage & field @"tradeRoutingRequest" .~ [tradeRoutingRequestMsg]
 
     rawClientMsg = encodeMessage clientMsg
 
     tradeRoutingRequestMsg =
         defMessage @TradeRoutingRequest &
-            field @"id" .~ 1234 {- TODO -} &
+            field @"id" .~ requestId &
             field @"accountScopeRequest" .~ accountScopeRequestMsg
 
     accountScopeRequestMsg =
@@ -115,3 +120,51 @@ getBalancesForAccount cqgAccountId conn = do
             , balanceCurrency = br ^. field @"currency"
             , balanceEndCashBalance = br ^. field @"endCashBalance"
             }
+
+
+updateBalance ::
+    -- | CQG Balance ID
+    Int ->
+    -- | new balance amount
+    Double ->
+    Connection ->
+    IO (Either CMSError ())
+updateBalance cqgBalanceId newEndCashBalance conn = do
+    print clientMsg
+    sendBinaryData conn rawClientMsg
+    rawResp <- receiveData conn
+    let eitherServerMsg = decodeMessage rawResp :: Either String ServerMessage
+    print eitherServerMsg
+    case eitherServerMsg of
+        Left err -> pure . Left $ ResponseNotDecodable err
+        Right serverMsg ->
+            case serverMsg ^. field @"tradeRoutingResult" of
+                [] -> pure $ Left UnexpectedNumOfResponses
+                _ : _ : _ -> pure $ Left UnexpectedNumOfResponses
+                [tradingRouteRes] -> do
+                    if (tradingRouteRes ^. field @"operationStatus") /= fromProtoEnum SUCCESS
+                        then pure $ Left OperationStatusFailure
+                        else
+                            if (tradingRouteRes ^. field @"requestId") /= requestId
+                                then pure $ Left UnexpectedResponseId
+                                else pure $ Right ()
+  where
+    requestId = 1235 -- TODO: don't hardcode this
+
+    clientMsg = defMessage @ClientMessage & field @"tradeRoutingRequest" .~ [tradeRoutingRequestMsg]
+
+    rawClientMsg = encodeMessage clientMsg
+
+    tradeRoutingRequestMsg =
+        defMessage @TradeRoutingRequest &
+            field @"id" .~ requestId &
+            field @"accountScopeRequest" .~ accountScopeRequestMsg
+
+    accountScopeRequestMsg =
+        defMessage @AccountScopeRequest &
+            field @"updateBalanceRecord" .~ updateBalanceRecordMsg
+
+    updateBalanceRecordMsg =
+        defMessage @UpdateBalanceRecord &
+            field @"balanceId" .~ fromIntegral cqgBalanceId &
+            field @"endCashBalance" .~ newEndCashBalance
