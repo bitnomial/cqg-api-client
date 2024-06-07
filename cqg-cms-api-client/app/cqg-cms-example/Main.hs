@@ -66,4 +66,5 @@ app ::
     Connection ->
     IO ()
 app cqgUsername cqgPassword cqgClientAppId conn = do
-    logon cqgUsername cqgPassword cqgClientAppId conn
+    x <- logon cqgUsername cqgPassword cqgClientAppId conn
+    print x

@@ -1,6 +1,5 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE LambdaCase #-}
 
 module Lib (logon) where
 
@@ -8,10 +7,19 @@ import Data.Function ((&))
 import Data.ProtoLens (defMessage, encodeMessage, decodeMessage)
 import Data.ProtoLens.Field (field)
 import Data.Text (Text)
-import Lens.Micro ((.~))
+import Lens.Micro ((.~), (^?), (^.))
 import Network.WebSockets (Connection, sendBinaryData, receiveData)
 import Proto.CMS.Cmsapi1 (ServerMessage, ClientMessage, ProtocolVersion (..))
-import Proto.CMS.Common1 (Logon)
+import Proto.CMS.Common1 (Logon, OperationStatus (SUCCESS))
+
+
+data CMSError = UnexpectedResponseType | OperationStatusFailure | ResponseNotDecodable String
+    deriving Show
+
+
+fromProtoEnum :: (Enum m, Num n) => m -> n
+fromProtoEnum protoEnumVal = fromIntegral $ fromEnum protoEnumVal
+
 
 logon ::
     -- | CQG Username
@@ -21,12 +29,22 @@ logon ::
     -- | CQG Client App ID
     Text ->
     Connection ->
-    IO ()
+    IO (Either CMSError ())
 logon cqgUsername cqgPassword cqgClientAppId conn = do
     print logonMsg
     sendBinaryData conn rawClientMsg
     rawResp <- receiveData conn
-    print (decodeMessage rawResp :: Either String ServerMessage)
+    let eitherServerMsg = decodeMessage rawResp :: Either String ServerMessage
+    print eitherServerMsg
+    case eitherServerMsg of
+        Left err -> pure . Left $ ResponseNotDecodable err
+        Right serverMsg ->
+            case serverMsg ^? field @"maybe'logonResult" . traverse of
+                Nothing -> pure $ Left UnexpectedResponseType
+                Just logonRes ->
+                    if (logonRes ^. field @"operationStatus") /= fromProtoEnum SUCCESS
+                        then pure $ Left OperationStatusFailure
+                        else pure $ Right ()
     where
       clientMsg = defMessage @ClientMessage & field @"logon" .~ logonMsg
 
@@ -37,8 +55,8 @@ logon cqgUsername cqgPassword cqgClientAppId conn = do
               field @"userName" .~ cqgUsername &
               field @"password" .~ cqgPassword &
               field @"clientAppId" .~ cqgClientAppId &
-              field @"protocolVersionMajor" .~ fromIntegral (fromEnum PROTOCOL_VERSION_MAJOR) &
-              field @"protocolVersionMinor" .~ fromIntegral (fromEnum PROTOCOL_VERSION_MINOR)
+              field @"protocolVersionMajor" .~ fromProtoEnum PROTOCOL_VERSION_MAJOR &
+              field @"protocolVersionMinor" .~ fromProtoEnum PROTOCOL_VERSION_MINOR
 
       -- handleRawResp :: Message -> IO ()
       -- handleRawResp = \case
