@@ -4,7 +4,7 @@ module Main (main) where
 import Data.Maybe (fromMaybe)
 import Data.String (IsString, fromString)
 import Data.Text (Text)
-import Lib
+import Lib (logon, getBalancesForAccount)
 import Network.WebSockets (Connection)
 import System.Environment (getEnv, lookupEnv)
 import Text.Read (readMaybe)
@@ -66,5 +66,7 @@ app ::
     Connection ->
     IO ()
 app cqgUsername cqgPassword cqgClientAppId conn = do
-    x <- logon cqgUsername cqgPassword cqgClientAppId conn
-    print x
+    eitherLogonRes <- logon cqgUsername cqgPassword cqgClientAppId conn
+    print eitherLogonRes
+    eitherBalances <- getBalancesForAccount {- TODO: how to find this value -} 17028979 conn
+    print eitherBalances
