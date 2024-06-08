@@ -7,7 +7,6 @@ copyright:           "2024 Bitnomial, Inc"
 
 extra-source-files:
   - README.md
-  - CHANGELOG.md
   - proto/**/*.proto
 
 synopsis:            "Haskell modules generated from Protobuf definitions of the CQG CMS API"

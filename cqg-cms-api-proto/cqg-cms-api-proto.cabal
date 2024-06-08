@@ -17,7 +17,6 @@ license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
     README.md
-    CHANGELOG.md
     proto/CMS/api_limit_1.proto
     proto/CMS/cmsapi_1.proto
     proto/CMS/common_1.proto
