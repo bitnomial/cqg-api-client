@@ -12,7 +12,7 @@ category:       Web
 author:         Bitnomial
 maintainer:     Bitnomial <support@bitnomial.com>
 copyright:      2024 Bitnomial, Inc
-license:        AllRightsReserved
+license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
