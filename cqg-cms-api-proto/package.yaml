@@ -1,7 +1,7 @@
 name:                "cqg-cms-api-proto"
 version:             "0.1.0.0"
 maintainer:          "Bitnomial <support@bitnomial.com>"
-license:             "AllRightsReserved"
+license:             "BSD3"
 author:              "Bitnomial"
 copyright:           "2024 Bitnomial, Inc"
 
