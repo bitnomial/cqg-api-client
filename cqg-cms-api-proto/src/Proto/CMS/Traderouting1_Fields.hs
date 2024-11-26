@@ -590,12 +590,6 @@ balanceRecord ::
    Data.ProtoLens.Field.HasField s "balanceRecord" a) =>
   Lens.Family2.LensLike' f s a
 balanceRecord = Data.ProtoLens.Field.field @"balanceRecord"
-balanceRecordId ::
-  forall f s a.
-  (Prelude.Functor f,
-   Data.ProtoLens.Field.HasField s "balanceRecordId" a) =>
-  Lens.Family2.LensLike' f s a
-balanceRecordId = Data.ProtoLens.Field.field @"balanceRecordId"
 balanceRecordsRequest ::
   forall f s a.
   (Prelude.Functor f,
@@ -3623,6 +3617,20 @@ maybe'obsoleteAccountId ::
   Lens.Family2.LensLike' f s a
 maybe'obsoleteAccountId
   = Data.ProtoLens.Field.field @"maybe'obsoleteAccountId"
+maybe'obsoleteBalanceId ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'obsoleteBalanceId" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'obsoleteBalanceId
+  = Data.ProtoLens.Field.field @"maybe'obsoleteBalanceId"
+maybe'obsoleteBalanceRecordId ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'obsoleteBalanceRecordId" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'obsoleteBalanceRecordId
+  = Data.ProtoLens.Field.field @"maybe'obsoleteBalanceRecordId"
 maybe'obsoleteBlockSize ::
   forall f s a.
   (Prelude.Functor f,
@@ -5148,6 +5156,19 @@ obsoleteAccountId ::
    Data.ProtoLens.Field.HasField s "obsoleteAccountId" a) =>
   Lens.Family2.LensLike' f s a
 obsoleteAccountId = Data.ProtoLens.Field.field @"obsoleteAccountId"
+obsoleteBalanceId ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "obsoleteBalanceId" a) =>
+  Lens.Family2.LensLike' f s a
+obsoleteBalanceId = Data.ProtoLens.Field.field @"obsoleteBalanceId"
+obsoleteBalanceRecordId ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "obsoleteBalanceRecordId" a) =>
+  Lens.Family2.LensLike' f s a
+obsoleteBalanceRecordId
+  = Data.ProtoLens.Field.field @"obsoleteBalanceRecordId"
 obsoleteBlockSize ::
   forall f s a.
   (Prelude.Functor f,

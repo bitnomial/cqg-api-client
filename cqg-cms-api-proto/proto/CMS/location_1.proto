@@ -5,7 +5,6 @@ syntax = "proto2";
 package location_1;
 
 import "common/shared_1.proto";
-import "CMS/common_1.proto";
 
 message LocationScopeRequest
 {

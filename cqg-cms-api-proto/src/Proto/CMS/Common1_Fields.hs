@@ -249,6 +249,12 @@ customerId ::
    Data.ProtoLens.Field.HasField s "customerId" a) =>
   Lens.Family2.LensLike' f s a
 customerId = Data.ProtoLens.Field.field @"customerId"
+customerIds ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "customerIds" a) =>
+  Lens.Family2.LensLike' f s a
+customerIds = Data.ProtoLens.Field.field @"customerIds"
 customerName ::
   forall f s a.
   (Prelude.Functor f,
@@ -309,6 +315,11 @@ email ::
   (Prelude.Functor f, Data.ProtoLens.Field.HasField s "email" a) =>
   Lens.Family2.LensLike' f s a
 email = Data.ProtoLens.Field.field @"email"
+emails ::
+  forall f s a.
+  (Prelude.Functor f, Data.ProtoLens.Field.HasField s "emails" a) =>
+  Lens.Family2.LensLike' f s a
+emails = Data.ProtoLens.Field.field @"emails"
 enforceIpWhitelist ::
   forall f s a.
   (Prelude.Functor f,
@@ -434,6 +445,11 @@ items ::
   (Prelude.Functor f, Data.ProtoLens.Field.HasField s "items" a) =>
   Lens.Family2.LensLike' f s a
 items = Data.ProtoLens.Field.field @"items"
+label ::
+  forall f s a.
+  (Prelude.Functor f, Data.ProtoLens.Field.HasField s "label" a) =>
+  Lens.Family2.LensLike' f s a
+label = Data.ProtoLens.Field.field @"label"
 lastName ::
   forall f s a.
   (Prelude.Functor f,
@@ -446,12 +462,6 @@ legalType ::
    Data.ProtoLens.Field.HasField s "legalType" a) =>
   Lens.Family2.LensLike' f s a
 legalType = Data.ProtoLens.Field.field @"legalType"
-linkedBrokerageId ::
-  forall f s a.
-  (Prelude.Functor f,
-   Data.ProtoLens.Field.HasField s "linkedBrokerageId" a) =>
-  Lens.Family2.LensLike' f s a
-linkedBrokerageId = Data.ProtoLens.Field.field @"linkedBrokerageId"
 linkedLoginId ::
   forall f s a.
   (Prelude.Functor f,
@@ -512,6 +522,12 @@ matchingRule ::
    Data.ProtoLens.Field.HasField s "matchingRule" a) =>
   Lens.Family2.LensLike' f s a
 matchingRule = Data.ProtoLens.Field.field @"matchingRule"
+maxDeferredPeriod ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maxDeferredPeriod" a) =>
+  Lens.Family2.LensLike' f s a
+maxDeferredPeriod = Data.ProtoLens.Field.field @"maxDeferredPeriod"
 maybe'accessToken ::
   forall f s a.
   (Prelude.Functor f,
@@ -846,6 +862,12 @@ maybe'isTemporary ::
    Data.ProtoLens.Field.HasField s "maybe'isTemporary" a) =>
   Lens.Family2.LensLike' f s a
 maybe'isTemporary = Data.ProtoLens.Field.field @"maybe'isTemporary"
+maybe'label ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'label" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'label = Data.ProtoLens.Field.field @"maybe'label"
 maybe'lastName ::
   forall f s a.
   (Prelude.Functor f,
@@ -858,13 +880,6 @@ maybe'legalType ::
    Data.ProtoLens.Field.HasField s "maybe'legalType" a) =>
   Lens.Family2.LensLike' f s a
 maybe'legalType = Data.ProtoLens.Field.field @"maybe'legalType"
-maybe'linkedBrokerageId ::
-  forall f s a.
-  (Prelude.Functor f,
-   Data.ProtoLens.Field.HasField s "maybe'linkedBrokerageId" a) =>
-  Lens.Family2.LensLike' f s a
-maybe'linkedBrokerageId
-  = Data.ProtoLens.Field.field @"maybe'linkedBrokerageId"
 maybe'linkedLoginId ::
   forall f s a.
   (Prelude.Functor f,
@@ -892,6 +907,13 @@ maybe'matchingRule ::
   Lens.Family2.LensLike' f s a
 maybe'matchingRule
   = Data.ProtoLens.Field.field @"maybe'matchingRule"
+maybe'maxDeferredPeriod ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'maxDeferredPeriod" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'maxDeferredPeriod
+  = Data.ProtoLens.Field.field @"maybe'maxDeferredPeriod"
 maybe'memberId ::
   forall f s a.
   (Prelude.Functor f,
@@ -1083,6 +1105,12 @@ maybe'preferredConnectionPointName ::
   Lens.Family2.LensLike' f s a
 maybe'preferredConnectionPointName
   = Data.ProtoLens.Field.field @"maybe'preferredConnectionPointName"
+maybe'price ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'price" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'price = Data.ProtoLens.Field.field @"maybe'price"
 maybe'privateLabel ::
   forall f s a.
   (Prelude.Functor f,
@@ -1156,6 +1184,12 @@ maybe'removed ::
    Data.ProtoLens.Field.HasField s "maybe'removed" a) =>
   Lens.Family2.LensLike' f s a
 maybe'removed = Data.ProtoLens.Field.field @"maybe'removed"
+maybe'retired ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'retired" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'retired = Data.ProtoLens.Field.field @"maybe'retired"
 maybe'salesSeriesId ::
   forall f s a.
   (Prelude.Functor f,
@@ -1189,6 +1223,12 @@ maybe'second ::
    Data.ProtoLens.Field.HasField s "maybe'second" a) =>
   Lens.Family2.LensLike' f s a
 maybe'second = Data.ProtoLens.Field.field @"maybe'second"
+maybe'serviceId ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'serviceId" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'serviceId = Data.ProtoLens.Field.field @"maybe'serviceId"
 maybe'sessionToken ::
   forall f s a.
   (Prelude.Functor f,
@@ -1273,6 +1313,12 @@ maybe'timeZone ::
    Data.ProtoLens.Field.HasField s "maybe'timeZone" a) =>
   Lens.Family2.LensLike' f s a
 maybe'timeZone = Data.ProtoLens.Field.field @"maybe'timeZone"
+maybe'title ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'title" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'title = Data.ProtoLens.Field.field @"maybe'title"
 maybe'top ::
   forall f s a.
   (Prelude.Functor f,
@@ -1309,6 +1355,12 @@ maybe'username ::
    Data.ProtoLens.Field.HasField s "maybe'username" a) =>
   Lens.Family2.LensLike' f s a
 maybe'username = Data.ProtoLens.Field.field @"maybe'username"
+maybe'value ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'value" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'value = Data.ProtoLens.Field.field @"maybe'value"
 maybe'visibleByCqgOnly ::
   forall f s a.
   (Prelude.Functor f,
@@ -1560,12 +1612,25 @@ privateLabel ::
    Data.ProtoLens.Field.HasField s "privateLabel" a) =>
   Lens.Family2.LensLike' f s a
 privateLabel = Data.ProtoLens.Field.field @"privateLabel"
+profileBrokerageIds ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "profileBrokerageIds" a) =>
+  Lens.Family2.LensLike' f s a
+profileBrokerageIds
+  = Data.ProtoLens.Field.field @"profileBrokerageIds"
 profileId ::
   forall f s a.
   (Prelude.Functor f,
    Data.ProtoLens.Field.HasField s "profileId" a) =>
   Lens.Family2.LensLike' f s a
 profileId = Data.ProtoLens.Field.field @"profileId"
+profileIds ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "profileIds" a) =>
+  Lens.Family2.LensLike' f s a
+profileIds = Data.ProtoLens.Field.field @"profileIds"
 profileSalesSeriesId ::
   forall f s a.
   (Prelude.Functor f,
@@ -1628,6 +1693,11 @@ removed ::
   (Prelude.Functor f, Data.ProtoLens.Field.HasField s "removed" a) =>
   Lens.Family2.LensLike' f s a
 removed = Data.ProtoLens.Field.field @"removed"
+retired ::
+  forall f s a.
+  (Prelude.Functor f, Data.ProtoLens.Field.HasField s "retired" a) =>
+  Lens.Family2.LensLike' f s a
+retired = Data.ProtoLens.Field.field @"retired"
 salesSeries ::
   forall f s a.
   (Prelude.Functor f,
@@ -1668,6 +1738,12 @@ second ::
   (Prelude.Functor f, Data.ProtoLens.Field.HasField s "second" a) =>
   Lens.Family2.LensLike' f s a
 second = Data.ProtoLens.Field.field @"second"
+serviceId ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "serviceId" a) =>
+  Lens.Family2.LensLike' f s a
+serviceId = Data.ProtoLens.Field.field @"serviceId"
 sessionSettings ::
   forall f s a.
   (Prelude.Functor f,
@@ -1754,6 +1830,11 @@ timeZone ::
    Data.ProtoLens.Field.HasField s "timeZone" a) =>
   Lens.Family2.LensLike' f s a
 timeZone = Data.ProtoLens.Field.field @"timeZone"
+title ::
+  forall f s a.
+  (Prelude.Functor f, Data.ProtoLens.Field.HasField s "title" a) =>
+  Lens.Family2.LensLike' f s a
+title = Data.ProtoLens.Field.field @"title"
 top ::
   forall f s a.
   (Prelude.Functor f, Data.ProtoLens.Field.HasField s "top" a) =>
@@ -1854,6 +1935,12 @@ vec'criteria ::
    Data.ProtoLens.Field.HasField s "vec'criteria" a) =>
   Lens.Family2.LensLike' f s a
 vec'criteria = Data.ProtoLens.Field.field @"vec'criteria"
+vec'customerIds ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "vec'customerIds" a) =>
+  Lens.Family2.LensLike' f s a
+vec'customerIds = Data.ProtoLens.Field.field @"vec'customerIds"
 vec'customerSalesSeriesLinks ::
   forall f s a.
   (Prelude.Functor f,
@@ -1867,6 +1954,12 @@ vec'email ::
    Data.ProtoLens.Field.HasField s "vec'email" a) =>
   Lens.Family2.LensLike' f s a
 vec'email = Data.ProtoLens.Field.field @"vec'email"
+vec'emails ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "vec'emails" a) =>
+  Lens.Family2.LensLike' f s a
+vec'emails = Data.ProtoLens.Field.field @"vec'emails"
 vec'enforcedConstraintGroup ::
   forall f s a.
   (Prelude.Functor f,
@@ -1981,6 +2074,19 @@ vec'price ::
    Data.ProtoLens.Field.HasField s "vec'price" a) =>
   Lens.Family2.LensLike' f s a
 vec'price = Data.ProtoLens.Field.field @"vec'price"
+vec'profileBrokerageIds ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "vec'profileBrokerageIds" a) =>
+  Lens.Family2.LensLike' f s a
+vec'profileBrokerageIds
+  = Data.ProtoLens.Field.field @"vec'profileBrokerageIds"
+vec'profileIds ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "vec'profileIds" a) =>
+  Lens.Family2.LensLike' f s a
+vec'profileIds = Data.ProtoLens.Field.field @"vec'profileIds"
 vec'propertyType ::
   forall f s a.
   (Prelude.Functor f,

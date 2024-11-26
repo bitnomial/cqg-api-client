@@ -1172,9 +1172,12 @@ instance Control.DeepSeq.NFData Entitlement'EntitlementType where
 {- | Fields :
      
          * 'Proto.Common.Shared1_Fields.entitlement' @:: Lens' EntitlementReport [Entitlement]@
-         * 'Proto.Common.Shared1_Fields.vec'entitlement' @:: Lens' EntitlementReport (Data.Vector.Vector Entitlement)@ -}
+         * 'Proto.Common.Shared1_Fields.vec'entitlement' @:: Lens' EntitlementReport (Data.Vector.Vector Entitlement)@
+         * 'Proto.Common.Shared1_Fields.signature' @:: Lens' EntitlementReport Data.ByteString.ByteString@
+         * 'Proto.Common.Shared1_Fields.maybe'signature' @:: Lens' EntitlementReport (Prelude.Maybe Data.ByteString.ByteString)@ -}
 data EntitlementReport
   = EntitlementReport'_constructor {_EntitlementReport'entitlement :: !(Data.Vector.Vector Entitlement),
+                                    _EntitlementReport'signature :: !(Prelude.Maybe Data.ByteString.ByteString),
                                     _EntitlementReport'_unknownFields :: !Data.ProtoLens.FieldSet}
   deriving stock (Prelude.Eq, Prelude.Ord)
 instance Prelude.Show EntitlementReport where
@@ -1199,12 +1202,27 @@ instance Data.ProtoLens.Field.HasField EntitlementReport "vec'entitlement" (Data
            _EntitlementReport'entitlement
            (\ x__ y__ -> x__ {_EntitlementReport'entitlement = y__}))
         Prelude.id
+instance Data.ProtoLens.Field.HasField EntitlementReport "signature" Data.ByteString.ByteString where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _EntitlementReport'signature
+           (\ x__ y__ -> x__ {_EntitlementReport'signature = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField EntitlementReport "maybe'signature" (Prelude.Maybe Data.ByteString.ByteString) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _EntitlementReport'signature
+           (\ x__ y__ -> x__ {_EntitlementReport'signature = y__}))
+        Prelude.id
 instance Data.ProtoLens.Message EntitlementReport where
   messageName _ = Data.Text.pack "shared_1.EntitlementReport"
   packedMessageDescriptor _
     = "\n\
       \\DC1EntitlementReport\DC27\n\
-      \\ventitlement\CAN\SOH \ETX(\v2\NAK.shared_1.EntitlementR\ventitlement"
+      \\ventitlement\CAN\SOH \ETX(\v2\NAK.shared_1.EntitlementR\ventitlement\DC2\FS\n\
+      \\tsignature\CAN\STX \SOH(\fR\tsignature"
   packedFileDescriptor _ = packedFileDescriptor
   fieldsByTag
     = let
@@ -1217,9 +1235,18 @@ instance Data.ProtoLens.Message EntitlementReport where
                  Data.ProtoLens.Unpacked
                  (Data.ProtoLens.Field.field @"entitlement")) ::
               Data.ProtoLens.FieldDescriptor EntitlementReport
+        signature__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "signature"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.BytesField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.ByteString.ByteString)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'signature")) ::
+              Data.ProtoLens.FieldDescriptor EntitlementReport
       in
         Data.Map.fromList
-          [(Data.ProtoLens.Tag 1, entitlement__field_descriptor)]
+          [(Data.ProtoLens.Tag 1, entitlement__field_descriptor),
+           (Data.ProtoLens.Tag 2, signature__field_descriptor)]
   unknownFields
     = Lens.Family2.Unchecked.lens
         _EntitlementReport'_unknownFields
@@ -1227,6 +1254,7 @@ instance Data.ProtoLens.Message EntitlementReport where
   defMessage
     = EntitlementReport'_constructor
         {_EntitlementReport'entitlement = Data.Vector.Generic.empty,
+         _EntitlementReport'signature = Prelude.Nothing,
          _EntitlementReport'_unknownFields = []}
   parseMessage
     = let
@@ -1269,6 +1297,15 @@ instance Data.ProtoLens.Message EntitlementReport where
                                        (Data.ProtoLens.Encoding.Growing.append
                                           mutable'entitlement y)
                                 loop x v
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getBytes
+                                             (Prelude.fromIntegral len))
+                                       "signature"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"signature") y x)
+                                  mutable'entitlement
                         wire
                           -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
                                         wire
@@ -1298,18 +1335,38 @@ instance Data.ProtoLens.Message EntitlementReport where
                            Data.ProtoLens.encodeMessage _v))
                 (Lens.Family2.view
                    (Data.ProtoLens.Field.field @"vec'entitlement") _x))
-             (Data.ProtoLens.Encoding.Wire.buildFieldSet
-                (Lens.Family2.view Data.ProtoLens.unknownFields _x))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view
+                       (Data.ProtoLens.Field.field @"maybe'signature") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((\ bs
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                      (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                   (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
 instance Control.DeepSeq.NFData EntitlementReport where
   rnf
     = \ x__
         -> Control.DeepSeq.deepseq
              (_EntitlementReport'_unknownFields x__)
-             (Control.DeepSeq.deepseq (_EntitlementReport'entitlement x__) ())
+             (Control.DeepSeq.deepseq
+                (_EntitlementReport'entitlement x__)
+                (Control.DeepSeq.deepseq (_EntitlementReport'signature x__) ()))
 {- | Fields :
-      -}
+     
+         * 'Proto.Common.Shared1_Fields.signResponses' @:: Lens' EntitlementRequest Prelude.Bool@
+         * 'Proto.Common.Shared1_Fields.maybe'signResponses' @:: Lens' EntitlementRequest (Prelude.Maybe Prelude.Bool)@ -}
 data EntitlementRequest
-  = EntitlementRequest'_constructor {_EntitlementRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
+  = EntitlementRequest'_constructor {_EntitlementRequest'signResponses :: !(Prelude.Maybe Prelude.Bool),
+                                     _EntitlementRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
   deriving stock (Prelude.Eq, Prelude.Ord)
 instance Prelude.Show EntitlementRequest where
   showsPrec _ __x __s
@@ -1317,20 +1374,48 @@ instance Prelude.Show EntitlementRequest where
         '{'
         (Prelude.showString
            (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField EntitlementRequest "signResponses" Prelude.Bool where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _EntitlementRequest'signResponses
+           (\ x__ y__ -> x__ {_EntitlementRequest'signResponses = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField EntitlementRequest "maybe'signResponses" (Prelude.Maybe Prelude.Bool) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _EntitlementRequest'signResponses
+           (\ x__ y__ -> x__ {_EntitlementRequest'signResponses = y__}))
+        Prelude.id
 instance Data.ProtoLens.Message EntitlementRequest where
   messageName _ = Data.Text.pack "shared_1.EntitlementRequest"
   packedMessageDescriptor _
     = "\n\
-      \\DC2EntitlementRequest"
+      \\DC2EntitlementRequest\DC2%\n\
+      \\SOsign_responses\CAN\SOH \SOH(\bR\rsignResponses"
   packedFileDescriptor _ = packedFileDescriptor
-  fieldsByTag = let in Data.Map.fromList []
+  fieldsByTag
+    = let
+        signResponses__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "sign_responses"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.BoolField ::
+                 Data.ProtoLens.FieldTypeDescriptor Prelude.Bool)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'signResponses")) ::
+              Data.ProtoLens.FieldDescriptor EntitlementRequest
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, signResponses__field_descriptor)]
   unknownFields
     = Lens.Family2.Unchecked.lens
         _EntitlementRequest'_unknownFields
         (\ x__ y__ -> x__ {_EntitlementRequest'_unknownFields = y__})
   defMessage
     = EntitlementRequest'_constructor
-        {_EntitlementRequest'_unknownFields = []}
+        {_EntitlementRequest'signResponses = Prelude.Nothing,
+         _EntitlementRequest'_unknownFields = []}
   parseMessage
     = let
         loop ::
@@ -1354,6 +1439,13 @@ instance Data.ProtoLens.Message EntitlementRequest where
                else
                    do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
                       case tag of
+                        8 -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          ((Prelude./=) 0) Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "sign_responses"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"signResponses") y x)
                         wire
                           -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
                                         wire
@@ -1365,13 +1457,27 @@ instance Data.ProtoLens.Message EntitlementRequest where
           (do loop Data.ProtoLens.defMessage) "EntitlementRequest"
   buildMessage
     = \ _x
-        -> Data.ProtoLens.Encoding.Wire.buildFieldSet
-             (Lens.Family2.view Data.ProtoLens.unknownFields _x)
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'signResponses") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 8)
+                       ((Prelude..)
+                          Data.ProtoLens.Encoding.Bytes.putVarInt (\ b -> if b then 1 else 0)
+                          _v))
+             (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                (Lens.Family2.view Data.ProtoLens.unknownFields _x))
 instance Control.DeepSeq.NFData EntitlementRequest where
   rnf
     = \ x__
         -> Control.DeepSeq.deepseq
-             (_EntitlementRequest'_unknownFields x__) ()
+             (_EntitlementRequest'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_EntitlementRequest'signResponses x__) ())
 {- | Fields :
      
          * 'Proto.Common.Shared1_Fields.registrationToken' @:: Lens' GooglePushNotif Data.Text.Text@
@@ -3414,10 +3520,12 @@ packedFileDescriptor
     \\n\
     \ResultCode\DC2\v\n\
     \\aSUCCESS\DLE\NUL\DC2\v\n\
-    \\aFAILURE\DLEe\"\DC4\n\
-    \\DC2EntitlementRequest\"L\n\
+    \\aFAILURE\DLEe\";\n\
+    \\DC2EntitlementRequest\DC2%\n\
+    \\SOsign_responses\CAN\SOH \SOH(\bR\rsignResponses\"j\n\
     \\DC1EntitlementReport\DC27\n\
-    \\ventitlement\CAN\SOH \ETX(\v2\NAK.shared_1.EntitlementR\ventitlement\"\147\STX\n\
+    \\ventitlement\CAN\SOH \ETX(\v2\NAK.shared_1.EntitlementR\ventitlement\DC2\FS\n\
+    \\tsignature\CAN\STX \SOH(\fR\tsignature\"\147\STX\n\
     \\vEntitlement\DC2)\n\
     \\DLEentitlement_type\CAN\SOH \STX(\rR\SIentitlementType\DC2)\n\
     \\DLEentitlement_code\CAN\STX \STX(\tR\SIentitlementCode\DC2\CAN\n\
@@ -3463,8 +3571,8 @@ packedFileDescriptor
     \NamedValue\DC2\DC2\n\
     \\EOTname\CAN\SOH \STX(\tR\EOTname\DC2\DC4\n\
     \\ENQvalue\CAN\STX \SOH(\tR\ENQvalue\DC2\US\n\
-    \\adeleted\CAN\ETX \SOH(\b:\ENQfalseR\adeletedJ\245g\n\
-    \\a\DC2\ENQ\STX\NUL\138\ETX\SOH\n\
+    \\adeleted\CAN\ETX \SOH(\b:\ENQfalseR\adeletedJ\223i\n\
+    \\a\DC2\ENQ\STX\NUL\143\ETX\SOH\n\
     \9\n\
     \\SOH\f\DC2\ETX\STX\NUL\DC2\SUB/ Entities shared between different protocols.\n\
     \\n\
@@ -3967,389 +4075,411 @@ packedFileDescriptor
     \\r\n\
     \\ENQ\EOT\EOT\STX\SOH\ETX\DC2\EOT\234\SOH$%\n\
     \\142\SOH\n\
-    \\STX\EOT\ENQ\DC2\ACK\241\SOH\NUL\243\SOH\SOH\SUB9 Request for a list of entitlements of the current user.\n\
+    \\STX\EOT\ENQ\DC2\ACK\241\SOH\NUL\245\SOH\SOH\SUB9 Request for a list of entitlements of the current user.\n\
     \2E//------------------------------------------\n\
     \// Entitlement messages\n\
     \\n\
     \\v\n\
     \\ETX\EOT\ENQ\SOH\DC2\EOT\241\SOH\b\SUB\n\
+    \F\n\
+    \\EOT\EOT\ENQ\STX\NUL\DC2\EOT\244\SOH\ETX$\SUB8 If true, add cryptographic signature to the responses.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\NUL\EOT\DC2\EOT\244\SOH\ETX\v\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\NUL\ENQ\DC2\EOT\244\SOH\f\DLE\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\NUL\SOH\DC2\EOT\244\SOH\DC1\US\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\NUL\ETX\DC2\EOT\244\SOH\"#\n\
     \G\n\
-    \\STX\EOT\ACK\DC2\ACK\246\SOH\NUL\250\SOH\SOH\SUB9 Report with a list of entitlements of the current user.\n\
+    \\STX\EOT\ACK\DC2\ACK\248\SOH\NUL\255\SOH\SOH\SUB9 Report with a list of entitlements of the current user.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\ACK\SOH\DC2\EOT\246\SOH\b\EM\n\
+    \\ETX\EOT\ACK\SOH\DC2\EOT\248\SOH\b\EM\n\
     \%\n\
-    \\EOT\EOT\ACK\STX\NUL\DC2\EOT\249\SOH\ETX(\SUB\ETB List of entitlements.\n\
+    \\EOT\EOT\ACK\STX\NUL\DC2\EOT\251\SOH\ETX(\SUB\ETB List of entitlements.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\NUL\EOT\DC2\EOT\249\SOH\ETX\v\n\
+    \\ENQ\EOT\ACK\STX\NUL\EOT\DC2\EOT\251\SOH\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\NUL\ACK\DC2\EOT\249\SOH\f\ETB\n\
+    \\ENQ\EOT\ACK\STX\NUL\ACK\DC2\EOT\251\SOH\f\ETB\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\NUL\SOH\DC2\EOT\249\SOH\CAN#\n\
+    \\ENQ\EOT\ACK\STX\NUL\SOH\DC2\EOT\251\SOH\CAN#\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\NUL\ETX\DC2\EOT\249\SOH&'\n\
+    \\ENQ\EOT\ACK\STX\NUL\ETX\DC2\EOT\251\SOH&'\n\
+    \(\n\
+    \\EOT\EOT\ACK\STX\SOH\DC2\EOT\254\SOH\ETX \SUB\SUB Cryptographic signature.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SOH\EOT\DC2\EOT\254\SOH\ETX\v\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SOH\ENQ\DC2\EOT\254\SOH\f\DC1\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SOH\SOH\DC2\EOT\254\SOH\DC2\ESC\n\
+    \\r\n\
+    \\ENQ\EOT\ACK\STX\SOH\ETX\DC2\EOT\254\SOH\RS\US\n\
     \\f\n\
-    \\STX\EOT\a\DC2\ACK\252\SOH\NUL\164\STX\SOH\n\
+    \\STX\EOT\a\DC2\ACK\129\STX\NUL\169\STX\SOH\n\
     \\v\n\
-    \\ETX\EOT\a\SOH\DC2\EOT\252\SOH\b\DC3\n\
+    \\ETX\EOT\a\SOH\DC2\EOT\129\STX\b\DC3\n\
     \\SO\n\
-    \\EOT\EOT\a\EOT\NUL\DC2\ACK\254\SOH\ETX\154\STX\EOT\n\
+    \\EOT\EOT\a\EOT\NUL\DC2\ACK\131\STX\ETX\159\STX\EOT\n\
     \\r\n\
-    \\ENQ\EOT\a\EOT\NUL\SOH\DC2\EOT\254\SOH\b\ETB\n\
+    \\ENQ\EOT\a\EOT\NUL\SOH\DC2\EOT\131\STX\b\ETB\n\
     \L\n\
-    \\ACK\EOT\a\EOT\NUL\STX\NUL\DC2\EOT\130\STX\a\DC3\SUB< Feature entitlement.\n\
+    \\ACK\EOT\a\EOT\NUL\STX\NUL\DC2\EOT\135\STX\a\DC3\SUB< Feature entitlement.\n\
     \ The code points to a feature number.\n\
     \\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\NUL\SOH\DC2\EOT\130\STX\a\SO\n\
+    \\a\EOT\a\EOT\NUL\STX\NUL\SOH\DC2\EOT\135\STX\a\SO\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\NUL\STX\DC2\EOT\130\STX\DC1\DC2\n\
+    \\a\EOT\a\EOT\NUL\STX\NUL\STX\DC2\EOT\135\STX\DC1\DC2\n\
     \N\n\
-    \\ACK\EOT\a\EOT\NUL\STX\SOH\DC2\EOT\134\STX\a\DC1\SUB> News entitlement.\n\
+    \\ACK\EOT\a\EOT\NUL\STX\SOH\DC2\EOT\139\STX\a\DC1\SUB> News entitlement.\n\
     \ The code points to the enabled news feed.\n\
     \\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\SOH\SOH\DC2\EOT\134\STX\a\v\n\
+    \\a\EOT\a\EOT\NUL\STX\SOH\SOH\DC2\EOT\139\STX\a\v\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\SOH\STX\DC2\EOT\134\STX\SO\DLE\n\
+    \\a\EOT\a\EOT\NUL\STX\SOH\STX\DC2\EOT\139\STX\SO\DLE\n\
     \N\n\
-    \\ACK\EOT\a\EOT\NUL\STX\STX\DC2\EOT\138\STX\a\DC3\SUB> Dow Jones news entitlement\n\
+    \\ACK\EOT\a\EOT\NUL\STX\STX\DC2\EOT\143\STX\a\DC3\SUB> Dow Jones news entitlement\n\
     \ The code points to DJ news feed.\n\
     \\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\STX\SOH\DC2\EOT\138\STX\a\r\n\
+    \\a\EOT\a\EOT\NUL\STX\STX\SOH\DC2\EOT\143\STX\a\r\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\STX\STX\DC2\EOT\138\STX\DLE\DC2\n\
+    \\a\EOT\a\EOT\NUL\STX\STX\STX\DC2\EOT\143\STX\DLE\DC2\n\
     \\SUB\n\
-    \\ACK\EOT\a\EOT\NUL\STX\ETX\DC2\EOT\141\STX\a\DC4\SUB\n\
+    \\ACK\EOT\a\EOT\NUL\STX\ETX\DC2\EOT\146\STX\a\DC4\SUB\n\
     \ Studies.\n\
     \\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\ETX\SOH\DC2\EOT\141\STX\a\SO\n\
+    \\a\EOT\a\EOT\NUL\STX\ETX\SOH\DC2\EOT\146\STX\a\SO\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\ETX\STX\DC2\EOT\141\STX\DC1\DC3\n\
+    \\a\EOT\a\EOT\NUL\STX\ETX\STX\DC2\EOT\146\STX\DC1\DC3\n\
     \e\n\
-    \\ACK\EOT\a\EOT\NUL\STX\EOT\DC2\EOT\145\STX\a%\SUBU Manage metadata on a security (prefix) level.\n\
+    \\ACK\EOT\a\EOT\NUL\STX\EOT\DC2\EOT\150\STX\a%\SUBU Manage metadata on a security (prefix) level.\n\
     \ The code points to a contributor id.\n\
     \\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\EOT\SOH\DC2\EOT\145\STX\a\US\n\
+    \\a\EOT\a\EOT\NUL\STX\EOT\SOH\DC2\EOT\150\STX\a\US\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\EOT\STX\DC2\EOT\145\STX\"$\n\
+    \\a\EOT\a\EOT\NUL\STX\EOT\STX\DC2\EOT\150\STX\"$\n\
     \\\\n\
-    \\ACK\EOT\a\EOT\NUL\STX\ENQ\DC2\EOT\149\STX\a%\SUBL Manage metadata on a contract level.\n\
+    \\ACK\EOT\a\EOT\NUL\STX\ENQ\DC2\EOT\154\STX\a%\SUBL Manage metadata on a contract level.\n\
     \ The code points to a contributor id.\n\
     \\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\ENQ\SOH\DC2\EOT\149\STX\a\US\n\
+    \\a\EOT\a\EOT\NUL\STX\ENQ\SOH\DC2\EOT\154\STX\a\US\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\ENQ\STX\DC2\EOT\149\STX\"$\n\
+    \\a\EOT\a\EOT\NUL\STX\ENQ\STX\DC2\EOT\154\STX\"$\n\
     \P\n\
-    \\ACK\EOT\a\EOT\NUL\STX\ACK\DC2\EOT\153\STX\a\GS\SUB@ Manage OTC state.\n\
+    \\ACK\EOT\a\EOT\NUL\STX\ACK\DC2\EOT\158\STX\a\GS\SUB@ Manage OTC state.\n\
     \ The code points to a group of OTC services.\n\
     \\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\ACK\SOH\DC2\EOT\153\STX\a\ETB\n\
+    \\a\EOT\a\EOT\NUL\STX\ACK\SOH\DC2\EOT\158\STX\a\ETB\n\
     \\SI\n\
-    \\a\EOT\a\EOT\NUL\STX\ACK\STX\DC2\EOT\153\STX\SUB\FS\n\
+    \\a\EOT\a\EOT\NUL\STX\ACK\STX\DC2\EOT\158\STX\SUB\FS\n\
     \\144\SOH\n\
-    \\EOT\EOT\a\STX\NUL\DC2\EOT\157\STX\ETX(\SUB\129\SOH This value is associated with EntitlementType enum.\n\
+    \\EOT\EOT\a\STX\NUL\DC2\EOT\162\STX\ETX(\SUB\129\SOH This value is associated with EntitlementType enum.\n\
     \ Ignore Entitlement entry if entitlement_type is not one of EntitlementType\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\NUL\EOT\DC2\EOT\157\STX\ETX\v\n\
+    \\ENQ\EOT\a\STX\NUL\EOT\DC2\EOT\162\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\NUL\ENQ\DC2\EOT\157\STX\f\DC2\n\
+    \\ENQ\EOT\a\STX\NUL\ENQ\DC2\EOT\162\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\NUL\SOH\DC2\EOT\157\STX\DC3#\n\
+    \\ENQ\EOT\a\STX\NUL\SOH\DC2\EOT\162\STX\DC3#\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\NUL\ETX\DC2\EOT\157\STX&'\n\
+    \\ENQ\EOT\a\STX\NUL\ETX\DC2\EOT\162\STX&'\n\
     \2\n\
-    \\EOT\EOT\a\STX\SOH\DC2\EOT\160\STX\ETX(\SUB$ The code that depends on the type.\n\
+    \\EOT\EOT\a\STX\SOH\DC2\EOT\165\STX\ETX(\SUB$ The code that depends on the type.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\SOH\EOT\DC2\EOT\160\STX\ETX\v\n\
+    \\ENQ\EOT\a\STX\SOH\EOT\DC2\EOT\165\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\SOH\ENQ\DC2\EOT\160\STX\f\DC2\n\
+    \\ENQ\EOT\a\STX\SOH\ENQ\DC2\EOT\165\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\SOH\SOH\DC2\EOT\160\STX\DC3#\n\
+    \\ENQ\EOT\a\STX\SOH\SOH\DC2\EOT\165\STX\DC3#\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\SOH\ETX\DC2\EOT\160\STX&'\n\
+    \\ENQ\EOT\a\STX\SOH\ETX\DC2\EOT\165\STX&'\n\
     \G\n\
-    \\EOT\EOT\a\STX\STX\DC2\EOT\163\STX\ETX\GS\SUB9 Deleted flag is used in updates when entity is removed.\n\
+    \\EOT\EOT\a\STX\STX\DC2\EOT\168\STX\ETX\GS\SUB9 Deleted flag is used in updates when entity is removed.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\EOT\DC2\EOT\163\STX\ETX\v\n\
+    \\ENQ\EOT\a\STX\STX\EOT\DC2\EOT\168\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\ENQ\DC2\EOT\163\STX\f\DLE\n\
+    \\ENQ\EOT\a\STX\STX\ENQ\DC2\EOT\168\STX\f\DLE\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\SOH\DC2\EOT\163\STX\DC1\CAN\n\
+    \\ENQ\EOT\a\STX\STX\SOH\DC2\EOT\168\STX\DC1\CAN\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\ETX\DC2\EOT\163\STX\ESC\FS\n\
+    \\ENQ\EOT\a\STX\STX\ETX\DC2\EOT\168\STX\ESC\FS\n\
     \\175\SOH\n\
-    \\STX\EOT\b\DC2\ACK\171\STX\NUL\193\STX\SOH\SUBL Destination specification.\n\
+    \\STX\EOT\b\DC2\ACK\176\STX\NUL\198\STX\SOH\SUBL Destination specification.\n\
     \ Only one type of destination can be specified.\n\
     \2S//------------------------------------------\n\
     \// Notification destination entities.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\b\SOH\DC2\EOT\171\STX\b\DC3\n\
+    \\ETX\EOT\b\SOH\DC2\EOT\176\STX\b\DC3\n\
     \1\n\
-    \\EOT\EOT\b\STX\NUL\DC2\EOT\174\STX\ETX#\SUB# Optional destination description.\n\
+    \\EOT\EOT\b\STX\NUL\DC2\EOT\179\STX\ETX#\SUB# Optional destination description.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NUL\EOT\DC2\EOT\174\STX\ETX\v\n\
+    \\ENQ\EOT\b\STX\NUL\EOT\DC2\EOT\179\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NUL\ENQ\DC2\EOT\174\STX\f\DC2\n\
+    \\ENQ\EOT\b\STX\NUL\ENQ\DC2\EOT\179\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NUL\SOH\DC2\EOT\174\STX\DC3\RS\n\
+    \\ENQ\EOT\b\STX\NUL\SOH\DC2\EOT\179\STX\DC3\RS\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NUL\ETX\DC2\EOT\174\STX!\"\n\
+    \\ENQ\EOT\b\STX\NUL\ETX\DC2\EOT\179\STX!\"\n\
     \2\n\
-    \\EOT\EOT\b\STX\SOH\DC2\EOT\177\STX\ETX0\SUB$ APN destination (for iOS devices).\n\
+    \\EOT\EOT\b\STX\SOH\DC2\EOT\182\STX\ETX0\SUB$ APN destination (for iOS devices).\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SOH\EOT\DC2\EOT\177\STX\ETX\v\n\
+    \\ENQ\EOT\b\STX\SOH\EOT\DC2\EOT\182\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SOH\ACK\DC2\EOT\177\STX\f\SUB\n\
+    \\ENQ\EOT\b\STX\SOH\ACK\DC2\EOT\182\STX\f\SUB\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SOH\SOH\DC2\EOT\177\STX\ESC+\n\
+    \\ENQ\EOT\b\STX\SOH\SOH\DC2\EOT\182\STX\ESC+\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SOH\ETX\DC2\EOT\177\STX./\n\
+    \\ENQ\EOT\b\STX\SOH\ETX\DC2\EOT\182\STX./\n\
     \6\n\
-    \\EOT\EOT\b\STX\STX\DC2\EOT\180\STX\ETX2\SUB( GCM destination (for Android devices).\n\
+    \\EOT\EOT\b\STX\STX\DC2\EOT\185\STX\ETX2\SUB( GCM destination (for Android devices).\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\STX\EOT\DC2\EOT\180\STX\ETX\v\n\
+    \\ENQ\EOT\b\STX\STX\EOT\DC2\EOT\185\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\STX\ACK\DC2\EOT\180\STX\f\ESC\n\
+    \\ENQ\EOT\b\STX\STX\ACK\DC2\EOT\185\STX\f\ESC\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\STX\SOH\DC2\EOT\180\STX\FS-\n\
+    \\ENQ\EOT\b\STX\STX\SOH\DC2\EOT\185\STX\FS-\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\STX\ETX\DC2\EOT\180\STX01\n\
+    \\ENQ\EOT\b\STX\STX\ETX\DC2\EOT\185\STX01\n\
     \\"\n\
-    \\EOT\EOT\b\STX\ETX\DC2\EOT\183\STX\ETX'\SUB\DC4 Email destination.\n\
+    \\EOT\EOT\b\STX\ETX\DC2\EOT\188\STX\ETX'\SUB\DC4 Email destination.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETX\EOT\DC2\EOT\183\STX\ETX\v\n\
+    \\ENQ\EOT\b\STX\ETX\EOT\DC2\EOT\188\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETX\ACK\DC2\EOT\183\STX\f\SYN\n\
+    \\ENQ\EOT\b\STX\ETX\ACK\DC2\EOT\188\STX\f\SYN\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETX\SOH\DC2\EOT\183\STX\ETB\"\n\
+    \\ENQ\EOT\b\STX\ETX\SOH\DC2\EOT\188\STX\ETB\"\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETX\ETX\DC2\EOT\183\STX%&\n\
+    \\ENQ\EOT\b\STX\ETX\ETX\DC2\EOT\188\STX%&\n\
     \G\n\
-    \\EOT\EOT\b\STX\EOT\DC2\EOT\186\STX\ETX:\SUB9 Notification to an email specified in trader's profile.\n\
+    \\EOT\EOT\b\STX\EOT\DC2\EOT\191\STX\ETX:\SUB9 Notification to an email specified in trader's profile.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EOT\EOT\DC2\EOT\186\STX\ETX\v\n\
+    \\ENQ\EOT\b\STX\EOT\EOT\DC2\EOT\191\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EOT\ACK\DC2\EOT\186\STX\f!\n\
+    \\ENQ\EOT\b\STX\EOT\ACK\DC2\EOT\191\STX\f!\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EOT\SOH\DC2\EOT\186\STX\"5\n\
+    \\ENQ\EOT\b\STX\EOT\SOH\DC2\EOT\191\STX\"5\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EOT\ETX\DC2\EOT\186\STX89\n\
+    \\ENQ\EOT\b\STX\EOT\ETX\DC2\EOT\191\STX89\n\
     \\DC4\n\
-    \\EOT\EOT\b\STX\ENQ\DC2\EOT\189\STX\ETX#\SUB\ACK SMS.\n\
+    \\EOT\EOT\b\STX\ENQ\DC2\EOT\194\STX\ETX#\SUB\ACK SMS.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ENQ\EOT\DC2\EOT\189\STX\ETX\v\n\
+    \\ENQ\EOT\b\STX\ENQ\EOT\DC2\EOT\194\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ENQ\ACK\DC2\EOT\189\STX\f\DC4\n\
+    \\ENQ\EOT\b\STX\ENQ\ACK\DC2\EOT\194\STX\f\DC4\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ENQ\SOH\DC2\EOT\189\STX\NAK\RS\n\
+    \\ENQ\EOT\b\STX\ENQ\SOH\DC2\EOT\194\STX\NAK\RS\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ENQ\ETX\DC2\EOT\189\STX!\"\n\
+    \\ENQ\EOT\b\STX\ENQ\ETX\DC2\EOT\194\STX!\"\n\
     \Q\n\
-    \\EOT\EOT\b\STX\ACK\DC2\EOT\192\STX\ETX>\SUBC Sms notification to a phone number specified in trader's profile.\n\
+    \\EOT\EOT\b\STX\ACK\DC2\EOT\197\STX\ETX>\SUBC Sms notification to a phone number specified in trader's profile.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ACK\EOT\DC2\EOT\192\STX\ETX\v\n\
+    \\ENQ\EOT\b\STX\ACK\EOT\DC2\EOT\197\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ACK\ACK\DC2\EOT\192\STX\f&\n\
+    \\ENQ\EOT\b\STX\ACK\ACK\DC2\EOT\197\STX\f&\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ACK\SOH\DC2\EOT\192\STX(9\n\
+    \\ENQ\EOT\b\STX\ACK\SOH\DC2\EOT\197\STX(9\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ACK\ETX\DC2\EOT\192\STX<=\n\
+    \\ENQ\EOT\b\STX\ACK\ETX\DC2\EOT\197\STX<=\n\
     \2\n\
-    \\STX\EOT\t\DC2\ACK\196\STX\NUL\203\STX\SOH\SUB$ Push notification for iOS devices.\n\
+    \\STX\EOT\t\DC2\ACK\201\STX\NUL\208\STX\SOH\SUB$ Push notification for iOS devices.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\t\SOH\DC2\EOT\196\STX\b\SYN\n\
+    \\ETX\EOT\t\SOH\DC2\EOT\201\STX\b\SYN\n\
     \ \n\
-    \\EOT\EOT\t\STX\NUL\DC2\EOT\199\STX\ETX$\SUB\DC2 iOS device token\n\
+    \\EOT\EOT\t\STX\NUL\DC2\EOT\204\STX\ETX$\SUB\DC2 iOS device token\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\EOT\DC2\EOT\199\STX\ETX\v\n\
+    \\ENQ\EOT\t\STX\NUL\EOT\DC2\EOT\204\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\ENQ\DC2\EOT\199\STX\f\DC2\n\
+    \\ENQ\EOT\t\STX\NUL\ENQ\DC2\EOT\204\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\SOH\DC2\EOT\199\STX\DC3\US\n\
+    \\ENQ\EOT\t\STX\NUL\SOH\DC2\EOT\204\STX\DC3\US\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\ETX\DC2\EOT\199\STX\"#\n\
+    \\ENQ\EOT\t\STX\NUL\ETX\DC2\EOT\204\STX\"#\n\
     \\"\n\
-    \\EOT\EOT\t\STX\SOH\DC2\EOT\202\STX\ETX\RS\SUB\DC4 APN application ID\n\
+    \\EOT\EOT\t\STX\SOH\DC2\EOT\207\STX\ETX\RS\SUB\DC4 APN application ID\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\SOH\EOT\DC2\EOT\202\STX\ETX\v\n\
+    \\ENQ\EOT\t\STX\SOH\EOT\DC2\EOT\207\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\SOH\ENQ\DC2\EOT\202\STX\f\DC2\n\
+    \\ENQ\EOT\t\STX\SOH\ENQ\DC2\EOT\207\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\SOH\SOH\DC2\EOT\202\STX\DC3\EM\n\
+    \\ENQ\EOT\t\STX\SOH\SOH\DC2\EOT\207\STX\DC3\EM\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\SOH\ETX\DC2\EOT\202\STX\FS\GS\n\
+    \\ENQ\EOT\t\STX\SOH\ETX\DC2\EOT\207\STX\FS\GS\n\
     \6\n\
     \\STX\EOT\n\
-    \\DC2\ACK\206\STX\NUL\213\STX\SOH\SUB( Push notification for Android devices.\n\
+    \\DC2\ACK\211\STX\NUL\218\STX\SOH\SUB( Push notification for Android devices.\n\
     \\n\
     \\v\n\
     \\ETX\EOT\n\
-    \\SOH\DC2\EOT\206\STX\b\ETB\n\
+    \\SOH\DC2\EOT\211\STX\b\ETB\n\
     \=\n\
     \\EOT\EOT\n\
-    \\STX\NUL\DC2\EOT\209\STX\ETX*\SUB/ registration token for Android device and app\n\
+    \\STX\NUL\DC2\EOT\214\STX\ETX*\SUB/ registration token for Android device and app\n\
     \\n\
     \\r\n\
     \\ENQ\EOT\n\
-    \\STX\NUL\EOT\DC2\EOT\209\STX\ETX\v\n\
+    \\STX\NUL\EOT\DC2\EOT\214\STX\ETX\v\n\
     \\r\n\
     \\ENQ\EOT\n\
-    \\STX\NUL\ENQ\DC2\EOT\209\STX\f\DC2\n\
+    \\STX\NUL\ENQ\DC2\EOT\214\STX\f\DC2\n\
     \\r\n\
     \\ENQ\EOT\n\
-    \\STX\NUL\SOH\DC2\EOT\209\STX\DC3%\n\
+    \\STX\NUL\SOH\DC2\EOT\214\STX\DC3%\n\
     \\r\n\
     \\ENQ\EOT\n\
-    \\STX\NUL\ETX\DC2\EOT\209\STX()\n\
+    \\STX\NUL\ETX\DC2\EOT\214\STX()\n\
     \\GS\n\
     \\EOT\EOT\n\
-    \\STX\SOH\DC2\EOT\212\STX\ETX!\SUB\SI GCN sender id\n\
+    \\STX\SOH\DC2\EOT\217\STX\ETX!\SUB\SI GCN sender id\n\
     \\n\
     \\r\n\
     \\ENQ\EOT\n\
-    \\STX\SOH\EOT\DC2\EOT\212\STX\ETX\v\n\
+    \\STX\SOH\EOT\DC2\EOT\217\STX\ETX\v\n\
     \\r\n\
     \\ENQ\EOT\n\
-    \\STX\SOH\ENQ\DC2\EOT\212\STX\f\DC2\n\
+    \\STX\SOH\ENQ\DC2\EOT\217\STX\f\DC2\n\
     \\r\n\
     \\ENQ\EOT\n\
-    \\STX\SOH\SOH\DC2\EOT\212\STX\DC3\FS\n\
+    \\STX\SOH\SOH\DC2\EOT\217\STX\DC3\FS\n\
     \\r\n\
     \\ENQ\EOT\n\
-    \\STX\SOH\ETX\DC2\EOT\212\STX\US \n\
+    \\STX\SOH\ETX\DC2\EOT\217\STX\US \n\
     \j\n\
-    \\STX\EOT\v\DC2\ACK\216\STX\NUL\223\STX\SOH\SUB\\ Notification property (e.g. order related information for order event rule notifications).\n\
+    \\STX\EOT\v\DC2\ACK\221\STX\NUL\228\STX\SOH\SUB\\ Notification property (e.g. order related information for order event rule notifications).\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\v\SOH\DC2\EOT\216\STX\b\FS\n\
+    \\ETX\EOT\v\SOH\DC2\EOT\221\STX\b\FS\n\
     \\RS\n\
-    \\EOT\EOT\v\STX\NUL\DC2\EOT\219\STX\ETX%\SUB\DLE Property name.\n\
+    \\EOT\EOT\v\STX\NUL\DC2\EOT\224\STX\ETX%\SUB\DLE Property name.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\EOT\DC2\EOT\219\STX\ETX\v\n\
+    \\ENQ\EOT\v\STX\NUL\EOT\DC2\EOT\224\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\ENQ\DC2\EOT\219\STX\f\DC2\n\
+    \\ENQ\EOT\v\STX\NUL\ENQ\DC2\EOT\224\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\SOH\DC2\EOT\219\STX\DC3 \n\
+    \\ENQ\EOT\v\STX\NUL\SOH\DC2\EOT\224\STX\DC3 \n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\ETX\DC2\EOT\219\STX#$\n\
+    \\ENQ\EOT\v\STX\NUL\ETX\DC2\EOT\224\STX#$\n\
     \\US\n\
-    \\EOT\EOT\v\STX\SOH\DC2\EOT\222\STX\ETX&\SUB\DC1 Property value.\n\
+    \\EOT\EOT\v\STX\SOH\DC2\EOT\227\STX\ETX&\SUB\DC1 Property value.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\SOH\EOT\DC2\EOT\222\STX\ETX\v\n\
+    \\ENQ\EOT\v\STX\SOH\EOT\DC2\EOT\227\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\SOH\ENQ\DC2\EOT\222\STX\f\DC2\n\
+    \\ENQ\EOT\v\STX\SOH\ENQ\DC2\EOT\227\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\SOH\SOH\DC2\EOT\222\STX\DC3!\n\
+    \\ENQ\EOT\v\STX\SOH\SOH\DC2\EOT\227\STX\DC3!\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\SOH\ETX\DC2\EOT\222\STX$%\n\
+    \\ENQ\EOT\v\STX\SOH\ETX\DC2\EOT\227\STX$%\n\
     \#\n\
-    \\STX\EOT\f\DC2\ACK\226\STX\NUL\230\STX\SOH\SUB\NAK Email notification.\n\
+    \\STX\EOT\f\DC2\ACK\231\STX\NUL\235\STX\SOH\SUB\NAK Email notification.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\f\SOH\DC2\EOT\226\STX\b\DC2\n\
+    \\ETX\EOT\f\SOH\DC2\EOT\231\STX\b\DC2\n\
     \X\n\
-    \\EOT\EOT\f\STX\NUL\DC2\EOT\229\STX\ETX\"\SUBJ List of recipients to send email to. At least one entry must be present.\n\
+    \\EOT\EOT\f\STX\NUL\DC2\EOT\234\STX\ETX\"\SUBJ List of recipients to send email to. At least one entry must be present.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\f\STX\NUL\EOT\DC2\EOT\229\STX\ETX\v\n\
+    \\ENQ\EOT\f\STX\NUL\EOT\DC2\EOT\234\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\f\STX\NUL\ENQ\DC2\EOT\229\STX\f\DC2\n\
+    \\ENQ\EOT\f\STX\NUL\ENQ\DC2\EOT\234\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\f\STX\NUL\SOH\DC2\EOT\229\STX\DC3\GS\n\
+    \\ENQ\EOT\f\STX\NUL\SOH\DC2\EOT\234\STX\DC3\GS\n\
     \\r\n\
-    \\ENQ\EOT\f\STX\NUL\ETX\DC2\EOT\229\STX !\n\
+    \\ENQ\EOT\f\STX\NUL\ETX\DC2\EOT\234\STX !\n\
     \\135\SOH\n\
-    \\STX\EOT\r\DC2\ACK\234\STX\NUL\236\STX\SOH\SUBy Notification to an email specified in trader's profile\n\
+    \\STX\EOT\r\DC2\ACK\239\STX\NUL\241\STX\SOH\SUBy Notification to an email specified in trader's profile\n\
     \ (to the first email in case there are multiple in the profile).\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\r\SOH\DC2\EOT\234\STX\b\GS\n\
+    \\ETX\EOT\r\SOH\DC2\EOT\239\STX\b\GS\n\
     \!\n\
-    \\STX\EOT\SO\DC2\ACK\239\STX\NUL\243\STX\SOH\SUB\DC3 Sms notification.\n\
+    \\STX\EOT\SO\DC2\ACK\244\STX\NUL\248\STX\SOH\SUB\DC3 Sms notification.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\SO\SOH\DC2\EOT\239\STX\b\DLE\n\
+    \\ETX\EOT\SO\SOH\DC2\EOT\244\STX\b\DLE\n\
     \)\n\
-    \\EOT\EOT\SO\STX\NUL\DC2\EOT\242\STX\ETX$\SUB\ESC Destination phone number.\n\
+    \\EOT\EOT\SO\STX\NUL\DC2\EOT\247\STX\ETX$\SUB\ESC Destination phone number.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\NUL\EOT\DC2\EOT\242\STX\ETX\v\n\
+    \\ENQ\EOT\SO\STX\NUL\EOT\DC2\EOT\247\STX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\NUL\ENQ\DC2\EOT\242\STX\f\DC2\n\
+    \\ENQ\EOT\SO\STX\NUL\ENQ\DC2\EOT\247\STX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\NUL\SOH\DC2\EOT\242\STX\DC3\US\n\
+    \\ENQ\EOT\SO\STX\NUL\SOH\DC2\EOT\247\STX\DC3\US\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\NUL\ETX\DC2\EOT\242\STX\"#\n\
+    \\ENQ\EOT\SO\STX\NUL\ETX\DC2\EOT\247\STX\"#\n\
     \\153\SOH\n\
-    \\STX\EOT\SI\DC2\ACK\247\STX\NUL\249\STX\SOH\SUB\138\SOH Sms notification to a phone number specified in trader's profile\n\
+    \\STX\EOT\SI\DC2\ACK\252\STX\NUL\254\STX\SOH\SUB\138\SOH Sms notification to a phone number specified in trader's profile\n\
     \ (to the first phone number in case there are multiple in the profile).\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\SI\SOH\DC2\EOT\247\STX\b\"\n\
+    \\ETX\EOT\SI\SOH\DC2\EOT\252\STX\b\"\n\
     \\154\SOH\n\
-    \\STX\EOT\DLE\DC2\ACK\128\ETX\NUL\138\ETX\SOH\SUBC Named value that can be used for custom parameters or properties.\n\
+    \\STX\EOT\DLE\DC2\ACK\133\ETX\NUL\143\ETX\SOH\SUBC Named value that can be used for custom parameters or properties.\n\
     \2G//------------------------------------------\n\
     \// Misc reusable messages\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\DLE\SOH\DC2\EOT\128\ETX\b\DC2\n\
+    \\ETX\EOT\DLE\SOH\DC2\EOT\133\ETX\b\DC2\n\
     \\US\n\
-    \\EOT\EOT\DLE\STX\NUL\DC2\EOT\131\ETX\ETX\FS\SUB\DC1 Attribute name.\n\
+    \\EOT\EOT\DLE\STX\NUL\DC2\EOT\136\ETX\ETX\FS\SUB\DC1 Attribute name.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\NUL\EOT\DC2\EOT\131\ETX\ETX\v\n\
+    \\ENQ\EOT\DLE\STX\NUL\EOT\DC2\EOT\136\ETX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\NUL\ENQ\DC2\EOT\131\ETX\f\DC2\n\
+    \\ENQ\EOT\DLE\STX\NUL\ENQ\DC2\EOT\136\ETX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\NUL\SOH\DC2\EOT\131\ETX\DC3\ETB\n\
+    \\ENQ\EOT\DLE\STX\NUL\SOH\DC2\EOT\136\ETX\DC3\ETB\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\NUL\ETX\DC2\EOT\131\ETX\SUB\ESC\n\
+    \\ENQ\EOT\DLE\STX\NUL\ETX\DC2\EOT\136\ETX\SUB\ESC\n\
     \ \n\
-    \\EOT\EOT\DLE\STX\SOH\DC2\EOT\134\ETX\ETX\GS\SUB\DC2 Attribute value.\n\
+    \\EOT\EOT\DLE\STX\SOH\DC2\EOT\139\ETX\ETX\GS\SUB\DC2 Attribute value.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\SOH\EOT\DC2\EOT\134\ETX\ETX\v\n\
+    \\ENQ\EOT\DLE\STX\SOH\EOT\DC2\EOT\139\ETX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\SOH\ENQ\DC2\EOT\134\ETX\f\DC2\n\
+    \\ENQ\EOT\DLE\STX\SOH\ENQ\DC2\EOT\139\ETX\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\SOH\SOH\DC2\EOT\134\ETX\DC3\CAN\n\
+    \\ENQ\EOT\DLE\STX\SOH\SOH\DC2\EOT\139\ETX\DC3\CAN\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\SOH\ETX\DC2\EOT\134\ETX\ESC\FS\n\
+    \\ENQ\EOT\DLE\STX\SOH\ETX\DC2\EOT\139\ETX\ESC\FS\n\
     \A\n\
-    \\EOT\EOT\DLE\STX\STX\DC2\EOT\137\ETX\ETX/\SUB3 An optional \"deleted\" flag for update operations.\n\
+    \\EOT\EOT\DLE\STX\STX\DC2\EOT\142\ETX\ETX/\SUB3 An optional \"deleted\" flag for update operations.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\EOT\DC2\EOT\137\ETX\ETX\v\n\
+    \\ENQ\EOT\DLE\STX\STX\EOT\DC2\EOT\142\ETX\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\ENQ\DC2\EOT\137\ETX\f\DLE\n\
+    \\ENQ\EOT\DLE\STX\STX\ENQ\DC2\EOT\142\ETX\f\DLE\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\SOH\DC2\EOT\137\ETX\DC1\CAN\n\
+    \\ENQ\EOT\DLE\STX\STX\SOH\DC2\EOT\142\ETX\DC1\CAN\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\ETX\DC2\EOT\137\ETX\ESC\FS\n\
+    \\ENQ\EOT\DLE\STX\STX\ETX\DC2\EOT\142\ETX\ESC\FS\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\b\DC2\EOT\137\ETX\GS.\n\
+    \\ENQ\EOT\DLE\STX\STX\b\DC2\EOT\142\ETX\GS.\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\a\DC2\EOT\137\ETX(-"
+    \\ENQ\EOT\DLE\STX\STX\a\DC2\EOT\142\ETX(-"

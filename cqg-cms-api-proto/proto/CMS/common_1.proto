@@ -1,7 +1,7 @@
 // CQG common messages in API Protocols
 //
-// Last changes were made on 15 Feb 2024
-// Version 1.59
+// Last changes were made on 30 Aug 2024
+// Version 1.63
 
 syntax = "proto2";
 
@@ -102,6 +102,11 @@ message Logon
     // Indicates that CMS API must notify client with additional requests statuses:
     // ACCEPTED, QUEUED, IN_PROCESSING, CANCELED
     optional bool subscribe_on_request_status_change = 11 [default = false];
+	
+	// Overwrites this parameter for messages for this session.
+	// This period is max time period to keep a deferred request in the queue (minutes).
+    // After this period the request is (auto-)cancelled.
+	optional uint32 max_deferred_period = 12;
 }
 
 // Client request to restore session because of accidental disconnect or join the same session.
@@ -292,6 +297,9 @@ message EntitlementService
 
     // Entitlement Service Contract requirement. This value is corresponding appropriate INFO value for entitlement contract type.
     optional string contract_type = 19;
+
+    // Indicates that service is retired.
+    optional bool retired = 20;
 }
 
 // Entitlement item description.
@@ -331,6 +339,16 @@ message Price
 
     // Price value in a specified currency.
     required double value = 2;
+}
+
+// Service price override.
+message ServicePriceOverride
+{
+    // Service identifier.
+    optional string service_id = 1;
+
+    // Price override in USD.
+    optional Price price = 2;
 }
 
 // Category of entitlement.
@@ -441,9 +459,11 @@ message User
     // [obsolete] User e-mail (max length = 60).
     optional string obsolete_email = 5 [deprecated=true];
 
-    // [immutable-update] Linked customer id.
-    // Use profile_id instead.
-    optional string customer_id = 6;
+    // [immutable-update] Linked customer ids.
+    // In curent version of protocol only one customer's link is supported.
+    // In futher version it will be changed to support multiple links.
+    // Use profile_ids instead.
+    repeated string customer_ids = 6;
 
     // [required-create] Subscriber Type. PRO by default when created.
     // This field is associated with User.SubscriberType enum type.
@@ -511,10 +531,12 @@ message User
 
     // 23 is used for cleared_fields.
 
-    // [immutable-update][required-create] Owner profile id.
+    // [immutable-update][required-create] Direct owner profiles ids.
+    // In curent version of protocol only one profile's link is supported.
+    // In futher version it will be changed to support multiple links.
     // Has priority over customer_id.
     // Supported profile types: admin, customer.
-    optional string profile_id = 24;
+    repeated string profile_ids = 24;
 }
 
 // Additional login settings.
@@ -550,6 +572,7 @@ message LoginSettings
     optional uint32 concurrent_sessions_number = 3;
 
     // Determines whether password never expires.
+    // Supported login domains: trade-routing, admin.
     optional bool password_never_expires = 4;
 
     // [obsolete] Strategies can be executed through this login.
@@ -631,11 +654,11 @@ message UserSearchRequest
         CUSTOMER_ID = 8;
 
         // Search by authorized brokerage id.
-        // Supported login domains: admin.
+        // Supported login domains: admin, trade-routing.
         BROKERAGE_ID = 9;
 
         // Search by authorized brokerage name.
-        // Supported login domains: admin.
+        // Supported login domains: admin, trade-routing.
         BROKERAGE_NAME = 10;
 
         // Login class.
@@ -726,6 +749,9 @@ message UserSearchResultRecord
     
     // Parameters of external authentication, if any.
     optional ExternalAuth external_auth = 12;
+
+    // Determines, whether trade-routing login can be used for trading.
+    optional bool is_active = 13;
 }
 
 // Clone traderouting login.
@@ -965,9 +991,14 @@ message SalesSeriesSearchRequest
         // Search by brokerage id.
         BROKERAGE_ID = 4;
 
+        // Search by first name
         FIRST_NAME = 5;
-
+        
+        // Search by last name
         LAST_NAME = 6;
+
+        // Search by email
+        EMAIL = 7;
     }
 
     // [obsolete] Text to search.
@@ -1000,6 +1031,13 @@ message SalesSeriesSearchResultRecord
     optional string brokerage_name = 5;
 
     optional bool removed = 6;
+
+    repeated string emails = 7;
+    
+    optional string first_name = 8;
+
+    optional string last_name = 9;
+
 }
 
 // Common tuple message of string values.
@@ -1600,10 +1638,12 @@ message Profile
     // Profile contact information.
     optional ContactInformation contact_information = 4;
 
-    // Brokerage ID.
+    // Profile Brokerage IDs.
+    // In curent version of protocol only one brokerage's profile link is supported.
+    // In futher version it will be changed to support multiple links.
     // [erasable] only for admin profile type.
     // [required-create] for customer and sales series profile type.
-    optional string linked_brokerage_id = 5;
+    repeated string profile_brokerage_ids = 5;
 
     // [immutable] Removed flag.
     optional bool removed = 6;
@@ -1635,6 +1675,22 @@ message Profile
     // Determines, whether profile is simplified, used for cases of auto-generation.
     // Only name is required in this case during creation.
     optional bool simplified = 14;
+}
+
+// Password policy descriptor.
+message PasswordPolicy
+{
+    // Policy identifier.
+    optional int32 id = 1;
+
+    // Policy title.
+    optional shared_1.Text title = 2;
+
+    // Policy parameter label if it exists.
+    optional shared_1.Text label = 3;
+
+    // Policy parameter value.
+    optional int32 value = 4;
 }
 
 // Generic message to retrieve data.

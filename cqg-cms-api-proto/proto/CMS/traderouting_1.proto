@@ -2,8 +2,8 @@
 //
 // Protocol time attributes are 64-bit signed integers (sint64) that contain offset in milliseconds from 01.01.1970 (i.e. unix timestamp).
 //
-// Last changes were made on 01 Feb 2024
-// Version 1.83
+// Last changes were made on 28 Aug 2024
+// Version 1.85
 
 syntax = "proto2";
 
@@ -81,7 +81,7 @@ message AccountScopeRequest
     // Gets account positions data without trades matching.
     // It includes 'start of day' positions (statement already run).
     // And current day fills (orders filled during current trading period and statement hasn't been run yet).
-    // Currency fills are included in current day fills. 
+    // Currency fills are included in current day fills.
     optional AccountPositionsRequest account_positions_request = 13;
 
     // Get account equity based on most recent statement data.
@@ -174,6 +174,9 @@ message AccountScopeRequest
 
     // Updates account's trading features.
     optional UpdateAccountTradingFeatures update_account_trading_features = 43;
+
+    // New fields must be added to account_1.proto.
+    extensions 45 to max;
 }
 
 // Request related to trade routing orders.
@@ -723,6 +726,7 @@ message BalanceRecordsRequest
 {
     // [required] Gateway account identifier.
     // If supplied, balance_id should not be supplied.
+    // Has priority over 'balance_id' field.
     optional sint32 account_id = 1;
 
     // Currency code (real currency code is ISO 4217 based.
@@ -730,10 +734,14 @@ message BalanceRecordsRequest
     // Can be supplied only with account_id.
     optional string currency = 2;
 
+    // [obsolete] Trade routing balance identifier.
+    // Use new 'balance_id' field instead.
+    optional sint32 obsolete_balance_id = 3 [deprecated = true];
+
     // Trade routing balance identifier.
     // If supplied, only the balance record with this ID is returned.
     // If supplied, account_id and currency should not be supplied.
-    optional sint32 balance_id = 3;
+    optional string balance_id = 4;
 }
 
 // Create balance record message.
@@ -743,7 +751,7 @@ message CreateBalanceRecord
     // [required] Trade routing account identifier.
     optional sint32 account_id = 1;
 
-    // [required] Currency code (real currency code is ISO 4217 based.
+    // [required] Currency code (real currency code is ISO 4217 based).
     optional string currency = 2;
 
     // [required] End cash balance.
@@ -763,15 +771,19 @@ message CreateBalanceRecord
 // Update balance record message.
 message UpdateBalanceRecord
 {
-    // [required] Trade routing balance record identifier.
-    required sint32 balance_id = 1;
+    // [obsolete] Trade routing balance record identifier.
+    // Use new 'balance_id' field instead.
+    optional sint32 obsolete_balance_id = 1 [deprecated = true];
 
-    // End cash balance.
+    // [required] End cash balance.
     optional double end_cash_balance = 2;
 
     // Cash value of collateral.
     // If not supplied, any existing collateral value is not changed.
     optional double collateral = 3;
+
+    // [required] Trade routing balance record identifier.
+    optional string balance_id = 4;
 }
 
 // Account search request message.
@@ -1289,6 +1301,9 @@ message AccountScopeResult
 
     // Result of AccountTradingFeaturesRequest.
     optional AccountTradingFeaturesResult account_trading_features_result = 39;
+
+    // New fields must be added to account_1.proto.
+    extensions 45 to max;
 }
 
 // Result of orders related request.
@@ -1426,8 +1441,15 @@ message BalanceRecordsResult
 // Create balance record result message.
 message CreateBalanceRecordResult
 {
-    // Created account balance record id.
-    required sint32 balance_record_id = 3;
+    // [obsolete] Created account balance record id.
+    // Use new 'balance_id' field instead.
+    // The value is equal to the value of the 'balance_id' field,
+    // and when the value of 'balance_id' exceeds the maximum value of the 'sint32' type,
+    // then value will be '-1'.
+    optional sint32 obsolete_balance_record_id = 3 [deprecated = true];
+
+    // Created account's balance record identifier.
+    optional string balance_id = 4;
 }
 
 // Update balance record result message.
@@ -1497,7 +1519,7 @@ message AccountExchangeGroupsResult
 message AccountMarketLimitsResult
 {
     // Account market limits.
-    // Should be used together with the account_exchange_groups_result: 
+    // Should be used together with the account_exchange_groups_result:
     //   - send account_available_exchange_groups_request to retrieve currently available markets.
     //   - ignore all the fields in account_market_limits_result which do not belong to available markets in account_exchange_groups_result.
 
@@ -1797,7 +1819,7 @@ message OrderChain
         //this is transit state until all transactions for trades/breaks are received.
         PART_MATCHED = 16;
 
-        //Cross order was executed on exchange, but now 
+        //Cross order was executed on exchange, but now
         //all its trades/legs have been broken by the exchange.
         TRADE_BROKEN = 17;
     }
@@ -2892,13 +2914,17 @@ message Account
 message BalanceRecord
 {
     // Trade routing account identifier.
-    required sint32 account_id = 1;
+    optional sint32 account_id = 1;
 
-    // Balance record identifier.
-    required sint32 balance_record_id = 2;
+    // [obsolete] Balance record identifier.
+    // Use new 'balance_id' field instead.
+    // The value is equal to the value of the 'balance_id' field,
+    // and when the value 'balance_id' exceeds the maximum value of the 'sint32' type,
+    // then value will be '-1'.
+    optional sint32 obsolete_balance_record_id = 2 [deprecated = true];
 
     // Currency code (real currency code is ISO 4217 based.
-    required string currency = 3;
+    optional string currency = 3;
 
     // End cash balance.
     optional double end_cash_balance = 4;
@@ -2928,6 +2954,9 @@ message BalanceRecord
 
     // Regulated.
     optional bool regulated = 8;
+
+    // Balance record identifier.
+    optional string balance_id = 9;
 }
 
 // Information about one of the found accounts.
@@ -3583,7 +3612,7 @@ message PurchasingPowerParameters
 
     // Maximum amount of purchasing power available to satisfy margin requirements.
     // Applicable when enforce_max_purchasing_power is true. Allowed values (0.001..9999999999).
-    optional double max_purchasing_power = 20; 
+    optional double max_purchasing_power = 20;
 }
 
 // Loss limit.
