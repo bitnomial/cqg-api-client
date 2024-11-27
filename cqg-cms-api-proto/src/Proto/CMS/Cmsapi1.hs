@@ -10,7 +10,8 @@ module Proto.CMS.Cmsapi1 (
         GenerateServiceSecurityToken(),
         GenerateServiceSecurityTokenResult(), GetUniqueUsernameRequest(),
         InformationRequest(), InformationResult(), LinkLoginToProfile(),
-        LinkLoginToProfileResult(), OperationRequest(), OperationResult(),
+        LinkLoginToProfileResult(), ObtainDemoLogin(),
+        ObtainDemoLoginResult(), OperationRequest(), OperationResult(),
         Ping(), Pong(), ProfileRequest(), ProfileSearchRequest(),
         ProfileSearchRequest'SearchCriteria(..),
         ProfileSearchRequest'SearchCriteria(), ProfileSearchResultRecord(),
@@ -47,11 +48,13 @@ import qualified Data.ProtoLens.Runtime.Data.Vector as Data.Vector
 import qualified Data.ProtoLens.Runtime.Data.Vector.Generic as Data.Vector.Generic
 import qualified Data.ProtoLens.Runtime.Data.Vector.Unboxed as Data.Vector.Unboxed
 import qualified Data.ProtoLens.Runtime.Text.Read as Text.Read
+import qualified Proto.CMS.Account1
 import qualified Proto.CMS.Common1
 import qualified Proto.CMS.Location1
 import qualified Proto.CMS.LogEvent1
 import qualified Proto.CMS.Login1
 import qualified Proto.CMS.Metadata1
+import qualified Proto.CMS.Profile1
 import qualified Proto.CMS.SessionContext1
 import qualified Proto.CMS.Traderouting1
 import qualified Proto.Common.Shared1
@@ -1032,7 +1035,9 @@ instance Control.DeepSeq.NFData CancelDeferredRequestResult where
          * 'Proto.CMS.Cmsapi1_Fields.sessionContextScopeRequest' @:: Lens' ClientMessage [Proto.CMS.SessionContext1.SessionContextScopeRequest]@
          * 'Proto.CMS.Cmsapi1_Fields.vec'sessionContextScopeRequest' @:: Lens' ClientMessage (Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeRequest)@
          * 'Proto.CMS.Cmsapi1_Fields.locationScopeRequest' @:: Lens' ClientMessage [Proto.CMS.Location1.LocationScopeRequest]@
-         * 'Proto.CMS.Cmsapi1_Fields.vec'locationScopeRequest' @:: Lens' ClientMessage (Data.Vector.Vector Proto.CMS.Location1.LocationScopeRequest)@ -}
+         * 'Proto.CMS.Cmsapi1_Fields.vec'locationScopeRequest' @:: Lens' ClientMessage (Data.Vector.Vector Proto.CMS.Location1.LocationScopeRequest)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileScopeRequest' @:: Lens' ClientMessage [Proto.CMS.Profile1.ProfileScopeRequest]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'profileScopeRequest' @:: Lens' ClientMessage (Data.Vector.Vector Proto.CMS.Profile1.ProfileScopeRequest)@ -}
 data ClientMessage
   = ClientMessage'_constructor {_ClientMessage'logon :: !(Prelude.Maybe Proto.CMS.Common1.Logon),
                                 _ClientMessage'logoff :: !(Prelude.Maybe Proto.CMS.Common1.Logoff),
@@ -1047,6 +1052,7 @@ data ClientMessage
                                 _ClientMessage'metadataRequest :: !(Data.Vector.Vector Proto.CMS.Metadata1.MetadataScopeRequest),
                                 _ClientMessage'sessionContextScopeRequest :: !(Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeRequest),
                                 _ClientMessage'locationScopeRequest :: !(Data.Vector.Vector Proto.CMS.Location1.LocationScopeRequest),
+                                _ClientMessage'profileScopeRequest :: !(Data.Vector.Vector Proto.CMS.Profile1.ProfileScopeRequest),
                                 _ClientMessage'_unknownFields :: !Data.ProtoLens.FieldSet}
   deriving stock (Prelude.Eq, Prelude.Ord)
 instance Prelude.Show ClientMessage where
@@ -1249,6 +1255,22 @@ instance Data.ProtoLens.Field.HasField ClientMessage "vec'locationScopeRequest" 
            _ClientMessage'locationScopeRequest
            (\ x__ y__ -> x__ {_ClientMessage'locationScopeRequest = y__}))
         Prelude.id
+instance Data.ProtoLens.Field.HasField ClientMessage "profileScopeRequest" [Proto.CMS.Profile1.ProfileScopeRequest] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'profileScopeRequest
+           (\ x__ y__ -> x__ {_ClientMessage'profileScopeRequest = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ClientMessage "vec'profileScopeRequest" (Data.Vector.Vector Proto.CMS.Profile1.ProfileScopeRequest) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ClientMessage'profileScopeRequest
+           (\ x__ y__ -> x__ {_ClientMessage'profileScopeRequest = y__}))
+        Prelude.id
 instance Data.ProtoLens.Message ClientMessage where
   messageName _ = Data.Text.pack "cmsapi_1.ClientMessage"
   packedMessageDescriptor _
@@ -1267,7 +1289,8 @@ instance Data.ProtoLens.Message ClientMessage where
       \\ETBcancel_deferred_request\CAN\v \SOH(\v2\US.cmsapi_1.CancelDeferredRequestR\NAKcancelDeferredRequest\DC2K\n\
       \\DLEmetadata_request\CAN\f \ETX(\v2 .metadata_1.MetadataScopeRequestR\SImetadataRequest\DC2p\n\
       \\GSsession_context_scope_request\CAN\r \ETX(\v2-.session_context_1.SessionContextScopeRequestR\SUBsessionContextScopeRequest\DC2V\n\
-      \\SYNlocation_scope_request\CAN\SO \ETX(\v2 .location_1.LocationScopeRequestR\DC4locationScopeRequest*\ENQ\bd\DLE\200\SOH"
+      \\SYNlocation_scope_request\CAN\SO \ETX(\v2 .location_1.LocationScopeRequestR\DC4locationScopeRequest\DC2R\n\
+      \\NAKprofile_scope_request\CAN\SI \ETX(\v2\RS.profile_1.ProfileScopeRequestR\DC3profileScopeRequest*\ENQ\bd\DLE\200\SOH"
   packedFileDescriptor _ = packedFileDescriptor
   fieldsByTag
     = let
@@ -1382,6 +1405,15 @@ instance Data.ProtoLens.Message ClientMessage where
                  Data.ProtoLens.Unpacked
                  (Data.ProtoLens.Field.field @"locationScopeRequest")) ::
               Data.ProtoLens.FieldDescriptor ClientMessage
+        profileScopeRequest__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_scope_request"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Profile1.ProfileScopeRequest)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"profileScopeRequest")) ::
+              Data.ProtoLens.FieldDescriptor ClientMessage
       in
         Data.Map.fromList
           [(Data.ProtoLens.Tag 1, logon__field_descriptor),
@@ -1397,7 +1429,8 @@ instance Data.ProtoLens.Message ClientMessage where
            (Data.ProtoLens.Tag 12, metadataRequest__field_descriptor),
            (Data.ProtoLens.Tag 13, 
             sessionContextScopeRequest__field_descriptor),
-           (Data.ProtoLens.Tag 14, locationScopeRequest__field_descriptor)]
+           (Data.ProtoLens.Tag 14, locationScopeRequest__field_descriptor),
+           (Data.ProtoLens.Tag 15, profileScopeRequest__field_descriptor)]
   unknownFields
     = Lens.Family2.Unchecked.lens
         _ClientMessage'_unknownFields
@@ -1417,6 +1450,7 @@ instance Data.ProtoLens.Message ClientMessage where
          _ClientMessage'metadataRequest = Data.Vector.Generic.empty,
          _ClientMessage'sessionContextScopeRequest = Data.Vector.Generic.empty,
          _ClientMessage'locationScopeRequest = Data.Vector.Generic.empty,
+         _ClientMessage'profileScopeRequest = Data.Vector.Generic.empty,
          _ClientMessage'_unknownFields = []}
   parseMessage
     = let
@@ -1426,16 +1460,18 @@ instance Data.ProtoLens.Message ClientMessage where
              -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Location1.LocationScopeRequest
                 -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Metadata1.MetadataScopeRequest
                    -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld OperationRequest
-                      -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld SearchRequest
-                         -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.SessionContext1.SessionContextScopeRequest
-                            -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Traderouting1.TradeRoutingRequest
-                               -> Data.ProtoLens.Encoding.Bytes.Parser ClientMessage
+                      -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Profile1.ProfileScopeRequest
+                         -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld SearchRequest
+                            -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.SessionContext1.SessionContextScopeRequest
+                               -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Traderouting1.TradeRoutingRequest
+                                  -> Data.ProtoLens.Encoding.Bytes.Parser ClientMessage
         loop
           x
           mutable'informationRequest
           mutable'locationScopeRequest
           mutable'metadataRequest
           mutable'operationRequest
+          mutable'profileScopeRequest
           mutable'searchRequest
           mutable'sessionContextScopeRequest
           mutable'tradeRoutingRequest
@@ -1453,6 +1489,9 @@ instance Data.ProtoLens.Message ClientMessage where
                       frozen'operationRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
                                                    (Data.ProtoLens.Encoding.Growing.unsafeFreeze
                                                       mutable'operationRequest)
+                      frozen'profileScopeRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                      (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                         mutable'profileScopeRequest)
                       frozen'searchRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
                                                 (Data.ProtoLens.Encoding.Growing.unsafeFreeze
                                                    mutable'searchRequest)
@@ -1487,16 +1526,19 @@ instance Data.ProtoLens.Message ClientMessage where
                                        (Data.ProtoLens.Field.field @"vec'operationRequest")
                                        frozen'operationRequest
                                        (Lens.Family2.set
-                                          (Data.ProtoLens.Field.field @"vec'searchRequest")
-                                          frozen'searchRequest
+                                          (Data.ProtoLens.Field.field @"vec'profileScopeRequest")
+                                          frozen'profileScopeRequest
                                           (Lens.Family2.set
-                                             (Data.ProtoLens.Field.field
-                                                @"vec'sessionContextScopeRequest")
-                                             frozen'sessionContextScopeRequest
+                                             (Data.ProtoLens.Field.field @"vec'searchRequest")
+                                             frozen'searchRequest
                                              (Lens.Family2.set
                                                 (Data.ProtoLens.Field.field
-                                                   @"vec'tradeRoutingRequest")
-                                                frozen'tradeRoutingRequest x))))))))
+                                                   @"vec'sessionContextScopeRequest")
+                                                frozen'sessionContextScopeRequest
+                                                (Lens.Family2.set
+                                                   (Data.ProtoLens.Field.field
+                                                      @"vec'tradeRoutingRequest")
+                                                   frozen'tradeRoutingRequest x)))))))))
                else
                    do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
                       case tag of
@@ -1510,8 +1552,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"logon") y x)
                                   mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest mutable'sessionContextScopeRequest
-                                  mutable'tradeRoutingRequest
+                                  mutable'profileScopeRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
                         18
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1522,8 +1564,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"logoff") y x)
                                   mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest mutable'sessionContextScopeRequest
-                                  mutable'tradeRoutingRequest
+                                  mutable'profileScopeRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
                         58
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1535,8 +1577,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                      (Data.ProtoLens.Field.field @"restoreOrJoinSession") y x)
                                   mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest mutable'sessionContextScopeRequest
-                                  mutable'tradeRoutingRequest
+                                  mutable'profileScopeRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
                         26
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1549,8 +1591,9 @@ instance Data.ProtoLens.Message ClientMessage where
                                           mutable'informationRequest y)
                                 loop
                                   x v mutable'locationScopeRequest mutable'metadataRequest
-                                  mutable'operationRequest mutable'searchRequest
-                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                                  mutable'operationRequest mutable'profileScopeRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
                         34
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1563,8 +1606,9 @@ instance Data.ProtoLens.Message ClientMessage where
                                           mutable'searchRequest y)
                                 loop
                                   x mutable'informationRequest mutable'locationScopeRequest
-                                  mutable'metadataRequest mutable'operationRequest v
-                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                                  mutable'metadataRequest mutable'operationRequest
+                                  mutable'profileScopeRequest v mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
                         42
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1577,8 +1621,9 @@ instance Data.ProtoLens.Message ClientMessage where
                                           mutable'operationRequest y)
                                 loop
                                   x mutable'informationRequest mutable'locationScopeRequest
-                                  mutable'metadataRequest v mutable'searchRequest
-                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                                  mutable'metadataRequest v mutable'profileScopeRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
                         50
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1592,7 +1637,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                 loop
                                   x mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest mutable'sessionContextScopeRequest v
+                                  mutable'profileScopeRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest v
                         74
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1603,8 +1649,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"ping") y x)
                                   mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest mutable'sessionContextScopeRequest
-                                  mutable'tradeRoutingRequest
+                                  mutable'profileScopeRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
                         82
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1615,8 +1661,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"pong") y x)
                                   mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest mutable'sessionContextScopeRequest
-                                  mutable'tradeRoutingRequest
+                                  mutable'profileScopeRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
                         90
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1628,8 +1674,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                      (Data.ProtoLens.Field.field @"cancelDeferredRequest") y x)
                                   mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest mutable'sessionContextScopeRequest
-                                  mutable'tradeRoutingRequest
+                                  mutable'profileScopeRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
                         98
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1642,8 +1688,9 @@ instance Data.ProtoLens.Message ClientMessage where
                                           mutable'metadataRequest y)
                                 loop
                                   x mutable'informationRequest mutable'locationScopeRequest v
-                                  mutable'operationRequest mutable'searchRequest
-                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                                  mutable'operationRequest mutable'profileScopeRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
                         106
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1657,7 +1704,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                 loop
                                   x mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest v mutable'tradeRoutingRequest
+                                  mutable'profileScopeRequest mutable'searchRequest v
+                                  mutable'tradeRoutingRequest
                         114
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -1670,8 +1718,24 @@ instance Data.ProtoLens.Message ClientMessage where
                                           mutable'locationScopeRequest y)
                                 loop
                                   x mutable'informationRequest v mutable'metadataRequest
-                                  mutable'operationRequest mutable'searchRequest
-                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
+                                  mutable'operationRequest mutable'profileScopeRequest
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
+                        122
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "profile_scope_request"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'profileScopeRequest y)
+                                loop
+                                  x mutable'informationRequest mutable'locationScopeRequest
+                                  mutable'metadataRequest mutable'operationRequest v
+                                  mutable'searchRequest mutable'sessionContextScopeRequest
+                                  mutable'tradeRoutingRequest
                         wire
                           -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
                                         wire
@@ -1680,8 +1744,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                      Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
                                   mutable'informationRequest mutable'locationScopeRequest
                                   mutable'metadataRequest mutable'operationRequest
-                                  mutable'searchRequest mutable'sessionContextScopeRequest
-                                  mutable'tradeRoutingRequest
+                                  mutable'profileScopeRequest mutable'searchRequest
+                                  mutable'sessionContextScopeRequest mutable'tradeRoutingRequest
       in
         (Data.ProtoLens.Encoding.Bytes.<?>)
           (do mutable'informationRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
@@ -1692,6 +1756,8 @@ instance Data.ProtoLens.Message ClientMessage where
                                            Data.ProtoLens.Encoding.Growing.new
               mutable'operationRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
                                             Data.ProtoLens.Encoding.Growing.new
+              mutable'profileScopeRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                               Data.ProtoLens.Encoding.Growing.new
               mutable'searchRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
                                          Data.ProtoLens.Encoding.Growing.new
               mutable'sessionContextScopeRequest <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
@@ -1701,8 +1767,9 @@ instance Data.ProtoLens.Message ClientMessage where
               loop
                 Data.ProtoLens.defMessage mutable'informationRequest
                 mutable'locationScopeRequest mutable'metadataRequest
-                mutable'operationRequest mutable'searchRequest
-                mutable'sessionContextScopeRequest mutable'tradeRoutingRequest)
+                mutable'operationRequest mutable'profileScopeRequest
+                mutable'searchRequest mutable'sessionContextScopeRequest
+                mutable'tradeRoutingRequest)
           "ClientMessage"
   buildMessage
     = \ _x
@@ -1923,9 +1990,30 @@ instance Data.ProtoLens.Message ClientMessage where
                                                        (Data.ProtoLens.Field.field
                                                           @"vec'locationScopeRequest")
                                                        _x))
-                                                 (Data.ProtoLens.Encoding.Wire.buildFieldSet
-                                                    (Lens.Family2.view
-                                                       Data.ProtoLens.unknownFields _x))))))))))))))
+                                                 ((Data.Monoid.<>)
+                                                    (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                                       (\ _v
+                                                          -> (Data.Monoid.<>)
+                                                               (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                  122)
+                                                               ((Prelude..)
+                                                                  (\ bs
+                                                                     -> (Data.Monoid.<>)
+                                                                          (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                             (Prelude.fromIntegral
+                                                                                (Data.ByteString.length
+                                                                                   bs)))
+                                                                          (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                             bs))
+                                                                  Data.ProtoLens.encodeMessage _v))
+                                                       (Lens.Family2.view
+                                                          (Data.ProtoLens.Field.field
+                                                             @"vec'profileScopeRequest")
+                                                          _x))
+                                                    (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                       (Lens.Family2.view
+                                                          Data.ProtoLens.unknownFields
+                                                          _x)))))))))))))))
 instance Control.DeepSeq.NFData ClientMessage where
   rnf
     = \ x__
@@ -1957,7 +2045,9 @@ instance Control.DeepSeq.NFData ClientMessage where
                                                  (_ClientMessage'sessionContextScopeRequest x__)
                                                  (Control.DeepSeq.deepseq
                                                     (_ClientMessage'locationScopeRequest x__)
-                                                    ())))))))))))))
+                                                    (Control.DeepSeq.deepseq
+                                                       (_ClientMessage'profileScopeRequest x__)
+                                                       ()))))))))))))))
 {- | Fields :
      
          * 'Proto.CMS.Cmsapi1_Fields.profile' @:: Lens' CreateProfile Proto.CMS.Common1.Profile@
@@ -5270,6 +5360,812 @@ instance Control.DeepSeq.NFData LinkLoginToProfileResult where
              (_LinkLoginToProfileResult'_unknownFields x__) ()
 {- | Fields :
      
+         * 'Proto.CMS.Cmsapi1_Fields.firstName' @:: Lens' ObtainDemoLogin Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'firstName' @:: Lens' ObtainDemoLogin (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.lastName' @:: Lens' ObtainDemoLogin Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'lastName' @:: Lens' ObtainDemoLogin (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.email' @:: Lens' ObtainDemoLogin Proto.CMS.Common1.Email@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'email' @:: Lens' ObtainDemoLogin (Prelude.Maybe Proto.CMS.Common1.Email)@
+         * 'Proto.CMS.Cmsapi1_Fields.emailBcc' @:: Lens' ObtainDemoLogin [Proto.CMS.Common1.Email]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'emailBcc' @:: Lens' ObtainDemoLogin (Data.Vector.Vector Proto.CMS.Common1.Email)@
+         * 'Proto.CMS.Cmsapi1_Fields.phone' @:: Lens' ObtainDemoLogin Proto.CMS.Common1.Phone@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'phone' @:: Lens' ObtainDemoLogin (Prelude.Maybe Proto.CMS.Common1.Phone)@
+         * 'Proto.CMS.Cmsapi1_Fields.normalizedPhone' @:: Lens' ObtainDemoLogin Proto.CMS.Common1.Phone@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'normalizedPhone' @:: Lens' ObtainDemoLogin (Prelude.Maybe Proto.CMS.Common1.Phone)@
+         * 'Proto.CMS.Cmsapi1_Fields.productId' @:: Lens' ObtainDemoLogin Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'productId' @:: Lens' ObtainDemoLogin (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.returnCredentials' @:: Lens' ObtainDemoLogin Prelude.Bool@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'returnCredentials' @:: Lens' ObtainDemoLogin (Prelude.Maybe Prelude.Bool)@
+         * 'Proto.CMS.Cmsapi1_Fields.liveDataRequested' @:: Lens' ObtainDemoLogin Prelude.Bool@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'liveDataRequested' @:: Lens' ObtainDemoLogin (Prelude.Maybe Prelude.Bool)@
+         * 'Proto.CMS.Cmsapi1_Fields.address' @:: Lens' ObtainDemoLogin Proto.CMS.Common1.Address@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'address' @:: Lens' ObtainDemoLogin (Prelude.Maybe Proto.CMS.Common1.Address)@ -}
+data ObtainDemoLogin
+  = ObtainDemoLogin'_constructor {_ObtainDemoLogin'firstName :: !(Prelude.Maybe Data.Text.Text),
+                                  _ObtainDemoLogin'lastName :: !(Prelude.Maybe Data.Text.Text),
+                                  _ObtainDemoLogin'email :: !(Prelude.Maybe Proto.CMS.Common1.Email),
+                                  _ObtainDemoLogin'emailBcc :: !(Data.Vector.Vector Proto.CMS.Common1.Email),
+                                  _ObtainDemoLogin'phone :: !(Prelude.Maybe Proto.CMS.Common1.Phone),
+                                  _ObtainDemoLogin'normalizedPhone :: !(Prelude.Maybe Proto.CMS.Common1.Phone),
+                                  _ObtainDemoLogin'productId :: !(Prelude.Maybe Data.Text.Text),
+                                  _ObtainDemoLogin'returnCredentials :: !(Prelude.Maybe Prelude.Bool),
+                                  _ObtainDemoLogin'liveDataRequested :: !(Prelude.Maybe Prelude.Bool),
+                                  _ObtainDemoLogin'address :: !(Prelude.Maybe Proto.CMS.Common1.Address),
+                                  _ObtainDemoLogin'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show ObtainDemoLogin where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "firstName" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'firstName
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'firstName = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'firstName" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'firstName
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'firstName = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "lastName" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'lastName
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'lastName = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'lastName" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'lastName
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'lastName = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "email" Proto.CMS.Common1.Email where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'email
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'email = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'email" (Prelude.Maybe Proto.CMS.Common1.Email) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'email
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'email = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "emailBcc" [Proto.CMS.Common1.Email] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'emailBcc
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'emailBcc = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "vec'emailBcc" (Data.Vector.Vector Proto.CMS.Common1.Email) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'emailBcc
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'emailBcc = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "phone" Proto.CMS.Common1.Phone where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'phone
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'phone = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'phone" (Prelude.Maybe Proto.CMS.Common1.Phone) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'phone
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'phone = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "normalizedPhone" Proto.CMS.Common1.Phone where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'normalizedPhone
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'normalizedPhone = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'normalizedPhone" (Prelude.Maybe Proto.CMS.Common1.Phone) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'normalizedPhone
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'normalizedPhone = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "productId" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'productId
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'productId = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'productId" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'productId
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'productId = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "returnCredentials" Prelude.Bool where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'returnCredentials
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'returnCredentials = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'returnCredentials" (Prelude.Maybe Prelude.Bool) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'returnCredentials
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'returnCredentials = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "liveDataRequested" Prelude.Bool where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'liveDataRequested
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'liveDataRequested = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'liveDataRequested" (Prelude.Maybe Prelude.Bool) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'liveDataRequested
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'liveDataRequested = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "address" Proto.CMS.Common1.Address where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'address
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'address = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField ObtainDemoLogin "maybe'address" (Prelude.Maybe Proto.CMS.Common1.Address) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLogin'address
+           (\ x__ y__ -> x__ {_ObtainDemoLogin'address = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message ObtainDemoLogin where
+  messageName _ = Data.Text.pack "cmsapi_1.ObtainDemoLogin"
+  packedMessageDescriptor _
+    = "\n\
+      \\SIObtainDemoLogin\DC2\GS\n\
+      \\n\
+      \first_name\CAN\SOH \SOH(\tR\tfirstName\DC2\ESC\n\
+      \\tlast_name\CAN\STX \SOH(\tR\blastName\DC2%\n\
+      \\ENQemail\CAN\ETX \SOH(\v2\SI.common_1.EmailR\ENQemail\DC2,\n\
+      \\temail_bcc\CAN\EOT \ETX(\v2\SI.common_1.EmailR\bemailBcc\DC2%\n\
+      \\ENQphone\CAN\ENQ \SOH(\v2\SI.common_1.PhoneR\ENQphone\DC2:\n\
+      \\DLEnormalized_phone\CAN\ACK \SOH(\v2\SI.common_1.PhoneR\SInormalizedPhone\DC2\GS\n\
+      \\n\
+      \product_id\CAN\a \SOH(\tR\tproductId\DC2-\n\
+      \\DC2return_credentials\CAN\b \SOH(\bR\DC1returnCredentials\DC2.\n\
+      \\DC3live_data_requested\CAN\t \SOH(\bR\DC1liveDataRequested\DC2+\n\
+      \\aaddress\CAN\n\
+      \ \SOH(\v2\DC1.common_1.AddressR\aaddress"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        firstName__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "first_name"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'firstName")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        lastName__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "last_name"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'lastName")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        email__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "email"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Email)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'email")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        emailBcc__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "email_bcc"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Email)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"emailBcc")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        phone__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "phone"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Phone)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'phone")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        normalizedPhone__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "normalized_phone"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Phone)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'normalizedPhone")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        productId__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "product_id"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'productId")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        returnCredentials__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "return_credentials"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.BoolField ::
+                 Data.ProtoLens.FieldTypeDescriptor Prelude.Bool)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'returnCredentials")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        liveDataRequested__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "live_data_requested"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.BoolField ::
+                 Data.ProtoLens.FieldTypeDescriptor Prelude.Bool)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'liveDataRequested")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+        address__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "address"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Common1.Address)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'address")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLogin
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, firstName__field_descriptor),
+           (Data.ProtoLens.Tag 2, lastName__field_descriptor),
+           (Data.ProtoLens.Tag 3, email__field_descriptor),
+           (Data.ProtoLens.Tag 4, emailBcc__field_descriptor),
+           (Data.ProtoLens.Tag 5, phone__field_descriptor),
+           (Data.ProtoLens.Tag 6, normalizedPhone__field_descriptor),
+           (Data.ProtoLens.Tag 7, productId__field_descriptor),
+           (Data.ProtoLens.Tag 8, returnCredentials__field_descriptor),
+           (Data.ProtoLens.Tag 9, liveDataRequested__field_descriptor),
+           (Data.ProtoLens.Tag 10, address__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _ObtainDemoLogin'_unknownFields
+        (\ x__ y__ -> x__ {_ObtainDemoLogin'_unknownFields = y__})
+  defMessage
+    = ObtainDemoLogin'_constructor
+        {_ObtainDemoLogin'firstName = Prelude.Nothing,
+         _ObtainDemoLogin'lastName = Prelude.Nothing,
+         _ObtainDemoLogin'email = Prelude.Nothing,
+         _ObtainDemoLogin'emailBcc = Data.Vector.Generic.empty,
+         _ObtainDemoLogin'phone = Prelude.Nothing,
+         _ObtainDemoLogin'normalizedPhone = Prelude.Nothing,
+         _ObtainDemoLogin'productId = Prelude.Nothing,
+         _ObtainDemoLogin'returnCredentials = Prelude.Nothing,
+         _ObtainDemoLogin'liveDataRequested = Prelude.Nothing,
+         _ObtainDemoLogin'address = Prelude.Nothing,
+         _ObtainDemoLogin'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          ObtainDemoLogin
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.Email
+             -> Data.ProtoLens.Encoding.Bytes.Parser ObtainDemoLogin
+        loop x mutable'emailBcc
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do frozen'emailBcc <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                           (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                              mutable'emailBcc)
+                      (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'emailBcc") frozen'emailBcc x))
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "first_name"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"firstName") y x)
+                                  mutable'emailBcc
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "last_name"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"lastName") y x)
+                                  mutable'emailBcc
+                        26
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "email"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"email") y x)
+                                  mutable'emailBcc
+                        34
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "email_bcc"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append mutable'emailBcc y)
+                                loop x v
+                        42
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "phone"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"phone") y x)
+                                  mutable'emailBcc
+                        50
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "normalized_phone"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"normalizedPhone") y x)
+                                  mutable'emailBcc
+                        58
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "product_id"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"productId") y x)
+                                  mutable'emailBcc
+                        64
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          ((Prelude./=) 0) Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "return_credentials"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"returnCredentials") y x)
+                                  mutable'emailBcc
+                        72
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (Prelude.fmap
+                                          ((Prelude./=) 0) Data.ProtoLens.Encoding.Bytes.getVarInt)
+                                       "live_data_requested"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"liveDataRequested") y x)
+                                  mutable'emailBcc
+                        82
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "address"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"address") y x)
+                                  mutable'emailBcc
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'emailBcc
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do mutable'emailBcc <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                    Data.ProtoLens.Encoding.Growing.new
+              loop Data.ProtoLens.defMessage mutable'emailBcc)
+          "ObtainDemoLogin"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'firstName") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'lastName") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                ((Data.Monoid.<>)
+                   (case
+                        Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'email") _x
+                    of
+                      Prelude.Nothing -> Data.Monoid.mempty
+                      (Prelude.Just _v)
+                        -> (Data.Monoid.<>)
+                             (Data.ProtoLens.Encoding.Bytes.putVarInt 26)
+                             ((Prelude..)
+                                (\ bs
+                                   -> (Data.Monoid.<>)
+                                        (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                           (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                        (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                Data.ProtoLens.encodeMessage _v))
+                   ((Data.Monoid.<>)
+                      (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                         (\ _v
+                            -> (Data.Monoid.<>)
+                                 (Data.ProtoLens.Encoding.Bytes.putVarInt 34)
+                                 ((Prelude..)
+                                    (\ bs
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                               (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                            (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                    Data.ProtoLens.encodeMessage _v))
+                         (Lens.Family2.view
+                            (Data.ProtoLens.Field.field @"vec'emailBcc") _x))
+                      ((Data.Monoid.<>)
+                         (case
+                              Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'phone") _x
+                          of
+                            Prelude.Nothing -> Data.Monoid.mempty
+                            (Prelude.Just _v)
+                              -> (Data.Monoid.<>)
+                                   (Data.ProtoLens.Encoding.Bytes.putVarInt 42)
+                                   ((Prelude..)
+                                      (\ bs
+                                         -> (Data.Monoid.<>)
+                                              (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                 (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                              (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                      Data.ProtoLens.encodeMessage _v))
+                         ((Data.Monoid.<>)
+                            (case
+                                 Lens.Family2.view
+                                   (Data.ProtoLens.Field.field @"maybe'normalizedPhone") _x
+                             of
+                               Prelude.Nothing -> Data.Monoid.mempty
+                               (Prelude.Just _v)
+                                 -> (Data.Monoid.<>)
+                                      (Data.ProtoLens.Encoding.Bytes.putVarInt 50)
+                                      ((Prelude..)
+                                         (\ bs
+                                            -> (Data.Monoid.<>)
+                                                 (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                    (Prelude.fromIntegral
+                                                       (Data.ByteString.length bs)))
+                                                 (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                         Data.ProtoLens.encodeMessage _v))
+                            ((Data.Monoid.<>)
+                               (case
+                                    Lens.Family2.view
+                                      (Data.ProtoLens.Field.field @"maybe'productId") _x
+                                of
+                                  Prelude.Nothing -> Data.Monoid.mempty
+                                  (Prelude.Just _v)
+                                    -> (Data.Monoid.<>)
+                                         (Data.ProtoLens.Encoding.Bytes.putVarInt 58)
+                                         ((Prelude..)
+                                            (\ bs
+                                               -> (Data.Monoid.<>)
+                                                    (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                       (Prelude.fromIntegral
+                                                          (Data.ByteString.length bs)))
+                                                    (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                                            Data.Text.Encoding.encodeUtf8 _v))
+                               ((Data.Monoid.<>)
+                                  (case
+                                       Lens.Family2.view
+                                         (Data.ProtoLens.Field.field @"maybe'returnCredentials") _x
+                                   of
+                                     Prelude.Nothing -> Data.Monoid.mempty
+                                     (Prelude.Just _v)
+                                       -> (Data.Monoid.<>)
+                                            (Data.ProtoLens.Encoding.Bytes.putVarInt 64)
+                                            ((Prelude..)
+                                               Data.ProtoLens.Encoding.Bytes.putVarInt
+                                               (\ b -> if b then 1 else 0) _v))
+                                  ((Data.Monoid.<>)
+                                     (case
+                                          Lens.Family2.view
+                                            (Data.ProtoLens.Field.field @"maybe'liveDataRequested")
+                                            _x
+                                      of
+                                        Prelude.Nothing -> Data.Monoid.mempty
+                                        (Prelude.Just _v)
+                                          -> (Data.Monoid.<>)
+                                               (Data.ProtoLens.Encoding.Bytes.putVarInt 72)
+                                               ((Prelude..)
+                                                  Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                  (\ b -> if b then 1 else 0) _v))
+                                     ((Data.Monoid.<>)
+                                        (case
+                                             Lens.Family2.view
+                                               (Data.ProtoLens.Field.field @"maybe'address") _x
+                                         of
+                                           Prelude.Nothing -> Data.Monoid.mempty
+                                           (Prelude.Just _v)
+                                             -> (Data.Monoid.<>)
+                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt 82)
+                                                  ((Prelude..)
+                                                     (\ bs
+                                                        -> (Data.Monoid.<>)
+                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                (Prelude.fromIntegral
+                                                                   (Data.ByteString.length bs)))
+                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                bs))
+                                                     Data.ProtoLens.encodeMessage _v))
+                                        (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                           (Lens.Family2.view
+                                              Data.ProtoLens.unknownFields _x)))))))))))
+instance Control.DeepSeq.NFData ObtainDemoLogin where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_ObtainDemoLogin'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_ObtainDemoLogin'firstName x__)
+                (Control.DeepSeq.deepseq
+                   (_ObtainDemoLogin'lastName x__)
+                   (Control.DeepSeq.deepseq
+                      (_ObtainDemoLogin'email x__)
+                      (Control.DeepSeq.deepseq
+                         (_ObtainDemoLogin'emailBcc x__)
+                         (Control.DeepSeq.deepseq
+                            (_ObtainDemoLogin'phone x__)
+                            (Control.DeepSeq.deepseq
+                               (_ObtainDemoLogin'normalizedPhone x__)
+                               (Control.DeepSeq.deepseq
+                                  (_ObtainDemoLogin'productId x__)
+                                  (Control.DeepSeq.deepseq
+                                     (_ObtainDemoLogin'returnCredentials x__)
+                                     (Control.DeepSeq.deepseq
+                                        (_ObtainDemoLogin'liveDataRequested x__)
+                                        (Control.DeepSeq.deepseq
+                                           (_ObtainDemoLogin'address x__) ()))))))))))
+{- | Fields :
+     
+         * 'Proto.CMS.Cmsapi1_Fields.loginName' @:: Lens' ObtainDemoLoginResult Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'loginName' @:: Lens' ObtainDemoLoginResult (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.password' @:: Lens' ObtainDemoLoginResult Data.Text.Text@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'password' @:: Lens' ObtainDemoLoginResult (Prelude.Maybe Data.Text.Text)@ -}
+data ObtainDemoLoginResult
+  = ObtainDemoLoginResult'_constructor {_ObtainDemoLoginResult'loginName :: !(Prelude.Maybe Data.Text.Text),
+                                        _ObtainDemoLoginResult'password :: !(Prelude.Maybe Data.Text.Text),
+                                        _ObtainDemoLoginResult'_unknownFields :: !Data.ProtoLens.FieldSet}
+  deriving stock (Prelude.Eq, Prelude.Ord)
+instance Prelude.Show ObtainDemoLoginResult where
+  showsPrec _ __x __s
+    = Prelude.showChar
+        '{'
+        (Prelude.showString
+           (Data.ProtoLens.showMessageShort __x) (Prelude.showChar '}' __s))
+instance Data.ProtoLens.Field.HasField ObtainDemoLoginResult "loginName" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLoginResult'loginName
+           (\ x__ y__ -> x__ {_ObtainDemoLoginResult'loginName = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ObtainDemoLoginResult "maybe'loginName" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLoginResult'loginName
+           (\ x__ y__ -> x__ {_ObtainDemoLoginResult'loginName = y__}))
+        Prelude.id
+instance Data.ProtoLens.Field.HasField ObtainDemoLoginResult "password" Data.Text.Text where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLoginResult'password
+           (\ x__ y__ -> x__ {_ObtainDemoLoginResult'password = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.fieldDefault)
+instance Data.ProtoLens.Field.HasField ObtainDemoLoginResult "maybe'password" (Prelude.Maybe Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ObtainDemoLoginResult'password
+           (\ x__ y__ -> x__ {_ObtainDemoLoginResult'password = y__}))
+        Prelude.id
+instance Data.ProtoLens.Message ObtainDemoLoginResult where
+  messageName _ = Data.Text.pack "cmsapi_1.ObtainDemoLoginResult"
+  packedMessageDescriptor _
+    = "\n\
+      \\NAKObtainDemoLoginResult\DC2\GS\n\
+      \\n\
+      \login_name\CAN\SOH \SOH(\tR\tloginName\DC2\SUB\n\
+      \\bpassword\CAN\STX \SOH(\tR\bpassword"
+  packedFileDescriptor _ = packedFileDescriptor
+  fieldsByTag
+    = let
+        loginName__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "login_name"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'loginName")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLoginResult
+        password__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "password"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'password")) ::
+              Data.ProtoLens.FieldDescriptor ObtainDemoLoginResult
+      in
+        Data.Map.fromList
+          [(Data.ProtoLens.Tag 1, loginName__field_descriptor),
+           (Data.ProtoLens.Tag 2, password__field_descriptor)]
+  unknownFields
+    = Lens.Family2.Unchecked.lens
+        _ObtainDemoLoginResult'_unknownFields
+        (\ x__ y__ -> x__ {_ObtainDemoLoginResult'_unknownFields = y__})
+  defMessage
+    = ObtainDemoLoginResult'_constructor
+        {_ObtainDemoLoginResult'loginName = Prelude.Nothing,
+         _ObtainDemoLoginResult'password = Prelude.Nothing,
+         _ObtainDemoLoginResult'_unknownFields = []}
+  parseMessage
+    = let
+        loop ::
+          ObtainDemoLoginResult
+          -> Data.ProtoLens.Encoding.Bytes.Parser ObtainDemoLoginResult
+        loop x
+          = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
+               if end then
+                   do (let missing = []
+                       in
+                         if Prelude.null missing then
+                             Prelude.return ()
+                         else
+                             Prelude.fail
+                               ((Prelude.++)
+                                  "Missing required fields: "
+                                  (Prelude.show (missing :: [Prelude.String]))))
+                      Prelude.return
+                        (Lens.Family2.over
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+               else
+                   do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                      case tag of
+                        10
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "login_name"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"loginName") y x)
+                        18
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.getText
+                                             (Prelude.fromIntegral len))
+                                       "password"
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"password") y x)
+                        wire
+                          -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
+                                        wire
+                                loop
+                                  (Lens.Family2.over
+                                     Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+      in
+        (Data.ProtoLens.Encoding.Bytes.<?>)
+          (do loop Data.ProtoLens.defMessage) "ObtainDemoLoginResult"
+  buildMessage
+    = \ _x
+        -> (Data.Monoid.<>)
+             (case
+                  Lens.Family2.view
+                    (Data.ProtoLens.Field.field @"maybe'loginName") _x
+              of
+                Prelude.Nothing -> Data.Monoid.mempty
+                (Prelude.Just _v)
+                  -> (Data.Monoid.<>)
+                       (Data.ProtoLens.Encoding.Bytes.putVarInt 10)
+                       ((Prelude..)
+                          (\ bs
+                             -> (Data.Monoid.<>)
+                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                     (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                  (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                          Data.Text.Encoding.encodeUtf8 _v))
+             ((Data.Monoid.<>)
+                (case
+                     Lens.Family2.view (Data.ProtoLens.Field.field @"maybe'password") _x
+                 of
+                   Prelude.Nothing -> Data.Monoid.mempty
+                   (Prelude.Just _v)
+                     -> (Data.Monoid.<>)
+                          (Data.ProtoLens.Encoding.Bytes.putVarInt 18)
+                          ((Prelude..)
+                             (\ bs
+                                -> (Data.Monoid.<>)
+                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                        (Prelude.fromIntegral (Data.ByteString.length bs)))
+                                     (Data.ProtoLens.Encoding.Bytes.putBytes bs))
+                             Data.Text.Encoding.encodeUtf8 _v))
+                (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                   (Lens.Family2.view Data.ProtoLens.unknownFields _x)))
+instance Control.DeepSeq.NFData ObtainDemoLoginResult where
+  rnf
+    = \ x__
+        -> Control.DeepSeq.deepseq
+             (_ObtainDemoLoginResult'_unknownFields x__)
+             (Control.DeepSeq.deepseq
+                (_ObtainDemoLoginResult'loginName x__)
+                (Control.DeepSeq.deepseq (_ObtainDemoLoginResult'password x__) ()))
+{- | Fields :
+     
          * 'Proto.CMS.Cmsapi1_Fields.id' @:: Lens' OperationRequest Data.Word.Word32@
          * 'Proto.CMS.Cmsapi1_Fields.cloneUser' @:: Lens' OperationRequest Proto.CMS.Common1.CloneUser@
          * 'Proto.CMS.Cmsapi1_Fields.maybe'cloneUser' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.CloneUser)@
@@ -5314,7 +6210,9 @@ instance Control.DeepSeq.NFData LinkLoginToProfileResult where
          * 'Proto.CMS.Cmsapi1_Fields.terminateLoginSession' @:: Lens' OperationRequest TerminateLoginSession@
          * 'Proto.CMS.Cmsapi1_Fields.maybe'terminateLoginSession' @:: Lens' OperationRequest (Prelude.Maybe TerminateLoginSession)@
          * 'Proto.CMS.Cmsapi1_Fields.updateLoginBillingCustomData' @:: Lens' OperationRequest Proto.CMS.Common1.UpdateLoginBillingCustomData@
-         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginBillingCustomData' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomData)@ -}
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginBillingCustomData' @:: Lens' OperationRequest (Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomData)@
+         * 'Proto.CMS.Cmsapi1_Fields.obtainDemoLogin' @:: Lens' OperationRequest ObtainDemoLogin@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obtainDemoLogin' @:: Lens' OperationRequest (Prelude.Maybe ObtainDemoLogin)@ -}
 data OperationRequest
   = OperationRequest'_constructor {_OperationRequest'id :: !Data.Word.Word32,
                                    _OperationRequest'cloneUser :: !(Prelude.Maybe Proto.CMS.Common1.CloneUser),
@@ -5339,6 +6237,7 @@ data OperationRequest
                                    _OperationRequest'eraseCurrentCredentials :: !(Prelude.Maybe Proto.CMS.Common1.EraseCurrentCredentials),
                                    _OperationRequest'terminateLoginSession :: !(Prelude.Maybe TerminateLoginSession),
                                    _OperationRequest'updateLoginBillingCustomData :: !(Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomData),
+                                   _OperationRequest'obtainDemoLogin :: !(Prelude.Maybe ObtainDemoLogin),
                                    _OperationRequest'_unknownFields :: !Data.ProtoLens.FieldSet}
   deriving stock (Prelude.Eq, Prelude.Ord)
 instance Prelude.Show OperationRequest where
@@ -5678,6 +6577,20 @@ instance Data.ProtoLens.Field.HasField OperationRequest "maybe'updateLoginBillin
            (\ x__ y__
               -> x__ {_OperationRequest'updateLoginBillingCustomData = y__}))
         Prelude.id
+instance Data.ProtoLens.Field.HasField OperationRequest "obtainDemoLogin" ObtainDemoLogin where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'obtainDemoLogin
+           (\ x__ y__ -> x__ {_OperationRequest'obtainDemoLogin = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationRequest "maybe'obtainDemoLogin" (Prelude.Maybe ObtainDemoLogin) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationRequest'obtainDemoLogin
+           (\ x__ y__ -> x__ {_OperationRequest'obtainDemoLogin = y__}))
+        Prelude.id
 instance Data.ProtoLens.Message OperationRequest where
   messageName _ = Data.Text.pack "cmsapi_1.OperationRequest"
   packedMessageDescriptor _
@@ -5710,7 +6623,8 @@ instance Data.ProtoLens.Message OperationRequest where
       \\USgenerate_service_security_token\CAN\DC4 \SOH(\v2&.cmsapi_1.GenerateServiceSecurityTokenR\FSgenerateServiceSecurityToken\DC2]\n\
       \\EMerase_current_credentials\CAN\NAK \SOH(\v2!.common_1.EraseCurrentCredentialsR\ETBeraseCurrentCredentials\DC2W\n\
       \\ETBterminate_login_session\CAN\SYN \SOH(\v2\US.cmsapi_1.TerminateLoginSessionR\NAKterminateLoginSession\DC2n\n\
-      \ update_login_billing_custom_data\CAN\ETB \SOH(\v2&.common_1.UpdateLoginBillingCustomDataR\FSupdateLoginBillingCustomData"
+      \ update_login_billing_custom_data\CAN\ETB \SOH(\v2&.common_1.UpdateLoginBillingCustomDataR\FSupdateLoginBillingCustomData\DC2E\n\
+      \\DC1obtain_demo_login\CAN\CAN \SOH(\v2\EM.cmsapi_1.ObtainDemoLoginR\SIobtainDemoLogin"
   packedFileDescriptor _ = packedFileDescriptor
   fieldsByTag
     = let
@@ -5903,6 +6817,14 @@ instance Data.ProtoLens.Message OperationRequest where
                  (Data.ProtoLens.Field.field
                     @"maybe'updateLoginBillingCustomData")) ::
               Data.ProtoLens.FieldDescriptor OperationRequest
+        obtainDemoLogin__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obtain_demo_login"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor ObtainDemoLogin)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obtainDemoLogin")) ::
+              Data.ProtoLens.FieldDescriptor OperationRequest
       in
         Data.Map.fromList
           [(Data.ProtoLens.Tag 1, id__field_descriptor),
@@ -5933,7 +6855,8 @@ instance Data.ProtoLens.Message OperationRequest where
            (Data.ProtoLens.Tag 21, eraseCurrentCredentials__field_descriptor),
            (Data.ProtoLens.Tag 22, terminateLoginSession__field_descriptor),
            (Data.ProtoLens.Tag 23, 
-            updateLoginBillingCustomData__field_descriptor)]
+            updateLoginBillingCustomData__field_descriptor),
+           (Data.ProtoLens.Tag 24, obtainDemoLogin__field_descriptor)]
   unknownFields
     = Lens.Family2.Unchecked.lens
         _OperationRequest'_unknownFields
@@ -5963,6 +6886,7 @@ instance Data.ProtoLens.Message OperationRequest where
          _OperationRequest'eraseCurrentCredentials = Prelude.Nothing,
          _OperationRequest'terminateLoginSession = Prelude.Nothing,
          _OperationRequest'updateLoginBillingCustomData = Prelude.Nothing,
+         _OperationRequest'obtainDemoLogin = Prelude.Nothing,
          _OperationRequest'_unknownFields = []}
   parseMessage
     = let
@@ -6216,6 +7140,16 @@ instance Data.ProtoLens.Message OperationRequest where
                                   (Lens.Family2.set
                                      (Data.ProtoLens.Field.field @"updateLoginBillingCustomData") y
                                      x)
+                                  required'id
+                        194
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "obtain_demo_login"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obtainDemoLogin") y x)
                                   required'id
                         wire
                           -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
@@ -6688,10 +7622,34 @@ instance Data.ProtoLens.Message OperationRequest where
                                                                                                        bs))
                                                                                             Data.ProtoLens.encodeMessage
                                                                                             _v))
-                                                                               (Data.ProtoLens.Encoding.Wire.buildFieldSet
-                                                                                  (Lens.Family2.view
-                                                                                     Data.ProtoLens.unknownFields
-                                                                                     _x))))))))))))))))))))))))
+                                                                               ((Data.Monoid.<>)
+                                                                                  (case
+                                                                                       Lens.Family2.view
+                                                                                         (Data.ProtoLens.Field.field
+                                                                                            @"maybe'obtainDemoLogin")
+                                                                                         _x
+                                                                                   of
+                                                                                     Prelude.Nothing
+                                                                                       -> Data.Monoid.mempty
+                                                                                     (Prelude.Just _v)
+                                                                                       -> (Data.Monoid.<>)
+                                                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                               194)
+                                                                                            ((Prelude..)
+                                                                                               (\ bs
+                                                                                                  -> (Data.Monoid.<>)
+                                                                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                          (Prelude.fromIntegral
+                                                                                                             (Data.ByteString.length
+                                                                                                                bs)))
+                                                                                                       (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                          bs))
+                                                                                               Data.ProtoLens.encodeMessage
+                                                                                               _v))
+                                                                                  (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                                                     (Lens.Family2.view
+                                                                                        Data.ProtoLens.unknownFields
+                                                                                        _x)))))))))))))))))))))))))
 instance Control.DeepSeq.NFData OperationRequest where
   rnf
     = \ x__
@@ -6753,7 +7711,10 @@ instance Control.DeepSeq.NFData OperationRequest where
                                                                                (Control.DeepSeq.deepseq
                                                                                   (_OperationRequest'updateLoginBillingCustomData
                                                                                      x__)
-                                                                                  ())))))))))))))))))))))))
+                                                                                  (Control.DeepSeq.deepseq
+                                                                                     (_OperationRequest'obtainDemoLogin
+                                                                                        x__)
+                                                                                     ()))))))))))))))))))))))))
 {- | Fields :
      
          * 'Proto.CMS.Cmsapi1_Fields.requestId' @:: Lens' OperationResult Data.Word.Word32@
@@ -6805,7 +7766,9 @@ instance Control.DeepSeq.NFData OperationRequest where
          * 'Proto.CMS.Cmsapi1_Fields.updateLoginBillingCustomDataResult' @:: Lens' OperationResult Proto.CMS.Common1.UpdateLoginBillingCustomDataResult@
          * 'Proto.CMS.Cmsapi1_Fields.maybe'updateLoginBillingCustomDataResult' @:: Lens' OperationResult (Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomDataResult)@
          * 'Proto.CMS.Cmsapi1_Fields.trackingNumber' @:: Lens' OperationResult Data.Word.Word64@
-         * 'Proto.CMS.Cmsapi1_Fields.maybe'trackingNumber' @:: Lens' OperationResult (Prelude.Maybe Data.Word.Word64)@ -}
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'trackingNumber' @:: Lens' OperationResult (Prelude.Maybe Data.Word.Word64)@
+         * 'Proto.CMS.Cmsapi1_Fields.obtainDemoLoginResult' @:: Lens' OperationResult ObtainDemoLoginResult@
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'obtainDemoLoginResult' @:: Lens' OperationResult (Prelude.Maybe ObtainDemoLoginResult)@ -}
 data OperationResult
   = OperationResult'_constructor {_OperationResult'requestId :: !Data.Word.Word32,
                                   _OperationResult'operationStatus :: !Data.Word.Word32,
@@ -6833,6 +7796,7 @@ data OperationResult
                                   _OperationResult'terminateLoginSessionResult :: !(Prelude.Maybe TerminateLoginSessionResult),
                                   _OperationResult'updateLoginBillingCustomDataResult :: !(Prelude.Maybe Proto.CMS.Common1.UpdateLoginBillingCustomDataResult),
                                   _OperationResult'trackingNumber :: !(Prelude.Maybe Data.Word.Word64),
+                                  _OperationResult'obtainDemoLoginResult :: !(Prelude.Maybe ObtainDemoLoginResult),
                                   _OperationResult'_unknownFields :: !Data.ProtoLens.FieldSet}
   deriving stock (Prelude.Eq, Prelude.Ord)
 instance Prelude.Show OperationResult where
@@ -7221,6 +8185,20 @@ instance Data.ProtoLens.Field.HasField OperationResult "maybe'trackingNumber" (P
            _OperationResult'trackingNumber
            (\ x__ y__ -> x__ {_OperationResult'trackingNumber = y__}))
         Prelude.id
+instance Data.ProtoLens.Field.HasField OperationResult "obtainDemoLoginResult" ObtainDemoLoginResult where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'obtainDemoLoginResult
+           (\ x__ y__ -> x__ {_OperationResult'obtainDemoLoginResult = y__}))
+        (Data.ProtoLens.maybeLens Data.ProtoLens.defMessage)
+instance Data.ProtoLens.Field.HasField OperationResult "maybe'obtainDemoLoginResult" (Prelude.Maybe ObtainDemoLoginResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _OperationResult'obtainDemoLoginResult
+           (\ x__ y__ -> x__ {_OperationResult'obtainDemoLoginResult = y__}))
+        Prelude.id
 instance Data.ProtoLens.Message OperationResult where
   messageName _ = Data.Text.pack "cmsapi_1.OperationResult"
   packedMessageDescriptor _
@@ -7253,7 +8231,8 @@ instance Data.ProtoLens.Message OperationResult where
       \ erase_current_credentials_result\CAN\ETB \SOH(\v2'.common_1.EraseCurrentCredentialsResultR\GSeraseCurrentCredentialsResult\DC2j\n\
       \\RSterminate_login_session_result\CAN\CAN \SOH(\v2%.cmsapi_1.TerminateLoginSessionResultR\ESCterminateLoginSessionResult\DC2\129\SOH\n\
       \'update_login_billing_custom_data_result\CAN\EM \SOH(\v2,.common_1.UpdateLoginBillingCustomDataResultR\"updateLoginBillingCustomDataResult\DC2'\n\
-      \\SItracking_number\CAN\SUB \SOH(\EOTR\SOtrackingNumber"
+      \\SItracking_number\CAN\SUB \SOH(\EOTR\SOtrackingNumber\DC2X\n\
+      \\CANobtain_demo_login_result\CAN\ESC \SOH(\v2\US.cmsapi_1.ObtainDemoLoginResultR\NAKobtainDemoLoginResult"
   packedFileDescriptor _ = packedFileDescriptor
   fieldsByTag
     = let
@@ -7475,6 +8454,14 @@ instance Data.ProtoLens.Message OperationResult where
               (Data.ProtoLens.OptionalField
                  (Data.ProtoLens.Field.field @"maybe'trackingNumber")) ::
               Data.ProtoLens.FieldDescriptor OperationResult
+        obtainDemoLoginResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "obtain_demo_login_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor ObtainDemoLoginResult)
+              (Data.ProtoLens.OptionalField
+                 (Data.ProtoLens.Field.field @"maybe'obtainDemoLoginResult")) ::
+              Data.ProtoLens.FieldDescriptor OperationResult
       in
         Data.Map.fromList
           [(Data.ProtoLens.Tag 1, requestId__field_descriptor),
@@ -7512,7 +8499,8 @@ instance Data.ProtoLens.Message OperationResult where
             terminateLoginSessionResult__field_descriptor),
            (Data.ProtoLens.Tag 25, 
             updateLoginBillingCustomDataResult__field_descriptor),
-           (Data.ProtoLens.Tag 26, trackingNumber__field_descriptor)]
+           (Data.ProtoLens.Tag 26, trackingNumber__field_descriptor),
+           (Data.ProtoLens.Tag 27, obtainDemoLoginResult__field_descriptor)]
   unknownFields
     = Lens.Family2.Unchecked.lens
         _OperationResult'_unknownFields
@@ -7545,6 +8533,7 @@ instance Data.ProtoLens.Message OperationResult where
          _OperationResult'terminateLoginSessionResult = Prelude.Nothing,
          _OperationResult'updateLoginBillingCustomDataResult = Prelude.Nothing,
          _OperationResult'trackingNumber = Prelude.Nothing,
+         _OperationResult'obtainDemoLoginResult = Prelude.Nothing,
          _OperationResult'_unknownFields = []}
   parseMessage
     = let
@@ -7844,6 +8833,16 @@ instance Data.ProtoLens.Message OperationResult where
                                 loop
                                   (Lens.Family2.set
                                      (Data.ProtoLens.Field.field @"trackingNumber") y x)
+                                  required'operationStatus required'requestId
+                        218
+                          -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                       (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                           Data.ProtoLens.Encoding.Bytes.isolate
+                                             (Prelude.fromIntegral len) Data.ProtoLens.parseMessage)
+                                       "obtain_demo_login_result"
+                                loop
+                                  (Lens.Family2.set
+                                     (Data.ProtoLens.Field.field @"obtainDemoLoginResult") y x)
                                   required'operationStatus required'requestId
                         wire
                           -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
@@ -8371,10 +9370,34 @@ instance Data.ProtoLens.Message OperationResult where
                                                                                                      208)
                                                                                                   (Data.ProtoLens.Encoding.Bytes.putVarInt
                                                                                                      _v))
-                                                                                        (Data.ProtoLens.Encoding.Wire.buildFieldSet
-                                                                                           (Lens.Family2.view
-                                                                                              Data.ProtoLens.unknownFields
-                                                                                              _x)))))))))))))))))))))))))))
+                                                                                        ((Data.Monoid.<>)
+                                                                                           (case
+                                                                                                Lens.Family2.view
+                                                                                                  (Data.ProtoLens.Field.field
+                                                                                                     @"maybe'obtainDemoLoginResult")
+                                                                                                  _x
+                                                                                            of
+                                                                                              Prelude.Nothing
+                                                                                                -> Data.Monoid.mempty
+                                                                                              (Prelude.Just _v)
+                                                                                                -> (Data.Monoid.<>)
+                                                                                                     (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                        218)
+                                                                                                     ((Prelude..)
+                                                                                                        (\ bs
+                                                                                                           -> (Data.Monoid.<>)
+                                                                                                                (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                                                   (Prelude.fromIntegral
+                                                                                                                      (Data.ByteString.length
+                                                                                                                         bs)))
+                                                                                                                (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                                                   bs))
+                                                                                                        Data.ProtoLens.encodeMessage
+                                                                                                        _v))
+                                                                                           (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                                                              (Lens.Family2.view
+                                                                                                 Data.ProtoLens.unknownFields
+                                                                                                 _x))))))))))))))))))))))))))))
 instance Control.DeepSeq.NFData OperationResult where
   rnf
     = \ x__
@@ -8445,7 +9468,10 @@ instance Control.DeepSeq.NFData OperationResult where
                                                                                         (Control.DeepSeq.deepseq
                                                                                            (_OperationResult'trackingNumber
                                                                                               x__)
-                                                                                           ()))))))))))))))))))))))))))
+                                                                                           (Control.DeepSeq.deepseq
+                                                                                              (_OperationResult'obtainDemoLoginResult
+                                                                                                 x__)
+                                                                                              ())))))))))))))))))))))))))))
 {- | Fields :
      
          * 'Proto.CMS.Cmsapi1_Fields.token' @:: Lens' Ping Data.Text.Text@
@@ -9099,7 +10125,7 @@ instance Data.ProtoLens.Message ProfileSearchRequest where
       \\robsolete_text\CAN\SOH \SOH(\tR\fobsoleteTextB\STX\CAN\SOH\DC2<\n\
       \\CANobsolete_search_criteria\CAN\STX \ETX(\rR\SYNobsoleteSearchCriteriaB\STX\CAN\SOH\DC2=\n\
       \\SOsearch_options\CAN\ETX \ETX(\v2\SYN.common_1.SearchOptionR\rsearchOptions\DC2+\n\
-      \\SOall_match_mode\CAN\EOT \SOH(\b:\ENQfalseR\fallMatchMode\"\145\SOH\n\
+      \\SOall_match_mode\CAN\EOT \SOH(\b:\ENQfalseR\fallMatchMode\"\156\SOH\n\
       \\SOSearchCriteria\DC2\SI\n\
       \\vCUSTOMER_ID\DLE\SOH\DC2\b\n\
       \\EOTNAME\DLE\STX\DC2\SO\n\
@@ -9111,7 +10137,8 @@ instance Data.ProtoLens.Message ProfileSearchRequest where
       \\ACKNUMBER\DLE\ACK\DC2\SO\n\
       \\n\
       \PROFILE_ID\DLE\a\DC2\DLE\n\
-      \\fPROFILE_TYPE\DLE\b"
+      \\fPROFILE_TYPE\DLE\b\DC2\t\n\
+      \\ENQEMAIL\DLE\t"
   packedFileDescriptor _ = packedFileDescriptor
   fieldsByTag
     = let
@@ -9358,7 +10385,8 @@ data ProfileSearchRequest'SearchCriteria
     ProfileSearchRequest'LINKED_BROKERAGE_ID |
     ProfileSearchRequest'NUMBER |
     ProfileSearchRequest'PROFILE_ID |
-    ProfileSearchRequest'PROFILE_TYPE
+    ProfileSearchRequest'PROFILE_TYPE |
+    ProfileSearchRequest'EMAIL
   deriving stock (Prelude.Show, Prelude.Eq, Prelude.Ord)
 instance Data.ProtoLens.MessageEnum ProfileSearchRequest'SearchCriteria where
   maybeToEnum 1 = Prelude.Just ProfileSearchRequest'CUSTOMER_ID
@@ -9370,6 +10398,7 @@ instance Data.ProtoLens.MessageEnum ProfileSearchRequest'SearchCriteria where
   maybeToEnum 6 = Prelude.Just ProfileSearchRequest'NUMBER
   maybeToEnum 7 = Prelude.Just ProfileSearchRequest'PROFILE_ID
   maybeToEnum 8 = Prelude.Just ProfileSearchRequest'PROFILE_TYPE
+  maybeToEnum 9 = Prelude.Just ProfileSearchRequest'EMAIL
   maybeToEnum _ = Prelude.Nothing
   showEnum ProfileSearchRequest'CUSTOMER_ID = "CUSTOMER_ID"
   showEnum ProfileSearchRequest'NAME = "NAME"
@@ -9380,6 +10409,7 @@ instance Data.ProtoLens.MessageEnum ProfileSearchRequest'SearchCriteria where
   showEnum ProfileSearchRequest'NUMBER = "NUMBER"
   showEnum ProfileSearchRequest'PROFILE_ID = "PROFILE_ID"
   showEnum ProfileSearchRequest'PROFILE_TYPE = "PROFILE_TYPE"
+  showEnum ProfileSearchRequest'EMAIL = "EMAIL"
   readEnum k
     | (Prelude.==) k "CUSTOMER_ID"
     = Prelude.Just ProfileSearchRequest'CUSTOMER_ID
@@ -9396,11 +10426,12 @@ instance Data.ProtoLens.MessageEnum ProfileSearchRequest'SearchCriteria where
     = Prelude.Just ProfileSearchRequest'PROFILE_ID
     | (Prelude.==) k "PROFILE_TYPE"
     = Prelude.Just ProfileSearchRequest'PROFILE_TYPE
+    | (Prelude.==) k "EMAIL" = Prelude.Just ProfileSearchRequest'EMAIL
     | Prelude.otherwise
     = (Prelude.>>=) (Text.Read.readMaybe k) Data.ProtoLens.maybeToEnum
 instance Prelude.Bounded ProfileSearchRequest'SearchCriteria where
   minBound = ProfileSearchRequest'CUSTOMER_ID
-  maxBound = ProfileSearchRequest'PROFILE_TYPE
+  maxBound = ProfileSearchRequest'EMAIL
 instance Prelude.Enum ProfileSearchRequest'SearchCriteria where
   toEnum k__
     = Prelude.maybe
@@ -9417,9 +10448,10 @@ instance Prelude.Enum ProfileSearchRequest'SearchCriteria where
   fromEnum ProfileSearchRequest'NUMBER = 6
   fromEnum ProfileSearchRequest'PROFILE_ID = 7
   fromEnum ProfileSearchRequest'PROFILE_TYPE = 8
-  succ ProfileSearchRequest'PROFILE_TYPE
+  fromEnum ProfileSearchRequest'EMAIL = 9
+  succ ProfileSearchRequest'EMAIL
     = Prelude.error
-        "ProfileSearchRequest'SearchCriteria.succ: bad argument ProfileSearchRequest'PROFILE_TYPE. This value would be out of bounds."
+        "ProfileSearchRequest'SearchCriteria.succ: bad argument ProfileSearchRequest'EMAIL. This value would be out of bounds."
   succ ProfileSearchRequest'CUSTOMER_ID = ProfileSearchRequest'NAME
   succ ProfileSearchRequest'NAME = ProfileSearchRequest'FIRST_NAME
   succ ProfileSearchRequest'FIRST_NAME
@@ -9431,6 +10463,7 @@ instance Prelude.Enum ProfileSearchRequest'SearchCriteria where
   succ ProfileSearchRequest'NUMBER = ProfileSearchRequest'PROFILE_ID
   succ ProfileSearchRequest'PROFILE_ID
     = ProfileSearchRequest'PROFILE_TYPE
+  succ ProfileSearchRequest'PROFILE_TYPE = ProfileSearchRequest'EMAIL
   pred ProfileSearchRequest'CUSTOMER_ID
     = Prelude.error
         "ProfileSearchRequest'SearchCriteria.pred: bad argument ProfileSearchRequest'CUSTOMER_ID. This value would be out of bounds."
@@ -9445,6 +10478,7 @@ instance Prelude.Enum ProfileSearchRequest'SearchCriteria where
   pred ProfileSearchRequest'PROFILE_ID = ProfileSearchRequest'NUMBER
   pred ProfileSearchRequest'PROFILE_TYPE
     = ProfileSearchRequest'PROFILE_ID
+  pred ProfileSearchRequest'EMAIL = ProfileSearchRequest'PROFILE_TYPE
   enumFrom = Data.ProtoLens.Message.Enum.messageEnumFrom
   enumFromTo = Data.ProtoLens.Message.Enum.messageEnumFromTo
   enumFromThen = Data.ProtoLens.Message.Enum.messageEnumFromThen
@@ -9478,7 +10512,9 @@ instance Control.DeepSeq.NFData ProfileSearchRequest'SearchCriteria where
          * 'Proto.CMS.Cmsapi1_Fields.salesSeriesId' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
          * 'Proto.CMS.Cmsapi1_Fields.maybe'salesSeriesId' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
          * 'Proto.CMS.Cmsapi1_Fields.profileId' @:: Lens' ProfileSearchResultRecord Data.Text.Text@
-         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@ -}
+         * 'Proto.CMS.Cmsapi1_Fields.maybe'profileId' @:: Lens' ProfileSearchResultRecord (Prelude.Maybe Data.Text.Text)@
+         * 'Proto.CMS.Cmsapi1_Fields.emails' @:: Lens' ProfileSearchResultRecord [Data.Text.Text]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'emails' @:: Lens' ProfileSearchResultRecord (Data.Vector.Vector Data.Text.Text)@ -}
 data ProfileSearchResultRecord
   = ProfileSearchResultRecord'_constructor {_ProfileSearchResultRecord'customerId :: !(Prelude.Maybe Data.Text.Text),
                                             _ProfileSearchResultRecord'name :: !(Prelude.Maybe Data.Text.Text),
@@ -9492,6 +10528,7 @@ data ProfileSearchResultRecord
                                             _ProfileSearchResultRecord'number :: !(Prelude.Maybe Data.Text.Text),
                                             _ProfileSearchResultRecord'salesSeriesId :: !(Prelude.Maybe Data.Text.Text),
                                             _ProfileSearchResultRecord'profileId :: !(Prelude.Maybe Data.Text.Text),
+                                            _ProfileSearchResultRecord'emails :: !(Data.Vector.Vector Data.Text.Text),
                                             _ProfileSearchResultRecord'_unknownFields :: !Data.ProtoLens.FieldSet}
   deriving stock (Prelude.Eq, Prelude.Ord)
 instance Prelude.Show ProfileSearchResultRecord where
@@ -9678,6 +10715,22 @@ instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "maybe'profileI
            _ProfileSearchResultRecord'profileId
            (\ x__ y__ -> x__ {_ProfileSearchResultRecord'profileId = y__}))
         Prelude.id
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "emails" [Data.Text.Text] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'emails
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'emails = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ProfileSearchResultRecord "vec'emails" (Data.Vector.Vector Data.Text.Text) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ProfileSearchResultRecord'emails
+           (\ x__ y__ -> x__ {_ProfileSearchResultRecord'emails = y__}))
+        Prelude.id
 instance Data.ProtoLens.Message ProfileSearchResultRecord where
   messageName _ = Data.Text.pack "cmsapi_1.ProfileSearchResultRecord"
   packedMessageDescriptor _
@@ -9698,7 +10751,8 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
       \ \SOH(\tR\ACKnumber\DC2&\n\
       \\SIsales_series_id\CAN\v \SOH(\tR\rsalesSeriesId\DC2\GS\n\
       \\n\
-      \profile_id\CAN\f \SOH(\tR\tprofileId"
+      \profile_id\CAN\f \SOH(\tR\tprofileId\DC2\SYN\n\
+      \\ACKemails\CAN\r \ETX(\tR\ACKemails"
   packedFileDescriptor _ = packedFileDescriptor
   fieldsByTag
     = let
@@ -9799,6 +10853,14 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
               (Data.ProtoLens.OptionalField
                  (Data.ProtoLens.Field.field @"maybe'profileId")) ::
               Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
+        emails__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "emails"
+              (Data.ProtoLens.ScalarField Data.ProtoLens.StringField ::
+                 Data.ProtoLens.FieldTypeDescriptor Data.Text.Text)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked (Data.ProtoLens.Field.field @"emails")) ::
+              Data.ProtoLens.FieldDescriptor ProfileSearchResultRecord
       in
         Data.Map.fromList
           [(Data.ProtoLens.Tag 1, customerId__field_descriptor),
@@ -9813,7 +10875,8 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
            (Data.ProtoLens.Tag 9, profileType__field_descriptor),
            (Data.ProtoLens.Tag 10, number__field_descriptor),
            (Data.ProtoLens.Tag 11, salesSeriesId__field_descriptor),
-           (Data.ProtoLens.Tag 12, profileId__field_descriptor)]
+           (Data.ProtoLens.Tag 12, profileId__field_descriptor),
+           (Data.ProtoLens.Tag 13, emails__field_descriptor)]
   unknownFields
     = Lens.Family2.Unchecked.lens
         _ProfileSearchResultRecord'_unknownFields
@@ -9833,16 +10896,21 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
          _ProfileSearchResultRecord'number = Prelude.Nothing,
          _ProfileSearchResultRecord'salesSeriesId = Prelude.Nothing,
          _ProfileSearchResultRecord'profileId = Prelude.Nothing,
+         _ProfileSearchResultRecord'emails = Data.Vector.Generic.empty,
          _ProfileSearchResultRecord'_unknownFields = []}
   parseMessage
     = let
         loop ::
           ProfileSearchResultRecord
-          -> Data.ProtoLens.Encoding.Bytes.Parser ProfileSearchResultRecord
-        loop x
+          -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Data.Text.Text
+             -> Data.ProtoLens.Encoding.Bytes.Parser ProfileSearchResultRecord
+        loop x mutable'emails
           = do end <- Data.ProtoLens.Encoding.Bytes.atEnd
                if end then
-                   do (let missing = []
+                   do frozen'emails <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                         (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                            mutable'emails)
+                      (let missing = []
                        in
                          if Prelude.null missing then
                              Prelude.return ()
@@ -9853,7 +10921,9 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                   (Prelude.show (missing :: [Prelude.String]))))
                       Prelude.return
                         (Lens.Family2.over
-                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t) x)
+                           Data.ProtoLens.unknownFields (\ !t -> Prelude.reverse t)
+                           (Lens.Family2.set
+                              (Data.ProtoLens.Field.field @"vec'emails") frozen'emails x))
                else
                    do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
                       case tag of
@@ -9865,13 +10935,16 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                        "customer_id"
                                 loop
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"customerId") y x)
+                                  mutable'emails
                         18
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
                                            Data.ProtoLens.Encoding.Bytes.getText
                                              (Prelude.fromIntegral len))
                                        "name"
-                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"name") y x)
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"name") y x)
+                                  mutable'emails
                         26
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -9881,6 +10954,7 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                 loop
                                   (Lens.Family2.set
                                      (Data.ProtoLens.Field.field @"linkedBrokerageName") y x)
+                                  mutable'emails
                         34
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -9889,6 +10963,7 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                        "first_name"
                                 loop
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"firstName") y x)
+                                  mutable'emails
                         42
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -9897,6 +10972,7 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                        "last_name"
                                 loop
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"lastName") y x)
+                                  mutable'emails
                         50
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -9906,12 +10982,15 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                 loop
                                   (Lens.Family2.set
                                      (Data.ProtoLens.Field.field @"linkedBrokerageId") y x)
+                                  mutable'emails
                         56
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (Prelude.fmap
                                           ((Prelude./=) 0) Data.ProtoLens.Encoding.Bytes.getVarInt)
                                        "removed"
-                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"removed") y x)
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"removed") y x)
+                                  mutable'emails
                         66
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -9922,6 +11001,7 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                   (Lens.Family2.set
                                      (Data.ProtoLens.Field.field @"obsoleteAuthenticationSystem") y
                                      x)
+                                  mutable'emails
                         72
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (Prelude.fmap
@@ -9930,13 +11010,16 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                        "profile_type"
                                 loop
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"profileType") y x)
+                                  mutable'emails
                         82
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
                                            Data.ProtoLens.Encoding.Bytes.getText
                                              (Prelude.fromIntegral len))
                                        "number"
-                                loop (Lens.Family2.set (Data.ProtoLens.Field.field @"number") y x)
+                                loop
+                                  (Lens.Family2.set (Data.ProtoLens.Field.field @"number") y x)
+                                  mutable'emails
                         90
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -9946,6 +11029,7 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                 loop
                                   (Lens.Family2.set
                                      (Data.ProtoLens.Field.field @"salesSeriesId") y x)
+                                  mutable'emails
                         98
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -9954,15 +11038,29 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                        "profile_id"
                                 loop
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"profileId") y x)
+                                  mutable'emails
+                        106
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.getText
+                                              (Prelude.fromIntegral len))
+                                        "emails"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append mutable'emails y)
+                                loop x v
                         wire
                           -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
                                         wire
                                 loop
                                   (Lens.Family2.over
                                      Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
+                                  mutable'emails
       in
         (Data.ProtoLens.Encoding.Bytes.<?>)
-          (do loop Data.ProtoLens.defMessage) "ProfileSearchResultRecord"
+          (do mutable'emails <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                  Data.ProtoLens.Encoding.Growing.new
+              loop Data.ProtoLens.defMessage mutable'emails)
+          "ProfileSearchResultRecord"
   buildMessage
     = \ _x
         -> (Data.Monoid.<>)
@@ -10161,9 +11259,28 @@ instance Data.ProtoLens.Message ProfileSearchResultRecord where
                                                                    (Data.ProtoLens.Encoding.Bytes.putBytes
                                                                       bs))
                                                            Data.Text.Encoding.encodeUtf8 _v))
-                                              (Data.ProtoLens.Encoding.Wire.buildFieldSet
-                                                 (Lens.Family2.view
-                                                    Data.ProtoLens.unknownFields _x)))))))))))))
+                                              ((Data.Monoid.<>)
+                                                 (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                                    (\ _v
+                                                       -> (Data.Monoid.<>)
+                                                            (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                               106)
+                                                            ((Prelude..)
+                                                               (\ bs
+                                                                  -> (Data.Monoid.<>)
+                                                                       (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                          (Prelude.fromIntegral
+                                                                             (Data.ByteString.length
+                                                                                bs)))
+                                                                       (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                          bs))
+                                                               Data.Text.Encoding.encodeUtf8 _v))
+                                                    (Lens.Family2.view
+                                                       (Data.ProtoLens.Field.field @"vec'emails")
+                                                       _x))
+                                                 (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                    (Lens.Family2.view
+                                                       Data.ProtoLens.unknownFields _x))))))))))))))
 instance Control.DeepSeq.NFData ProfileSearchResultRecord where
   rnf
     = \ x__
@@ -10193,13 +11310,15 @@ instance Control.DeepSeq.NFData ProfileSearchResultRecord where
                                               (_ProfileSearchResultRecord'salesSeriesId x__)
                                               (Control.DeepSeq.deepseq
                                                  (_ProfileSearchResultRecord'profileId x__)
-                                                 ()))))))))))))
+                                                 (Control.DeepSeq.deepseq
+                                                    (_ProfileSearchResultRecord'emails x__)
+                                                    ())))))))))))))
 data ProtocolVersion
   = PROTOCOL_VERSION_MAJOR | PROTOCOL_VERSION_MINOR
   deriving stock (Prelude.Show, Prelude.Eq, Prelude.Ord)
 instance Data.ProtoLens.MessageEnum ProtocolVersion where
   maybeToEnum 1 = Prelude.Just PROTOCOL_VERSION_MAJOR
-  maybeToEnum 36 = Prelude.Just PROTOCOL_VERSION_MINOR
+  maybeToEnum 38 = Prelude.Just PROTOCOL_VERSION_MINOR
   maybeToEnum _ = Prelude.Nothing
   showEnum PROTOCOL_VERSION_MAJOR = "PROTOCOL_VERSION_MAJOR"
   showEnum PROTOCOL_VERSION_MINOR = "PROTOCOL_VERSION_MINOR"
@@ -10222,7 +11341,7 @@ instance Prelude.Enum ProtocolVersion where
               (Prelude.show k__)))
         Prelude.id (Data.ProtoLens.maybeToEnum k__)
   fromEnum PROTOCOL_VERSION_MAJOR = 1
-  fromEnum PROTOCOL_VERSION_MINOR = 36
+  fromEnum PROTOCOL_VERSION_MINOR = 38
   succ PROTOCOL_VERSION_MINOR
     = Prelude.error
         "ProtocolVersion.succ: bad argument PROTOCOL_VERSION_MINOR. This value would be out of bounds."
@@ -12510,7 +13629,9 @@ instance Control.DeepSeq.NFData SendWelcomeEmailResult where
          * 'Proto.CMS.Cmsapi1_Fields.sessionContextScopeResult' @:: Lens' ServerMessage [Proto.CMS.SessionContext1.SessionContextScopeResult]@
          * 'Proto.CMS.Cmsapi1_Fields.vec'sessionContextScopeResult' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeResult)@
          * 'Proto.CMS.Cmsapi1_Fields.locationScopeResult' @:: Lens' ServerMessage [Proto.CMS.Location1.LocationScopeResult]@
-         * 'Proto.CMS.Cmsapi1_Fields.vec'locationScopeResult' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.Location1.LocationScopeResult)@ -}
+         * 'Proto.CMS.Cmsapi1_Fields.vec'locationScopeResult' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.Location1.LocationScopeResult)@
+         * 'Proto.CMS.Cmsapi1_Fields.profileScopeResult' @:: Lens' ServerMessage [Proto.CMS.Profile1.ProfileScopeResult]@
+         * 'Proto.CMS.Cmsapi1_Fields.vec'profileScopeResult' @:: Lens' ServerMessage (Data.Vector.Vector Proto.CMS.Profile1.ProfileScopeResult)@ -}
 data ServerMessage
   = ServerMessage'_constructor {_ServerMessage'logonResult :: !(Prelude.Maybe Proto.CMS.Common1.LogonResult),
                                 _ServerMessage'loggedOff :: !(Prelude.Maybe Proto.CMS.Common1.LoggedOff),
@@ -12526,6 +13647,7 @@ data ServerMessage
                                 _ServerMessage'metadataResult :: !(Data.Vector.Vector Proto.CMS.Metadata1.MetadataScopeResult),
                                 _ServerMessage'sessionContextScopeResult :: !(Data.Vector.Vector Proto.CMS.SessionContext1.SessionContextScopeResult),
                                 _ServerMessage'locationScopeResult :: !(Data.Vector.Vector Proto.CMS.Location1.LocationScopeResult),
+                                _ServerMessage'profileScopeResult :: !(Data.Vector.Vector Proto.CMS.Profile1.ProfileScopeResult),
                                 _ServerMessage'_unknownFields :: !Data.ProtoLens.FieldSet}
   deriving stock (Prelude.Eq, Prelude.Ord)
 instance Prelude.Show ServerMessage where
@@ -12748,6 +13870,22 @@ instance Data.ProtoLens.Field.HasField ServerMessage "vec'locationScopeResult" (
            _ServerMessage'locationScopeResult
            (\ x__ y__ -> x__ {_ServerMessage'locationScopeResult = y__}))
         Prelude.id
+instance Data.ProtoLens.Field.HasField ServerMessage "profileScopeResult" [Proto.CMS.Profile1.ProfileScopeResult] where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'profileScopeResult
+           (\ x__ y__ -> x__ {_ServerMessage'profileScopeResult = y__}))
+        (Lens.Family2.Unchecked.lens
+           Data.Vector.Generic.toList
+           (\ _ y__ -> Data.Vector.Generic.fromList y__))
+instance Data.ProtoLens.Field.HasField ServerMessage "vec'profileScopeResult" (Data.Vector.Vector Proto.CMS.Profile1.ProfileScopeResult) where
+  fieldOf _
+    = (Prelude..)
+        (Lens.Family2.Unchecked.lens
+           _ServerMessage'profileScopeResult
+           (\ x__ y__ -> x__ {_ServerMessage'profileScopeResult = y__}))
+        Prelude.id
 instance Data.ProtoLens.Message ServerMessage where
   messageName _ = Data.Text.pack "cmsapi_1.ServerMessage"
   packedMessageDescriptor _
@@ -12768,7 +13906,8 @@ instance Data.ProtoLens.Message ServerMessage where
       \\RScancel_deferred_request_result\CAN\f \SOH(\v2%.cmsapi_1.CancelDeferredRequestResultR\ESCcancelDeferredRequestResult\DC2H\n\
       \\SImetadata_result\CAN\r \ETX(\v2\US.metadata_1.MetadataScopeResultR\SOmetadataResult\DC2m\n\
       \\FSsession_context_scope_result\CAN\SO \ETX(\v2,.session_context_1.SessionContextScopeResultR\EMsessionContextScopeResult\DC2S\n\
-      \\NAKlocation_scope_result\CAN\SI \ETX(\v2\US.location_1.LocationScopeResultR\DC3locationScopeResult*\ENQ\bd\DLE\200\SOH"
+      \\NAKlocation_scope_result\CAN\SI \ETX(\v2\US.location_1.LocationScopeResultR\DC3locationScopeResult\DC2O\n\
+      \\DC4profile_scope_result\CAN\DLE \ETX(\v2\GS.profile_1.ProfileScopeResultR\DC2profileScopeResult*\ENQ\bd\DLE\200\SOH"
   packedFileDescriptor _ = packedFileDescriptor
   fieldsByTag
     = let
@@ -12894,6 +14033,15 @@ instance Data.ProtoLens.Message ServerMessage where
                  Data.ProtoLens.Unpacked
                  (Data.ProtoLens.Field.field @"locationScopeResult")) ::
               Data.ProtoLens.FieldDescriptor ServerMessage
+        profileScopeResult__field_descriptor
+          = Data.ProtoLens.FieldDescriptor
+              "profile_scope_result"
+              (Data.ProtoLens.MessageField Data.ProtoLens.MessageType ::
+                 Data.ProtoLens.FieldTypeDescriptor Proto.CMS.Profile1.ProfileScopeResult)
+              (Data.ProtoLens.RepeatedField
+                 Data.ProtoLens.Unpacked
+                 (Data.ProtoLens.Field.field @"profileScopeResult")) ::
+              Data.ProtoLens.FieldDescriptor ServerMessage
       in
         Data.Map.fromList
           [(Data.ProtoLens.Tag 1, logonResult__field_descriptor),
@@ -12912,7 +14060,8 @@ instance Data.ProtoLens.Message ServerMessage where
            (Data.ProtoLens.Tag 13, metadataResult__field_descriptor),
            (Data.ProtoLens.Tag 14, 
             sessionContextScopeResult__field_descriptor),
-           (Data.ProtoLens.Tag 15, locationScopeResult__field_descriptor)]
+           (Data.ProtoLens.Tag 15, locationScopeResult__field_descriptor),
+           (Data.ProtoLens.Tag 16, profileScopeResult__field_descriptor)]
   unknownFields
     = Lens.Family2.Unchecked.lens
         _ServerMessage'_unknownFields
@@ -12933,6 +14082,7 @@ instance Data.ProtoLens.Message ServerMessage where
          _ServerMessage'metadataResult = Data.Vector.Generic.empty,
          _ServerMessage'sessionContextScopeResult = Data.Vector.Generic.empty,
          _ServerMessage'locationScopeResult = Data.Vector.Generic.empty,
+         _ServerMessage'profileScopeResult = Data.Vector.Generic.empty,
          _ServerMessage'_unknownFields = []}
   parseMessage
     = let
@@ -12942,17 +14092,19 @@ instance Data.ProtoLens.Message ServerMessage where
              -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Location1.LocationScopeResult
                 -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Metadata1.MetadataScopeResult
                    -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld OperationResult
-                      -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld SearchResult
-                         -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.SessionContext1.SessionContextScopeResult
-                            -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Traderouting1.TradeRoutingResult
-                               -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.UserMessage
-                                  -> Data.ProtoLens.Encoding.Bytes.Parser ServerMessage
+                      -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Profile1.ProfileScopeResult
+                         -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld SearchResult
+                            -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.SessionContext1.SessionContextScopeResult
+                               -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Traderouting1.TradeRoutingResult
+                                  -> Data.ProtoLens.Encoding.Growing.Growing Data.Vector.Vector Data.ProtoLens.Encoding.Growing.RealWorld Proto.CMS.Common1.UserMessage
+                                     -> Data.ProtoLens.Encoding.Bytes.Parser ServerMessage
         loop
           x
           mutable'informationResult
           mutable'locationScopeResult
           mutable'metadataResult
           mutable'operationResult
+          mutable'profileScopeResult
           mutable'searchResult
           mutable'sessionContextScopeResult
           mutable'tradeRoutingResult
@@ -12971,6 +14123,9 @@ instance Data.ProtoLens.Message ServerMessage where
                       frozen'operationResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
                                                   (Data.ProtoLens.Encoding.Growing.unsafeFreeze
                                                      mutable'operationResult)
+                      frozen'profileScopeResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                                     (Data.ProtoLens.Encoding.Growing.unsafeFreeze
+                                                        mutable'profileScopeResult)
                       frozen'searchResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
                                                (Data.ProtoLens.Encoding.Growing.unsafeFreeze
                                                   mutable'searchResult)
@@ -13008,19 +14163,23 @@ instance Data.ProtoLens.Message ServerMessage where
                                        (Data.ProtoLens.Field.field @"vec'operationResult")
                                        frozen'operationResult
                                        (Lens.Family2.set
-                                          (Data.ProtoLens.Field.field @"vec'searchResult")
-                                          frozen'searchResult
+                                          (Data.ProtoLens.Field.field @"vec'profileScopeResult")
+                                          frozen'profileScopeResult
                                           (Lens.Family2.set
-                                             (Data.ProtoLens.Field.field
-                                                @"vec'sessionContextScopeResult")
-                                             frozen'sessionContextScopeResult
+                                             (Data.ProtoLens.Field.field @"vec'searchResult")
+                                             frozen'searchResult
                                              (Lens.Family2.set
                                                 (Data.ProtoLens.Field.field
-                                                   @"vec'tradeRoutingResult")
-                                                frozen'tradeRoutingResult
+                                                   @"vec'sessionContextScopeResult")
+                                                frozen'sessionContextScopeResult
                                                 (Lens.Family2.set
-                                                   (Data.ProtoLens.Field.field @"vec'userMessage")
-                                                   frozen'userMessage x)))))))))
+                                                   (Data.ProtoLens.Field.field
+                                                      @"vec'tradeRoutingResult")
+                                                   frozen'tradeRoutingResult
+                                                   (Lens.Family2.set
+                                                      (Data.ProtoLens.Field.field
+                                                         @"vec'userMessage")
+                                                      frozen'userMessage x))))))))))
                else
                    do tag <- Data.ProtoLens.Encoding.Bytes.getVarInt
                       case tag of
@@ -13034,8 +14193,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"logonResult") y x)
                                   mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult
-                                  mutable'tradeRoutingResult mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
                         18
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13046,8 +14206,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"loggedOff") y x)
                                   mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult
-                                  mutable'tradeRoutingResult mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
                         66
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13059,8 +14220,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                      (Data.ProtoLens.Field.field @"restoreOrJoinSessionResult") y x)
                                   mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult
-                                  mutable'tradeRoutingResult mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
                         26
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13073,9 +14235,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                           mutable'informationResult y)
                                 loop
                                   x v mutable'locationScopeResult mutable'metadataResult
-                                  mutable'operationResult mutable'searchResult
-                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
-                                  mutable'userMessage
+                                  mutable'operationResult mutable'profileScopeResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
                         34
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13088,9 +14250,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                           mutable'searchResult y)
                                 loop
                                   x mutable'informationResult mutable'locationScopeResult
-                                  mutable'metadataResult mutable'operationResult v
-                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
-                                  mutable'userMessage
+                                  mutable'metadataResult mutable'operationResult
+                                  mutable'profileScopeResult v mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
                         42
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13103,9 +14265,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                           mutable'operationResult y)
                                 loop
                                   x mutable'informationResult mutable'locationScopeResult
-                                  mutable'metadataResult v mutable'searchResult
-                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
-                                  mutable'userMessage
+                                  mutable'metadataResult v mutable'profileScopeResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
                         50
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13119,8 +14281,8 @@ instance Data.ProtoLens.Message ServerMessage where
                                 loop
                                   x mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult v
-                                  mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult v mutable'userMessage
                         58
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13134,8 +14296,8 @@ instance Data.ProtoLens.Message ServerMessage where
                                 loop
                                   x mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult
-                                  mutable'tradeRoutingResult v
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult v
                         82
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13146,8 +14308,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"ping") y x)
                                   mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult
-                                  mutable'tradeRoutingResult mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
                         90
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13158,8 +14321,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                   (Lens.Family2.set (Data.ProtoLens.Field.field @"pong") y x)
                                   mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult
-                                  mutable'tradeRoutingResult mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
                         98
                           -> do y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13172,8 +14336,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                      x)
                                   mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult
-                                  mutable'tradeRoutingResult mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
                         106
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13186,9 +14351,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                           mutable'metadataResult y)
                                 loop
                                   x mutable'informationResult mutable'locationScopeResult v
-                                  mutable'operationResult mutable'searchResult
-                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
-                                  mutable'userMessage
+                                  mutable'operationResult mutable'profileScopeResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
                         114
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13202,8 +14367,8 @@ instance Data.ProtoLens.Message ServerMessage where
                                 loop
                                   x mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult v mutable'tradeRoutingResult
-                                  mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult v
+                                  mutable'tradeRoutingResult mutable'userMessage
                         122
                           -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
                                         (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
@@ -13216,9 +14381,24 @@ instance Data.ProtoLens.Message ServerMessage where
                                           mutable'locationScopeResult y)
                                 loop
                                   x mutable'informationResult v mutable'metadataResult
-                                  mutable'operationResult mutable'searchResult
-                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
-                                  mutable'userMessage
+                                  mutable'operationResult mutable'profileScopeResult
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
+                        130
+                          -> do !y <- (Data.ProtoLens.Encoding.Bytes.<?>)
+                                        (do len <- Data.ProtoLens.Encoding.Bytes.getVarInt
+                                            Data.ProtoLens.Encoding.Bytes.isolate
+                                              (Prelude.fromIntegral len)
+                                              Data.ProtoLens.parseMessage)
+                                        "profile_scope_result"
+                                v <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                       (Data.ProtoLens.Encoding.Growing.append
+                                          mutable'profileScopeResult y)
+                                loop
+                                  x mutable'informationResult mutable'locationScopeResult
+                                  mutable'metadataResult mutable'operationResult v
+                                  mutable'searchResult mutable'sessionContextScopeResult
+                                  mutable'tradeRoutingResult mutable'userMessage
                         wire
                           -> do !y <- Data.ProtoLens.Encoding.Wire.parseTaggedValueFromWire
                                         wire
@@ -13227,8 +14407,9 @@ instance Data.ProtoLens.Message ServerMessage where
                                      Data.ProtoLens.unknownFields (\ !t -> (:) y t) x)
                                   mutable'informationResult mutable'locationScopeResult
                                   mutable'metadataResult mutable'operationResult
-                                  mutable'searchResult mutable'sessionContextScopeResult
-                                  mutable'tradeRoutingResult mutable'userMessage
+                                  mutable'profileScopeResult mutable'searchResult
+                                  mutable'sessionContextScopeResult mutable'tradeRoutingResult
+                                  mutable'userMessage
       in
         (Data.ProtoLens.Encoding.Bytes.<?>)
           (do mutable'informationResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
@@ -13239,6 +14420,8 @@ instance Data.ProtoLens.Message ServerMessage where
                                           Data.ProtoLens.Encoding.Growing.new
               mutable'operationResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
                                            Data.ProtoLens.Encoding.Growing.new
+              mutable'profileScopeResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
+                                              Data.ProtoLens.Encoding.Growing.new
               mutable'searchResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
                                         Data.ProtoLens.Encoding.Growing.new
               mutable'sessionContextScopeResult <- Data.ProtoLens.Encoding.Parser.Unsafe.unsafeLiftIO
@@ -13250,9 +14433,9 @@ instance Data.ProtoLens.Message ServerMessage where
               loop
                 Data.ProtoLens.defMessage mutable'informationResult
                 mutable'locationScopeResult mutable'metadataResult
-                mutable'operationResult mutable'searchResult
-                mutable'sessionContextScopeResult mutable'tradeRoutingResult
-                mutable'userMessage)
+                mutable'operationResult mutable'profileScopeResult
+                mutable'searchResult mutable'sessionContextScopeResult
+                mutable'tradeRoutingResult mutable'userMessage)
           "ServerMessage"
   buildMessage
     = \ _x
@@ -13494,10 +14677,31 @@ instance Data.ProtoLens.Message ServerMessage where
                                                           (Data.ProtoLens.Field.field
                                                              @"vec'locationScopeResult")
                                                           _x))
-                                                    (Data.ProtoLens.Encoding.Wire.buildFieldSet
-                                                       (Lens.Family2.view
-                                                          Data.ProtoLens.unknownFields
-                                                          _x)))))))))))))))
+                                                    ((Data.Monoid.<>)
+                                                       (Data.ProtoLens.Encoding.Bytes.foldMapBuilder
+                                                          (\ _v
+                                                             -> (Data.Monoid.<>)
+                                                                  (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                     130)
+                                                                  ((Prelude..)
+                                                                     (\ bs
+                                                                        -> (Data.Monoid.<>)
+                                                                             (Data.ProtoLens.Encoding.Bytes.putVarInt
+                                                                                (Prelude.fromIntegral
+                                                                                   (Data.ByteString.length
+                                                                                      bs)))
+                                                                             (Data.ProtoLens.Encoding.Bytes.putBytes
+                                                                                bs))
+                                                                     Data.ProtoLens.encodeMessage
+                                                                     _v))
+                                                          (Lens.Family2.view
+                                                             (Data.ProtoLens.Field.field
+                                                                @"vec'profileScopeResult")
+                                                             _x))
+                                                       (Data.ProtoLens.Encoding.Wire.buildFieldSet
+                                                          (Lens.Family2.view
+                                                             Data.ProtoLens.unknownFields
+                                                             _x))))))))))))))))
 instance Control.DeepSeq.NFData ServerMessage where
   rnf
     = \ x__
@@ -13531,7 +14735,9 @@ instance Control.DeepSeq.NFData ServerMessage where
                                                     (_ServerMessage'sessionContextScopeResult x__)
                                                     (Control.DeepSeq.deepseq
                                                        (_ServerMessage'locationScopeResult x__)
-                                                       ()))))))))))))))
+                                                       (Control.DeepSeq.deepseq
+                                                          (_ServerMessage'profileScopeResult x__)
+                                                          ())))))))))))))))
 {- | Fields :
      
          * 'Proto.CMS.Cmsapi1_Fields.loginId' @:: Lens' TerminateLoginSession Data.Text.Text@
@@ -14156,7 +15362,7 @@ instance Control.DeepSeq.NFData UpdateProfileResult where
 packedFileDescriptor :: Data.ByteString.ByteString
 packedFileDescriptor
   = "\n\
-    \\DC2CMS/cmsapi_1.proto\DC2\bcmsapi_1\SUB\NAKcommon/shared_1.proto\SUB\DC2CMS/common_1.proto\SUB\CANCMS/traderouting_1.proto\SUB\DC4CMS/metadata_1.proto\SUB\NAKCMS/log_event_1.proto\SUB\ESCCMS/session_context_1.proto\SUB\DC1CMS/login_1.proto\SUB\DC4CMS/location_1.proto\"\167\a\n\
+    \\DC2CMS/cmsapi_1.proto\DC2\bcmsapi_1\SUB\NAKcommon/shared_1.proto\SUB\DC3CMS/account_1.proto\SUB\DC2CMS/common_1.proto\SUB\CANCMS/traderouting_1.proto\SUB\DC4CMS/metadata_1.proto\SUB\NAKCMS/log_event_1.proto\SUB\ESCCMS/session_context_1.proto\SUB\DC1CMS/login_1.proto\SUB\DC3CMS/profile_1.proto\SUB\DC4CMS/location_1.proto\"\251\a\n\
     \\rClientMessage\DC2%\n\
     \\ENQlogon\CAN\SOH \SOH(\v2\SI.common_1.LogonR\ENQlogon\DC2(\n\
     \\ACKlogoff\CAN\STX \SOH(\v2\DLE.common_1.LogoffR\ACKlogoff\DC2U\n\
@@ -14171,7 +15377,8 @@ packedFileDescriptor
     \\ETBcancel_deferred_request\CAN\v \SOH(\v2\US.cmsapi_1.CancelDeferredRequestR\NAKcancelDeferredRequest\DC2K\n\
     \\DLEmetadata_request\CAN\f \ETX(\v2 .metadata_1.MetadataScopeRequestR\SImetadataRequest\DC2p\n\
     \\GSsession_context_scope_request\CAN\r \ETX(\v2-.session_context_1.SessionContextScopeRequestR\SUBsessionContextScopeRequest\DC2V\n\
-    \\SYNlocation_scope_request\CAN\SO \ETX(\v2 .location_1.LocationScopeRequestR\DC4locationScopeRequest*\ENQ\bd\DLE\200\SOH\"\201\v\n\
+    \\SYNlocation_scope_request\CAN\SO \ETX(\v2 .location_1.LocationScopeRequestR\DC4locationScopeRequest\DC2R\n\
+    \\NAKprofile_scope_request\CAN\SI \ETX(\v2\RS.profile_1.ProfileScopeRequestR\DC3profileScopeRequest*\ENQ\bd\DLE\200\SOH\"\201\v\n\
     \\DC2InformationRequest\DC2\SO\n\
     \\STXid\CAN\SOH \STX(\rR\STXid\DC2E\n\
     \\DC1user_info_request\CAN\STX \SOH(\v2\EM.common_1.UserInfoRequestR\SIuserInfoRequest\DC2f\n\
@@ -14196,7 +15403,7 @@ packedFileDescriptor
     \\SYNprofile_search_request\CAN\EOT \SOH(\v2\RS.cmsapi_1.ProfileSearchRequestR\DC4profileSearchRequest\DC2v\n\
     \$obsolete_sales_series_search_request\CAN\ENQ \SOH(\v2\".common_1.SalesSeriesSearchRequestR obsoleteSalesSeriesSearchRequestB\STX\CAN\SOH\DC2.\n\
     \\SIinclude_removed\CAN\ACK \SOH(\b:\ENQfalseR\SOincludeRemoved\DC2[\n\
-    \\CANevent_log_search_request\CAN\a \SOH(\v2\".log_event_1.EventLogSearchRequestR\NAKeventLogSearchRequest\"\171\SO\n\
+    \\CANevent_log_search_request\CAN\a \SOH(\v2\".log_event_1.EventLogSearchRequestR\NAKeventLogSearchRequest\"\242\SO\n\
     \\DLEOperationRequest\DC2\SO\n\
     \\STXid\CAN\SOH \STX(\rR\STXid\DC22\n\
     \\n\
@@ -14225,10 +15432,11 @@ packedFileDescriptor
     \\USgenerate_service_security_token\CAN\DC4 \SOH(\v2&.cmsapi_1.GenerateServiceSecurityTokenR\FSgenerateServiceSecurityToken\DC2]\n\
     \\EMerase_current_credentials\CAN\NAK \SOH(\v2!.common_1.EraseCurrentCredentialsR\ETBeraseCurrentCredentials\DC2W\n\
     \\ETBterminate_login_session\CAN\SYN \SOH(\v2\US.cmsapi_1.TerminateLoginSessionR\NAKterminateLoginSession\DC2n\n\
-    \ update_login_billing_custom_data\CAN\ETB \SOH(\v2&.common_1.UpdateLoginBillingCustomDataR\FSupdateLoginBillingCustomData\"P\n\
+    \ update_login_billing_custom_data\CAN\ETB \SOH(\v2&.common_1.UpdateLoginBillingCustomDataR\FSupdateLoginBillingCustomData\DC2E\n\
+    \\DC1obtain_demo_login\CAN\CAN \SOH(\v2\EM.cmsapi_1.ObtainDemoLoginR\SIobtainDemoLogin\"P\n\
     \\NAKCancelDeferredRequest\DC2\SO\n\
     \\STXid\CAN\SOH \SOH(\rR\STXid\DC2'\n\
-    \\SItracking_number\CAN\STX \SOH(\EOTR\SOtrackingNumber\"\143\b\n\
+    \\SItracking_number\CAN\STX \SOH(\EOTR\SOtrackingNumber\"\224\b\n\
     \\rServerMessage\DC28\n\
     \\flogon_result\CAN\SOH \SOH(\v2\NAK.common_1.LogonResultR\vlogonResult\DC22\n\
     \\n\
@@ -14245,7 +15453,8 @@ packedFileDescriptor
     \\RScancel_deferred_request_result\CAN\f \SOH(\v2%.cmsapi_1.CancelDeferredRequestResultR\ESCcancelDeferredRequestResult\DC2H\n\
     \\SImetadata_result\CAN\r \ETX(\v2\US.metadata_1.MetadataScopeResultR\SOmetadataResult\DC2m\n\
     \\FSsession_context_scope_result\CAN\SO \ETX(\v2,.session_context_1.SessionContextScopeResultR\EMsessionContextScopeResult\DC2S\n\
-    \\NAKlocation_scope_result\CAN\SI \ETX(\v2\US.location_1.LocationScopeResultR\DC3locationScopeResult*\ENQ\bd\DLE\200\SOH\"\208\n\
+    \\NAKlocation_scope_result\CAN\SI \ETX(\v2\US.location_1.LocationScopeResultR\DC3locationScopeResult\DC2O\n\
+    \\DC4profile_scope_result\CAN\DLE \ETX(\v2\GS.profile_1.ProfileScopeResultR\DC2profileScopeResult*\ENQ\bd\DLE\200\SOH\"\208\n\
     \\n\
     \\DC1InformationResult\DC2\GS\n\
     \\n\
@@ -14279,7 +15488,7 @@ packedFileDescriptor
     \\SOprofile_record\CAN\ACK \ETX(\v2#.cmsapi_1.ProfileSearchResultRecordR\rprofileRecord\DC2l\n\
     \\FSobsolete_sales_series_record\CAN\a \ETX(\v2'.common_1.SalesSeriesSearchResultRecordR\EMobsoleteSalesSeriesRecordB\STX\CAN\SOH\DC2'\n\
     \\SItracking_number\CAN\b \SOH(\EOTR\SOtrackingNumber\DC2Q\n\
-    \\DLEevent_log_record\CAN\t \ETX(\v2'.log_event_1.EventLogSearchResultRecordR\SOeventLogRecord\"\234\DC2\n\
+    \\DLEevent_log_record\CAN\t \ETX(\v2'.log_event_1.EventLogSearchResultRecordR\SOeventLogRecord\"\196\DC3\n\
     \\SIOperationResult\DC2\GS\n\
     \\n\
     \request_id\CAN\SOH \STX(\rR\trequestId\DC2)\n\
@@ -14308,7 +15517,8 @@ packedFileDescriptor
     \ erase_current_credentials_result\CAN\ETB \SOH(\v2'.common_1.EraseCurrentCredentialsResultR\GSeraseCurrentCredentialsResult\DC2j\n\
     \\RSterminate_login_session_result\CAN\CAN \SOH(\v2%.cmsapi_1.TerminateLoginSessionResultR\ESCterminateLoginSessionResult\DC2\129\SOH\n\
     \'update_login_billing_custom_data_result\CAN\EM \SOH(\v2,.common_1.UpdateLoginBillingCustomDataResultR\"updateLoginBillingCustomDataResult\DC2'\n\
-    \\SItracking_number\CAN\SUB \SOH(\EOTR\SOtrackingNumber\"\130\SOH\n\
+    \\SItracking_number\CAN\SUB \SOH(\EOTR\SOtrackingNumber\DC2X\n\
+    \\CANobtain_demo_login_result\CAN\ESC \SOH(\v2\US.cmsapi_1.ObtainDemoLoginResultR\NAKobtainDemoLoginResult\"\130\SOH\n\
     \\DLESendWelcomeEmail\DC24\n\
     \\DC4obsolete_customer_id\CAN\SOH \SOH(\tR\DC2obsoleteCustomerIdB\STX\CAN\SOH\DC2\EM\n\
     \\blogin_id\CAN\STX \ETX(\tR\aloginId\DC2\GS\n\
@@ -14379,12 +15589,12 @@ packedFileDescriptor
     \\n\
     \profile_id\CAN\STX \SOH(\tR\tprofileId\"2\n\
     \\DC4UniqueUsernameResult\DC2\SUB\n\
-    \\busername\CAN\SOH \SOH(\tR\busername\"\253\STX\n\
+    \\busername\CAN\SOH \SOH(\tR\busername\"\136\ETX\n\
     \\DC4ProfileSearchRequest\DC2'\n\
     \\robsolete_text\CAN\SOH \SOH(\tR\fobsoleteTextB\STX\CAN\SOH\DC2<\n\
     \\CANobsolete_search_criteria\CAN\STX \ETX(\rR\SYNobsoleteSearchCriteriaB\STX\CAN\SOH\DC2=\n\
     \\SOsearch_options\CAN\ETX \ETX(\v2\SYN.common_1.SearchOptionR\rsearchOptions\DC2+\n\
-    \\SOall_match_mode\CAN\EOT \SOH(\b:\ENQfalseR\fallMatchMode\"\145\SOH\n\
+    \\SOall_match_mode\CAN\EOT \SOH(\b:\ENQfalseR\fallMatchMode\"\156\SOH\n\
     \\SOSearchCriteria\DC2\SI\n\
     \\vCUSTOMER_ID\DLE\SOH\DC2\b\n\
     \\EOTNAME\DLE\STX\DC2\SO\n\
@@ -14396,7 +15606,8 @@ packedFileDescriptor
     \\ACKNUMBER\DLE\ACK\DC2\SO\n\
     \\n\
     \PROFILE_ID\DLE\a\DC2\DLE\n\
-    \\fPROFILE_TYPE\DLE\b\"\214\ETX\n\
+    \\fPROFILE_TYPE\DLE\b\DC2\t\n\
+    \\ENQEMAIL\DLE\t\"\238\ETX\n\
     \\EMProfileSearchResultRecord\DC2\US\n\
     \\vcustomer_id\CAN\SOH \SOH(\tR\n\
     \customerId\DC2\DC2\n\
@@ -14413,7 +15624,8 @@ packedFileDescriptor
     \ \SOH(\tR\ACKnumber\DC2&\n\
     \\SIsales_series_id\CAN\v \SOH(\tR\rsalesSeriesId\DC2\GS\n\
     \\n\
-    \profile_id\CAN\f \SOH(\tR\tprofileId\"\156\SOH\n\
+    \profile_id\CAN\f \SOH(\tR\tprofileId\DC2\SYN\n\
+    \\ACKemails\CAN\r \ETX(\tR\ACKemails\"\156\SOH\n\
     \\ESCCancelDeferredRequestResult\DC2\GS\n\
     \\n\
     \request_id\CAN\SOH \SOH(\rR\trequestId\DC2)\n\
@@ -14423,11 +15635,29 @@ packedFileDescriptor
     \\blogin_id\CAN\SOH \SOH(\tR\aloginId\DC2\US\n\
     \\vsession_ids\CAN\STX \ETX(\tR\n\
     \sessionIds\"\GS\n\
-    \\ESCTerminateLoginSessionResult*I\n\
+    \\ESCTerminateLoginSessionResult\"\176\ETX\n\
+    \\SIObtainDemoLogin\DC2\GS\n\
+    \\n\
+    \first_name\CAN\SOH \SOH(\tR\tfirstName\DC2\ESC\n\
+    \\tlast_name\CAN\STX \SOH(\tR\blastName\DC2%\n\
+    \\ENQemail\CAN\ETX \SOH(\v2\SI.common_1.EmailR\ENQemail\DC2,\n\
+    \\temail_bcc\CAN\EOT \ETX(\v2\SI.common_1.EmailR\bemailBcc\DC2%\n\
+    \\ENQphone\CAN\ENQ \SOH(\v2\SI.common_1.PhoneR\ENQphone\DC2:\n\
+    \\DLEnormalized_phone\CAN\ACK \SOH(\v2\SI.common_1.PhoneR\SInormalizedPhone\DC2\GS\n\
+    \\n\
+    \product_id\CAN\a \SOH(\tR\tproductId\DC2-\n\
+    \\DC2return_credentials\CAN\b \SOH(\bR\DC1returnCredentials\DC2.\n\
+    \\DC3live_data_requested\CAN\t \SOH(\bR\DC1liveDataRequested\DC2+\n\
+    \\aaddress\CAN\n\
+    \ \SOH(\v2\DC1.common_1.AddressR\aaddress\"R\n\
+    \\NAKObtainDemoLoginResult\DC2\GS\n\
+    \\n\
+    \login_name\CAN\SOH \SOH(\tR\tloginName\DC2\SUB\n\
+    \\bpassword\CAN\STX \SOH(\tR\bpassword*I\n\
     \\SIProtocolVersion\DC2\SUB\n\
     \\SYNPROTOCOL_VERSION_MAJOR\DLE\SOH\DC2\SUB\n\
-    \\SYNPROTOCOL_VERSION_MINOR\DLE$J\188\234\SOH\n\
-    \\a\DC2\ENQ\DC3\NUL\212\ACK\SOH\n\
+    \\SYNPROTOCOL_VERSION_MINOR\DLE&J\242\251\SOH\n\
+    \\a\DC2\ENQ\DC3\NUL\147\a\SOH\n\
     \\195\a\n\
     \\SOH\f\DC2\ETX\DC3\NUL\DC22\184\a CQG Customer Management System API Protocol.\n\
     \\n\
@@ -14445,50 +15675,54 @@ packedFileDescriptor
     \ Protocol constants:\n\
     \ DEFAULT_RESULT_RECORDS_NUMBER = 1000.\n\
     \\n\
-    \ Last changes were made on 21 Feb 2024\n\
-    \ Version 1.36\n\
+    \ Last changes were made on 14 Aug 2024\n\
+    \ Version 1.39\n\
     \\n\
     \\t\n\
     \\STX\ETX\NUL\DC2\ETX\NAK\NUL\US\n\
     \\t\n\
-    \\STX\ETX\SOH\DC2\ETX\SYN\NUL\FS\n\
+    \\STX\ETX\SOH\DC2\ETX\SYN\NUL\GS\n\
     \\t\n\
-    \\STX\ETX\STX\DC2\ETX\ETB\NUL\"\n\
+    \\STX\ETX\STX\DC2\ETX\ETB\NUL\FS\n\
     \\t\n\
-    \\STX\ETX\ETX\DC2\ETX\CAN\NUL\RS\n\
+    \\STX\ETX\ETX\DC2\ETX\CAN\NUL\"\n\
     \\t\n\
-    \\STX\ETX\EOT\DC2\ETX\EM\NUL\US\n\
+    \\STX\ETX\EOT\DC2\ETX\EM\NUL\RS\n\
     \\t\n\
-    \\STX\ETX\ENQ\DC2\ETX\SUB\NUL%\n\
+    \\STX\ETX\ENQ\DC2\ETX\SUB\NUL\US\n\
     \\t\n\
-    \\STX\ETX\ACK\DC2\ETX\ESC\NUL\ESC\n\
+    \\STX\ETX\ACK\DC2\ETX\ESC\NUL%\n\
     \\t\n\
-    \\STX\ETX\a\DC2\ETX\FS\NUL\RS\n\
+    \\STX\ETX\a\DC2\ETX\FS\NUL\ESC\n\
+    \\t\n\
+    \\STX\ETX\b\DC2\ETX\GS\NUL\GS\n\
+    \\t\n\
+    \\STX\ETX\t\DC2\ETX\RS\NUL\RS\n\
     \\b\n\
-    \\SOH\STX\DC2\ETX\RS\NUL\DC1\n\
+    \\SOH\STX\DC2\ETX \NUL\DC1\n\
     \\n\
     \\n\
-    \\STX\ENQ\NUL\DC2\EOT \NUL'\SOH\n\
+    \\STX\ENQ\NUL\DC2\EOT\"\NUL)\SOH\n\
     \\n\
     \\n\
-    \\ETX\ENQ\NUL\SOH\DC2\ETX \ENQ\DC4\n\
+    \\ETX\ENQ\NUL\SOH\DC2\ETX\"\ENQ\DC4\n\
     \z\n\
-    \\EOT\ENQ\NUL\STX\NUL\DC2\ETX#\EOT\US\SUBm Major number change is required for backward incompatible protocol versions (new 'proto' file is necessary)\n\
+    \\EOT\ENQ\NUL\STX\NUL\DC2\ETX%\EOT\US\SUBm Major number change is required for backward incompatible protocol versions (new 'proto' file is necessary)\n\
     \\n\
     \\f\n\
-    \\ENQ\ENQ\NUL\STX\NUL\SOH\DC2\ETX#\EOT\SUB\n\
+    \\ENQ\ENQ\NUL\STX\NUL\SOH\DC2\ETX%\EOT\SUB\n\
     \\f\n\
-    \\ENQ\ENQ\NUL\STX\NUL\STX\DC2\ETX#\GS\RS\n\
+    \\ENQ\ENQ\NUL\STX\NUL\STX\DC2\ETX%\GS\RS\n\
     \\221\SOH\n\
-    \\EOT\ENQ\NUL\STX\SOH\DC2\ETX&\EOT \SUB\207\SOH Minor number is increased for backward compatible protocol versions when new messages and/ or fields are\n\
+    \\EOT\ENQ\NUL\STX\SOH\DC2\ETX(\EOT \SUB\207\SOH Minor number is increased for backward compatible protocol versions when new messages and/ or fields are\n\
     \ added without removing/ changing any existing messages and fields (new 'proto' file is not created)\n\
     \\n\
     \\f\n\
-    \\ENQ\ENQ\NUL\STX\SOH\SOH\DC2\ETX&\EOT\SUB\n\
+    \\ENQ\ENQ\NUL\STX\SOH\SOH\DC2\ETX(\EOT\SUB\n\
     \\f\n\
-    \\ENQ\ENQ\NUL\STX\SOH\STX\DC2\ETX&\GS\US\n\
+    \\ENQ\ENQ\NUL\STX\SOH\STX\DC2\ETX(\GS\US\n\
     \\232\ENQ\n\
-    \\STX\EOT\NUL\DC2\EOT4\NUL[\SOH\SUB\153\ENQ Rate of incoming requests (sum of different requests within messages) is limited,\n\
+    \\STX\EOT\NUL\DC2\EOT6\NUL`\SOH\SUB\153\ENQ Rate of incoming requests (sum of different requests within messages) is limited,\n\
     \ use session_context_scope_request.api_limit_request to get limits of the current session.\n\
     \ In addition, users should keep no more than 100 pending requests at any time.\n\
     \ Significantly exceeding the limit of pending requests will result in the rejection of new requests.\n\
@@ -14501,438 +15735,449 @@ packedFileDescriptor
     \\n\
     \\n\
     \\n\
-    \\ETX\EOT\NUL\SOH\DC2\ETX4\b\NAK\n\
+    \\ETX\EOT\NUL\SOH\DC2\ETX6\b\NAK\n\
     \\153\SOH\n\
-    \\EOT\EOT\NUL\STX\NUL\DC2\ETX8\EOT&\SUB\139\SOH Session related messages.\n\
+    \\EOT\EOT\NUL\STX\NUL\DC2\ETX:\EOT&\SUB\139\SOH Session related messages.\n\
     \ Only one session related message is expected in ClientMessage (it should not be combined with other messages).\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\NUL\EOT\DC2\ETX8\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\NUL\EOT\DC2\ETX:\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\NUL\ACK\DC2\ETX8\r\ESC\n\
+    \\ENQ\EOT\NUL\STX\NUL\ACK\DC2\ETX:\r\ESC\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\NUL\SOH\DC2\ETX8\FS!\n\
+    \\ENQ\EOT\NUL\STX\NUL\SOH\DC2\ETX:\FS!\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\NUL\ETX\DC2\ETX8$%\n\
+    \\ENQ\EOT\NUL\STX\NUL\ETX\DC2\ETX:$%\n\
     \\v\n\
-    \\EOT\EOT\NUL\STX\SOH\DC2\ETX9\EOT(\n\
+    \\EOT\EOT\NUL\STX\SOH\DC2\ETX;\EOT(\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\SOH\EOT\DC2\ETX9\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\SOH\EOT\DC2\ETX;\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\SOH\ACK\DC2\ETX9\r\FS\n\
+    \\ENQ\EOT\NUL\STX\SOH\ACK\DC2\ETX;\r\FS\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\SOH\SOH\DC2\ETX9\GS#\n\
+    \\ENQ\EOT\NUL\STX\SOH\SOH\DC2\ETX;\GS#\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\SOH\ETX\DC2\ETX9&'\n\
+    \\ENQ\EOT\NUL\STX\SOH\ETX\DC2\ETX;&'\n\
     \\v\n\
-    \\EOT\EOT\NUL\STX\STX\DC2\ETX:\EOTG\n\
+    \\EOT\EOT\NUL\STX\STX\DC2\ETX<\EOTG\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\STX\EOT\DC2\ETX:\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\STX\EOT\DC2\ETX<\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\STX\ACK\DC2\ETX:\r*\n\
+    \\ENQ\EOT\NUL\STX\STX\ACK\DC2\ETX<\r*\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\STX\SOH\DC2\ETX:+B\n\
+    \\ENQ\EOT\NUL\STX\STX\SOH\DC2\ETX<+B\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\STX\ETX\DC2\ETX:EF\n\
+    \\ENQ\EOT\NUL\STX\STX\ETX\DC2\ETX<EF\n\
     \#\n\
-    \\EOT\EOT\NUL\STX\ETX\DC2\ETX=\EOT8\SUB\SYN Information request.\n\
+    \\EOT\EOT\NUL\STX\ETX\DC2\ETX?\EOT8\SUB\SYN Information request.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ETX\EOT\DC2\ETX=\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\ETX\EOT\DC2\ETX?\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ETX\ACK\DC2\ETX=\r\US\n\
+    \\ENQ\EOT\NUL\STX\ETX\ACK\DC2\ETX?\r\US\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ETX\SOH\DC2\ETX= 3\n\
+    \\ENQ\EOT\NUL\STX\ETX\SOH\DC2\ETX? 3\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ETX\ETX\DC2\ETX=67\n\
+    \\ENQ\EOT\NUL\STX\ETX\ETX\DC2\ETX?67\n\
     \\RS\n\
-    \\EOT\EOT\NUL\STX\EOT\DC2\ETX@\EOT.\SUB\DC1 Search request.\n\
+    \\EOT\EOT\NUL\STX\EOT\DC2\ETXB\EOT.\SUB\DC1 Search request.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\EOT\EOT\DC2\ETX@\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\EOT\EOT\DC2\ETXB\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\EOT\ACK\DC2\ETX@\r\SUB\n\
+    \\ENQ\EOT\NUL\STX\EOT\ACK\DC2\ETXB\r\SUB\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\EOT\SOH\DC2\ETX@\ESC)\n\
+    \\ENQ\EOT\NUL\STX\EOT\SOH\DC2\ETXB\ESC)\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\EOT\ETX\DC2\ETX@,-\n\
+    \\ENQ\EOT\NUL\STX\EOT\ETX\DC2\ETXB,-\n\
     \!\n\
-    \\EOT\EOT\NUL\STX\ENQ\DC2\ETXC\EOT4\SUB\DC4 Operation request.\n\
+    \\EOT\EOT\NUL\STX\ENQ\DC2\ETXE\EOT4\SUB\DC4 Operation request.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ENQ\EOT\DC2\ETXC\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\ENQ\EOT\DC2\ETXE\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ENQ\ACK\DC2\ETXC\r\GS\n\
+    \\ENQ\EOT\NUL\STX\ENQ\ACK\DC2\ETXE\r\GS\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ENQ\SOH\DC2\ETXC\RS/\n\
+    \\ENQ\EOT\NUL\STX\ENQ\SOH\DC2\ETXE\RS/\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ENQ\ETX\DC2\ETXC23\n\
+    \\ENQ\EOT\NUL\STX\ENQ\ETX\DC2\ETXE23\n\
     \0\n\
-    \\EOT\EOT\NUL\STX\ACK\DC2\ETXF\EOTJ\SUB# Trade routing related operations.\n\
+    \\EOT\EOT\NUL\STX\ACK\DC2\ETXH\EOTJ\SUB# Trade routing related operations.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ACK\EOT\DC2\ETXF\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\ACK\EOT\DC2\ETXH\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ACK\ACK\DC2\ETXF\r/\n\
+    \\ENQ\EOT\NUL\STX\ACK\ACK\DC2\ETXH\r/\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ACK\SOH\DC2\ETXF0E\n\
+    \\ENQ\EOT\NUL\STX\ACK\SOH\DC2\ETXH0E\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\ACK\ETX\DC2\ETXFHI\n\
+    \\ENQ\EOT\NUL\STX\ACK\ETX\DC2\ETXHHI\n\
     \0\n\
-    \\EOT\EOT\NUL\STX\a\DC2\ETXI\EOT\ESC\SUB# Ping request initiated by client.\n\
+    \\EOT\EOT\NUL\STX\a\DC2\ETXK\EOT\ESC\SUB# Ping request initiated by client.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\a\EOT\DC2\ETXI\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\a\EOT\DC2\ETXK\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\a\ACK\DC2\ETXI\r\DC1\n\
+    \\ENQ\EOT\NUL\STX\a\ACK\DC2\ETXK\r\DC1\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\a\SOH\DC2\ETXI\DC2\SYN\n\
+    \\ENQ\EOT\NUL\STX\a\SOH\DC2\ETXK\DC2\SYN\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\a\ETX\DC2\ETXI\EM\SUB\n\
+    \\ENQ\EOT\NUL\STX\a\ETX\DC2\ETXK\EM\SUB\n\
     \7\n\
-    \\EOT\EOT\NUL\STX\b\DC2\ETXL\EOT\FS\SUB* Pong message in response to server Ping.\n\
+    \\EOT\EOT\NUL\STX\b\DC2\ETXN\EOT\FS\SUB* Pong message in response to server Ping.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\b\EOT\DC2\ETXL\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\b\EOT\DC2\ETXN\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\b\ACK\DC2\ETXL\r\DC1\n\
+    \\ENQ\EOT\NUL\STX\b\ACK\DC2\ETXN\r\DC1\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\b\SOH\DC2\ETXL\DC2\SYN\n\
+    \\ENQ\EOT\NUL\STX\b\SOH\DC2\ETXN\DC2\SYN\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\b\ETX\DC2\ETXL\EM\ESC\n\
+    \\ENQ\EOT\NUL\STX\b\ETX\DC2\ETXN\EM\ESC\n\
     \<\n\
-    \\EOT\EOT\NUL\STX\t\DC2\ETXO\EOT@\SUB/ Request to cancel previously deferred request\n\
+    \\EOT\EOT\NUL\STX\t\DC2\ETXQ\EOT@\SUB/ Request to cancel previously deferred request\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\t\EOT\DC2\ETXO\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\t\EOT\DC2\ETXQ\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\t\ACK\DC2\ETXO\r\"\n\
+    \\ENQ\EOT\NUL\STX\t\ACK\DC2\ETXQ\r\"\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\t\SOH\DC2\ETXO#:\n\
+    \\ENQ\EOT\NUL\STX\t\SOH\DC2\ETXQ#:\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\t\ETX\DC2\ETXO=?\n\
+    \\ENQ\EOT\NUL\STX\t\ETX\DC2\ETXQ=?\n\
     \\v\n\
     \\EOT\EOT\NUL\STX\n\
-    \\DC2\ETXQ\EOTC\n\
+    \\DC2\ETXS\EOTC\n\
     \\f\n\
     \\ENQ\EOT\NUL\STX\n\
-    \\EOT\DC2\ETXQ\EOT\f\n\
+    \\EOT\DC2\ETXS\EOT\f\n\
     \\f\n\
     \\ENQ\EOT\NUL\STX\n\
-    \\ACK\DC2\ETXQ\r,\n\
+    \\ACK\DC2\ETXS\r,\n\
     \\f\n\
     \\ENQ\EOT\NUL\STX\n\
-    \\SOH\DC2\ETXQ-=\n\
+    \\SOH\DC2\ETXS-=\n\
     \\f\n\
     \\ENQ\EOT\NUL\STX\n\
-    \\ETX\DC2\ETXQ@B\n\
+    \\ETX\DC2\ETXS@B\n\
     \P\n\
-    \\EOT\EOT\NUL\STX\v\DC2\ETXT\EOT]\SUBC Requests related to configuration/information of current session.\n\
+    \\EOT\EOT\NUL\STX\v\DC2\ETXV\EOT]\SUBC Requests related to configuration/information of current session.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\v\EOT\DC2\ETXT\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\v\EOT\DC2\ETXV\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\v\ACK\DC2\ETXT\r9\n\
+    \\ENQ\EOT\NUL\STX\v\ACK\DC2\ETXV\r9\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\v\SOH\DC2\ETXT:W\n\
+    \\ENQ\EOT\NUL\STX\v\SOH\DC2\ETXV:W\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\v\ETX\DC2\ETXTZ\\\n\
+    \\ENQ\EOT\NUL\STX\v\ETX\DC2\ETXVZ\\\n\
     \,\n\
-    \\EOT\EOT\NUL\STX\f\DC2\ETXW\EOTI\SUB\US Location management requests.\n\
+    \\EOT\EOT\NUL\STX\f\DC2\ETXY\EOTI\SUB\US Location management requests.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\f\EOT\DC2\ETXW\EOT\f\n\
+    \\ENQ\EOT\NUL\STX\f\EOT\DC2\ETXY\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\f\ACK\DC2\ETXW\r,\n\
+    \\ENQ\EOT\NUL\STX\f\ACK\DC2\ETXY\r,\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\f\SOH\DC2\ETXW-C\n\
+    \\ENQ\EOT\NUL\STX\f\SOH\DC2\ETXY-C\n\
     \\f\n\
-    \\ENQ\EOT\NUL\STX\f\ETX\DC2\ETXWFH\n\
+    \\ENQ\EOT\NUL\STX\f\ETX\DC2\ETXYFH\n\
+    \&\n\
+    \\EOT\EOT\NUL\STX\r\DC2\ETX\\\EOTF\SUB\EM Profile scope requests.\n\
+    \\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\r\EOT\DC2\ETX\\\EOT\f\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\r\ACK\DC2\ETX\\\r*\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\r\SOH\DC2\ETX\\+@\n\
+    \\f\n\
+    \\ENQ\EOT\NUL\STX\r\ETX\DC2\ETX\\CE\n\
     \(\n\
-    \\ETX\EOT\NUL\ENQ\DC2\ETXZ\EOT\SUB\SUB\FS Reserved for internal use.\n\
+    \\ETX\EOT\NUL\ENQ\DC2\ETX_\EOT\SUB\SUB\FS Reserved for internal use.\n\
     \\n\
     \\v\n\
-    \\EOT\EOT\NUL\ENQ\NUL\DC2\ETXZ\SI\EM\n\
+    \\EOT\EOT\NUL\ENQ\NUL\DC2\ETX_\SI\EM\n\
     \\f\n\
-    \\ENQ\EOT\NUL\ENQ\NUL\SOH\DC2\ETXZ\SI\DC2\n\
+    \\ENQ\EOT\NUL\ENQ\NUL\SOH\DC2\ETX_\SI\DC2\n\
     \\f\n\
-    \\ENQ\EOT\NUL\ENQ\NUL\STX\DC2\ETXZ\SYN\EM\n\
+    \\ENQ\EOT\NUL\ENQ\NUL\STX\DC2\ETX_\SYN\EM\n\
     \_\n\
-    \\STX\EOT\SOH\DC2\ENQ_\NUL\144\SOH\SOH\SUBR Information request message.\n\
+    \\STX\EOT\SOH\DC2\ENQd\NUL\149\SOH\SOH\SUBR Information request message.\n\
     \ One of the operational request fields is expected.\n\
     \\n\
     \\n\
     \\n\
-    \\ETX\EOT\SOH\SOH\DC2\ETX_\b\SUB\n\
+    \\ETX\EOT\SOH\SOH\DC2\ETXd\b\SUB\n\
     \W\n\
-    \\EOT\EOT\SOH\STX\NUL\DC2\ETXc\EOT\ESC\SUBJ Request identifier.\n\
+    \\EOT\EOT\SOH\STX\NUL\DC2\ETXh\EOT\ESC\SUBJ Request identifier.\n\
     \ It should be unique to match with operation result.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\NUL\EOT\DC2\ETXc\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\NUL\EOT\DC2\ETXh\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\NUL\ENQ\DC2\ETXc\r\DC3\n\
+    \\ENQ\EOT\SOH\STX\NUL\ENQ\DC2\ETXh\r\DC3\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\NUL\SOH\DC2\ETXc\DC4\SYN\n\
+    \\ENQ\EOT\SOH\STX\NUL\SOH\DC2\ETXh\DC4\SYN\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\NUL\ETX\DC2\ETXc\EM\SUB\n\
+    \\ENQ\EOT\SOH\STX\NUL\ETX\DC2\ETXh\EM\SUB\n\
     \+\n\
-    \\EOT\EOT\SOH\STX\SOH\DC2\ETXf\EOT<\SUB\RS Request of user information.\n\
+    \\EOT\EOT\SOH\STX\SOH\DC2\ETXk\EOT<\SUB\RS Request of user information.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\SOH\EOT\DC2\ETXf\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\SOH\EOT\DC2\ETXk\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\SOH\ACK\DC2\ETXf\r%\n\
+    \\ENQ\EOT\SOH\STX\SOH\ACK\DC2\ETXk\r%\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\SOH\SOH\DC2\ETXf&7\n\
+    \\ENQ\EOT\SOH\STX\SOH\SOH\DC2\ETXk&7\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\SOH\ETX\DC2\ETXf:;\n\
+    \\ENQ\EOT\SOH\STX\SOH\ETX\DC2\ETXk:;\n\
     \.\n\
-    \\EOT\EOT\SOH\STX\STX\DC2\ETXi\EOTN\SUB! Request of user's entitlements.\n\
+    \\EOT\EOT\SOH\STX\STX\DC2\ETXn\EOTN\SUB! Request of user's entitlements.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\STX\EOT\DC2\ETXi\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\STX\EOT\DC2\ETXn\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\STX\ACK\DC2\ETXi\r'\n\
+    \\ENQ\EOT\SOH\STX\STX\ACK\DC2\ETXn\r'\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\STX\SOH\DC2\ETXi(I\n\
+    \\ENQ\EOT\SOH\STX\STX\SOH\DC2\ETXn(I\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\STX\ETX\DC2\ETXiLM\n\
+    \\ENQ\EOT\SOH\STX\STX\ETX\DC2\ETXnLM\n\
     \1\n\
-    \\EOT\EOT\SOH\STX\ETX\DC2\ETXl\EOT[\SUB$ Request of entitlement categories.\n\
+    \\EOT\EOT\SOH\STX\ETX\DC2\ETXq\EOT[\SUB$ Request of entitlement categories.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ETX\EOT\DC2\ETXl\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\ETX\EOT\DC2\ETXq\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ETX\ACK\DC2\ETXl\r4\n\
+    \\ENQ\EOT\SOH\STX\ETX\ACK\DC2\ETXq\r4\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ETX\SOH\DC2\ETXl5V\n\
+    \\ENQ\EOT\SOH\STX\ETX\SOH\DC2\ETXq5V\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ETX\ETX\DC2\ETXlYZ\n\
+    \\ENQ\EOT\SOH\STX\ETX\ETX\DC2\ETXqYZ\n\
     \:\n\
-    \\EOT\EOT\SOH\STX\EOT\DC2\ETXo\EOTP\SUB- Request of entitlement service information.\n\
+    \\EOT\EOT\SOH\STX\EOT\DC2\ETXt\EOTP\SUB- Request of entitlement service information.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\EOT\EOT\DC2\ETXo\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\EOT\EOT\DC2\ETXt\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\EOT\ACK\DC2\ETXo\r/\n\
+    \\ENQ\EOT\SOH\STX\EOT\ACK\DC2\ETXt\r/\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\EOT\SOH\DC2\ETXo0K\n\
+    \\ENQ\EOT\SOH\STX\EOT\SOH\DC2\ETXt0K\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\EOT\ETX\DC2\ETXoNO\n\
+    \\ENQ\EOT\SOH\STX\EOT\ETX\DC2\ETXtNO\n\
     \.\n\
-    \\EOT\EOT\SOH\STX\ENQ\DC2\ETXr\EOT0\SUB! Request of profile information.\n\
+    \\EOT\EOT\SOH\STX\ENQ\DC2\ETXw\EOT0\SUB! Request of profile information.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ENQ\EOT\DC2\ETXr\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\ENQ\EOT\DC2\ETXw\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ENQ\ACK\DC2\ETXr\r\ESC\n\
+    \\ENQ\EOT\SOH\STX\ENQ\ACK\DC2\ETXw\r\ESC\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ENQ\SOH\DC2\ETXr\FS+\n\
+    \\ENQ\EOT\SOH\STX\ENQ\SOH\DC2\ETXw\FS+\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ENQ\ETX\DC2\ETXr./\n\
+    \\ENQ\EOT\SOH\STX\ENQ\ETX\DC2\ETXw./\n\
     \-\n\
-    \\EOT\EOT\SOH\STX\ACK\DC2\ETXu\EOTY\SUB  Request for all services list.\n\
+    \\EOT\EOT\SOH\STX\ACK\DC2\ETXz\EOTY\SUB  Request for all services list.\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ACK\EOT\DC2\ETXu\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\ACK\EOT\DC2\ETXz\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ACK\ACK\DC2\ETXu\r3\n\
+    \\ENQ\EOT\SOH\STX\ACK\ACK\DC2\ETXz\r3\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ACK\SOH\DC2\ETXu4T\n\
+    \\ENQ\EOT\SOH\STX\ACK\SOH\DC2\ETXz4T\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\ACK\ETX\DC2\ETXuWX\n\
+    \\ENQ\EOT\SOH\STX\ACK\ETX\DC2\ETXzWX\n\
     \)\n\
-    \\EOT\EOT\SOH\STX\a\DC2\ETXx\EOTF\SUB\FS Request of unique username\n\
+    \\EOT\EOT\SOH\STX\a\DC2\ETX}\EOTF\SUB\FS Request of unique username\n\
     \\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\a\EOT\DC2\ETXx\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\a\EOT\DC2\ETX}\EOT\f\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\a\ACK\DC2\ETXx\r%\n\
+    \\ENQ\EOT\SOH\STX\a\ACK\DC2\ETX}\r%\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\a\SOH\DC2\ETXx&A\n\
+    \\ENQ\EOT\SOH\STX\a\SOH\DC2\ETX}&A\n\
     \\f\n\
-    \\ENQ\EOT\SOH\STX\a\ETX\DC2\ETXxDE\n\
-    \6\n\
-    \\EOT\EOT\SOH\STX\b\DC2\ETX{\EOTw\SUB) Customer to sales series links request.\n\
+    \\ENQ\EOT\SOH\STX\a\ETX\DC2\ETX}DE\n\
+    \7\n\
+    \\EOT\EOT\SOH\STX\b\DC2\EOT\128\SOH\EOTw\SUB) Customer to sales series links request.\n\
     \\n\
-    \\f\n\
-    \\ENQ\EOT\SOH\STX\b\EOT\DC2\ETX{\EOT\f\n\
-    \\f\n\
-    \\ENQ\EOT\SOH\STX\b\ACK\DC2\ETX{\rA\n\
-    \\f\n\
-    \\ENQ\EOT\SOH\STX\b\SOH\DC2\ETX{Br\n\
-    \\f\n\
-    \\ENQ\EOT\SOH\STX\b\ETX\DC2\ETX{uv\n\
-    \1\n\
-    \\EOT\EOT\SOH\STX\t\DC2\ETX~\EOTG\SUB$ Login additional settings request.\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\b\EOT\DC2\EOT\128\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\b\ACK\DC2\EOT\128\SOH\rA\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\b\SOH\DC2\EOT\128\SOHBr\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\b\ETX\DC2\EOT\128\SOHuv\n\
+    \2\n\
+    \\EOT\EOT\SOH\STX\t\DC2\EOT\131\SOH\EOTG\SUB$ Login additional settings request.\n\
     \\n\
-    \\f\n\
-    \\ENQ\EOT\SOH\STX\t\EOT\DC2\ETX~\EOT\f\n\
-    \\f\n\
-    \\ENQ\EOT\SOH\STX\t\ACK\DC2\ETX~\r*\n\
-    \\f\n\
-    \\ENQ\EOT\SOH\STX\t\SOH\DC2\ETX~+A\n\
-    \\f\n\
-    \\ENQ\EOT\SOH\STX\t\ETX\DC2\ETX~DF\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\t\EOT\DC2\EOT\131\SOH\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\t\ACK\DC2\EOT\131\SOH\r*\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\t\SOH\DC2\EOT\131\SOH+A\n\
+    \\r\n\
+    \\ENQ\EOT\SOH\STX\t\ETX\DC2\EOT\131\SOHDF\n\
     \U\n\
     \\EOT\EOT\SOH\STX\n\
-    \\DC2\EOT\130\SOH\EOTb\SUBG Requests login's member ids.\n\
+    \\DC2\EOT\135\SOH\EOTb\SUBG Requests login's member ids.\n\
     \ Supported login domains: trade-routing.\n\
     \\n\
     \\r\n\
     \\ENQ\EOT\SOH\STX\n\
-    \\EOT\DC2\EOT\130\SOH\EOT\f\n\
+    \\EOT\DC2\EOT\135\SOH\EOT\f\n\
     \\r\n\
     \\ENQ\EOT\SOH\STX\n\
-    \\ACK\DC2\EOT\130\SOH\r6\n\
+    \\ACK\DC2\EOT\135\SOH\r6\n\
     \\r\n\
     \\ENQ\EOT\SOH\STX\n\
-    \\SOH\DC2\EOT\130\SOH7\\\n\
+    \\SOH\DC2\EOT\135\SOH7\\\n\
     \\r\n\
     \\ENQ\EOT\SOH\STX\n\
-    \\ETX\DC2\EOT\130\SOH_a\n\
+    \\ETX\DC2\EOT\135\SOH_a\n\
     \u\n\
-    \\EOT\EOT\SOH\STX\v\DC2\EOT\134\SOH\EOTR\SUBg Get a list of lookup properties.\n\
+    \\EOT\EOT\SOH\STX\v\DC2\EOT\139\SOH\EOTR\SUBg Get a list of lookup properties.\n\
     \ Lookup Property types are defined by CommonLookupPropertyType enum.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\v\EOT\DC2\EOT\134\SOH\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\v\EOT\DC2\EOT\139\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\v\ACK\DC2\EOT\134\SOH\r/\n\
+    \\ENQ\EOT\SOH\STX\v\ACK\DC2\EOT\139\SOH\r/\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\v\SOH\DC2\EOT\134\SOH0L\n\
+    \\ENQ\EOT\SOH\STX\v\SOH\DC2\EOT\139\SOH0L\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\v\ETX\DC2\EOT\134\SOHOQ\n\
+    \\ENQ\EOT\SOH\STX\v\ETX\DC2\EOT\139\SOHOQ\n\
     \4\n\
-    \\EOT\EOT\SOH\STX\f\DC2\EOT\137\SOH\EOTC\SUB& Get list of authentication partners.\n\
+    \\EOT\EOT\SOH\STX\f\DC2\EOT\142\SOH\EOTC\SUB& Get list of authentication partners.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\f\EOT\DC2\EOT\137\SOH\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\f\EOT\DC2\EOT\142\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\f\ACK\DC2\EOT\137\SOH\r#\n\
+    \\ENQ\EOT\SOH\STX\f\ACK\DC2\EOT\142\SOH\r#\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\f\SOH\DC2\EOT\137\SOH$=\n\
+    \\ENQ\EOT\SOH\STX\f\SOH\DC2\EOT\142\SOH$=\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\f\ETX\DC2\EOT\137\SOH@B\n\
+    \\ENQ\EOT\SOH\STX\f\ETX\DC2\EOT\142\SOH@B\n\
     \5\n\
-    \\EOT\EOT\SOH\STX\r\DC2\EOT\140\SOH\EOT[\SUB' Request of login billing custom data.\n\
+    \\EOT\EOT\SOH\STX\r\DC2\EOT\145\SOH\EOT[\SUB' Request of login billing custom data.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\r\EOT\DC2\EOT\140\SOH\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\r\EOT\DC2\EOT\145\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\r\ACK\DC2\EOT\140\SOH\r3\n\
+    \\ENQ\EOT\SOH\STX\r\ACK\DC2\EOT\145\SOH\r3\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\r\SOH\DC2\EOT\140\SOH4U\n\
+    \\ENQ\EOT\SOH\STX\r\SOH\DC2\EOT\145\SOH4U\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\r\ETX\DC2\EOT\140\SOHXZ\n\
+    \\ENQ\EOT\SOH\STX\r\ETX\DC2\EOT\145\SOHXZ\n\
     \,\n\
-    \\EOT\EOT\SOH\STX\SO\DC2\EOT\143\SOH\EOTK\SUB\RS Request of trading features.\n\
+    \\EOT\EOT\SOH\STX\SO\DC2\EOT\148\SOH\EOTK\SUB\RS Request of trading features.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\SO\EOT\DC2\EOT\143\SOH\EOT\f\n\
+    \\ENQ\EOT\SOH\STX\SO\EOT\DC2\EOT\148\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\SO\ACK\DC2\EOT\143\SOH\r,\n\
+    \\ENQ\EOT\SOH\STX\SO\ACK\DC2\EOT\148\SOH\r,\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\SO\SOH\DC2\EOT\143\SOH-E\n\
+    \\ENQ\EOT\SOH\STX\SO\SOH\DC2\EOT\148\SOH-E\n\
     \\r\n\
-    \\ENQ\EOT\SOH\STX\SO\ETX\DC2\EOT\143\SOHHJ\n\
+    \\ENQ\EOT\SOH\STX\SO\ETX\DC2\EOT\148\SOHHJ\n\
     \\222\SOH\n\
-    \\STX\EOT\STX\DC2\ACK\150\SOH\NUL\173\SOH\SOH\SUB\207\SOH Request message to search for information.\n\
+    \\STX\EOT\STX\DC2\ACK\155\SOH\NUL\178\SOH\SOH\SUB\207\SOH Request message to search for information.\n\
     \ One optional field is expected.\n\
     \ By default result contains at most DEFAULT_RESULT_RECORDS_NUMBER records.\n\
     \ Set parameter top to a larger number to receive more.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\STX\SOH\DC2\EOT\150\SOH\b\NAK\n\
+    \\ETX\EOT\STX\SOH\DC2\EOT\155\SOH\b\NAK\n\
     \X\n\
-    \\EOT\EOT\STX\STX\NUL\DC2\EOT\154\SOH\EOT\ESC\SUBJ Request identifier.\n\
+    \\EOT\EOT\STX\STX\NUL\DC2\EOT\159\SOH\EOT\ESC\SUBJ Request identifier.\n\
     \ It should be unique to match with operation result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\NUL\EOT\DC2\EOT\154\SOH\EOT\f\n\
+    \\ENQ\EOT\STX\STX\NUL\EOT\DC2\EOT\159\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\NUL\ENQ\DC2\EOT\154\SOH\r\DC3\n\
+    \\ENQ\EOT\STX\STX\NUL\ENQ\DC2\EOT\159\SOH\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\NUL\SOH\DC2\EOT\154\SOH\DC4\SYN\n\
+    \\ENQ\EOT\STX\STX\NUL\SOH\DC2\EOT\159\SOH\DC4\SYN\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\NUL\ETX\DC2\EOT\154\SOH\EM\SUB\n\
+    \\ENQ\EOT\STX\STX\NUL\ETX\DC2\EOT\159\SOH\EM\SUB\n\
     \Y\n\
-    \\EOT\EOT\STX\STX\SOH\DC2\EOT\157\SOH\EOT\FS\SUBK Optionally restrict matched results by returning the first 'top' records.\n\
+    \\EOT\EOT\STX\STX\SOH\DC2\EOT\162\SOH\EOT\FS\SUBK Optionally restrict matched results by returning the first 'top' records.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\SOH\EOT\DC2\EOT\157\SOH\EOT\f\n\
+    \\ENQ\EOT\STX\STX\SOH\EOT\DC2\EOT\162\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\SOH\ENQ\DC2\EOT\157\SOH\r\DC3\n\
+    \\ENQ\EOT\STX\STX\SOH\ENQ\DC2\EOT\162\SOH\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\SOH\SOH\DC2\EOT\157\SOH\DC4\ETB\n\
+    \\ENQ\EOT\STX\STX\SOH\SOH\DC2\EOT\162\SOH\DC4\ETB\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\SOH\ETX\DC2\EOT\157\SOH\SUB\ESC\n\
+    \\ENQ\EOT\STX\STX\SOH\ETX\DC2\EOT\162\SOH\SUB\ESC\n\
     \!\n\
-    \\EOT\EOT\STX\STX\STX\DC2\EOT\160\SOH\EOT@\SUB\DC3 Search for users.\n\
+    \\EOT\EOT\STX\STX\STX\DC2\EOT\165\SOH\EOT@\SUB\DC3 Search for users.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\STX\EOT\DC2\EOT\160\SOH\EOT\f\n\
+    \\ENQ\EOT\STX\STX\STX\EOT\DC2\EOT\165\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\STX\ACK\DC2\EOT\160\SOH\r'\n\
+    \\ENQ\EOT\STX\STX\STX\ACK\DC2\EOT\165\SOH\r'\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\STX\SOH\DC2\EOT\160\SOH(;\n\
+    \\ENQ\EOT\STX\STX\STX\SOH\DC2\EOT\165\SOH(;\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\STX\ETX\DC2\EOT\160\SOH>?\n\
+    \\ENQ\EOT\STX\STX\STX\ETX\DC2\EOT\165\SOH>?\n\
     \$\n\
-    \\EOT\EOT\STX\STX\ETX\DC2\EOT\163\SOH\EOT=\SUB\SYN Search for profiles.\n\
+    \\EOT\EOT\STX\STX\ETX\DC2\EOT\168\SOH\EOT=\SUB\SYN Search for profiles.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ETX\EOT\DC2\EOT\163\SOH\EOT\f\n\
+    \\ENQ\EOT\STX\STX\ETX\EOT\DC2\EOT\168\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ETX\ACK\DC2\EOT\163\SOH\r!\n\
+    \\ENQ\EOT\STX\STX\ETX\ACK\DC2\EOT\168\SOH\r!\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ETX\SOH\DC2\EOT\163\SOH\"8\n\
+    \\ENQ\EOT\STX\STX\ETX\SOH\DC2\EOT\168\SOH\"8\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ETX\ETX\DC2\EOT\163\SOH;<\n\
+    \\ENQ\EOT\STX\STX\ETX\ETX\DC2\EOT\168\SOH;<\n\
     \<\n\
-    \\EOT\EOT\STX\STX\EOT\DC2\EOT\166\SOH\EOTj\SUB. [obsolete] Use ProfileSearchRequest instead.\n\
+    \\EOT\EOT\STX\STX\EOT\DC2\EOT\171\SOH\EOTj\SUB. [obsolete] Use ProfileSearchRequest instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\EOT\EOT\DC2\EOT\166\SOH\EOT\f\n\
+    \\ENQ\EOT\STX\STX\EOT\EOT\DC2\EOT\171\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\EOT\ACK\DC2\EOT\166\SOH\r.\n\
+    \\ENQ\EOT\STX\STX\EOT\ACK\DC2\EOT\171\SOH\r.\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\EOT\SOH\DC2\EOT\166\SOH/S\n\
+    \\ENQ\EOT\STX\STX\EOT\SOH\DC2\EOT\171\SOH/S\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\EOT\ETX\DC2\EOT\166\SOHVW\n\
+    \\ENQ\EOT\STX\STX\EOT\ETX\DC2\EOT\171\SOHVW\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\EOT\b\DC2\EOT\166\SOHXi\n\
+    \\ENQ\EOT\STX\STX\EOT\b\DC2\EOT\171\SOHXi\n\
     \\SO\n\
-    \\ACK\EOT\STX\STX\EOT\b\ETX\DC2\EOT\166\SOHYh\n\
+    \\ACK\EOT\STX\STX\EOT\b\ETX\DC2\EOT\171\SOHYh\n\
     \R\n\
-    \\EOT\EOT\STX\STX\ENQ\DC2\EOT\169\SOH\EOT8\SUBD Determines whether removed entities are included in search result.\n\
+    \\EOT\EOT\STX\STX\ENQ\DC2\EOT\174\SOH\EOT8\SUBD Determines whether removed entities are included in search result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ENQ\EOT\DC2\EOT\169\SOH\EOT\f\n\
+    \\ENQ\EOT\STX\STX\ENQ\EOT\DC2\EOT\174\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ENQ\ENQ\DC2\EOT\169\SOH\r\DC1\n\
+    \\ENQ\EOT\STX\STX\ENQ\ENQ\DC2\EOT\174\SOH\r\DC1\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ENQ\SOH\DC2\EOT\169\SOH\DC2!\n\
+    \\ENQ\EOT\STX\STX\ENQ\SOH\DC2\EOT\174\SOH\DC2!\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ENQ\ETX\DC2\EOT\169\SOH$%\n\
+    \\ENQ\EOT\STX\STX\ENQ\ETX\DC2\EOT\174\SOH$%\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ENQ\b\DC2\EOT\169\SOH&7\n\
+    \\ENQ\EOT\STX\STX\ENQ\b\DC2\EOT\174\SOH&7\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ENQ\a\DC2\EOT\169\SOH16\n\
+    \\ENQ\EOT\STX\STX\ENQ\a\DC2\EOT\174\SOH16\n\
     \&\n\
-    \\EOT\EOT\STX\STX\ACK\DC2\EOT\172\SOH\EOTL\SUB\CAN Search for log events.\n\
+    \\EOT\EOT\STX\STX\ACK\DC2\EOT\177\SOH\EOTL\SUB\CAN Search for log events.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ACK\EOT\DC2\EOT\172\SOH\EOT\f\n\
+    \\ENQ\EOT\STX\STX\ACK\EOT\DC2\EOT\177\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ACK\ACK\DC2\EOT\172\SOH\r.\n\
+    \\ENQ\EOT\STX\STX\ACK\ACK\DC2\EOT\177\SOH\r.\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ACK\SOH\DC2\EOT\172\SOH/G\n\
+    \\ENQ\EOT\STX\STX\ACK\SOH\DC2\EOT\177\SOH/G\n\
     \\r\n\
-    \\ENQ\EOT\STX\STX\ACK\ETX\DC2\EOT\172\SOHJK\n\
+    \\ENQ\EOT\STX\STX\ACK\ETX\DC2\EOT\177\SOHJK\n\
     \\186\ACK\n\
-    \\STX\EOT\ETX\DC2\ACK\185\SOH\NUL\138\STX\SOH\SUB\171\ACK Operation request message.\n\
+    \\STX\EOT\ETX\DC2\ACK\190\SOH\NUL\146\STX\SOH\SUB\171\ACK Operation request message.\n\
     \ One of the request fields is expected.\n\
     \ Create operations ignore entity id fields (set it to an empty string).\n\
     \ Update operations use entity id fields as a key to update corresponding entities.\n\
@@ -14944,278 +16189,289 @@ packedFileDescriptor
     \ but if two clients change different fields of this entity at the same time then both changes are applied.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\ETX\SOH\DC2\EOT\185\SOH\b\CAN\n\
+    \\ETX\EOT\ETX\SOH\DC2\EOT\190\SOH\b\CAN\n\
     \X\n\
-    \\EOT\EOT\ETX\STX\NUL\DC2\EOT\189\SOH\EOT\ESC\SUBJ Request identifier.\n\
+    \\EOT\EOT\ETX\STX\NUL\DC2\EOT\194\SOH\EOT\ESC\SUBJ Request identifier.\n\
     \ It should be unique to match with operation result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\NUL\EOT\DC2\EOT\189\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\NUL\EOT\DC2\EOT\194\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\NUL\ENQ\DC2\EOT\189\SOH\r\DC3\n\
+    \\ENQ\EOT\ETX\STX\NUL\ENQ\DC2\EOT\194\SOH\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\NUL\SOH\DC2\EOT\189\SOH\DC4\SYN\n\
+    \\ENQ\EOT\ETX\STX\NUL\SOH\DC2\EOT\194\SOH\DC4\SYN\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\NUL\ETX\DC2\EOT\189\SOH\EM\SUB\n\
+    \\ENQ\EOT\ETX\STX\NUL\ETX\DC2\EOT\194\SOH\EM\SUB\n\
     \X\n\
-    \\EOT\EOT\ETX\STX\SOH\DC2\EOT\193\SOH\EOT/\SUBJ Clone template or regular user.\n\
+    \\EOT\EOT\ETX\STX\SOH\DC2\EOT\198\SOH\EOT/\SUBJ Clone template or regular user.\n\
     \ Supported login domains: trade-routing.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SOH\EOT\DC2\EOT\193\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\SOH\EOT\DC2\EOT\198\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SOH\ACK\DC2\EOT\193\SOH\r\US\n\
+    \\ENQ\EOT\ETX\STX\SOH\ACK\DC2\EOT\198\SOH\r\US\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SOH\SOH\DC2\EOT\193\SOH *\n\
+    \\ENQ\EOT\ETX\STX\SOH\SOH\DC2\EOT\198\SOH *\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SOH\ETX\DC2\EOT\193\SOH-.\n\
+    \\ENQ\EOT\ETX\STX\SOH\ETX\DC2\EOT\198\SOH-.\n\
     \\US\n\
-    \\EOT\EOT\ETX\STX\STX\DC2\EOT\196\SOH\EOT.\SUB\DC1 Create profile.\n\
+    \\EOT\EOT\ETX\STX\STX\DC2\EOT\201\SOH\EOT.\SUB\DC1 Create profile.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\STX\EOT\DC2\EOT\196\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\STX\EOT\DC2\EOT\201\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\STX\ACK\DC2\EOT\196\SOH\r\SUB\n\
+    \\ENQ\EOT\ETX\STX\STX\ACK\DC2\EOT\201\SOH\r\SUB\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\STX\SOH\DC2\EOT\196\SOH\ESC)\n\
+    \\ENQ\EOT\ETX\STX\STX\SOH\DC2\EOT\201\SOH\ESC)\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\STX\ETX\DC2\EOT\196\SOH,-\n\
+    \\ENQ\EOT\ETX\STX\STX\ETX\DC2\EOT\201\SOH,-\n\
     \\US\n\
-    \\EOT\EOT\ETX\STX\ETX\DC2\EOT\199\SOH\EOT.\SUB\DC1 Update profile.\n\
+    \\EOT\EOT\ETX\STX\ETX\DC2\EOT\204\SOH\EOT.\SUB\DC1 Update profile.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ETX\EOT\DC2\EOT\199\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\ETX\EOT\DC2\EOT\204\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ETX\ACK\DC2\EOT\199\SOH\r\SUB\n\
+    \\ENQ\EOT\ETX\STX\ETX\ACK\DC2\EOT\204\SOH\r\SUB\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ETX\SOH\DC2\EOT\199\SOH\ESC)\n\
+    \\ENQ\EOT\ETX\STX\ETX\SOH\DC2\EOT\204\SOH\ESC)\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ETX\ETX\DC2\EOT\199\SOH,-\n\
+    \\ENQ\EOT\ETX\STX\ETX\ETX\DC2\EOT\204\SOH,-\n\
     \\US\n\
-    \\EOT\EOT\ETX\STX\EOT\DC2\EOT\202\SOH\EOT.\SUB\DC1 Remove profile.\n\
+    \\EOT\EOT\ETX\STX\EOT\DC2\EOT\207\SOH\EOT.\SUB\DC1 Remove profile.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\EOT\EOT\DC2\EOT\202\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\EOT\EOT\DC2\EOT\207\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\EOT\ACK\DC2\EOT\202\SOH\r\SUB\n\
+    \\ENQ\EOT\ETX\STX\EOT\ACK\DC2\EOT\207\SOH\r\SUB\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\EOT\SOH\DC2\EOT\202\SOH\ESC)\n\
+    \\ENQ\EOT\ETX\STX\EOT\SOH\DC2\EOT\207\SOH\ESC)\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\EOT\ETX\DC2\EOT\202\SOH,-\n\
+    \\ENQ\EOT\ETX\STX\EOT\ETX\DC2\EOT\207\SOH,-\n\
     \\FS\n\
-    \\EOT\EOT\ETX\STX\ENQ\DC2\EOT\205\SOH\EOT1\SUB\SO Create user.\n\
+    \\EOT\EOT\ETX\STX\ENQ\DC2\EOT\210\SOH\EOT1\SUB\SO Create user.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ENQ\EOT\DC2\EOT\205\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\ENQ\EOT\DC2\EOT\210\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ENQ\ACK\DC2\EOT\205\SOH\r \n\
+    \\ENQ\EOT\ETX\STX\ENQ\ACK\DC2\EOT\210\SOH\r \n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ENQ\SOH\DC2\EOT\205\SOH!,\n\
+    \\ENQ\EOT\ETX\STX\ENQ\SOH\DC2\EOT\210\SOH!,\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ENQ\ETX\DC2\EOT\205\SOH/0\n\
+    \\ENQ\EOT\ETX\STX\ENQ\ETX\DC2\EOT\210\SOH/0\n\
     \\FS\n\
-    \\EOT\EOT\ETX\STX\ACK\DC2\EOT\208\SOH\EOT1\SUB\SO Update user.\n\
+    \\EOT\EOT\ETX\STX\ACK\DC2\EOT\213\SOH\EOT1\SUB\SO Update user.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ACK\EOT\DC2\EOT\208\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\ACK\EOT\DC2\EOT\213\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ACK\ACK\DC2\EOT\208\SOH\r \n\
+    \\ENQ\EOT\ETX\STX\ACK\ACK\DC2\EOT\213\SOH\r \n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ACK\SOH\DC2\EOT\208\SOH!,\n\
+    \\ENQ\EOT\ETX\STX\ACK\SOH\DC2\EOT\213\SOH!,\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\ACK\ETX\DC2\EOT\208\SOH/0\n\
+    \\ENQ\EOT\ETX\STX\ACK\ETX\DC2\EOT\213\SOH/0\n\
     \\FS\n\
-    \\EOT\EOT\ETX\STX\a\DC2\EOT\211\SOH\EOT1\SUB\SO Remove user.\n\
+    \\EOT\EOT\ETX\STX\a\DC2\EOT\216\SOH\EOT1\SUB\SO Remove user.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\a\EOT\DC2\EOT\211\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\a\EOT\DC2\EOT\216\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\a\ACK\DC2\EOT\211\SOH\r \n\
+    \\ENQ\EOT\ETX\STX\a\ACK\DC2\EOT\216\SOH\r \n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\a\SOH\DC2\EOT\211\SOH!,\n\
+    \\ENQ\EOT\ETX\STX\a\SOH\DC2\EOT\216\SOH!,\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\a\ETX\DC2\EOT\211\SOH/0\n\
+    \\ENQ\EOT\ETX\STX\a\ETX\DC2\EOT\216\SOH/0\n\
     \X\n\
-    \\EOT\EOT\ETX\STX\b\DC2\EOT\215\SOH\EOT9\SUBJ [re-]link login to a profile.\n\
+    \\EOT\EOT\ETX\STX\b\DC2\EOT\220\SOH\EOT9\SUBJ [re-]link login to a profile.\n\
     \ Supported profile types: admin, customer.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\b\EOT\DC2\EOT\215\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\b\EOT\DC2\EOT\220\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\b\ACK\DC2\EOT\215\SOH\r\US\n\
+    \\ENQ\EOT\ETX\STX\b\ACK\DC2\EOT\220\SOH\r\US\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\b\SOH\DC2\EOT\215\SOH 4\n\
+    \\ENQ\EOT\ETX\STX\b\SOH\DC2\EOT\220\SOH 4\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\b\ETX\DC2\EOT\215\SOH78\n\
+    \\ENQ\EOT\ETX\STX\b\ETX\DC2\EOT\220\SOH78\n\
     \=\n\
-    \\EOT\EOT\ETX\STX\t\DC2\EOT\218\SOH\EOTY\SUB/ Modify the list of user entitlement services.\n\
+    \\EOT\EOT\ETX\STX\t\DC2\EOT\223\SOH\EOTY\SUB/ Modify the list of user entitlement services.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\t\EOT\DC2\EOT\218\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\t\EOT\DC2\EOT\223\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\t\ACK\DC2\EOT\218\SOH\r2\n\
+    \\ENQ\EOT\ETX\STX\t\ACK\DC2\EOT\223\SOH\r2\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\t\SOH\DC2\EOT\218\SOH3S\n\
+    \\ENQ\EOT\ETX\STX\t\SOH\DC2\EOT\223\SOH3S\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\t\ETX\DC2\EOT\218\SOHVX\n\
+    \\ENQ\EOT\ETX\STX\t\ETX\DC2\EOT\223\SOHVX\n\
     \Z\n\
     \\EOT\EOT\ETX\STX\n\
-    \\DC2\EOT\222\SOH\EOT6\SUBL Send welcome e-mail to profile.\n\
+    \\DC2\EOT\227\SOH\EOT6\SUBL Send welcome e-mail to profile.\n\
     \ Supported profile types: admin, customer.\n\
     \\n\
     \\r\n\
     \\ENQ\EOT\ETX\STX\n\
-    \\EOT\DC2\EOT\222\SOH\EOT\f\n\
+    \\EOT\DC2\EOT\227\SOH\EOT\f\n\
     \\r\n\
     \\ENQ\EOT\ETX\STX\n\
-    \\ACK\DC2\EOT\222\SOH\r\GS\n\
+    \\ACK\DC2\EOT\227\SOH\r\GS\n\
     \\r\n\
     \\ENQ\EOT\ETX\STX\n\
-    \\SOH\DC2\EOT\222\SOH\RS0\n\
+    \\SOH\DC2\EOT\227\SOH\RS0\n\
     \\r\n\
     \\ENQ\EOT\ETX\STX\n\
-    \\ETX\DC2\EOT\222\SOH35\n\
+    \\ETX\DC2\EOT\227\SOH35\n\
     \\GS\n\
-    \\EOT\EOT\ETX\STX\v\DC2\EOT\225\SOH\EOT4\SUB\SI Restore user.\n\
+    \\EOT\EOT\ETX\STX\v\DC2\EOT\230\SOH\EOT4\SUB\SI Restore user.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\v\EOT\DC2\EOT\225\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\v\EOT\DC2\EOT\230\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\v\ACK\DC2\EOT\225\SOH\r!\n\
+    \\ENQ\EOT\ETX\STX\v\ACK\DC2\EOT\230\SOH\r!\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\v\SOH\DC2\EOT\225\SOH\".\n\
+    \\ENQ\EOT\ETX\STX\v\SOH\DC2\EOT\230\SOH\".\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\v\ETX\DC2\EOT\225\SOH13\n\
+    \\ENQ\EOT\ETX\STX\v\ETX\DC2\EOT\230\SOH13\n\
     \ \n\
-    \\EOT\EOT\ETX\STX\f\DC2\EOT\228\SOH\EOT1\SUB\DC2 Restore profile.\n\
+    \\EOT\EOT\ETX\STX\f\DC2\EOT\233\SOH\EOT1\SUB\DC2 Restore profile.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\f\EOT\DC2\EOT\228\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\f\EOT\DC2\EOT\233\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\f\ACK\DC2\EOT\228\SOH\r\ESC\n\
+    \\ENQ\EOT\ETX\STX\f\ACK\DC2\EOT\233\SOH\r\ESC\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\f\SOH\DC2\EOT\228\SOH\FS+\n\
+    \\ENQ\EOT\ETX\STX\f\SOH\DC2\EOT\233\SOH\FS+\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\f\ETX\DC2\EOT\228\SOH.0\n\
+    \\ENQ\EOT\ETX\STX\f\ETX\DC2\EOT\233\SOH.0\n\
     \M\n\
-    \\EOT\EOT\ETX\STX\r\DC2\EOT\231\SOH\EOTv\SUB? Update customer to sales series authorization list operation.\n\
+    \\EOT\EOT\ETX\STX\r\DC2\EOT\236\SOH\EOTv\SUB? Update customer to sales series authorization list operation.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\r\EOT\DC2\EOT\231\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\r\EOT\DC2\EOT\236\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\r\ACK\DC2\EOT\231\SOH\r@\n\
+    \\ENQ\EOT\ETX\STX\r\ACK\DC2\EOT\236\SOH\r@\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\r\SOH\DC2\EOT\231\SOHAp\n\
+    \\ENQ\EOT\ETX\STX\r\SOH\DC2\EOT\236\SOHAp\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\r\ETX\DC2\EOT\231\SOHsu\n\
+    \\ENQ\EOT\ETX\STX\r\ETX\DC2\EOT\236\SOHsu\n\
     \^\n\
-    \\EOT\EOT\ETX\STX\SO\DC2\EOT\235\SOH\EOT`\SUBP Update login exchange member id list.\n\
+    \\EOT\EOT\ETX\STX\SO\DC2\EOT\240\SOH\EOT`\SUBP Update login exchange member id list.\n\
     \ Supported login domains: trade-routing.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SO\EOT\DC2\EOT\235\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\SO\EOT\DC2\EOT\240\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SO\ACK\DC2\EOT\235\SOH\r5\n\
+    \\ENQ\EOT\ETX\STX\SO\ACK\DC2\EOT\240\SOH\r5\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SO\SOH\DC2\EOT\235\SOH6Z\n\
+    \\ENQ\EOT\ETX\STX\SO\SOH\DC2\EOT\240\SOH6Z\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SO\ETX\DC2\EOT\235\SOH]_\n\
+    \\ENQ\EOT\ETX\STX\SO\ETX\DC2\EOT\240\SOH]_\n\
     \&\n\
-    \\EOT\EOT\ETX\STX\SI\DC2\EOT\238\SOH\EOTE\SUB\CAN Update Login settings.\n\
+    \\EOT\EOT\ETX\STX\SI\DC2\EOT\243\SOH\EOTE\SUB\CAN Update Login settings.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SI\EOT\DC2\EOT\238\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\SI\EOT\DC2\EOT\243\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SI\ACK\DC2\EOT\238\SOH\r)\n\
+    \\ENQ\EOT\ETX\STX\SI\ACK\DC2\EOT\243\SOH\r)\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SI\SOH\DC2\EOT\238\SOH*?\n\
+    \\ENQ\EOT\ETX\STX\SI\SOH\DC2\EOT\243\SOH*?\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SI\ETX\DC2\EOT\238\SOHBD\n\
+    \\ENQ\EOT\ETX\STX\SI\ETX\DC2\EOT\243\SOHBD\n\
     \R\n\
-    \\EOT\EOT\ETX\STX\DLE\DC2\EOT\242\SOH\EOT8\SUBD Activate login operation.\n\
+    \\EOT\EOT\ETX\STX\DLE\DC2\EOT\247\SOH\EOT8\SUBD Activate login operation.\n\
     \ Supported login domains: trade-routing.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DLE\EOT\DC2\EOT\242\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\DLE\EOT\DC2\EOT\247\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DLE\ACK\DC2\EOT\242\SOH\r#\n\
+    \\ENQ\EOT\ETX\STX\DLE\ACK\DC2\EOT\247\SOH\r#\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DLE\SOH\DC2\EOT\242\SOH$2\n\
+    \\ENQ\EOT\ETX\STX\DLE\SOH\DC2\EOT\247\SOH$2\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DLE\ETX\DC2\EOT\242\SOH57\n\
+    \\ENQ\EOT\ETX\STX\DLE\ETX\DC2\EOT\247\SOH57\n\
     \T\n\
-    \\EOT\EOT\ETX\STX\DC1\DC2\EOT\246\SOH\EOT<\SUBF Deactivate login operation.\n\
+    \\EOT\EOT\ETX\STX\DC1\DC2\EOT\251\SOH\EOT<\SUBF Deactivate login operation.\n\
     \ Supported login domains: trade-routing.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC1\EOT\DC2\EOT\246\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\DC1\EOT\DC2\EOT\251\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC1\ACK\DC2\EOT\246\SOH\r%\n\
+    \\ENQ\EOT\ETX\STX\DC1\ACK\DC2\EOT\251\SOH\r%\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC1\SOH\DC2\EOT\246\SOH&6\n\
+    \\ENQ\EOT\ETX\STX\DC1\SOH\DC2\EOT\251\SOH&6\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC1\ETX\DC2\EOT\246\SOH9;\n\
+    \\ENQ\EOT\ETX\STX\DC1\ETX\DC2\EOT\251\SOH9;\n\
     \\\\n\
-    \\EOT\EOT\ETX\STX\DC2\DC2\EOT\250\SOH\EOTG\SUBN Send credential reset email.\n\
+    \\EOT\EOT\ETX\STX\DC2\DC2\EOT\255\SOH\EOTG\SUBN Send credential reset email.\n\
     \ Supported login domains: trade-routing, admin.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC2\EOT\DC2\EOT\250\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\DC2\EOT\DC2\EOT\255\SOH\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC2\ACK\DC2\EOT\250\SOH\r%\n\
+    \\ENQ\EOT\ETX\STX\DC2\ACK\DC2\EOT\255\SOH\r%\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC2\SOH\DC2\EOT\250\SOH&A\n\
+    \\ENQ\EOT\ETX\STX\DC2\SOH\DC2\EOT\255\SOH&A\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC2\ETX\DC2\EOT\250\SOHDF\n\
+    \\ENQ\EOT\ETX\STX\DC2\ETX\DC2\EOT\255\SOHDF\n\
     \\133\SOH\n\
-    \\EOT\EOT\ETX\STX\DC3\DC2\EOT\254\SOH\EOTO\SUBw Generate a service security token for a special AuthServer operation.\n\
+    \\EOT\EOT\ETX\STX\DC3\DC2\EOT\131\STX\EOTO\SUBw Generate a service security token for a special AuthServer operation.\n\
     \ Supported login domains: trade-routing, admin.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC3\EOT\DC2\EOT\254\SOH\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\DC3\EOT\DC2\EOT\131\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC3\ACK\DC2\EOT\254\SOH\r)\n\
+    \\ENQ\EOT\ETX\STX\DC3\ACK\DC2\EOT\131\STX\r)\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC3\SOH\DC2\EOT\254\SOH*I\n\
+    \\ENQ\EOT\ETX\STX\DC3\SOH\DC2\EOT\131\STX*I\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC3\ETX\DC2\EOT\254\SOHLN\n\
+    \\ENQ\EOT\ETX\STX\DC3\ETX\DC2\EOT\131\STXLN\n\
     \n\n\
-    \\EOT\EOT\ETX\STX\DC4\DC2\EOT\130\STX\EOTM\SUB` Erases current credentials of specified types.\n\
+    \\EOT\EOT\ETX\STX\DC4\DC2\EOT\135\STX\EOTM\SUB` Erases current credentials of specified types.\n\
     \ Supported login domains: trade-routing, admin.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC4\EOT\DC2\EOT\130\STX\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\DC4\EOT\DC2\EOT\135\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC4\ACK\DC2\EOT\130\STX\r-\n\
+    \\ENQ\EOT\ETX\STX\DC4\ACK\DC2\EOT\135\STX\r-\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC4\SOH\DC2\EOT\130\STX.G\n\
+    \\ENQ\EOT\ETX\STX\DC4\SOH\DC2\EOT\135\STX.G\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\DC4\ETX\DC2\EOT\130\STXJL\n\
+    \\ENQ\EOT\ETX\STX\DC4\ETX\DC2\EOT\135\STXJL\n\
     \>\n\
-    \\EOT\EOT\ETX\STX\NAK\DC2\EOT\133\STX\EOT@\SUB0 Supported login domains: trade-routing, admin.\n\
+    \\EOT\EOT\ETX\STX\NAK\DC2\EOT\138\STX\EOT@\SUB0 Supported login domains: trade-routing, admin.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\NAK\EOT\DC2\EOT\133\STX\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\NAK\EOT\DC2\EOT\138\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\NAK\ACK\DC2\EOT\133\STX\r\"\n\
+    \\ENQ\EOT\ETX\STX\NAK\ACK\DC2\EOT\138\STX\r\"\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\NAK\SOH\DC2\EOT\133\STX#:\n\
+    \\ENQ\EOT\ETX\STX\NAK\SOH\DC2\EOT\138\STX#:\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\NAK\ETX\DC2\EOT\133\STX=?\n\
+    \\ENQ\EOT\ETX\STX\NAK\ETX\DC2\EOT\138\STX=?\n\
     \Z\n\
-    \\EOT\EOT\ETX\STX\SYN\DC2\EOT\137\STX\EOTY\SUBL Update login billing custom data.\n\
+    \\EOT\EOT\ETX\STX\SYN\DC2\EOT\142\STX\EOTY\SUBL Update login billing custom data.\n\
     \ Supported login domains: trade-routing.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SYN\EOT\DC2\EOT\137\STX\EOT\f\n\
+    \\ENQ\EOT\ETX\STX\SYN\EOT\DC2\EOT\142\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SYN\ACK\DC2\EOT\137\STX\r2\n\
+    \\ENQ\EOT\ETX\STX\SYN\ACK\DC2\EOT\142\STX\r2\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SYN\SOH\DC2\EOT\137\STX3S\n\
+    \\ENQ\EOT\ETX\STX\SYN\SOH\DC2\EOT\142\STX3S\n\
     \\r\n\
-    \\ENQ\EOT\ETX\STX\SYN\ETX\DC2\EOT\137\STXVX\n\
+    \\ENQ\EOT\ETX\STX\SYN\ETX\DC2\EOT\142\STXVX\n\
+    \\"\n\
+    \\EOT\EOT\ETX\STX\ETB\DC2\EOT\145\STX\EOT4\SUB\DC4 Create demo login.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ETB\EOT\DC2\EOT\145\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ETB\ACK\DC2\EOT\145\STX\r\FS\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ETB\SOH\DC2\EOT\145\STX\GS.\n\
+    \\r\n\
+    \\ENQ\EOT\ETX\STX\ETB\ETX\DC2\EOT\145\STX13\n\
     \\160\EOT\n\
-    \\STX\EOT\EOT\DC2\ACK\150\STX\NUL\158\STX\SOH\SUB\145\EOT Request used to cancel previously sent request that was deferred in Waiting Queue\n\
+    \\STX\EOT\EOT\DC2\ACK\158\STX\NUL\166\STX\SOH\SUB\145\EOT Request used to cancel previously sent request that was deferred in Waiting Queue\n\
     \ Only next requests can be deferred and canceled:\n\
     \    cmsapi.InformationRequest\n\
     \    cmsapi.OperationRequest\n\
@@ -15227,1749 +16483,1930 @@ packedFileDescriptor
     \ another connection than it will not be canceled\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\EOT\SOH\DC2\EOT\150\STX\b\GS\n\
+    \\ETX\EOT\EOT\SOH\DC2\EOT\158\STX\b\GS\n\
     \V\n\
-    \\EOT\EOT\EOT\STX\NUL\DC2\EOT\154\STX\EOT\ESC\SUBH Request identifier\n\
+    \\EOT\EOT\EOT\STX\NUL\DC2\EOT\162\STX\EOT\ESC\SUBH Request identifier\n\
     \ it should be unique to match with operation result\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\EOT\STX\NUL\EOT\DC2\EOT\154\STX\EOT\f\n\
+    \\ENQ\EOT\EOT\STX\NUL\EOT\DC2\EOT\162\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\EOT\STX\NUL\ENQ\DC2\EOT\154\STX\r\DC3\n\
+    \\ENQ\EOT\EOT\STX\NUL\ENQ\DC2\EOT\162\STX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\EOT\STX\NUL\SOH\DC2\EOT\154\STX\DC4\SYN\n\
+    \\ENQ\EOT\EOT\STX\NUL\SOH\DC2\EOT\162\STX\DC4\SYN\n\
     \\r\n\
-    \\ENQ\EOT\EOT\STX\NUL\ETX\DC2\EOT\154\STX\EM\SUB\n\
+    \\ENQ\EOT\EOT\STX\NUL\ETX\DC2\EOT\162\STX\EM\SUB\n\
     \L\n\
-    \\EOT\EOT\EOT\STX\SOH\DC2\EOT\157\STX\EOT(\SUB> Tracking Number of request to be canceled from Waiting Queue\n\
+    \\EOT\EOT\EOT\STX\SOH\DC2\EOT\165\STX\EOT(\SUB> Tracking Number of request to be canceled from Waiting Queue\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\EOT\STX\SOH\EOT\DC2\EOT\157\STX\EOT\f\n\
+    \\ENQ\EOT\EOT\STX\SOH\EOT\DC2\EOT\165\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\EOT\STX\SOH\ENQ\DC2\EOT\157\STX\r\DC3\n\
+    \\ENQ\EOT\EOT\STX\SOH\ENQ\DC2\EOT\165\STX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\EOT\STX\SOH\SOH\DC2\EOT\157\STX\DC4#\n\
+    \\ENQ\EOT\EOT\STX\SOH\SOH\DC2\EOT\165\STX\DC4#\n\
     \\r\n\
-    \\ENQ\EOT\EOT\STX\SOH\ETX\DC2\EOT\157\STX&'\n\
+    \\ENQ\EOT\EOT\STX\SOH\ETX\DC2\EOT\165\STX&'\n\
     \l\n\
-    \\STX\EOT\ENQ\DC2\ACK\164\STX\NUL\205\STX\SOH\SUB\ESC Server to Client message.\n\
+    \\STX\EOT\ENQ\DC2\ACK\172\STX\NUL\215\STX\SOH\SUB\ESC Server to Client message.\n\
     \2A//------------------------------------------\n\
     \// Server Messages.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\ENQ\SOH\DC2\EOT\164\STX\b\NAK\n\
+    \\ETX\EOT\ENQ\SOH\DC2\EOT\172\STX\b\NAK\n\
     \/\n\
-    \\EOT\EOT\ENQ\STX\NUL\DC2\EOT\167\STX\EOT3\SUB! Session level messages results.\n\
+    \\EOT\EOT\ENQ\STX\NUL\DC2\EOT\175\STX\EOT3\SUB! Session level messages results.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\NUL\EOT\DC2\EOT\167\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\NUL\EOT\DC2\EOT\175\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\NUL\ACK\DC2\EOT\167\STX\r!\n\
+    \\ENQ\EOT\ENQ\STX\NUL\ACK\DC2\EOT\175\STX\r!\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\NUL\SOH\DC2\EOT\167\STX\".\n\
+    \\ENQ\EOT\ENQ\STX\NUL\SOH\DC2\EOT\175\STX\".\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\NUL\ETX\DC2\EOT\167\STX12\n\
+    \\ENQ\EOT\ENQ\STX\NUL\ETX\DC2\EOT\175\STX12\n\
     \\f\n\
-    \\EOT\EOT\ENQ\STX\SOH\DC2\EOT\168\STX\EOT/\n\
+    \\EOT\EOT\ENQ\STX\SOH\DC2\EOT\176\STX\EOT/\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\SOH\EOT\DC2\EOT\168\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\SOH\EOT\DC2\EOT\176\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\SOH\ACK\DC2\EOT\168\STX\r\US\n\
+    \\ENQ\EOT\ENQ\STX\SOH\ACK\DC2\EOT\176\STX\r\US\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\SOH\SOH\DC2\EOT\168\STX *\n\
+    \\ENQ\EOT\ENQ\STX\SOH\SOH\DC2\EOT\176\STX *\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\SOH\ETX\DC2\EOT\168\STX-.\n\
+    \\ENQ\EOT\ENQ\STX\SOH\ETX\DC2\EOT\176\STX-.\n\
     \\f\n\
-    \\EOT\EOT\ENQ\STX\STX\DC2\EOT\169\STX\EOTT\n\
+    \\EOT\EOT\ENQ\STX\STX\DC2\EOT\177\STX\EOTT\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\STX\EOT\DC2\EOT\169\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\STX\EOT\DC2\EOT\177\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\STX\ACK\DC2\EOT\169\STX\r0\n\
+    \\ENQ\EOT\ENQ\STX\STX\ACK\DC2\EOT\177\STX\r0\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\STX\SOH\DC2\EOT\169\STX1O\n\
+    \\ENQ\EOT\ENQ\STX\STX\SOH\DC2\EOT\177\STX1O\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\STX\ETX\DC2\EOT\169\STXRS\n\
+    \\ENQ\EOT\ENQ\STX\STX\ETX\DC2\EOT\177\STXRS\n\
     \.\n\
-    \\EOT\EOT\ENQ\STX\ETX\DC2\EOT\172\STX\EOT6\SUB  Result of information request.\n\
+    \\EOT\EOT\ENQ\STX\ETX\DC2\EOT\180\STX\EOT6\SUB  Result of information request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ETX\EOT\DC2\EOT\172\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\ETX\EOT\DC2\EOT\180\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ETX\ACK\DC2\EOT\172\STX\r\RS\n\
+    \\ENQ\EOT\ENQ\STX\ETX\ACK\DC2\EOT\180\STX\r\RS\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ETX\SOH\DC2\EOT\172\STX\US1\n\
+    \\ENQ\EOT\ENQ\STX\ETX\SOH\DC2\EOT\180\STX\US1\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ETX\ETX\DC2\EOT\172\STX45\n\
+    \\ENQ\EOT\ENQ\STX\ETX\ETX\DC2\EOT\180\STX45\n\
     \)\n\
-    \\EOT\EOT\ENQ\STX\EOT\DC2\EOT\175\STX\EOT,\SUB\ESC Result of search request.\n\
+    \\EOT\EOT\ENQ\STX\EOT\DC2\EOT\183\STX\EOT,\SUB\ESC Result of search request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\EOT\EOT\DC2\EOT\175\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\EOT\EOT\DC2\EOT\183\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\EOT\ACK\DC2\EOT\175\STX\r\EM\n\
+    \\ENQ\EOT\ENQ\STX\EOT\ACK\DC2\EOT\183\STX\r\EM\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\EOT\SOH\DC2\EOT\175\STX\SUB'\n\
+    \\ENQ\EOT\ENQ\STX\EOT\SOH\DC2\EOT\183\STX\SUB'\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\EOT\ETX\DC2\EOT\175\STX*+\n\
+    \\ENQ\EOT\ENQ\STX\EOT\ETX\DC2\EOT\183\STX*+\n\
     \,\n\
-    \\EOT\EOT\ENQ\STX\ENQ\DC2\EOT\178\STX\EOT2\SUB\RS Result of operation request.\n\
+    \\EOT\EOT\ENQ\STX\ENQ\DC2\EOT\186\STX\EOT2\SUB\RS Result of operation request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ENQ\EOT\DC2\EOT\178\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\ENQ\EOT\DC2\EOT\186\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ENQ\ACK\DC2\EOT\178\STX\r\FS\n\
+    \\ENQ\EOT\ENQ\STX\ENQ\ACK\DC2\EOT\186\STX\r\FS\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ENQ\SOH\DC2\EOT\178\STX\GS-\n\
+    \\ENQ\EOT\ENQ\STX\ENQ\SOH\DC2\EOT\186\STX\GS-\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ENQ\ETX\DC2\EOT\178\STX01\n\
+    \\ENQ\EOT\ENQ\STX\ENQ\ETX\DC2\EOT\186\STX01\n\
     \0\n\
-    \\EOT\EOT\ENQ\STX\ACK\DC2\EOT\181\STX\EOTH\SUB\" Trade routing operation results.\n\
+    \\EOT\EOT\ENQ\STX\ACK\DC2\EOT\189\STX\EOTH\SUB\" Trade routing operation results.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ACK\EOT\DC2\EOT\181\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\ACK\EOT\DC2\EOT\189\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ACK\ACK\DC2\EOT\181\STX\r.\n\
+    \\ENQ\EOT\ENQ\STX\ACK\ACK\DC2\EOT\189\STX\r.\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ACK\SOH\DC2\EOT\181\STX/C\n\
+    \\ENQ\EOT\ENQ\STX\ACK\SOH\DC2\EOT\189\STX/C\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\ACK\ETX\DC2\EOT\181\STXFG\n\
+    \\ENQ\EOT\ENQ\STX\ACK\ETX\DC2\EOT\189\STXFG\n\
     \$\n\
-    \\EOT\EOT\ENQ\STX\a\DC2\EOT\184\STX\EOT3\SUB\SYN Message from server.\n\
+    \\EOT\EOT\ENQ\STX\a\DC2\EOT\192\STX\EOT3\SUB\SYN Message from server.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\a\EOT\DC2\EOT\184\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\a\EOT\DC2\EOT\192\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\a\ACK\DC2\EOT\184\STX\r!\n\
+    \\ENQ\EOT\ENQ\STX\a\ACK\DC2\EOT\192\STX\r!\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\a\SOH\DC2\EOT\184\STX\".\n\
+    \\ENQ\EOT\ENQ\STX\a\SOH\DC2\EOT\192\STX\".\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\a\ETX\DC2\EOT\184\STX12\n\
+    \\ENQ\EOT\ENQ\STX\a\ETX\DC2\EOT\192\STX12\n\
     \\GS\n\
-    \\EOT\EOT\ENQ\STX\b\DC2\EOT\187\STX\EOT\FS\SUB\SI Ping request.\n\
+    \\EOT\EOT\ENQ\STX\b\DC2\EOT\195\STX\EOT\FS\SUB\SI Ping request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\b\EOT\DC2\EOT\187\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\b\EOT\DC2\EOT\195\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\b\ACK\DC2\EOT\187\STX\r\DC1\n\
+    \\ENQ\EOT\ENQ\STX\b\ACK\DC2\EOT\195\STX\r\DC1\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\b\SOH\DC2\EOT\187\STX\DC2\SYN\n\
+    \\ENQ\EOT\ENQ\STX\b\SOH\DC2\EOT\195\STX\DC2\SYN\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\b\ETX\DC2\EOT\187\STX\EM\ESC\n\
+    \\ENQ\EOT\ENQ\STX\b\ETX\DC2\EOT\195\STX\EM\ESC\n\
     \@\n\
-    \\EOT\EOT\ENQ\STX\t\DC2\EOT\190\STX\EOT\FS\SUB2 Pong message in response to client Ping request.\n\
+    \\EOT\EOT\ENQ\STX\t\DC2\EOT\198\STX\EOT\FS\SUB2 Pong message in response to client Ping request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\t\EOT\DC2\EOT\190\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\t\EOT\DC2\EOT\198\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\t\ACK\DC2\EOT\190\STX\r\DC1\n\
+    \\ENQ\EOT\ENQ\STX\t\ACK\DC2\EOT\198\STX\r\DC1\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\t\SOH\DC2\EOT\190\STX\DC2\SYN\n\
+    \\ENQ\EOT\ENQ\STX\t\SOH\DC2\EOT\198\STX\DC2\SYN\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\t\ETX\DC2\EOT\190\STX\EM\ESC\n\
+    \\ENQ\EOT\ENQ\STX\t\ETX\DC2\EOT\198\STX\EM\ESC\n\
     \1\n\
     \\EOT\EOT\ENQ\STX\n\
-    \\DC2\EOT\193\STX\EOTM\SUB# Result of cancel_deferred_request\n\
+    \\DC2\EOT\201\STX\EOTM\SUB# Result of cancel_deferred_request\n\
     \\n\
     \\r\n\
     \\ENQ\EOT\ENQ\STX\n\
-    \\EOT\DC2\EOT\193\STX\EOT\f\n\
+    \\EOT\DC2\EOT\201\STX\EOT\f\n\
     \\r\n\
     \\ENQ\EOT\ENQ\STX\n\
-    \\ACK\DC2\EOT\193\STX\r(\n\
+    \\ACK\DC2\EOT\201\STX\r(\n\
     \\r\n\
     \\ENQ\EOT\ENQ\STX\n\
-    \\SOH\DC2\EOT\193\STX)G\n\
+    \\SOH\DC2\EOT\201\STX)G\n\
     \\r\n\
     \\ENQ\EOT\ENQ\STX\n\
-    \\ETX\DC2\EOT\193\STXJL\n\
+    \\ETX\DC2\EOT\201\STXJL\n\
     \\f\n\
-    \\EOT\EOT\ENQ\STX\v\DC2\EOT\195\STX\EOTA\n\
+    \\EOT\EOT\ENQ\STX\v\DC2\EOT\203\STX\EOTA\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\v\EOT\DC2\EOT\195\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\v\EOT\DC2\EOT\203\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\v\ACK\DC2\EOT\195\STX\r+\n\
+    \\ENQ\EOT\ENQ\STX\v\ACK\DC2\EOT\203\STX\r+\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\v\SOH\DC2\EOT\195\STX,;\n\
+    \\ENQ\EOT\ENQ\STX\v\SOH\DC2\EOT\203\STX,;\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\v\ETX\DC2\EOT\195\STX>@\n\
+    \\ENQ\EOT\ENQ\STX\v\ETX\DC2\EOT\203\STX>@\n\
     \8\n\
-    \\EOT\EOT\ENQ\STX\f\DC2\EOT\198\STX\EOT[\SUB* Result of session_context_scope_request.\n\
+    \\EOT\EOT\ENQ\STX\f\DC2\EOT\206\STX\EOT[\SUB* Result of session_context_scope_request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\f\EOT\DC2\EOT\198\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\f\EOT\DC2\EOT\206\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\f\ACK\DC2\EOT\198\STX\r8\n\
+    \\ENQ\EOT\ENQ\STX\f\ACK\DC2\EOT\206\STX\r8\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\f\SOH\DC2\EOT\198\STX9U\n\
+    \\ENQ\EOT\ENQ\STX\f\SOH\DC2\EOT\206\STX9U\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\f\ETX\DC2\EOT\198\STXXZ\n\
+    \\ENQ\EOT\ENQ\STX\f\ETX\DC2\EOT\206\STXXZ\n\
     \,\n\
-    \\EOT\EOT\ENQ\STX\r\DC2\EOT\201\STX\EOTG\SUB\RS Location management results.\n\
+    \\EOT\EOT\ENQ\STX\r\DC2\EOT\209\STX\EOTG\SUB\RS Location management results.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\r\EOT\DC2\EOT\201\STX\EOT\f\n\
+    \\ENQ\EOT\ENQ\STX\r\EOT\DC2\EOT\209\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\r\ACK\DC2\EOT\201\STX\r+\n\
+    \\ENQ\EOT\ENQ\STX\r\ACK\DC2\EOT\209\STX\r+\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\r\SOH\DC2\EOT\201\STX,A\n\
+    \\ENQ\EOT\ENQ\STX\r\SOH\DC2\EOT\209\STX,A\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\STX\r\ETX\DC2\EOT\201\STXDF\n\
+    \\ENQ\EOT\ENQ\STX\r\ETX\DC2\EOT\209\STXDF\n\
+    \\f\n\
+    \\EOT\EOT\ENQ\STX\SO\DC2\EOT\211\STX\EOTD\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\SO\EOT\DC2\EOT\211\STX\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\SO\ACK\DC2\EOT\211\STX\r)\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\SO\SOH\DC2\EOT\211\STX*>\n\
+    \\r\n\
+    \\ENQ\EOT\ENQ\STX\SO\ETX\DC2\EOT\211\STXAC\n\
     \)\n\
-    \\ETX\EOT\ENQ\ENQ\DC2\EOT\204\STX\EOT\SUB\SUB\FS Reserved for internal use.\n\
+    \\ETX\EOT\ENQ\ENQ\DC2\EOT\214\STX\EOT\SUB\SUB\FS Reserved for internal use.\n\
     \\n\
     \\f\n\
-    \\EOT\EOT\ENQ\ENQ\NUL\DC2\EOT\204\STX\SI\EM\n\
+    \\EOT\EOT\ENQ\ENQ\NUL\DC2\EOT\214\STX\SI\EM\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\ENQ\NUL\SOH\DC2\EOT\204\STX\SI\DC2\n\
+    \\ENQ\EOT\ENQ\ENQ\NUL\SOH\DC2\EOT\214\STX\SI\DC2\n\
     \\r\n\
-    \\ENQ\EOT\ENQ\ENQ\NUL\STX\DC2\EOT\204\STX\SYN\EM\n\
+    \\ENQ\EOT\ENQ\ENQ\NUL\STX\DC2\EOT\214\STX\SYN\EM\n\
     \\140\SOH\n\
-    \\STX\EOT\ACK\DC2\ACK\209\STX\NUL\135\ETX\SOH\SUB~ Result of information request.\n\
+    \\STX\EOT\ACK\DC2\ACK\219\STX\NUL\145\ETX\SOH\SUB~ Result of information request.\n\
     \ Information is filtered according to permissions of logged-in user (or 'on-behalf-of' user).\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\ACK\SOH\DC2\EOT\209\STX\b\EM\n\
+    \\ETX\EOT\ACK\SOH\DC2\EOT\219\STX\b\EM\n\
     \.\n\
-    \\EOT\EOT\ACK\STX\NUL\DC2\EOT\212\STX\EOT#\SUB  ID of a corresponding request.\n\
+    \\EOT\EOT\ACK\STX\NUL\DC2\EOT\222\STX\EOT#\SUB  ID of a corresponding request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\NUL\EOT\DC2\EOT\212\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\NUL\EOT\DC2\EOT\222\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\NUL\ENQ\DC2\EOT\212\STX\r\DC3\n\
+    \\ENQ\EOT\ACK\STX\NUL\ENQ\DC2\EOT\222\STX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\NUL\SOH\DC2\EOT\212\STX\DC4\RS\n\
+    \\ENQ\EOT\ACK\STX\NUL\SOH\DC2\EOT\222\STX\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\NUL\ETX\DC2\EOT\212\STX!\"\n\
+    \\ENQ\EOT\ACK\STX\NUL\ETX\DC2\EOT\222\STX!\"\n\
     \_\n\
-    \\EOT\EOT\ACK\STX\SOH\DC2\EOT\216\STX\EOT)\SUBQ Operation status.\n\
+    \\EOT\EOT\ACK\STX\SOH\DC2\EOT\226\STX\EOT)\SUBQ Operation status.\n\
     \ This field is associated with common_1.OperationStatus enum.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SOH\EOT\DC2\EOT\216\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\SOH\EOT\DC2\EOT\226\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SOH\ENQ\DC2\EOT\216\STX\r\DC3\n\
+    \\ENQ\EOT\ACK\STX\SOH\ENQ\DC2\EOT\226\STX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SOH\SOH\DC2\EOT\216\STX\DC4$\n\
+    \\ENQ\EOT\ACK\STX\SOH\SOH\DC2\EOT\226\STX\DC4$\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SOH\ETX\DC2\EOT\216\STX'(\n\
+    \\ENQ\EOT\ACK\STX\SOH\ETX\DC2\EOT\226\STX'(\n\
     \ \n\
-    \\EOT\EOT\ACK\STX\STX\DC2\EOT\219\STX\EOT-\SUB\DC2 Failure details.\n\
+    \\EOT\EOT\ACK\STX\STX\DC2\EOT\229\STX\EOT-\SUB\DC2 Failure details.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\STX\EOT\DC2\EOT\219\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\STX\EOT\DC2\EOT\229\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\STX\ACK\DC2\EOT\219\STX\r\SUB\n\
+    \\ENQ\EOT\ACK\STX\STX\ACK\DC2\EOT\229\STX\r\SUB\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\STX\SOH\DC2\EOT\219\STX\ESC(\n\
+    \\ENQ\EOT\ACK\STX\STX\SOH\DC2\EOT\229\STX\ESC(\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\STX\ETX\DC2\EOT\219\STX+,\n\
+    \\ENQ\EOT\ACK\STX\STX\ETX\DC2\EOT\229\STX+,\n\
     \!\n\
-    \\EOT\EOT\ACK\STX\ETX\DC2\EOT\222\STX\EOT$\SUB\DC3 User information.\n\
+    \\EOT\EOT\ACK\STX\ETX\DC2\EOT\232\STX\EOT$\SUB\DC3 User information.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ETX\EOT\DC2\EOT\222\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\ETX\EOT\DC2\EOT\232\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ETX\ACK\DC2\EOT\222\STX\r\SUB\n\
+    \\ENQ\EOT\ACK\STX\ETX\ACK\DC2\EOT\232\STX\r\SUB\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ETX\SOH\DC2\EOT\222\STX\ESC\US\n\
+    \\ENQ\EOT\ACK\STX\ETX\SOH\DC2\EOT\232\STX\ESC\US\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ETX\ETX\DC2\EOT\222\STX\"#\n\
+    \\ENQ\EOT\ACK\STX\ETX\ETX\DC2\EOT\232\STX\"#\n\
     \2\n\
-    \\EOT\EOT\ACK\STX\EOT\DC2\EOT\225\STX\EOTK\SUB$ List of user entitlement services.\n\
+    \\EOT\EOT\ACK\STX\EOT\DC2\EOT\235\STX\EOTK\SUB$ List of user entitlement services.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\EOT\EOT\DC2\EOT\225\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\EOT\EOT\DC2\EOT\235\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\EOT\ACK\DC2\EOT\225\STX\r,\n\
+    \\ENQ\EOT\ACK\STX\EOT\ACK\DC2\EOT\235\STX\r,\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\EOT\SOH\DC2\EOT\225\STX-F\n\
+    \\ENQ\EOT\ACK\STX\EOT\SOH\DC2\EOT\235\STX-F\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\EOT\ETX\DC2\EOT\225\STXIJ\n\
+    \\ENQ\EOT\ACK\STX\EOT\ETX\DC2\EOT\235\STXIJ\n\
     \,\n\
-    \\EOT\EOT\ACK\STX\ENQ\DC2\EOT\228\STX\EOTC\SUB\RS Entitlement categories list.\n\
+    \\EOT\EOT\ACK\STX\ENQ\DC2\EOT\238\STX\EOTC\SUB\RS Entitlement categories list.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ENQ\EOT\DC2\EOT\228\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\ENQ\EOT\DC2\EOT\238\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ENQ\ACK\DC2\EOT\228\STX\r)\n\
+    \\ENQ\EOT\ACK\STX\ENQ\ACK\DC2\EOT\238\STX\r)\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ENQ\SOH\DC2\EOT\228\STX*>\n\
+    \\ENQ\EOT\ACK\STX\ENQ\SOH\DC2\EOT\238\STX*>\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ENQ\ETX\DC2\EOT\228\STXAB\n\
+    \\ENQ\EOT\ACK\STX\ENQ\ETX\DC2\EOT\238\STXAB\n\
     \)\n\
-    \\EOT\EOT\ACK\STX\ACK\DC2\EOT\231\STX\EOTA\SUB\ESC Entitlement service list.\n\
+    \\EOT\EOT\ACK\STX\ACK\DC2\EOT\241\STX\EOTA\SUB\ESC Entitlement service list.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ACK\EOT\DC2\EOT\231\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\ACK\EOT\DC2\EOT\241\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ACK\ACK\DC2\EOT\231\STX\r(\n\
+    \\ENQ\EOT\ACK\STX\ACK\ACK\DC2\EOT\241\STX\r(\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ACK\SOH\DC2\EOT\231\STX)<\n\
+    \\ENQ\EOT\ACK\STX\ACK\SOH\DC2\EOT\241\STX)<\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\ACK\ETX\DC2\EOT\231\STX?@\n\
+    \\ENQ\EOT\ACK\STX\ACK\ETX\DC2\EOT\241\STX?@\n\
     \\CAN\n\
-    \\EOT\EOT\ACK\STX\a\DC2\EOT\234\STX\EOT*\SUB\n\
+    \\EOT\EOT\ACK\STX\a\DC2\EOT\244\STX\EOT*\SUB\n\
     \ Profile.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\a\EOT\DC2\EOT\234\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\a\EOT\DC2\EOT\244\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\a\ACK\DC2\EOT\234\STX\r\GS\n\
+    \\ENQ\EOT\ACK\STX\a\ACK\DC2\EOT\244\STX\r\GS\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\a\SOH\DC2\EOT\234\STX\RS%\n\
+    \\ENQ\EOT\ACK\STX\a\SOH\DC2\EOT\244\STX\RS%\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\a\ETX\DC2\EOT\234\STX()\n\
+    \\ENQ\EOT\ACK\STX\a\ETX\DC2\EOT\244\STX()\n\
     \*\n\
-    \\EOT\EOT\ACK\STX\b\DC2\EOT\237\STX\EOT=\SUB\FS Get unique username result\n\
+    \\EOT\EOT\ACK\STX\b\DC2\EOT\247\STX\EOT=\SUB\FS Get unique username result\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\b\EOT\DC2\EOT\237\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\b\EOT\DC2\EOT\247\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\b\ACK\DC2\EOT\237\STX\r!\n\
+    \\ENQ\EOT\ACK\STX\b\ACK\DC2\EOT\247\STX\r!\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\b\SOH\DC2\EOT\237\STX\"8\n\
+    \\ENQ\EOT\ACK\STX\b\SOH\DC2\EOT\247\STX\"8\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\b\ETX\DC2\EOT\237\STX;<\n\
+    \\ENQ\EOT\ACK\STX\b\ETX\DC2\EOT\247\STX;<\n\
     \K\n\
-    \\EOT\EOT\ACK\STX\t\DC2\EOT\240\STX\EOTv\SUB= Customer to sales series authorization list result message.\n\
+    \\EOT\EOT\ACK\STX\t\DC2\EOT\250\STX\EOTv\SUB= Customer to sales series authorization list result message.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\t\EOT\DC2\EOT\240\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\t\EOT\DC2\EOT\250\STX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\t\ACK\DC2\EOT\240\STX\r@\n\
+    \\ENQ\EOT\ACK\STX\t\ACK\DC2\EOT\250\STX\r@\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\t\SOH\DC2\EOT\240\STXAp\n\
+    \\ENQ\EOT\ACK\STX\t\SOH\DC2\EOT\250\STXAp\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\t\ETX\DC2\EOT\240\STXsu\n\
+    \\ENQ\EOT\ACK\STX\t\ETX\DC2\EOT\250\STXsu\n\
     \/\n\
     \\EOT\EOT\ACK\STX\n\
-    \\DC2\EOT\243\STX\EOTE\SUB! Result of LoginSettingsRequest.\n\
+    \\DC2\EOT\253\STX\EOTE\SUB! Result of LoginSettingsRequest.\n\
     \\n\
     \\r\n\
     \\ENQ\EOT\ACK\STX\n\
-    \\EOT\DC2\EOT\243\STX\EOT\f\n\
+    \\EOT\DC2\EOT\253\STX\EOT\f\n\
     \\r\n\
     \\ENQ\EOT\ACK\STX\n\
-    \\ACK\DC2\EOT\243\STX\r)\n\
+    \\ACK\DC2\EOT\253\STX\r)\n\
     \\r\n\
     \\ENQ\EOT\ACK\STX\n\
-    \\SOH\DC2\EOT\243\STX*?\n\
+    \\SOH\DC2\EOT\253\STX*?\n\
     \\r\n\
     \\ENQ\EOT\ACK\STX\n\
-    \\ETX\DC2\EOT\243\STXBD\n\
+    \\ETX\DC2\EOT\253\STXBD\n\
     \:\n\
-    \\EOT\EOT\ACK\STX\v\DC2\EOT\246\STX\EOT`\SUB, Result of LoginExchangeMemberIdListRequest\n\
+    \\EOT\EOT\ACK\STX\v\DC2\EOT\128\ETX\EOT`\SUB, Result of LoginExchangeMemberIdListRequest\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\v\EOT\DC2\EOT\246\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\v\EOT\DC2\EOT\128\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\v\ACK\DC2\EOT\246\STX\r5\n\
+    \\ENQ\EOT\ACK\STX\v\ACK\DC2\EOT\128\ETX\r5\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\v\SOH\DC2\EOT\246\STX6Z\n\
+    \\ENQ\EOT\ACK\STX\v\SOH\DC2\EOT\128\ETX6Z\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\v\ETX\DC2\EOT\246\STX]_\n\
+    \\ENQ\EOT\ACK\STX\v\ETX\DC2\EOT\128\ETX]_\n\
     \7\n\
-    \\EOT\EOT\ACK\STX\f\DC2\EOT\249\STX\EOTP\SUB) Result of lookup_property_list_request.\n\
+    \\EOT\EOT\ACK\STX\f\DC2\EOT\131\ETX\EOTP\SUB) Result of lookup_property_list_request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\f\EOT\DC2\EOT\249\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\f\EOT\DC2\EOT\131\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\f\ACK\DC2\EOT\249\STX\r.\n\
+    \\ENQ\EOT\ACK\STX\f\ACK\DC2\EOT\131\ETX\r.\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\f\SOH\DC2\EOT\249\STX/J\n\
+    \\ENQ\EOT\ACK\STX\f\SOH\DC2\EOT\131\ETX/J\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\f\ETX\DC2\EOT\249\STXMO\n\
+    \\ENQ\EOT\ACK\STX\f\ETX\DC2\EOT\131\ETXMO\n\
     \1\n\
-    \\EOT\EOT\ACK\STX\r\DC2\EOT\252\STX\EOTA\SUB# Result of AuthPartnerListRequest.\n\
+    \\EOT\EOT\ACK\STX\r\DC2\EOT\134\ETX\EOTA\SUB# Result of AuthPartnerListRequest.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\r\EOT\DC2\EOT\252\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\r\EOT\DC2\EOT\134\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\r\ACK\DC2\EOT\252\STX\r\"\n\
+    \\ENQ\EOT\ACK\STX\r\ACK\DC2\EOT\134\ETX\r\"\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\r\SOH\DC2\EOT\252\STX#;\n\
+    \\ENQ\EOT\ACK\STX\r\SOH\DC2\EOT\134\ETX#;\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\r\ETX\DC2\EOT\252\STX>@\n\
+    \\ENQ\EOT\ACK\STX\r\ETX\DC2\EOT\134\ETX>@\n\
     \8\n\
-    \\EOT\EOT\ACK\STX\SO\DC2\EOT\255\STX\EOTY\SUB* Result of LoginBillingCustomDataRequest.\n\
+    \\EOT\EOT\ACK\STX\SO\DC2\EOT\137\ETX\EOTY\SUB* Result of LoginBillingCustomDataRequest.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SO\EOT\DC2\EOT\255\STX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\SO\EOT\DC2\EOT\137\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SO\ACK\DC2\EOT\255\STX\r2\n\
+    \\ENQ\EOT\ACK\STX\SO\ACK\DC2\EOT\137\ETX\r2\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SO\SOH\DC2\EOT\255\STX3S\n\
+    \\ENQ\EOT\ACK\STX\SO\SOH\DC2\EOT\137\ETX3S\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SO\ETX\DC2\EOT\255\STXVX\n\
+    \\ENQ\EOT\ACK\STX\SO\ETX\DC2\EOT\137\ETXVX\n\
     \g\n\
-    \\EOT\EOT\ACK\STX\SI\DC2\EOT\131\ETX\EOT)\SUBY Request tracking number generated by CMS API\n\
+    \\EOT\EOT\ACK\STX\SI\DC2\EOT\141\ETX\EOT)\SUBY Request tracking number generated by CMS API\n\
     \ Used by client to cancel deferred request\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SI\EOT\DC2\EOT\131\ETX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\SI\EOT\DC2\EOT\141\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SI\ENQ\DC2\EOT\131\ETX\r\DC3\n\
+    \\ENQ\EOT\ACK\STX\SI\ENQ\DC2\EOT\141\ETX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SI\SOH\DC2\EOT\131\ETX\DC4#\n\
+    \\ENQ\EOT\ACK\STX\SI\SOH\DC2\EOT\141\ETX\DC4#\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\SI\ETX\DC2\EOT\131\ETX&(\n\
+    \\ENQ\EOT\ACK\STX\SI\ETX\DC2\EOT\141\ETX&(\n\
     \1\n\
-    \\EOT\EOT\ACK\STX\DLE\DC2\EOT\134\ETX\EOTI\SUB# Result of TradingFeaturesRequest.\n\
+    \\EOT\EOT\ACK\STX\DLE\DC2\EOT\144\ETX\EOTI\SUB# Result of TradingFeaturesRequest.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\DLE\EOT\DC2\EOT\134\ETX\EOT\f\n\
+    \\ENQ\EOT\ACK\STX\DLE\EOT\DC2\EOT\144\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\DLE\ACK\DC2\EOT\134\ETX\r+\n\
+    \\ENQ\EOT\ACK\STX\DLE\ACK\DC2\EOT\144\ETX\r+\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\DLE\SOH\DC2\EOT\134\ETX,C\n\
+    \\ENQ\EOT\ACK\STX\DLE\SOH\DC2\EOT\144\ETX,C\n\
     \\r\n\
-    \\ENQ\EOT\ACK\STX\DLE\ETX\DC2\EOT\134\ETXFH\n\
+    \\ENQ\EOT\ACK\STX\DLE\ETX\DC2\EOT\144\ETXFH\n\
     \(\n\
-    \\STX\EOT\a\DC2\ACK\138\ETX\NUL\169\ETX\SOH\SUB\SUB Search operation result.\n\
+    \\STX\EOT\a\DC2\ACK\148\ETX\NUL\179\ETX\SOH\SUB\SUB Search operation result.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\a\SOH\DC2\EOT\138\ETX\b\DC4\n\
+    \\ETX\EOT\a\SOH\DC2\EOT\148\ETX\b\DC4\n\
     \.\n\
-    \\EOT\EOT\a\STX\NUL\DC2\EOT\141\ETX\EOT#\SUB  ID of a corresponding request.\n\
+    \\EOT\EOT\a\STX\NUL\DC2\EOT\151\ETX\EOT#\SUB  ID of a corresponding request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\NUL\EOT\DC2\EOT\141\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\NUL\EOT\DC2\EOT\151\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\NUL\ENQ\DC2\EOT\141\ETX\r\DC3\n\
+    \\ENQ\EOT\a\STX\NUL\ENQ\DC2\EOT\151\ETX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\NUL\SOH\DC2\EOT\141\ETX\DC4\RS\n\
+    \\ENQ\EOT\a\STX\NUL\SOH\DC2\EOT\151\ETX\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\NUL\ETX\DC2\EOT\141\ETX!\"\n\
+    \\ENQ\EOT\a\STX\NUL\ETX\DC2\EOT\151\ETX!\"\n\
     \_\n\
-    \\EOT\EOT\a\STX\SOH\DC2\EOT\145\ETX\EOT)\SUBQ Operation status.\n\
+    \\EOT\EOT\a\STX\SOH\DC2\EOT\155\ETX\EOT)\SUBQ Operation status.\n\
     \ This field is associated with common_1.OperationStatus enum.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\SOH\EOT\DC2\EOT\145\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\SOH\EOT\DC2\EOT\155\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\SOH\ENQ\DC2\EOT\145\ETX\r\DC3\n\
+    \\ENQ\EOT\a\STX\SOH\ENQ\DC2\EOT\155\ETX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\SOH\SOH\DC2\EOT\145\ETX\DC4$\n\
+    \\ENQ\EOT\a\STX\SOH\SOH\DC2\EOT\155\ETX\DC4$\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\SOH\ETX\DC2\EOT\145\ETX'(\n\
+    \\ENQ\EOT\a\STX\SOH\ETX\DC2\EOT\155\ETX'(\n\
     \y\n\
-    \\EOT\EOT\a\STX\STX\DC2\EOT\149\ETX\EOT3\SUBk This flag is set to True if all search results are sent\n\
+    \\EOT\EOT\a\STX\STX\DC2\EOT\159\ETX\EOT3\SUBk This flag is set to True if all search results are sent\n\
     \ and nothing was filtered out by 'top' parameter.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\EOT\DC2\EOT\149\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\STX\EOT\DC2\EOT\159\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\ENQ\DC2\EOT\149\ETX\r\DC1\n\
+    \\ENQ\EOT\a\STX\STX\ENQ\DC2\EOT\159\ETX\r\DC1\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\SOH\DC2\EOT\149\ETX\DC2\GS\n\
+    \\ENQ\EOT\a\STX\STX\SOH\DC2\EOT\159\ETX\DC2\GS\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\ETX\DC2\EOT\149\ETX !\n\
+    \\ENQ\EOT\a\STX\STX\ETX\DC2\EOT\159\ETX !\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\b\DC2\EOT\149\ETX\"2\n\
+    \\ENQ\EOT\a\STX\STX\b\DC2\EOT\159\ETX\"2\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\STX\a\DC2\EOT\149\ETX-1\n\
+    \\ENQ\EOT\a\STX\STX\a\DC2\EOT\159\ETX-1\n\
     \ \n\
-    \\EOT\EOT\a\STX\ETX\DC2\EOT\152\ETX\EOT-\SUB\DC2 Failure details.\n\
+    \\EOT\EOT\a\STX\ETX\DC2\EOT\162\ETX\EOT-\SUB\DC2 Failure details.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ETX\EOT\DC2\EOT\152\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\ETX\EOT\DC2\EOT\162\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ETX\ACK\DC2\EOT\152\ETX\r\SUB\n\
+    \\ENQ\EOT\a\STX\ETX\ACK\DC2\EOT\162\ETX\r\SUB\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ETX\SOH\DC2\EOT\152\ETX\ESC(\n\
+    \\ENQ\EOT\a\STX\ETX\SOH\DC2\EOT\162\ETX\ESC(\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ETX\ETX\DC2\EOT\152\ETX+,\n\
+    \\ENQ\EOT\a\STX\ETX\ETX\DC2\EOT\162\ETX+,\n\
     \+\n\
-    \\EOT\EOT\a\STX\EOT\DC2\EOT\155\ETX\EOT=\SUB\GS User search result records.\n\
+    \\EOT\EOT\a\STX\EOT\DC2\EOT\165\ETX\EOT=\SUB\GS User search result records.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\EOT\EOT\DC2\EOT\155\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\EOT\EOT\DC2\EOT\165\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\EOT\ACK\DC2\EOT\155\ETX\r,\n\
+    \\ENQ\EOT\a\STX\EOT\ACK\DC2\EOT\165\ETX\r,\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\EOT\SOH\DC2\EOT\155\ETX-8\n\
+    \\ENQ\EOT\a\STX\EOT\SOH\DC2\EOT\165\ETX-8\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\EOT\ETX\DC2\EOT\155\ETX;<\n\
+    \\ENQ\EOT\a\STX\EOT\ETX\DC2\EOT\165\ETX;<\n\
     \.\n\
-    \\EOT\EOT\a\STX\ENQ\DC2\EOT\158\ETX\EOT:\SUB  Profile search result records.\n\
+    \\EOT\EOT\a\STX\ENQ\DC2\EOT\168\ETX\EOT:\SUB  Profile search result records.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ENQ\EOT\DC2\EOT\158\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\ENQ\EOT\DC2\EOT\168\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ENQ\ACK\DC2\EOT\158\ETX\r&\n\
+    \\ENQ\EOT\a\STX\ENQ\ACK\DC2\EOT\168\ETX\r&\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ENQ\SOH\DC2\EOT\158\ETX'5\n\
+    \\ENQ\EOT\a\STX\ENQ\SOH\DC2\EOT\168\ETX'5\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ENQ\ETX\DC2\EOT\158\ETX89\n\
+    \\ENQ\EOT\a\STX\ENQ\ETX\DC2\EOT\168\ETX89\n\
     \A\n\
-    \\EOT\EOT\a\STX\ACK\DC2\EOT\161\ETX\EOTg\SUB3 [obsolete] Use ProfileSearchResultRecord instead.\n\
+    \\EOT\EOT\a\STX\ACK\DC2\EOT\171\ETX\EOTg\SUB3 [obsolete] Use ProfileSearchResultRecord instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ACK\EOT\DC2\EOT\161\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\ACK\EOT\DC2\EOT\171\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ACK\ACK\DC2\EOT\161\ETX\r3\n\
+    \\ENQ\EOT\a\STX\ACK\ACK\DC2\EOT\171\ETX\r3\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ACK\SOH\DC2\EOT\161\ETX4P\n\
+    \\ENQ\EOT\a\STX\ACK\SOH\DC2\EOT\171\ETX4P\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ACK\ETX\DC2\EOT\161\ETXST\n\
+    \\ENQ\EOT\a\STX\ACK\ETX\DC2\EOT\171\ETXST\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\ACK\b\DC2\EOT\161\ETXUf\n\
+    \\ENQ\EOT\a\STX\ACK\b\DC2\EOT\171\ETXUf\n\
     \\SO\n\
-    \\ACK\EOT\a\STX\ACK\b\ETX\DC2\EOT\161\ETXVe\n\
+    \\ACK\EOT\a\STX\ACK\b\ETX\DC2\EOT\171\ETXVe\n\
     \g\n\
-    \\EOT\EOT\a\STX\a\DC2\EOT\165\ETX\EOT(\SUBY Request tracking number generated by CMS API\n\
+    \\EOT\EOT\a\STX\a\DC2\EOT\175\ETX\EOT(\SUBY Request tracking number generated by CMS API\n\
     \ Used by client to cancel deferred request\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\a\EOT\DC2\EOT\165\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\a\EOT\DC2\EOT\175\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\a\ENQ\DC2\EOT\165\ETX\r\DC3\n\
+    \\ENQ\EOT\a\STX\a\ENQ\DC2\EOT\175\ETX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\a\SOH\DC2\EOT\165\ETX\DC4#\n\
+    \\ENQ\EOT\a\STX\a\SOH\DC2\EOT\175\ETX\DC4#\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\a\ETX\DC2\EOT\165\ETX&'\n\
+    \\ENQ\EOT\a\STX\a\ETX\DC2\EOT\175\ETX&'\n\
     \0\n\
-    \\EOT\EOT\a\STX\b\DC2\EOT\168\ETX\EOTI\SUB\" Log event search result records.\n\
+    \\EOT\EOT\a\STX\b\DC2\EOT\178\ETX\EOTI\SUB\" Log event search result records.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\b\EOT\DC2\EOT\168\ETX\EOT\f\n\
+    \\ENQ\EOT\a\STX\b\EOT\DC2\EOT\178\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\b\ACK\DC2\EOT\168\ETX\r3\n\
+    \\ENQ\EOT\a\STX\b\ACK\DC2\EOT\178\ETX\r3\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\b\SOH\DC2\EOT\168\ETX4D\n\
+    \\ENQ\EOT\a\STX\b\SOH\DC2\EOT\178\ETX4D\n\
     \\r\n\
-    \\ENQ\EOT\a\STX\b\ETX\DC2\EOT\168\ETXGH\n\
+    \\ENQ\EOT\a\STX\b\ETX\DC2\EOT\178\ETXGH\n\
     \,\n\
-    \\STX\EOT\b\DC2\ACK\172\ETX\NUL\252\ETX\SOH\SUB\RS Result of operation request.\n\
+    \\STX\EOT\b\DC2\ACK\182\ETX\NUL\137\EOT\SOH\SUB\RS Result of operation request.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\b\SOH\DC2\EOT\172\ETX\b\ETB\n\
+    \\ETX\EOT\b\SOH\DC2\EOT\182\ETX\b\ETB\n\
     \.\n\
-    \\EOT\EOT\b\STX\NUL\DC2\EOT\175\ETX\EOT#\SUB  ID of a corresponding request.\n\
+    \\EOT\EOT\b\STX\NUL\DC2\EOT\185\ETX\EOT#\SUB  ID of a corresponding request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NUL\EOT\DC2\EOT\175\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\NUL\EOT\DC2\EOT\185\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NUL\ENQ\DC2\EOT\175\ETX\r\DC3\n\
+    \\ENQ\EOT\b\STX\NUL\ENQ\DC2\EOT\185\ETX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NUL\SOH\DC2\EOT\175\ETX\DC4\RS\n\
+    \\ENQ\EOT\b\STX\NUL\SOH\DC2\EOT\185\ETX\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NUL\ETX\DC2\EOT\175\ETX!\"\n\
+    \\ENQ\EOT\b\STX\NUL\ETX\DC2\EOT\185\ETX!\"\n\
     \_\n\
-    \\EOT\EOT\b\STX\SOH\DC2\EOT\179\ETX\EOT)\SUBQ Operation status.\n\
+    \\EOT\EOT\b\STX\SOH\DC2\EOT\189\ETX\EOT)\SUBQ Operation status.\n\
     \ This field is associated with common_1.OperationStatus enum.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SOH\EOT\DC2\EOT\179\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\SOH\EOT\DC2\EOT\189\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SOH\ENQ\DC2\EOT\179\ETX\r\DC3\n\
+    \\ENQ\EOT\b\STX\SOH\ENQ\DC2\EOT\189\ETX\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SOH\SOH\DC2\EOT\179\ETX\DC4$\n\
+    \\ENQ\EOT\b\STX\SOH\SOH\DC2\EOT\189\ETX\DC4$\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SOH\ETX\DC2\EOT\179\ETX'(\n\
+    \\ENQ\EOT\b\STX\SOH\ETX\DC2\EOT\189\ETX'(\n\
     \ \n\
-    \\EOT\EOT\b\STX\STX\DC2\EOT\182\ETX\EOT-\SUB\DC2 Failure details.\n\
+    \\EOT\EOT\b\STX\STX\DC2\EOT\192\ETX\EOT-\SUB\DC2 Failure details.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\STX\EOT\DC2\EOT\182\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\STX\EOT\DC2\EOT\192\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\STX\ACK\DC2\EOT\182\ETX\r\SUB\n\
+    \\ENQ\EOT\b\STX\STX\ACK\DC2\EOT\192\ETX\r\SUB\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\STX\SOH\DC2\EOT\182\ETX\ESC(\n\
+    \\ENQ\EOT\b\STX\STX\SOH\DC2\EOT\192\ETX\ESC(\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\STX\ETX\DC2\EOT\182\ETX+,\n\
+    \\ENQ\EOT\b\STX\STX\ETX\DC2\EOT\192\ETX+,\n\
     \\"\n\
-    \\EOT\EOT\b\STX\ETX\DC2\EOT\185\ETX\EOT<\SUB\DC4 Clone user result.\n\
+    \\EOT\EOT\b\STX\ETX\DC2\EOT\195\ETX\EOT<\SUB\DC4 Clone user result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETX\EOT\DC2\EOT\185\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\ETX\EOT\DC2\EOT\195\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETX\ACK\DC2\EOT\185\ETX\r%\n\
+    \\ENQ\EOT\b\STX\ETX\ACK\DC2\EOT\195\ETX\r%\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETX\SOH\DC2\EOT\185\ETX&7\n\
+    \\ENQ\EOT\b\STX\ETX\SOH\DC2\EOT\195\ETX&7\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETX\ETX\DC2\EOT\185\ETX:;\n\
+    \\ENQ\EOT\b\STX\ETX\ETX\DC2\EOT\195\ETX:;\n\
     \&\n\
-    \\EOT\EOT\b\STX\EOT\DC2\EOT\188\ETX\EOT;\SUB\CAN Create profile result.\n\
+    \\EOT\EOT\b\STX\EOT\DC2\EOT\198\ETX\EOT;\SUB\CAN Create profile result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EOT\EOT\DC2\EOT\188\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\EOT\EOT\DC2\EOT\198\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EOT\ACK\DC2\EOT\188\ETX\r \n\
+    \\ENQ\EOT\b\STX\EOT\ACK\DC2\EOT\198\ETX\r \n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EOT\SOH\DC2\EOT\188\ETX!6\n\
+    \\ENQ\EOT\b\STX\EOT\SOH\DC2\EOT\198\ETX!6\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EOT\ETX\DC2\EOT\188\ETX9:\n\
+    \\ENQ\EOT\b\STX\EOT\ETX\DC2\EOT\198\ETX9:\n\
     \&\n\
-    \\EOT\EOT\b\STX\ENQ\DC2\EOT\191\ETX\EOT;\SUB\CAN Update profile result.\n\
+    \\EOT\EOT\b\STX\ENQ\DC2\EOT\201\ETX\EOT;\SUB\CAN Update profile result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ENQ\EOT\DC2\EOT\191\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\ENQ\EOT\DC2\EOT\201\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ENQ\ACK\DC2\EOT\191\ETX\r \n\
+    \\ENQ\EOT\b\STX\ENQ\ACK\DC2\EOT\201\ETX\r \n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ENQ\SOH\DC2\EOT\191\ETX!6\n\
+    \\ENQ\EOT\b\STX\ENQ\SOH\DC2\EOT\201\ETX!6\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ENQ\ETX\DC2\EOT\191\ETX9:\n\
+    \\ENQ\EOT\b\STX\ENQ\ETX\DC2\EOT\201\ETX9:\n\
     \&\n\
-    \\EOT\EOT\b\STX\ACK\DC2\EOT\194\ETX\EOT;\SUB\CAN Remove profile result.\n\
+    \\EOT\EOT\b\STX\ACK\DC2\EOT\204\ETX\EOT;\SUB\CAN Remove profile result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ACK\EOT\DC2\EOT\194\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\ACK\EOT\DC2\EOT\204\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ACK\ACK\DC2\EOT\194\ETX\r \n\
+    \\ENQ\EOT\b\STX\ACK\ACK\DC2\EOT\204\ETX\r \n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ACK\SOH\DC2\EOT\194\ETX!6\n\
+    \\ENQ\EOT\b\STX\ACK\SOH\DC2\EOT\204\ETX!6\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ACK\ETX\DC2\EOT\194\ETX9:\n\
+    \\ENQ\EOT\b\STX\ACK\ETX\DC2\EOT\204\ETX9:\n\
     \#\n\
-    \\EOT\EOT\b\STX\a\DC2\EOT\197\ETX\EOT>\SUB\NAK Create user result.\n\
+    \\EOT\EOT\b\STX\a\DC2\EOT\207\ETX\EOT>\SUB\NAK Create user result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\a\EOT\DC2\EOT\197\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\a\EOT\DC2\EOT\207\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\a\ACK\DC2\EOT\197\ETX\r&\n\
+    \\ENQ\EOT\b\STX\a\ACK\DC2\EOT\207\ETX\r&\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\a\SOH\DC2\EOT\197\ETX'9\n\
+    \\ENQ\EOT\b\STX\a\SOH\DC2\EOT\207\ETX'9\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\a\ETX\DC2\EOT\197\ETX<=\n\
+    \\ENQ\EOT\b\STX\a\ETX\DC2\EOT\207\ETX<=\n\
     \#\n\
-    \\EOT\EOT\b\STX\b\DC2\EOT\200\ETX\EOT>\SUB\NAK Update user result.\n\
+    \\EOT\EOT\b\STX\b\DC2\EOT\210\ETX\EOT>\SUB\NAK Update user result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\b\EOT\DC2\EOT\200\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\b\EOT\DC2\EOT\210\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\b\ACK\DC2\EOT\200\ETX\r&\n\
+    \\ENQ\EOT\b\STX\b\ACK\DC2\EOT\210\ETX\r&\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\b\SOH\DC2\EOT\200\ETX'9\n\
+    \\ENQ\EOT\b\STX\b\SOH\DC2\EOT\210\ETX'9\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\b\ETX\DC2\EOT\200\ETX<=\n\
+    \\ENQ\EOT\b\STX\b\ETX\DC2\EOT\210\ETX<=\n\
     \#\n\
-    \\EOT\EOT\b\STX\t\DC2\EOT\203\ETX\EOT?\SUB\NAK Remove user result.\n\
+    \\EOT\EOT\b\STX\t\DC2\EOT\213\ETX\EOT?\SUB\NAK Remove user result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\t\EOT\DC2\EOT\203\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\t\EOT\DC2\EOT\213\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\t\ACK\DC2\EOT\203\ETX\r&\n\
+    \\ENQ\EOT\b\STX\t\ACK\DC2\EOT\213\ETX\r&\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\t\SOH\DC2\EOT\203\ETX'9\n\
+    \\ENQ\EOT\b\STX\t\SOH\DC2\EOT\213\ETX'9\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\t\ETX\DC2\EOT\203\ETX<>\n\
+    \\ENQ\EOT\b\STX\t\ETX\DC2\EOT\213\ETX<>\n\
     \2\n\
     \\EOT\EOT\b\STX\n\
-    \\DC2\EOT\206\ETX\EOTH\SUB$ [re-]link login to profile result.\n\
+    \\DC2\EOT\216\ETX\EOTH\SUB$ [re-]link login to profile result.\n\
     \\n\
     \\r\n\
     \\ENQ\EOT\b\STX\n\
-    \\EOT\DC2\EOT\206\ETX\EOT\f\n\
+    \\EOT\DC2\EOT\216\ETX\EOT\f\n\
     \\r\n\
     \\ENQ\EOT\b\STX\n\
-    \\ACK\DC2\EOT\206\ETX\r%\n\
+    \\ACK\DC2\EOT\216\ETX\r%\n\
     \\r\n\
     \\ENQ\EOT\b\STX\n\
-    \\SOH\DC2\EOT\206\ETX&B\n\
+    \\SOH\DC2\EOT\216\ETX&B\n\
     \\r\n\
     \\ENQ\EOT\b\STX\n\
-    \\ETX\DC2\EOT\206\ETXEG\n\
+    \\ETX\DC2\EOT\216\ETXEG\n\
     \7\n\
-    \\EOT\EOT\b\STX\v\DC2\EOT\209\ETX\EOTf\SUB) Modify user entitlement service result.\n\
+    \\EOT\EOT\b\STX\v\DC2\EOT\219\ETX\EOTf\SUB) Modify user entitlement service result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\v\EOT\DC2\EOT\209\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\v\EOT\DC2\EOT\219\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\v\ACK\DC2\EOT\209\ETX\r8\n\
+    \\ENQ\EOT\b\STX\v\ACK\DC2\EOT\219\ETX\r8\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\v\SOH\DC2\EOT\209\ETX9`\n\
+    \\ENQ\EOT\b\STX\v\SOH\DC2\EOT\219\ETX9`\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\v\ETX\DC2\EOT\209\ETXce\n\
+    \\ENQ\EOT\b\STX\v\ETX\DC2\EOT\219\ETXce\n\
     \+\n\
-    \\EOT\EOT\b\STX\f\DC2\EOT\212\ETX\EOTC\SUB\GS Send welcome e-mail result.\n\
+    \\EOT\EOT\b\STX\f\DC2\EOT\222\ETX\EOTC\SUB\GS Send welcome e-mail result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\f\EOT\DC2\EOT\212\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\f\EOT\DC2\EOT\222\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\f\ACK\DC2\EOT\212\ETX\r#\n\
+    \\ENQ\EOT\b\STX\f\ACK\DC2\EOT\222\ETX\r#\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\f\SOH\DC2\EOT\212\ETX$=\n\
+    \\ENQ\EOT\b\STX\f\SOH\DC2\EOT\222\ETX$=\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\f\ETX\DC2\EOT\212\ETX@B\n\
+    \\ENQ\EOT\b\STX\f\ETX\DC2\EOT\222\ETX@B\n\
     \$\n\
-    \\EOT\EOT\b\STX\r\DC2\EOT\215\ETX\EOTA\SUB\SYN Restore user result.\n\
+    \\EOT\EOT\b\STX\r\DC2\EOT\225\ETX\EOTA\SUB\SYN Restore user result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\r\EOT\DC2\EOT\215\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\r\EOT\DC2\EOT\225\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\r\ACK\DC2\EOT\215\ETX\r'\n\
+    \\ENQ\EOT\b\STX\r\ACK\DC2\EOT\225\ETX\r'\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\r\SOH\DC2\EOT\215\ETX(;\n\
+    \\ENQ\EOT\b\STX\r\SOH\DC2\EOT\225\ETX(;\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\r\ETX\DC2\EOT\215\ETX>@\n\
+    \\ENQ\EOT\b\STX\r\ETX\DC2\EOT\225\ETX>@\n\
     \'\n\
-    \\EOT\EOT\b\STX\SO\DC2\EOT\218\ETX\EOT>\SUB\EM Restore profile result.\n\
+    \\EOT\EOT\b\STX\SO\DC2\EOT\228\ETX\EOT>\SUB\EM Restore profile result.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SO\EOT\DC2\EOT\218\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\SO\EOT\DC2\EOT\228\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SO\ACK\DC2\EOT\218\ETX\r!\n\
+    \\ENQ\EOT\b\STX\SO\ACK\DC2\EOT\228\ETX\r!\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SO\SOH\DC2\EOT\218\ETX\"8\n\
+    \\ENQ\EOT\b\STX\SO\SOH\DC2\EOT\228\ETX\"8\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SO\ETX\DC2\EOT\218\ETX;=\n\
+    \\ENQ\EOT\b\STX\SO\ETX\DC2\EOT\228\ETX;=\n\
     \N\n\
-    \\EOT\EOT\b\STX\SI\DC2\ENQ\221\ETX\EOT\131\SOH\SUB? Result of customer to sales series authorization list update.\n\
+    \\EOT\EOT\b\STX\SI\DC2\ENQ\231\ETX\EOT\131\SOH\SUB? Result of customer to sales series authorization list update.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SI\EOT\DC2\EOT\221\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\SI\EOT\DC2\EOT\231\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SI\ACK\DC2\EOT\221\ETX\rF\n\
+    \\ENQ\EOT\b\STX\SI\ACK\DC2\EOT\231\ETX\rF\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SI\SOH\DC2\EOT\221\ETXG}\n\
+    \\ENQ\EOT\b\STX\SI\SOH\DC2\EOT\231\ETXG}\n\
     \\SI\n\
-    \\ENQ\EOT\b\STX\SI\ETX\DC2\ACK\221\ETX\128\SOH\130\SOH\n\
+    \\ENQ\EOT\b\STX\SI\ETX\DC2\ACK\231\ETX\128\SOH\130\SOH\n\
     \:\n\
-    \\EOT\EOT\b\STX\DLE\DC2\EOT\224\ETX\EOTm\SUB, Result of UpdateLoginExchangeMemberIdList.\n\
+    \\EOT\EOT\b\STX\DLE\DC2\EOT\234\ETX\EOTm\SUB, Result of UpdateLoginExchangeMemberIdList.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DLE\EOT\DC2\EOT\224\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\DLE\EOT\DC2\EOT\234\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DLE\ACK\DC2\EOT\224\ETX\r;\n\
+    \\ENQ\EOT\b\STX\DLE\ACK\DC2\EOT\234\ETX\r;\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DLE\SOH\DC2\EOT\224\ETX<g\n\
+    \\ENQ\EOT\b\STX\DLE\SOH\DC2\EOT\234\ETX<g\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DLE\ETX\DC2\EOT\224\ETXjl\n\
+    \\ENQ\EOT\b\STX\DLE\ETX\DC2\EOT\234\ETXjl\n\
     \.\n\
-    \\EOT\EOT\b\STX\DC1\DC2\EOT\227\ETX\EOTR\SUB  Result of UpdateLoginSettings.\n\
+    \\EOT\EOT\b\STX\DC1\DC2\EOT\237\ETX\EOTR\SUB  Result of UpdateLoginSettings.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC1\EOT\DC2\EOT\227\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\DC1\EOT\DC2\EOT\237\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC1\ACK\DC2\EOT\227\ETX\r/\n\
+    \\ENQ\EOT\b\STX\DC1\ACK\DC2\EOT\237\ETX\r/\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC1\SOH\DC2\EOT\227\ETX0L\n\
+    \\ENQ\EOT\b\STX\DC1\SOH\DC2\EOT\237\ETX0L\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC1\ETX\DC2\EOT\227\ETXOQ\n\
+    \\ENQ\EOT\b\STX\DC1\ETX\DC2\EOT\237\ETXOQ\n\
     \'\n\
-    \\EOT\EOT\b\STX\DC2\DC2\EOT\230\ETX\EOTE\SUB\EM Result of ActivateLogin\n\
+    \\EOT\EOT\b\STX\DC2\DC2\EOT\240\ETX\EOTE\SUB\EM Result of ActivateLogin\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC2\EOT\DC2\EOT\230\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\DC2\EOT\DC2\EOT\240\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC2\ACK\DC2\EOT\230\ETX\r)\n\
+    \\ENQ\EOT\b\STX\DC2\ACK\DC2\EOT\240\ETX\r)\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC2\SOH\DC2\EOT\230\ETX*?\n\
+    \\ENQ\EOT\b\STX\DC2\SOH\DC2\EOT\240\ETX*?\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC2\ETX\DC2\EOT\230\ETXBD\n\
+    \\ENQ\EOT\b\STX\DC2\ETX\DC2\EOT\240\ETXBD\n\
     \)\n\
-    \\EOT\EOT\b\STX\DC3\DC2\EOT\233\ETX\EOTI\SUB\ESC Result of DeactivateLogin\n\
+    \\EOT\EOT\b\STX\DC3\DC2\EOT\243\ETX\EOTI\SUB\ESC Result of DeactivateLogin\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC3\EOT\DC2\EOT\233\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\DC3\EOT\DC2\EOT\243\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC3\ACK\DC2\EOT\233\ETX\r+\n\
+    \\ENQ\EOT\b\STX\DC3\ACK\DC2\EOT\243\ETX\r+\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC3\SOH\DC2\EOT\233\ETX,C\n\
+    \\ENQ\EOT\b\STX\DC3\SOH\DC2\EOT\243\ETX,C\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC3\ETX\DC2\EOT\233\ETXFH\n\
+    \\ENQ\EOT\b\STX\DC3\ETX\DC2\EOT\243\ETXFH\n\
     \6\n\
-    \\EOT\EOT\b\STX\DC4\DC2\EOT\236\ETX\EOTT\SUB( Result of send credential reset email.\n\
+    \\EOT\EOT\b\STX\DC4\DC2\EOT\246\ETX\EOTT\SUB( Result of send credential reset email.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC4\EOT\DC2\EOT\236\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\DC4\EOT\DC2\EOT\246\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC4\ACK\DC2\EOT\236\ETX\r+\n\
+    \\ENQ\EOT\b\STX\DC4\ACK\DC2\EOT\246\ETX\r+\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC4\SOH\DC2\EOT\236\ETX,N\n\
+    \\ENQ\EOT\b\STX\DC4\SOH\DC2\EOT\246\ETX,N\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\DC4\ETX\DC2\EOT\236\ETXQS\n\
+    \\ENQ\EOT\b\STX\DC4\ETX\DC2\EOT\246\ETXQS\n\
     \_\n\
-    \\EOT\EOT\b\STX\NAK\DC2\EOT\239\ETX\EOT\\\SUBQ Result of generate a service security token for a special AuthServer operation.\n\
+    \\EOT\EOT\b\STX\NAK\DC2\EOT\249\ETX\EOT\\\SUBQ Result of generate a service security token for a special AuthServer operation.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NAK\EOT\DC2\EOT\239\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\NAK\EOT\DC2\EOT\249\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NAK\ACK\DC2\EOT\239\ETX\r/\n\
+    \\ENQ\EOT\b\STX\NAK\ACK\DC2\EOT\249\ETX\r/\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NAK\SOH\DC2\EOT\239\ETX0V\n\
+    \\ENQ\EOT\b\STX\NAK\SOH\DC2\EOT\249\ETX0V\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\NAK\ETX\DC2\EOT\239\ETXY[\n\
+    \\ENQ\EOT\b\STX\NAK\ETX\DC2\EOT\249\ETXY[\n\
     \2\n\
-    \\EOT\EOT\b\STX\SYN\DC2\EOT\242\ETX\EOTZ\SUB$ Result of EraseCurrentCredentials.\n\
+    \\EOT\EOT\b\STX\SYN\DC2\EOT\252\ETX\EOTZ\SUB$ Result of EraseCurrentCredentials.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SYN\EOT\DC2\EOT\242\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\SYN\EOT\DC2\EOT\252\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SYN\ACK\DC2\EOT\242\ETX\r3\n\
+    \\ENQ\EOT\b\STX\SYN\ACK\DC2\EOT\252\ETX\r3\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SYN\SOH\DC2\EOT\242\ETX4T\n\
+    \\ENQ\EOT\b\STX\SYN\SOH\DC2\EOT\252\ETX4T\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\SYN\ETX\DC2\EOT\242\ETXWY\n\
+    \\ENQ\EOT\b\STX\SYN\ETX\DC2\EOT\252\ETXWY\n\
     \\f\n\
-    \\EOT\EOT\b\STX\ETB\DC2\EOT\244\ETX\EOTM\n\
+    \\EOT\EOT\b\STX\ETB\DC2\EOT\254\ETX\EOTM\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETB\EOT\DC2\EOT\244\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\ETB\EOT\DC2\EOT\254\ETX\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETB\ACK\DC2\EOT\244\ETX\r(\n\
+    \\ENQ\EOT\b\STX\ETB\ACK\DC2\EOT\254\ETX\r(\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETB\SOH\DC2\EOT\244\ETX)G\n\
+    \\ENQ\EOT\b\STX\ETB\SOH\DC2\EOT\254\ETX)G\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\ETB\ETX\DC2\EOT\244\ETXJL\n\
+    \\ENQ\EOT\b\STX\ETB\ETX\DC2\EOT\254\ETXJL\n\
     \7\n\
-    \\EOT\EOT\b\STX\CAN\DC2\EOT\247\ETX\EOTf\SUB) Result of UpdateLoginBillingCustomData.\n\
+    \\EOT\EOT\b\STX\CAN\DC2\EOT\129\EOT\EOTf\SUB) Result of UpdateLoginBillingCustomData.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\CAN\EOT\DC2\EOT\247\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\CAN\EOT\DC2\EOT\129\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\CAN\ACK\DC2\EOT\247\ETX\r8\n\
+    \\ENQ\EOT\b\STX\CAN\ACK\DC2\EOT\129\EOT\r8\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\CAN\SOH\DC2\EOT\247\ETX9`\n\
+    \\ENQ\EOT\b\STX\CAN\SOH\DC2\EOT\129\EOT9`\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\CAN\ETX\DC2\EOT\247\ETXce\n\
+    \\ENQ\EOT\b\STX\CAN\ETX\DC2\EOT\129\EOTce\n\
     \g\n\
-    \\EOT\EOT\b\STX\EM\DC2\EOT\251\ETX\EOT)\SUBY Request tracking number generated by CMS API\n\
+    \\EOT\EOT\b\STX\EM\DC2\EOT\133\EOT\EOT)\SUBY Request tracking number generated by CMS API\n\
     \ Used by client to cancel deferred request\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EM\EOT\DC2\EOT\251\ETX\EOT\f\n\
+    \\ENQ\EOT\b\STX\EM\EOT\DC2\EOT\133\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EM\ENQ\DC2\EOT\251\ETX\r\DC3\n\
+    \\ENQ\EOT\b\STX\EM\ENQ\DC2\EOT\133\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EM\SOH\DC2\EOT\251\ETX\DC4#\n\
+    \\ENQ\EOT\b\STX\EM\SOH\DC2\EOT\133\EOT\DC4#\n\
     \\r\n\
-    \\ENQ\EOT\b\STX\EM\ETX\DC2\EOT\251\ETX&(\n\
+    \\ENQ\EOT\b\STX\EM\ETX\DC2\EOT\133\EOT&(\n\
+    \*\n\
+    \\EOT\EOT\b\STX\SUB\DC2\EOT\136\EOT\EOTA\SUB\FS Result of ObtainDemoLogin.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SUB\EOT\DC2\EOT\136\EOT\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SUB\ACK\DC2\EOT\136\EOT\r\"\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SUB\SOH\DC2\EOT\136\EOT#;\n\
+    \\r\n\
+    \\ENQ\EOT\b\STX\SUB\ETX\DC2\EOT\136\EOT>@\n\
     \.\n\
-    \\STX\EOT\t\DC2\ACK\255\ETX\NUL\139\EOT\SOH\SUB  Send welcome e-mail operation.\n\
+    \\STX\EOT\t\DC2\ACK\140\EOT\NUL\152\EOT\SOH\SUB  Send welcome e-mail operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\t\SOH\DC2\EOT\255\ETX\b\CAN\n\
+    \\ETX\EOT\t\SOH\DC2\EOT\140\EOT\b\CAN\n\
     \2\n\
-    \\EOT\EOT\t\STX\NUL\DC2\EOT\130\EOT\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\EOT\EOT\t\STX\NUL\DC2\EOT\143\EOT\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\EOT\DC2\EOT\130\EOT\EOT\f\n\
+    \\ENQ\EOT\t\STX\NUL\EOT\DC2\EOT\143\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\ENQ\DC2\EOT\130\EOT\r\DC3\n\
+    \\ENQ\EOT\t\STX\NUL\ENQ\DC2\EOT\143\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\SOH\DC2\EOT\130\EOT\DC4(\n\
+    \\ENQ\EOT\t\STX\NUL\SOH\DC2\EOT\143\EOT\DC4(\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\ETX\DC2\EOT\130\EOT+,\n\
+    \\ENQ\EOT\t\STX\NUL\ETX\DC2\EOT\143\EOT+,\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\NUL\b\DC2\EOT\130\EOT->\n\
+    \\ENQ\EOT\t\STX\NUL\b\DC2\EOT\143\EOT->\n\
     \\SO\n\
-    \\ACK\EOT\t\STX\NUL\b\ETX\DC2\EOT\130\EOT.=\n\
+    \\ACK\EOT\t\STX\NUL\b\ETX\DC2\EOT\143\EOT.=\n\
     \~\n\
-    \\EOT\EOT\t\STX\SOH\DC2\EOT\134\EOT\EOT!\SUBp Optional list of logins to be included into this e-mail.\n\
+    \\EOT\EOT\t\STX\SOH\DC2\EOT\147\EOT\EOT!\SUBp Optional list of logins to be included into this e-mail.\n\
     \ All profile's system logins are included if omitted.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\SOH\EOT\DC2\EOT\134\EOT\EOT\f\n\
+    \\ENQ\EOT\t\STX\SOH\EOT\DC2\EOT\147\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\SOH\ENQ\DC2\EOT\134\EOT\r\DC3\n\
+    \\ENQ\EOT\t\STX\SOH\ENQ\DC2\EOT\147\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\SOH\SOH\DC2\EOT\134\EOT\DC4\FS\n\
+    \\ENQ\EOT\t\STX\SOH\SOH\DC2\EOT\147\EOT\DC4\FS\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\SOH\ETX\DC2\EOT\134\EOT\US \n\
+    \\ENQ\EOT\t\STX\SOH\ETX\DC2\EOT\147\EOT\US \n\
     \>\n\
-    \\EOT\EOT\t\STX\STX\DC2\EOT\138\EOT\EOT#\SUB0 Profile id of a recipient.\n\
+    \\EOT\EOT\t\STX\STX\DC2\EOT\151\EOT\EOT#\SUB0 Profile id of a recipient.\n\
     \ Supported profiles\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\STX\EOT\DC2\EOT\138\EOT\EOT\f\n\
+    \\ENQ\EOT\t\STX\STX\EOT\DC2\EOT\151\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\STX\ENQ\DC2\EOT\138\EOT\r\DC3\n\
+    \\ENQ\EOT\t\STX\STX\ENQ\DC2\EOT\151\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\STX\SOH\DC2\EOT\138\EOT\DC4\RS\n\
+    \\ENQ\EOT\t\STX\STX\SOH\DC2\EOT\151\EOT\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\t\STX\STX\ETX\DC2\EOT\138\EOT!\"\n\
+    \\ENQ\EOT\t\STX\STX\ETX\DC2\EOT\151\EOT!\"\n\
     \8\n\
     \\STX\EOT\n\
-    \\DC2\ACK\142\EOT\NUL\144\EOT\SOH\SUB* Result of send welcome e-mail operation.\n\
+    \\DC2\ACK\155\EOT\NUL\157\EOT\SOH\SUB* Result of send welcome e-mail operation.\n\
     \\n\
     \\v\n\
     \\ETX\EOT\n\
-    \\SOH\DC2\EOT\142\EOT\b\RS\n\
+    \\SOH\DC2\EOT\155\EOT\b\RS\n\
     \:\n\
-    \\STX\EOT\v\DC2\ACK\147\EOT\NUL\162\EOT\SOH\SUB, Send credential reset e-mail to a profile.\n\
+    \\STX\EOT\v\DC2\ACK\160\EOT\NUL\175\EOT\SOH\SUB, Send credential reset e-mail to a profile.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\v\SOH\DC2\EOT\147\EOT\b \n\
+    \\ETX\EOT\v\SOH\DC2\EOT\160\EOT\b \n\
     \2\n\
-    \\EOT\EOT\v\STX\NUL\DC2\EOT\150\EOT\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\EOT\EOT\v\STX\NUL\DC2\EOT\163\EOT\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\EOT\DC2\EOT\150\EOT\EOT\f\n\
+    \\ENQ\EOT\v\STX\NUL\EOT\DC2\EOT\163\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\ENQ\DC2\EOT\150\EOT\r\DC3\n\
+    \\ENQ\EOT\v\STX\NUL\ENQ\DC2\EOT\163\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\SOH\DC2\EOT\150\EOT\DC4(\n\
+    \\ENQ\EOT\v\STX\NUL\SOH\DC2\EOT\163\EOT\DC4(\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\ETX\DC2\EOT\150\EOT+,\n\
+    \\ENQ\EOT\v\STX\NUL\ETX\DC2\EOT\163\EOT+,\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\NUL\b\DC2\EOT\150\EOT->\n\
+    \\ENQ\EOT\v\STX\NUL\b\DC2\EOT\163\EOT->\n\
     \\SO\n\
-    \\ACK\EOT\v\STX\NUL\b\ETX\DC2\EOT\150\EOT.=\n\
+    \\ACK\EOT\v\STX\NUL\b\ETX\DC2\EOT\163\EOT.=\n\
     \\134\SOH\n\
-    \\EOT\EOT\v\STX\SOH\DC2\EOT\154\EOT\EOT!\SUBx [required] A login linked to a profile for which the reset is requested.\n\
+    \\EOT\EOT\v\STX\SOH\DC2\EOT\167\EOT\EOT!\SUBx [required] A login linked to a profile for which the reset is requested.\n\
     \ Only trade-routing logins are supported now.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\SOH\EOT\DC2\EOT\154\EOT\EOT\f\n\
+    \\ENQ\EOT\v\STX\SOH\EOT\DC2\EOT\167\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\SOH\ENQ\DC2\EOT\154\EOT\r\DC3\n\
+    \\ENQ\EOT\v\STX\SOH\ENQ\DC2\EOT\167\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\SOH\SOH\DC2\EOT\154\EOT\DC4\FS\n\
+    \\ENQ\EOT\v\STX\SOH\SOH\DC2\EOT\167\EOT\DC4\FS\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\SOH\ETX\DC2\EOT\154\EOT\US \n\
+    \\ENQ\EOT\v\STX\SOH\ETX\DC2\EOT\167\EOT\US \n\
     \\151\SOH\n\
-    \\EOT\EOT\v\STX\STX\DC2\EOT\158\EOT\EOT\"\SUB\136\SOH List of special operations that are requested for this login.\n\
+    \\EOT\EOT\v\STX\STX\DC2\EOT\171\EOT\EOT\"\SUB\136\SOH List of special operations that are requested for this login.\n\
     \ This filed is associated with common_1.AuthServerSpecialOperation enum.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\STX\EOT\DC2\EOT\158\EOT\EOT\f\n\
+    \\ENQ\EOT\v\STX\STX\EOT\DC2\EOT\171\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\STX\ENQ\DC2\EOT\158\EOT\r\DC3\n\
+    \\ENQ\EOT\v\STX\STX\ENQ\DC2\EOT\171\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\STX\SOH\DC2\EOT\158\EOT\DC4\GS\n\
+    \\ENQ\EOT\v\STX\STX\SOH\DC2\EOT\171\EOT\DC4\GS\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\STX\ETX\DC2\EOT\158\EOT !\n\
+    \\ENQ\EOT\v\STX\STX\ETX\DC2\EOT\171\EOT !\n\
     \*\n\
-    \\EOT\EOT\v\STX\ETX\DC2\EOT\161\EOT\EOT#\SUB\FS Profile id of a recipient.\n\
+    \\EOT\EOT\v\STX\ETX\DC2\EOT\174\EOT\EOT#\SUB\FS Profile id of a recipient.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\ETX\EOT\DC2\EOT\161\EOT\EOT\f\n\
+    \\ENQ\EOT\v\STX\ETX\EOT\DC2\EOT\174\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\ETX\ENQ\DC2\EOT\161\EOT\r\DC3\n\
+    \\ENQ\EOT\v\STX\ETX\ENQ\DC2\EOT\174\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\ETX\SOH\DC2\EOT\161\EOT\DC4\RS\n\
+    \\ENQ\EOT\v\STX\ETX\SOH\DC2\EOT\174\EOT\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\v\STX\ETX\ETX\DC2\EOT\161\EOT!\"\n\
+    \\ENQ\EOT\v\STX\ETX\ETX\DC2\EOT\174\EOT!\"\n\
     \0\n\
-    \\STX\EOT\f\DC2\ACK\165\EOT\NUL\167\EOT\SOH\SUB\" Result of send e-mail operation.\n\
+    \\STX\EOT\f\DC2\ACK\178\EOT\NUL\180\EOT\SOH\SUB\" Result of send e-mail operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\f\SOH\DC2\EOT\165\EOT\b&\n\
+    \\ETX\EOT\f\SOH\DC2\EOT\178\EOT\b&\n\
     \\f\n\
-    \\STX\EOT\r\DC2\ACK\169\EOT\NUL\178\EOT\SOH\n\
+    \\STX\EOT\r\DC2\ACK\182\EOT\NUL\191\EOT\SOH\n\
     \\v\n\
-    \\ETX\EOT\r\SOH\DC2\EOT\169\EOT\b$\n\
+    \\ETX\EOT\r\SOH\DC2\EOT\182\EOT\b$\n\
     \e\n\
-    \\EOT\EOT\r\STX\NUL\DC2\EOT\173\EOT\EOT!\SUBW [required] Generate SST for this login.\n\
+    \\EOT\EOT\r\STX\NUL\DC2\EOT\186\EOT\EOT!\SUBW [required] Generate SST for this login.\n\
     \ Only trade-routing logins are supported now.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\r\STX\NUL\EOT\DC2\EOT\173\EOT\EOT\f\n\
+    \\ENQ\EOT\r\STX\NUL\EOT\DC2\EOT\186\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\r\STX\NUL\ENQ\DC2\EOT\173\EOT\r\DC3\n\
+    \\ENQ\EOT\r\STX\NUL\ENQ\DC2\EOT\186\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\r\STX\NUL\SOH\DC2\EOT\173\EOT\DC4\FS\n\
+    \\ENQ\EOT\r\STX\NUL\SOH\DC2\EOT\186\EOT\DC4\FS\n\
     \\r\n\
-    \\ENQ\EOT\r\STX\NUL\ETX\DC2\EOT\173\EOT\US \n\
+    \\ENQ\EOT\r\STX\NUL\ETX\DC2\EOT\186\EOT\US \n\
     \\151\SOH\n\
-    \\EOT\EOT\r\STX\SOH\DC2\EOT\177\EOT\EOT\"\SUB\136\SOH List of special operations that are requested for this login.\n\
+    \\EOT\EOT\r\STX\SOH\DC2\EOT\190\EOT\EOT\"\SUB\136\SOH List of special operations that are requested for this login.\n\
     \ This filed is associated with common_1.AuthServerSpecialOperation enum.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\r\STX\SOH\EOT\DC2\EOT\177\EOT\EOT\f\n\
+    \\ENQ\EOT\r\STX\SOH\EOT\DC2\EOT\190\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\r\STX\SOH\ENQ\DC2\EOT\177\EOT\r\DC3\n\
+    \\ENQ\EOT\r\STX\SOH\ENQ\DC2\EOT\190\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\r\STX\SOH\SOH\DC2\EOT\177\EOT\DC4\GS\n\
+    \\ENQ\EOT\r\STX\SOH\SOH\DC2\EOT\190\EOT\DC4\GS\n\
     \\r\n\
-    \\ENQ\EOT\r\STX\SOH\ETX\DC2\EOT\177\EOT !\n\
+    \\ENQ\EOT\r\STX\SOH\ETX\DC2\EOT\190\EOT !\n\
     \\f\n\
-    \\STX\EOT\SO\DC2\ACK\180\EOT\NUL\188\EOT\SOH\n\
+    \\STX\EOT\SO\DC2\ACK\193\EOT\NUL\201\EOT\SOH\n\
     \\v\n\
-    \\ETX\EOT\SO\SOH\DC2\EOT\180\EOT\b*\n\
+    \\ETX\EOT\SO\SOH\DC2\EOT\193\EOT\b*\n\
     \ \n\
-    \\EOT\EOT\SO\STX\NUL\DC2\EOT\183\EOT\EOT'\SUB\DC2 Generated token.\n\
+    \\EOT\EOT\SO\STX\NUL\DC2\EOT\196\EOT\EOT'\SUB\DC2 Generated token.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\NUL\EOT\DC2\EOT\183\EOT\EOT\f\n\
+    \\ENQ\EOT\SO\STX\NUL\EOT\DC2\EOT\196\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\NUL\ENQ\DC2\EOT\183\EOT\r\DC3\n\
+    \\ENQ\EOT\SO\STX\NUL\ENQ\DC2\EOT\196\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\NUL\SOH\DC2\EOT\183\EOT\DC4\"\n\
+    \\ENQ\EOT\SO\STX\NUL\SOH\DC2\EOT\196\EOT\DC4\"\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\NUL\ETX\DC2\EOT\183\EOT%&\n\
+    \\ENQ\EOT\SO\STX\NUL\ETX\DC2\EOT\196\EOT%&\n\
     \i\n\
-    \\EOT\EOT\SO\STX\SOH\DC2\EOT\187\EOT\EOT\FS\SUB[ URL that can be visited by a client to execute special operations using\n\
+    \\EOT\EOT\SO\STX\SOH\DC2\EOT\200\EOT\EOT\FS\SUB[ URL that can be visited by a client to execute special operations using\n\
     \ generated token.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\SOH\EOT\DC2\EOT\187\EOT\EOT\f\n\
+    \\ENQ\EOT\SO\STX\SOH\EOT\DC2\EOT\200\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\SOH\ENQ\DC2\EOT\187\EOT\r\DC3\n\
+    \\ENQ\EOT\SO\STX\SOH\ENQ\DC2\EOT\200\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\SOH\SOH\DC2\EOT\187\EOT\DC4\ETB\n\
+    \\ENQ\EOT\SO\STX\SOH\SOH\DC2\EOT\200\EOT\DC4\ETB\n\
     \\r\n\
-    \\ENQ\EOT\SO\STX\SOH\ETX\DC2\EOT\187\EOT\SUB\ESC\n\
+    \\ENQ\EOT\SO\STX\SOH\ETX\DC2\EOT\200\EOT\SUB\ESC\n\
     \\162\SOH\n\
-    \\STX\EOT\SI\DC2\ACK\192\EOT\NUL\199\EOT\SOH\SUB\147\SOH Ping request which can be initiated by any side to ensure connection is alive.\n\
+    \\STX\EOT\SI\DC2\ACK\205\EOT\NUL\212\EOT\SOH\SUB\147\SOH Ping request which can be initiated by any side to ensure connection is alive.\n\
     \ Both client and server sides must respond such request with Pong.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\SI\SOH\DC2\EOT\192\EOT\b\f\n\
+    \\ETX\EOT\SI\SOH\DC2\EOT\205\EOT\b\f\n\
     \3\n\
-    \\EOT\EOT\SI\STX\NUL\DC2\EOT\195\EOT\ETX\GS\SUB% Token routed back in Pong response.\n\
+    \\EOT\EOT\SI\STX\NUL\DC2\EOT\208\EOT\ETX\GS\SUB% Token routed back in Pong response.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SI\STX\NUL\EOT\DC2\EOT\195\EOT\ETX\v\n\
+    \\ENQ\EOT\SI\STX\NUL\EOT\DC2\EOT\208\EOT\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\SI\STX\NUL\ENQ\DC2\EOT\195\EOT\f\DC2\n\
+    \\ENQ\EOT\SI\STX\NUL\ENQ\DC2\EOT\208\EOT\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\SI\STX\NUL\SOH\DC2\EOT\195\EOT\DC3\CAN\n\
+    \\ENQ\EOT\SI\STX\NUL\SOH\DC2\EOT\208\EOT\DC3\CAN\n\
     \\r\n\
-    \\ENQ\EOT\SI\STX\NUL\ETX\DC2\EOT\195\EOT\ESC\FS\n\
+    \\ENQ\EOT\SI\STX\NUL\ETX\DC2\EOT\208\EOT\ESC\FS\n\
     \^\n\
-    \\EOT\EOT\SI\STX\SOH\DC2\EOT\198\EOT\ETX%\SUBP UTC time when this request was composed. Used for network latency diagnostics.\n\
+    \\EOT\EOT\SI\STX\SOH\DC2\EOT\211\EOT\ETX%\SUBP UTC time when this request was composed. Used for network latency diagnostics.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SI\STX\SOH\EOT\DC2\EOT\198\EOT\ETX\v\n\
+    \\ENQ\EOT\SI\STX\SOH\EOT\DC2\EOT\211\EOT\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\SI\STX\SOH\ENQ\DC2\EOT\198\EOT\f\DC2\n\
+    \\ENQ\EOT\SI\STX\SOH\ENQ\DC2\EOT\211\EOT\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\SI\STX\SOH\SOH\DC2\EOT\198\EOT\DC3 \n\
+    \\ENQ\EOT\SI\STX\SOH\SOH\DC2\EOT\211\EOT\DC3 \n\
     \\r\n\
-    \\ENQ\EOT\SI\STX\SOH\ETX\DC2\EOT\198\EOT#$\n\
+    \\ENQ\EOT\SI\STX\SOH\ETX\DC2\EOT\211\EOT#$\n\
     \M\n\
-    \\STX\EOT\DLE\DC2\ACK\202\EOT\NUL\212\EOT\SOH\SUB? Pong response which must be sent in response on Ping request.\n\
+    \\STX\EOT\DLE\DC2\ACK\215\EOT\NUL\225\EOT\SOH\SUB? Pong response which must be sent in response on Ping request.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\DLE\SOH\DC2\EOT\202\EOT\b\f\n\
+    \\ETX\EOT\DLE\SOH\DC2\EOT\215\EOT\b\f\n\
     \-\n\
-    \\EOT\EOT\DLE\STX\NUL\DC2\EOT\205\EOT\ETX\GS\SUB\US Token passed in Ping request.\n\
+    \\EOT\EOT\DLE\STX\NUL\DC2\EOT\218\EOT\ETX\GS\SUB\US Token passed in Ping request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\NUL\EOT\DC2\EOT\205\EOT\ETX\v\n\
+    \\ENQ\EOT\DLE\STX\NUL\EOT\DC2\EOT\218\EOT\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\NUL\ENQ\DC2\EOT\205\EOT\f\DC2\n\
+    \\ENQ\EOT\DLE\STX\NUL\ENQ\DC2\EOT\218\EOT\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\NUL\SOH\DC2\EOT\205\EOT\DC3\CAN\n\
+    \\ENQ\EOT\DLE\STX\NUL\SOH\DC2\EOT\218\EOT\DC3\CAN\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\NUL\ETX\DC2\EOT\205\EOT\ESC\FS\n\
+    \\ENQ\EOT\DLE\STX\NUL\ETX\DC2\EOT\218\EOT\ESC\FS\n\
     \6\n\
-    \\EOT\EOT\DLE\STX\SOH\DC2\EOT\208\EOT\ETX%\SUB( Corresponding value from Ping request.\n\
+    \\EOT\EOT\DLE\STX\SOH\DC2\EOT\221\EOT\ETX%\SUB( Corresponding value from Ping request.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\SOH\EOT\DC2\EOT\208\EOT\ETX\v\n\
+    \\ENQ\EOT\DLE\STX\SOH\EOT\DC2\EOT\221\EOT\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\SOH\ENQ\DC2\EOT\208\EOT\f\DC2\n\
+    \\ENQ\EOT\DLE\STX\SOH\ENQ\DC2\EOT\221\EOT\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\SOH\SOH\DC2\EOT\208\EOT\DC3 \n\
+    \\ENQ\EOT\DLE\STX\SOH\SOH\DC2\EOT\221\EOT\DC3 \n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\SOH\ETX\DC2\EOT\208\EOT#$\n\
+    \\ENQ\EOT\DLE\STX\SOH\ETX\DC2\EOT\221\EOT#$\n\
     \9\n\
-    \\EOT\EOT\DLE\STX\STX\DC2\EOT\211\EOT\ETX%\SUB+ UTC time when this response was composed.\n\
+    \\EOT\EOT\DLE\STX\STX\DC2\EOT\224\EOT\ETX%\SUB+ UTC time when this response was composed.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\EOT\DC2\EOT\211\EOT\ETX\v\n\
+    \\ENQ\EOT\DLE\STX\STX\EOT\DC2\EOT\224\EOT\ETX\v\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\ENQ\DC2\EOT\211\EOT\f\DC2\n\
+    \\ENQ\EOT\DLE\STX\STX\ENQ\DC2\EOT\224\EOT\f\DC2\n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\SOH\DC2\EOT\211\EOT\DC3 \n\
+    \\ENQ\EOT\DLE\STX\STX\SOH\DC2\EOT\224\EOT\DC3 \n\
     \\r\n\
-    \\ENQ\EOT\DLE\STX\STX\ETX\DC2\EOT\211\EOT#$\n\
+    \\ENQ\EOT\DLE\STX\STX\ETX\DC2\EOT\224\EOT#$\n\
     \<\n\
-    \\STX\EOT\DC1\DC2\ACK\215\EOT\NUL\217\EOT\SOH\SUB. Request for list of authentication partners.\n\
+    \\STX\EOT\DC1\DC2\ACK\228\EOT\NUL\230\EOT\SOH\SUB. Request for list of authentication partners.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\DC1\SOH\DC2\EOT\215\EOT\b\RS\n\
+    \\ETX\EOT\DC1\SOH\DC2\EOT\228\EOT\b\RS\n\
     \0\n\
-    \\STX\EOT\DC2\DC2\ACK\220\EOT\NUL\223\EOT\SOH\SUB\" Reply to AuthPartnerListRequest.\n\
+    \\STX\EOT\DC2\DC2\ACK\233\EOT\NUL\236\EOT\SOH\SUB\" Reply to AuthPartnerListRequest.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\DC2\SOH\DC2\EOT\220\EOT\b\GS\n\
+    \\ETX\EOT\DC2\SOH\DC2\EOT\233\EOT\b\GS\n\
     \\f\n\
-    \\EOT\EOT\DC2\STX\NUL\DC2\EOT\222\EOT\EOT*\n\
+    \\EOT\EOT\DC2\STX\NUL\DC2\EOT\235\EOT\EOT*\n\
     \\r\n\
-    \\ENQ\EOT\DC2\STX\NUL\EOT\DC2\EOT\222\EOT\EOT\f\n\
+    \\ENQ\EOT\DC2\STX\NUL\EOT\DC2\EOT\235\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\DC2\STX\NUL\ACK\DC2\EOT\222\EOT\r\CAN\n\
+    \\ENQ\EOT\DC2\STX\NUL\ACK\DC2\EOT\235\EOT\r\CAN\n\
     \\r\n\
-    \\ENQ\EOT\DC2\STX\NUL\SOH\DC2\EOT\222\EOT\EM%\n\
+    \\ENQ\EOT\DC2\STX\NUL\SOH\DC2\EOT\235\EOT\EM%\n\
     \\r\n\
-    \\ENQ\EOT\DC2\STX\NUL\ETX\DC2\EOT\222\EOT()\n\
+    \\ENQ\EOT\DC2\STX\NUL\ETX\DC2\EOT\235\EOT()\n\
     \9\n\
-    \\STX\EOT\DC3\DC2\ACK\226\EOT\NUL\242\EOT\SOH\SUB+ Information about authentication partner.\n\
+    \\STX\EOT\DC3\DC2\ACK\239\EOT\NUL\255\EOT\SOH\SUB+ Information about authentication partner.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\DC3\SOH\DC2\EOT\226\EOT\b\DC3\n\
+    \\ETX\EOT\DC3\SOH\DC2\EOT\239\EOT\b\DC3\n\
     \\GS\n\
-    \\EOT\EOT\DC3\STX\NUL\DC2\EOT\229\EOT\EOT\ESC\SUB\SI Partner's ID.\n\
+    \\EOT\EOT\DC3\STX\NUL\DC2\EOT\242\EOT\EOT\ESC\SUB\SI Partner's ID.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\NUL\EOT\DC2\EOT\229\EOT\EOT\f\n\
+    \\ENQ\EOT\DC3\STX\NUL\EOT\DC2\EOT\242\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\NUL\ENQ\DC2\EOT\229\EOT\r\DC3\n\
+    \\ENQ\EOT\DC3\STX\NUL\ENQ\DC2\EOT\242\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\NUL\SOH\DC2\EOT\229\EOT\DC4\SYN\n\
+    \\ENQ\EOT\DC3\STX\NUL\SOH\DC2\EOT\242\EOT\DC4\SYN\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\NUL\ETX\DC2\EOT\229\EOT\EM\SUB\n\
+    \\ENQ\EOT\DC3\STX\NUL\ETX\DC2\EOT\242\EOT\EM\SUB\n\
     \'\n\
-    \\EOT\EOT\DC3\STX\SOH\DC2\EOT\232\EOT\EOT%\SUB\EM Partner's display name.\n\
+    \\EOT\EOT\DC3\STX\SOH\DC2\EOT\245\EOT\EOT%\SUB\EM Partner's display name.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\SOH\EOT\DC2\EOT\232\EOT\EOT\f\n\
+    \\ENQ\EOT\DC3\STX\SOH\EOT\DC2\EOT\245\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\SOH\ENQ\DC2\EOT\232\EOT\r\DC3\n\
+    \\ENQ\EOT\DC3\STX\SOH\ENQ\DC2\EOT\245\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\SOH\SOH\DC2\EOT\232\EOT\DC4 \n\
+    \\ENQ\EOT\DC3\STX\SOH\SOH\DC2\EOT\245\EOT\DC4 \n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\SOH\ETX\DC2\EOT\232\EOT#$\n\
+    \\ENQ\EOT\DC3\STX\SOH\ETX\DC2\EOT\245\EOT#$\n\
     \D\n\
-    \\EOT\EOT\DC3\STX\STX\DC2\EOT\235\EOT\EOT%\SUB6 List of brokerage (FCM) IDs the partner enabled for.\n\
+    \\EOT\EOT\DC3\STX\STX\DC2\EOT\248\EOT\EOT%\SUB6 List of brokerage (FCM) IDs the partner enabled for.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\STX\EOT\DC2\EOT\235\EOT\EOT\f\n\
+    \\ENQ\EOT\DC3\STX\STX\EOT\DC2\EOT\248\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\STX\ENQ\DC2\EOT\235\EOT\r\DC3\n\
+    \\ENQ\EOT\DC3\STX\STX\ENQ\DC2\EOT\248\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\STX\SOH\DC2\EOT\235\EOT\DC4 \n\
+    \\ENQ\EOT\DC3\STX\STX\SOH\DC2\EOT\248\EOT\DC4 \n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\STX\ETX\DC2\EOT\235\EOT#$\n\
+    \\ENQ\EOT\DC3\STX\STX\ETX\DC2\EOT\248\EOT#$\n\
     \5\n\
-    \\EOT\EOT\DC3\STX\ETX\DC2\EOT\238\EOT\EOT,\SUB' Logout endpoint URI for this partner.\n\
+    \\EOT\EOT\DC3\STX\ETX\DC2\EOT\251\EOT\EOT,\SUB' Logout endpoint URI for this partner.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\ETX\EOT\DC2\EOT\238\EOT\EOT\f\n\
+    \\ENQ\EOT\DC3\STX\ETX\EOT\DC2\EOT\251\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\ETX\ENQ\DC2\EOT\238\EOT\r\DC3\n\
+    \\ENQ\EOT\DC3\STX\ETX\ENQ\DC2\EOT\251\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\ETX\SOH\DC2\EOT\238\EOT\DC4'\n\
+    \\ENQ\EOT\DC3\STX\ETX\SOH\DC2\EOT\251\EOT\DC4'\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\ETX\ETX\DC2\EOT\238\EOT*+\n\
+    \\ENQ\EOT\DC3\STX\ETX\ETX\DC2\EOT\251\EOT*+\n\
     \<\n\
-    \\EOT\EOT\DC3\STX\EOT\DC2\EOT\241\EOT\EOT3\SUB. Logout endpoint parameters for this partner.\n\
+    \\EOT\EOT\DC3\STX\EOT\DC2\EOT\254\EOT\EOT3\SUB. Logout endpoint parameters for this partner.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\EOT\EOT\DC2\EOT\241\EOT\EOT\f\n\
+    \\ENQ\EOT\DC3\STX\EOT\EOT\DC2\EOT\254\EOT\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\EOT\ENQ\DC2\EOT\241\EOT\r\DC3\n\
+    \\ENQ\EOT\DC3\STX\EOT\ENQ\DC2\EOT\254\EOT\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\EOT\SOH\DC2\EOT\241\EOT\DC4.\n\
+    \\ENQ\EOT\DC3\STX\EOT\SOH\DC2\EOT\254\EOT\DC4.\n\
     \\r\n\
-    \\ENQ\EOT\DC3\STX\EOT\ETX\DC2\EOT\241\EOT12\n\
+    \\ENQ\EOT\DC3\STX\EOT\ETX\DC2\EOT\254\EOT12\n\
     \)\n\
-    \\STX\EOT\DC4\DC2\ACK\245\EOT\NUL\249\EOT\SOH\SUB\ESC Create profile operation.\n\
+    \\STX\EOT\DC4\DC2\ACK\130\ENQ\NUL\134\ENQ\SOH\SUB\ESC Create profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\DC4\SOH\DC2\EOT\245\EOT\b\NAK\n\
+    \\ETX\EOT\DC4\SOH\DC2\EOT\130\ENQ\b\NAK\n\
     \-\n\
-    \\EOT\EOT\DC4\STX\NUL\DC2\EOT\248\EOT\EOT*\SUB\US [required] Profile to create.\n\
+    \\EOT\EOT\DC4\STX\NUL\DC2\EOT\133\ENQ\EOT*\SUB\US [required] Profile to create.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\DC4\STX\NUL\EOT\DC2\EOT\248\EOT\EOT\f\n\
+    \\ENQ\EOT\DC4\STX\NUL\EOT\DC2\EOT\133\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\DC4\STX\NUL\ACK\DC2\EOT\248\EOT\r\GS\n\
+    \\ENQ\EOT\DC4\STX\NUL\ACK\DC2\EOT\133\ENQ\r\GS\n\
     \\r\n\
-    \\ENQ\EOT\DC4\STX\NUL\SOH\DC2\EOT\248\EOT\RS%\n\
+    \\ENQ\EOT\DC4\STX\NUL\SOH\DC2\EOT\133\ENQ\RS%\n\
     \\r\n\
-    \\ENQ\EOT\DC4\STX\NUL\ETX\DC2\EOT\248\EOT()\n\
+    \\ENQ\EOT\DC4\STX\NUL\ETX\DC2\EOT\133\ENQ()\n\
     \)\n\
-    \\STX\EOT\NAK\DC2\ACK\252\EOT\NUL\131\ENQ\SOH\SUB\ESC Update profile operation.\n\
+    \\STX\EOT\NAK\DC2\ACK\137\ENQ\NUL\144\ENQ\SOH\SUB\ESC Update profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\NAK\SOH\DC2\EOT\252\EOT\b\NAK\n\
+    \\ETX\EOT\NAK\SOH\DC2\EOT\137\ENQ\b\NAK\n\
     \-\n\
-    \\EOT\EOT\NAK\STX\NUL\DC2\EOT\255\EOT\EOT*\SUB\US [required] Profile to update.\n\
+    \\EOT\EOT\NAK\STX\NUL\DC2\EOT\140\ENQ\EOT*\SUB\US [required] Profile to update.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\NUL\EOT\DC2\EOT\255\EOT\EOT\f\n\
+    \\ENQ\EOT\NAK\STX\NUL\EOT\DC2\EOT\140\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\NUL\ACK\DC2\EOT\255\EOT\r\GS\n\
+    \\ENQ\EOT\NAK\STX\NUL\ACK\DC2\EOT\140\ENQ\r\GS\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\NUL\SOH\DC2\EOT\255\EOT\RS%\n\
+    \\ENQ\EOT\NAK\STX\NUL\SOH\DC2\EOT\140\ENQ\RS%\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\NUL\ETX\DC2\EOT\255\EOT()\n\
+    \\ENQ\EOT\NAK\STX\NUL\ETX\DC2\EOT\140\ENQ()\n\
     \S\n\
-    \\EOT\EOT\NAK\STX\SOH\DC2\EOT\130\ENQ\EOTN\SUBE [obsolete] Use only profile field with changed fields only instead.\n\
+    \\EOT\EOT\NAK\STX\SOH\DC2\EOT\143\ENQ\EOTN\SUBE [obsolete] Use only profile field with changed fields only instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\SOH\EOT\DC2\EOT\130\ENQ\EOT\f\n\
+    \\ENQ\EOT\NAK\STX\SOH\EOT\DC2\EOT\143\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\SOH\ACK\DC2\EOT\130\ENQ\r\GS\n\
+    \\ENQ\EOT\NAK\STX\SOH\ACK\DC2\EOT\143\ENQ\r\GS\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\SOH\SOH\DC2\EOT\130\ENQ\RS7\n\
+    \\ENQ\EOT\NAK\STX\SOH\SOH\DC2\EOT\143\ENQ\RS7\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\SOH\ETX\DC2\EOT\130\ENQ:;\n\
+    \\ENQ\EOT\NAK\STX\SOH\ETX\DC2\EOT\143\ENQ:;\n\
     \\r\n\
-    \\ENQ\EOT\NAK\STX\SOH\b\DC2\EOT\130\ENQ<M\n\
+    \\ENQ\EOT\NAK\STX\SOH\b\DC2\EOT\143\ENQ<M\n\
     \\SO\n\
-    \\ACK\EOT\NAK\STX\SOH\b\ETX\DC2\EOT\130\ENQ=L\n\
+    \\ACK\EOT\NAK\STX\SOH\b\ETX\DC2\EOT\143\ENQ=L\n\
     \)\n\
-    \\STX\EOT\SYN\DC2\ACK\134\ENQ\NUL\141\ENQ\SOH\SUB\ESC Remove profile operation.\n\
+    \\STX\EOT\SYN\DC2\ACK\147\ENQ\NUL\154\ENQ\SOH\SUB\ESC Remove profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\SYN\SOH\DC2\EOT\134\ENQ\b\NAK\n\
+    \\ETX\EOT\SYN\SOH\DC2\EOT\147\ENQ\b\NAK\n\
     \2\n\
-    \\EOT\EOT\SYN\STX\NUL\DC2\EOT\137\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\EOT\EOT\SYN\STX\NUL\DC2\EOT\150\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\NUL\EOT\DC2\EOT\137\ENQ\EOT\f\n\
+    \\ENQ\EOT\SYN\STX\NUL\EOT\DC2\EOT\150\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\NUL\ENQ\DC2\EOT\137\ENQ\r\DC3\n\
+    \\ENQ\EOT\SYN\STX\NUL\ENQ\DC2\EOT\150\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\NUL\SOH\DC2\EOT\137\ENQ\DC4(\n\
+    \\ENQ\EOT\SYN\STX\NUL\SOH\DC2\EOT\150\ENQ\DC4(\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\NUL\ETX\DC2\EOT\137\ENQ+,\n\
+    \\ENQ\EOT\SYN\STX\NUL\ETX\DC2\EOT\150\ENQ+,\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\NUL\b\DC2\EOT\137\ENQ->\n\
+    \\ENQ\EOT\SYN\STX\NUL\b\DC2\EOT\150\ENQ->\n\
     \\SO\n\
-    \\ACK\EOT\SYN\STX\NUL\b\ETX\DC2\EOT\137\ENQ.=\n\
+    \\ACK\EOT\SYN\STX\NUL\b\ETX\DC2\EOT\150\ENQ.=\n\
     \-\n\
-    \\EOT\EOT\SYN\STX\SOH\DC2\EOT\140\ENQ\EOT#\SUB\US Profile identifier to remove.\n\
+    \\EOT\EOT\SYN\STX\SOH\DC2\EOT\153\ENQ\EOT#\SUB\US Profile identifier to remove.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\SOH\EOT\DC2\EOT\140\ENQ\EOT\f\n\
+    \\ENQ\EOT\SYN\STX\SOH\EOT\DC2\EOT\153\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\SOH\ENQ\DC2\EOT\140\ENQ\r\DC3\n\
+    \\ENQ\EOT\SYN\STX\SOH\ENQ\DC2\EOT\153\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\SOH\SOH\DC2\EOT\140\ENQ\DC4\RS\n\
+    \\ENQ\EOT\SYN\STX\SOH\SOH\DC2\EOT\153\ENQ\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\SYN\STX\SOH\ETX\DC2\EOT\140\ENQ!\"\n\
+    \\ENQ\EOT\SYN\STX\SOH\ETX\DC2\EOT\153\ENQ!\"\n\
     \*\n\
-    \\STX\EOT\ETB\DC2\ACK\144\ENQ\NUL\151\ENQ\SOH\SUB\FS Restore profile operation.\n\
+    \\STX\EOT\ETB\DC2\ACK\157\ENQ\NUL\164\ENQ\SOH\SUB\FS Restore profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\ETB\SOH\DC2\EOT\144\ENQ\b\SYN\n\
+    \\ETX\EOT\ETB\SOH\DC2\EOT\157\ENQ\b\SYN\n\
     \2\n\
-    \\EOT\EOT\ETB\STX\NUL\DC2\EOT\147\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\EOT\EOT\ETB\STX\NUL\DC2\EOT\160\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\NUL\EOT\DC2\EOT\147\ENQ\EOT\f\n\
+    \\ENQ\EOT\ETB\STX\NUL\EOT\DC2\EOT\160\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\NUL\ENQ\DC2\EOT\147\ENQ\r\DC3\n\
+    \\ENQ\EOT\ETB\STX\NUL\ENQ\DC2\EOT\160\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\NUL\SOH\DC2\EOT\147\ENQ\DC4(\n\
+    \\ENQ\EOT\ETB\STX\NUL\SOH\DC2\EOT\160\ENQ\DC4(\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\NUL\ETX\DC2\EOT\147\ENQ+,\n\
+    \\ENQ\EOT\ETB\STX\NUL\ETX\DC2\EOT\160\ENQ+,\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\NUL\b\DC2\EOT\147\ENQ->\n\
+    \\ENQ\EOT\ETB\STX\NUL\b\DC2\EOT\160\ENQ->\n\
     \\SO\n\
-    \\ACK\EOT\ETB\STX\NUL\b\ETX\DC2\EOT\147\ENQ.=\n\
+    \\ACK\EOT\ETB\STX\NUL\b\ETX\DC2\EOT\160\ENQ.=\n\
     \-\n\
-    \\EOT\EOT\ETB\STX\SOH\DC2\EOT\150\ENQ\EOT#\SUB\US Profile identifier to remove.\n\
+    \\EOT\EOT\ETB\STX\SOH\DC2\EOT\163\ENQ\EOT#\SUB\US Profile identifier to remove.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\SOH\EOT\DC2\EOT\150\ENQ\EOT\f\n\
+    \\ENQ\EOT\ETB\STX\SOH\EOT\DC2\EOT\163\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\SOH\ENQ\DC2\EOT\150\ENQ\r\DC3\n\
+    \\ENQ\EOT\ETB\STX\SOH\ENQ\DC2\EOT\163\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\SOH\SOH\DC2\EOT\150\ENQ\DC4\RS\n\
+    \\ENQ\EOT\ETB\STX\SOH\SOH\DC2\EOT\163\ENQ\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\ETB\STX\SOH\ETX\DC2\EOT\150\ENQ!\"\n\
+    \\ENQ\EOT\ETB\STX\SOH\ETX\DC2\EOT\163\ENQ!\"\n\
     \3\n\
-    \\STX\EOT\CAN\DC2\ACK\154\ENQ\NUL\161\ENQ\SOH\SUB% Result of create profile operation.\n\
+    \\STX\EOT\CAN\DC2\ACK\167\ENQ\NUL\174\ENQ\SOH\SUB% Result of create profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\CAN\SOH\DC2\EOT\154\ENQ\b\ESC\n\
+    \\ETX\EOT\CAN\SOH\DC2\EOT\167\ENQ\b\ESC\n\
     \2\n\
-    \\EOT\EOT\CAN\STX\NUL\DC2\EOT\157\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\EOT\EOT\CAN\STX\NUL\DC2\EOT\170\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\NUL\EOT\DC2\EOT\157\ENQ\EOT\f\n\
+    \\ENQ\EOT\CAN\STX\NUL\EOT\DC2\EOT\170\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\NUL\ENQ\DC2\EOT\157\ENQ\r\DC3\n\
+    \\ENQ\EOT\CAN\STX\NUL\ENQ\DC2\EOT\170\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\NUL\SOH\DC2\EOT\157\ENQ\DC4(\n\
+    \\ENQ\EOT\CAN\STX\NUL\SOH\DC2\EOT\170\ENQ\DC4(\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\NUL\ETX\DC2\EOT\157\ENQ+,\n\
+    \\ENQ\EOT\CAN\STX\NUL\ETX\DC2\EOT\170\ENQ+,\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\NUL\b\DC2\EOT\157\ENQ->\n\
+    \\ENQ\EOT\CAN\STX\NUL\b\DC2\EOT\170\ENQ->\n\
     \\SO\n\
-    \\ACK\EOT\CAN\STX\NUL\b\ETX\DC2\EOT\157\ENQ.=\n\
+    \\ACK\EOT\CAN\STX\NUL\b\ETX\DC2\EOT\170\ENQ.=\n\
     \1\n\
-    \\EOT\EOT\CAN\STX\SOH\DC2\EOT\160\ENQ\EOT#\SUB# Assigned profile id, if succeded.\n\
+    \\EOT\EOT\CAN\STX\SOH\DC2\EOT\173\ENQ\EOT#\SUB# Assigned profile id, if succeded.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\SOH\EOT\DC2\EOT\160\ENQ\EOT\f\n\
+    \\ENQ\EOT\CAN\STX\SOH\EOT\DC2\EOT\173\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\SOH\ENQ\DC2\EOT\160\ENQ\r\DC3\n\
+    \\ENQ\EOT\CAN\STX\SOH\ENQ\DC2\EOT\173\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\SOH\SOH\DC2\EOT\160\ENQ\DC4\RS\n\
+    \\ENQ\EOT\CAN\STX\SOH\SOH\DC2\EOT\173\ENQ\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\CAN\STX\SOH\ETX\DC2\EOT\160\ENQ!\"\n\
+    \\ENQ\EOT\CAN\STX\SOH\ETX\DC2\EOT\173\ENQ!\"\n\
     \3\n\
-    \\STX\EOT\EM\DC2\ACK\164\ENQ\NUL\166\ENQ\SOH\SUB% Result of update profile operation.\n\
+    \\STX\EOT\EM\DC2\ACK\177\ENQ\NUL\179\ENQ\SOH\SUB% Result of update profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\EM\SOH\DC2\EOT\164\ENQ\b\ESC\n\
+    \\ETX\EOT\EM\SOH\DC2\EOT\177\ENQ\b\ESC\n\
     \3\n\
-    \\STX\EOT\SUB\DC2\ACK\169\ENQ\NUL\171\ENQ\SOH\SUB% Result of remove profile operation.\n\
+    \\STX\EOT\SUB\DC2\ACK\182\ENQ\NUL\184\ENQ\SOH\SUB% Result of remove profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\SUB\SOH\DC2\EOT\169\ENQ\b\ESC\n\
+    \\ETX\EOT\SUB\SOH\DC2\EOT\182\ENQ\b\ESC\n\
     \4\n\
-    \\STX\EOT\ESC\DC2\ACK\174\ENQ\NUL\176\ENQ\SOH\SUB& Result of restore profile operation.\n\
+    \\STX\EOT\ESC\DC2\ACK\187\ENQ\NUL\189\ENQ\SOH\SUB& Result of restore profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\ESC\SOH\DC2\EOT\174\ENQ\b\FS\n\
+    \\ETX\EOT\ESC\SOH\DC2\EOT\187\ENQ\b\FS\n\
     \/\n\
-    \\STX\EOT\FS\DC2\ACK\179\ENQ\NUL\186\ENQ\SOH\SUB! Request of profile information.\n\
+    \\STX\EOT\FS\DC2\ACK\192\ENQ\NUL\199\ENQ\SOH\SUB! Request of profile information.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\FS\SOH\DC2\EOT\179\ENQ\b\SYN\n\
+    \\ETX\EOT\FS\SOH\DC2\EOT\192\ENQ\b\SYN\n\
     \2\n\
-    \\EOT\EOT\FS\STX\NUL\DC2\EOT\182\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\EOT\EOT\FS\STX\NUL\DC2\EOT\195\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\NUL\EOT\DC2\EOT\182\ENQ\EOT\f\n\
+    \\ENQ\EOT\FS\STX\NUL\EOT\DC2\EOT\195\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\NUL\ENQ\DC2\EOT\182\ENQ\r\DC3\n\
+    \\ENQ\EOT\FS\STX\NUL\ENQ\DC2\EOT\195\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\NUL\SOH\DC2\EOT\182\ENQ\DC4(\n\
+    \\ENQ\EOT\FS\STX\NUL\SOH\DC2\EOT\195\ENQ\DC4(\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\NUL\ETX\DC2\EOT\182\ENQ+,\n\
+    \\ENQ\EOT\FS\STX\NUL\ETX\DC2\EOT\195\ENQ+,\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\NUL\b\DC2\EOT\182\ENQ->\n\
+    \\ENQ\EOT\FS\STX\NUL\b\DC2\EOT\195\ENQ->\n\
     \\SO\n\
-    \\ACK\EOT\FS\STX\NUL\b\ETX\DC2\EOT\182\ENQ.=\n\
+    \\ACK\EOT\FS\STX\NUL\b\ETX\DC2\EOT\195\ENQ.=\n\
     \*\n\
-    \\EOT\EOT\FS\STX\SOH\DC2\EOT\185\ENQ\EOT#\SUB\FS ID of a requested profile.\n\
+    \\EOT\EOT\FS\STX\SOH\DC2\EOT\198\ENQ\EOT#\SUB\FS ID of a requested profile.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\SOH\EOT\DC2\EOT\185\ENQ\EOT\f\n\
+    \\ENQ\EOT\FS\STX\SOH\EOT\DC2\EOT\198\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\SOH\ENQ\DC2\EOT\185\ENQ\r\DC3\n\
+    \\ENQ\EOT\FS\STX\SOH\ENQ\DC2\EOT\198\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\SOH\SOH\DC2\EOT\185\ENQ\DC4\RS\n\
+    \\ENQ\EOT\FS\STX\SOH\SOH\DC2\EOT\198\ENQ\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\FS\STX\SOH\ETX\DC2\EOT\185\ENQ!\"\n\
+    \\ENQ\EOT\FS\STX\SOH\ETX\DC2\EOT\198\ENQ!\"\n\
     \1\n\
-    \\STX\EOT\GS\DC2\ACK\189\ENQ\NUL\200\ENQ\SOH\SUB# Link user to a profile operation.\n\
+    \\STX\EOT\GS\DC2\ACK\202\ENQ\NUL\213\ENQ\SOH\SUB# Link user to a profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\GS\SOH\DC2\EOT\189\ENQ\b\SUB\n\
+    \\ETX\EOT\GS\SOH\DC2\EOT\202\ENQ\b\SUB\n\
     \,\n\
-    \\EOT\EOT\GS\STX\NUL\DC2\EOT\192\ENQ\EOT!\SUB\RS [required] Login id to link.\n\
+    \\EOT\EOT\GS\STX\NUL\DC2\EOT\205\ENQ\EOT!\SUB\RS [required] Login id to link.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\NUL\EOT\DC2\EOT\192\ENQ\EOT\f\n\
+    \\ENQ\EOT\GS\STX\NUL\EOT\DC2\EOT\205\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\NUL\ENQ\DC2\EOT\192\ENQ\r\DC3\n\
+    \\ENQ\EOT\GS\STX\NUL\ENQ\DC2\EOT\205\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\NUL\SOH\DC2\EOT\192\ENQ\DC4\FS\n\
+    \\ENQ\EOT\GS\STX\NUL\SOH\DC2\EOT\205\ENQ\DC4\FS\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\NUL\ETX\DC2\EOT\192\ENQ\US \n\
+    \\ENQ\EOT\GS\STX\NUL\ETX\DC2\EOT\205\ENQ\US \n\
     \2\n\
-    \\EOT\EOT\GS\STX\SOH\DC2\EOT\195\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\EOT\EOT\GS\STX\SOH\DC2\EOT\208\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\SOH\EOT\DC2\EOT\195\ENQ\EOT\f\n\
+    \\ENQ\EOT\GS\STX\SOH\EOT\DC2\EOT\208\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\SOH\ENQ\DC2\EOT\195\ENQ\r\DC3\n\
+    \\ENQ\EOT\GS\STX\SOH\ENQ\DC2\EOT\208\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\SOH\SOH\DC2\EOT\195\ENQ\DC4(\n\
+    \\ENQ\EOT\GS\STX\SOH\SOH\DC2\EOT\208\ENQ\DC4(\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\SOH\ETX\DC2\EOT\195\ENQ+,\n\
+    \\ENQ\EOT\GS\STX\SOH\ETX\DC2\EOT\208\ENQ+,\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\SOH\b\DC2\EOT\195\ENQ->\n\
+    \\ENQ\EOT\GS\STX\SOH\b\DC2\EOT\208\ENQ->\n\
     \\SO\n\
-    \\ACK\EOT\GS\STX\SOH\b\ETX\DC2\EOT\195\ENQ.=\n\
+    \\ACK\EOT\GS\STX\SOH\b\ETX\DC2\EOT\208\ENQ.=\n\
     \F\n\
-    \\EOT\EOT\GS\STX\STX\DC2\EOT\199\ENQ\EOT#\SUB8 Profile id.\n\
+    \\EOT\EOT\GS\STX\STX\DC2\EOT\212\ENQ\EOT#\SUB8 Profile id.\n\
     \ Supported profile types: admin, customer.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\STX\EOT\DC2\EOT\199\ENQ\EOT\f\n\
+    \\ENQ\EOT\GS\STX\STX\EOT\DC2\EOT\212\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\STX\ENQ\DC2\EOT\199\ENQ\r\DC3\n\
+    \\ENQ\EOT\GS\STX\STX\ENQ\DC2\EOT\212\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\STX\SOH\DC2\EOT\199\ENQ\DC4\RS\n\
+    \\ENQ\EOT\GS\STX\STX\SOH\DC2\EOT\212\ENQ\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\GS\STX\STX\ETX\DC2\EOT\199\ENQ!\"\n\
+    \\ENQ\EOT\GS\STX\STX\ETX\DC2\EOT\212\ENQ!\"\n\
     \A\n\
-    \\STX\EOT\RS\DC2\ACK\203\ENQ\NUL\205\ENQ\SOH\SUB3 Result of [re-]link login to a profile operation.\n\
+    \\STX\EOT\RS\DC2\ACK\216\ENQ\NUL\218\ENQ\SOH\SUB3 Result of [re-]link login to a profile operation.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\RS\SOH\DC2\EOT\203\ENQ\b \n\
+    \\ETX\EOT\RS\SOH\DC2\EOT\216\ENQ\b \n\
     \+\n\
-    \\STX\EOT\US\DC2\ACK\208\ENQ\NUL\215\ENQ\SOH\SUB\GS Request of unique username.\n\
+    \\STX\EOT\US\DC2\ACK\221\ENQ\NUL\228\ENQ\SOH\SUB\GS Request of unique username.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT\US\SOH\DC2\EOT\208\ENQ\b \n\
+    \\ETX\EOT\US\SOH\DC2\EOT\221\ENQ\b \n\
     \2\n\
-    \\EOT\EOT\US\STX\NUL\DC2\EOT\211\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
+    \\EOT\EOT\US\STX\NUL\DC2\EOT\224\ENQ\EOT?\SUB$ [obsolete] Use profile_id instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\NUL\EOT\DC2\EOT\211\ENQ\EOT\f\n\
+    \\ENQ\EOT\US\STX\NUL\EOT\DC2\EOT\224\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\NUL\ENQ\DC2\EOT\211\ENQ\r\DC3\n\
+    \\ENQ\EOT\US\STX\NUL\ENQ\DC2\EOT\224\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\NUL\SOH\DC2\EOT\211\ENQ\DC4(\n\
+    \\ENQ\EOT\US\STX\NUL\SOH\DC2\EOT\224\ENQ\DC4(\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\NUL\ETX\DC2\EOT\211\ENQ+,\n\
+    \\ENQ\EOT\US\STX\NUL\ETX\DC2\EOT\224\ENQ+,\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\NUL\b\DC2\EOT\211\ENQ->\n\
+    \\ENQ\EOT\US\STX\NUL\b\DC2\EOT\224\ENQ->\n\
     \\SO\n\
-    \\ACK\EOT\US\STX\NUL\b\ETX\DC2\EOT\211\ENQ.=\n\
+    \\ACK\EOT\US\STX\NUL\b\ETX\DC2\EOT\224\ENQ.=\n\
     \/\n\
-    \\EOT\EOT\US\STX\SOH\DC2\EOT\214\ENQ\EOT#\SUB! Profile id username created for\n\
+    \\EOT\EOT\US\STX\SOH\DC2\EOT\227\ENQ\EOT#\SUB! Profile id username created for\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\SOH\EOT\DC2\EOT\214\ENQ\EOT\f\n\
+    \\ENQ\EOT\US\STX\SOH\EOT\DC2\EOT\227\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\SOH\ENQ\DC2\EOT\214\ENQ\r\DC3\n\
+    \\ENQ\EOT\US\STX\SOH\ENQ\DC2\EOT\227\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\SOH\SOH\DC2\EOT\214\ENQ\DC4\RS\n\
+    \\ENQ\EOT\US\STX\SOH\SOH\DC2\EOT\227\ENQ\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\US\STX\SOH\ETX\DC2\EOT\214\ENQ!\"\n\
+    \\ENQ\EOT\US\STX\SOH\ETX\DC2\EOT\227\ENQ!\"\n\
     \2\n\
-    \\STX\EOT \DC2\ACK\218\ENQ\NUL\222\ENQ\SOH\SUB$ Result of unique username request.\n\
+    \\STX\EOT \DC2\ACK\231\ENQ\NUL\235\ENQ\SOH\SUB$ Result of unique username request.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT \SOH\DC2\EOT\218\ENQ\b\FS\n\
+    \\ETX\EOT \SOH\DC2\EOT\231\ENQ\b\FS\n\
     \'\n\
-    \\EOT\EOT \STX\NUL\DC2\EOT\221\ENQ\EOT!\SUB\EM username, if succeeded.\n\
+    \\EOT\EOT \STX\NUL\DC2\EOT\234\ENQ\EOT!\SUB\EM username, if succeeded.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT \STX\NUL\EOT\DC2\EOT\221\ENQ\EOT\f\n\
+    \\ENQ\EOT \STX\NUL\EOT\DC2\EOT\234\ENQ\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT \STX\NUL\ENQ\DC2\EOT\221\ENQ\r\DC3\n\
+    \\ENQ\EOT \STX\NUL\ENQ\DC2\EOT\234\ENQ\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT \STX\NUL\SOH\DC2\EOT\221\ENQ\DC4\FS\n\
+    \\ENQ\EOT \STX\NUL\SOH\DC2\EOT\234\ENQ\DC4\FS\n\
     \\r\n\
-    \\ENQ\EOT \STX\NUL\ETX\DC2\EOT\221\ENQ\US \n\
+    \\ENQ\EOT \STX\NUL\ETX\DC2\EOT\234\ENQ\US \n\
     \+\n\
-    \\STX\EOT!\DC2\ACK\225\ENQ\NUL\139\ACK\SOH\SUB\GS Request to search profiles.\n\
+    \\STX\EOT!\DC2\ACK\238\ENQ\NUL\155\ACK\SOH\SUB\GS Request to search profiles.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT!\SOH\DC2\EOT\225\ENQ\b\FS\n\
+    \\ETX\EOT!\SOH\DC2\EOT\238\ENQ\b\FS\n\
     \:\n\
-    \\EOT\EOT!\EOT\NUL\DC2\ACK\228\ENQ\EOT\253\ENQ\ENQ\SUB* List of possible search refine criteria.\n\
+    \\EOT\EOT!\EOT\NUL\DC2\ACK\241\ENQ\EOT\141\ACK\ENQ\SUB* List of possible search refine criteria.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT!\EOT\NUL\SOH\DC2\EOT\228\ENQ\t\ETB\n\
+    \\ENQ\EOT!\EOT\NUL\SOH\DC2\EOT\241\ENQ\t\ETB\n\
     \(\n\
-    \\ACK\EOT!\EOT\NUL\STX\NUL\DC2\EOT\231\ENQ\b\CAN\SUB\CAN Search by customer id.\n\
+    \\ACK\EOT!\EOT\NUL\STX\NUL\DC2\EOT\244\ENQ\b\CAN\SUB\CAN Search by customer id.\n\
     \\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\NUL\SOH\DC2\EOT\231\ENQ\b\DC3\n\
+    \\a\EOT!\EOT\NUL\STX\NUL\SOH\DC2\EOT\244\ENQ\b\DC3\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\NUL\STX\DC2\EOT\231\ENQ\SYN\ETB\n\
+    \\a\EOT!\EOT\NUL\STX\NUL\STX\DC2\EOT\244\ENQ\SYN\ETB\n\
     \)\n\
-    \\ACK\EOT!\EOT\NUL\STX\SOH\DC2\EOT\234\ENQ\b\DC1\SUB\EM Search by profile name.\n\
+    \\ACK\EOT!\EOT\NUL\STX\SOH\DC2\EOT\247\ENQ\b\DC1\SUB\EM Search by profile name.\n\
     \\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\SOH\SOH\DC2\EOT\234\ENQ\b\f\n\
+    \\a\EOT!\EOT\NUL\STX\SOH\SOH\DC2\EOT\247\ENQ\b\f\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\SOH\STX\DC2\EOT\234\ENQ\SI\DLE\n\
+    \\a\EOT!\EOT\NUL\STX\SOH\STX\DC2\EOT\247\ENQ\SI\DLE\n\
     \'\n\
-    \\ACK\EOT!\EOT\NUL\STX\STX\DC2\EOT\237\ENQ\b\ETB\SUB\ETB Search by first name.\n\
+    \\ACK\EOT!\EOT\NUL\STX\STX\DC2\EOT\250\ENQ\b\ETB\SUB\ETB Search by first name.\n\
     \\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\STX\SOH\DC2\EOT\237\ENQ\b\DC2\n\
+    \\a\EOT!\EOT\NUL\STX\STX\SOH\DC2\EOT\250\ENQ\b\DC2\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\STX\STX\DC2\EOT\237\ENQ\NAK\SYN\n\
+    \\a\EOT!\EOT\NUL\STX\STX\STX\DC2\EOT\250\ENQ\NAK\SYN\n\
     \&\n\
-    \\ACK\EOT!\EOT\NUL\STX\ETX\DC2\EOT\240\ENQ\b\SYN\SUB\SYN Search by last name.\n\
+    \\ACK\EOT!\EOT\NUL\STX\ETX\DC2\EOT\253\ENQ\b\SYN\SUB\SYN Search by last name.\n\
     \\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\ETX\SOH\DC2\EOT\240\ENQ\b\DC1\n\
+    \\a\EOT!\EOT\NUL\STX\ETX\SOH\DC2\EOT\253\ENQ\b\DC1\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\ETX\STX\DC2\EOT\240\ENQ\DC4\NAK\n\
+    \\a\EOT!\EOT\NUL\STX\ETX\STX\DC2\EOT\253\ENQ\DC4\NAK\n\
     \)\n\
-    \\ACK\EOT!\EOT\NUL\STX\EOT\DC2\EOT\243\ENQ\b \SUB\EM Search by brokerage id.\n\
+    \\ACK\EOT!\EOT\NUL\STX\EOT\DC2\EOT\128\ACK\b \SUB\EM Search by brokerage id.\n\
     \\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\EOT\SOH\DC2\EOT\243\ENQ\b\ESC\n\
+    \\a\EOT!\EOT\NUL\STX\EOT\SOH\DC2\EOT\128\ACK\b\ESC\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\EOT\STX\DC2\EOT\243\ENQ\RS\US\n\
+    \\a\EOT!\EOT\NUL\STX\EOT\STX\DC2\EOT\128\ACK\RS\US\n\
     \.\n\
-    \\ACK\EOT!\EOT\NUL\STX\ENQ\DC2\EOT\246\ENQ\b\DC3\SUB\RS Profile sales series number.\n\
+    \\ACK\EOT!\EOT\NUL\STX\ENQ\DC2\EOT\131\ACK\b\DC3\SUB\RS Profile sales series number.\n\
     \\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\ENQ\SOH\DC2\EOT\246\ENQ\b\SO\n\
+    \\a\EOT!\EOT\NUL\STX\ENQ\SOH\DC2\EOT\131\ACK\b\SO\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\ENQ\STX\DC2\EOT\246\ENQ\DC1\DC2\n\
+    \\a\EOT!\EOT\NUL\STX\ENQ\STX\DC2\EOT\131\ACK\DC1\DC2\n\
     \\SO\n\
-    \\ACK\EOT!\EOT\NUL\STX\ACK\DC2\EOT\248\ENQ\b\ETB\n\
+    \\ACK\EOT!\EOT\NUL\STX\ACK\DC2\EOT\133\ACK\b\ETB\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\ACK\SOH\DC2\EOT\248\ENQ\b\DC2\n\
+    \\a\EOT!\EOT\NUL\STX\ACK\SOH\DC2\EOT\133\ACK\b\DC2\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\ACK\STX\DC2\EOT\248\ENQ\NAK\SYN\n\
+    \\a\EOT!\EOT\NUL\STX\ACK\STX\DC2\EOT\133\ACK\NAK\SYN\n\
     \\187\SOH\n\
-    \\ACK\EOT!\EOT\NUL\STX\a\DC2\EOT\252\ENQ\b\EM\SUB\170\SOH This field is associated with common_1.ProfileType enum type.\n\
+    \\ACK\EOT!\EOT\NUL\STX\a\DC2\EOT\137\ACK\b\EM\SUB\170\SOH This field is associated with common_1.ProfileType enum type.\n\
     \ LIMITED USE: Only explicitly, one per search option with EXACT_EQUALITY or IN rule and in all match mode.\n\
     \\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\a\SOH\DC2\EOT\252\ENQ\b\DC4\n\
+    \\a\EOT!\EOT\NUL\STX\a\SOH\DC2\EOT\137\ACK\b\DC4\n\
     \\SI\n\
-    \\a\EOT!\EOT\NUL\STX\a\STX\DC2\EOT\252\ENQ\ETB\CAN\n\
+    \\a\EOT!\EOT\NUL\STX\a\STX\DC2\EOT\137\ACK\ETB\CAN\n\
+    \!\n\
+    \\ACK\EOT!\EOT\NUL\STX\b\DC2\EOT\140\ACK\b\DC2\SUB\DC1 Search by Email\n\
+    \\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\b\SOH\DC2\EOT\140\ACK\b\r\n\
+    \\SI\n\
+    \\a\EOT!\EOT\NUL\STX\b\STX\DC2\EOT\140\ACK\DLE\DC1\n\
     \<\n\
-    \\EOT\EOT!\STX\NUL\DC2\EOT\128\ACK\EOT8\SUB. [obsolete] Use search_options field instead.\n\
+    \\EOT\EOT!\STX\NUL\DC2\EOT\144\ACK\EOT8\SUB. [obsolete] Use search_options field instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT!\STX\NUL\EOT\DC2\EOT\128\ACK\EOT\f\n\
+    \\ENQ\EOT!\STX\NUL\EOT\DC2\EOT\144\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT!\STX\NUL\ENQ\DC2\EOT\128\ACK\r\DC3\n\
+    \\ENQ\EOT!\STX\NUL\ENQ\DC2\EOT\144\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT!\STX\NUL\SOH\DC2\EOT\128\ACK\DC4!\n\
+    \\ENQ\EOT!\STX\NUL\SOH\DC2\EOT\144\ACK\DC4!\n\
     \\r\n\
-    \\ENQ\EOT!\STX\NUL\ETX\DC2\EOT\128\ACK$%\n\
+    \\ENQ\EOT!\STX\NUL\ETX\DC2\EOT\144\ACK$%\n\
     \\r\n\
-    \\ENQ\EOT!\STX\NUL\b\DC2\EOT\128\ACK&7\n\
+    \\ENQ\EOT!\STX\NUL\b\DC2\EOT\144\ACK&7\n\
     \\SO\n\
-    \\ACK\EOT!\STX\NUL\b\ETX\DC2\EOT\128\ACK'6\n\
+    \\ACK\EOT!\STX\NUL\b\ETX\DC2\EOT\144\ACK'6\n\
     \<\n\
-    \\EOT\EOT!\STX\SOH\DC2\EOT\131\ACK\EOTC\SUB. [obsolete] Use search_options field instead.\n\
+    \\EOT\EOT!\STX\SOH\DC2\EOT\147\ACK\EOTC\SUB. [obsolete] Use search_options field instead.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT!\STX\SOH\EOT\DC2\EOT\131\ACK\EOT\f\n\
+    \\ENQ\EOT!\STX\SOH\EOT\DC2\EOT\147\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT!\STX\SOH\ENQ\DC2\EOT\131\ACK\r\DC3\n\
+    \\ENQ\EOT!\STX\SOH\ENQ\DC2\EOT\147\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT!\STX\SOH\SOH\DC2\EOT\131\ACK\DC4,\n\
+    \\ENQ\EOT!\STX\SOH\SOH\DC2\EOT\147\ACK\DC4,\n\
     \\r\n\
-    \\ENQ\EOT!\STX\SOH\ETX\DC2\EOT\131\ACK/0\n\
+    \\ENQ\EOT!\STX\SOH\ETX\DC2\EOT\147\ACK/0\n\
     \\r\n\
-    \\ENQ\EOT!\STX\SOH\b\DC2\EOT\131\ACK1B\n\
+    \\ENQ\EOT!\STX\SOH\b\DC2\EOT\147\ACK1B\n\
     \\SO\n\
-    \\ACK\EOT!\STX\SOH\b\ETX\DC2\EOT\131\ACK2A\n\
+    \\ACK\EOT!\STX\SOH\b\ETX\DC2\EOT\147\ACK2A\n\
     \h\n\
-    \\EOT\EOT!\STX\STX\DC2\EOT\134\ACK\EOT6\SUBZ List of search options. Each option has its own search text, criteria and matching rule.\n\
+    \\EOT\EOT!\STX\STX\DC2\EOT\150\ACK\EOT6\SUBZ List of search options. Each option has its own search text, criteria and matching rule.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT!\STX\STX\EOT\DC2\EOT\134\ACK\EOT\f\n\
+    \\ENQ\EOT!\STX\STX\EOT\DC2\EOT\150\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT!\STX\STX\ACK\DC2\EOT\134\ACK\r\"\n\
+    \\ENQ\EOT!\STX\STX\ACK\DC2\EOT\150\ACK\r\"\n\
     \\r\n\
-    \\ENQ\EOT!\STX\STX\SOH\DC2\EOT\134\ACK#1\n\
+    \\ENQ\EOT!\STX\STX\SOH\DC2\EOT\150\ACK#1\n\
     \\r\n\
-    \\ENQ\EOT!\STX\STX\ETX\DC2\EOT\134\ACK45\n\
+    \\ENQ\EOT!\STX\STX\ETX\DC2\EOT\150\ACK45\n\
     \h\n\
-    \\EOT\EOT!\STX\ETX\DC2\EOT\138\ACK\EOT7\SUBZ Indicates, whether all criteria must match at once.\n\
+    \\EOT\EOT!\STX\ETX\DC2\EOT\154\ACK\EOT7\SUBZ Indicates, whether all criteria must match at once.\n\
     \ By default any criteria must match.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT!\STX\ETX\EOT\DC2\EOT\138\ACK\EOT\f\n\
+    \\ENQ\EOT!\STX\ETX\EOT\DC2\EOT\154\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT!\STX\ETX\ENQ\DC2\EOT\138\ACK\r\DC1\n\
+    \\ENQ\EOT!\STX\ETX\ENQ\DC2\EOT\154\ACK\r\DC1\n\
     \\r\n\
-    \\ENQ\EOT!\STX\ETX\SOH\DC2\EOT\138\ACK\DC2 \n\
+    \\ENQ\EOT!\STX\ETX\SOH\DC2\EOT\154\ACK\DC2 \n\
     \\r\n\
-    \\ENQ\EOT!\STX\ETX\ETX\DC2\EOT\138\ACK#$\n\
+    \\ENQ\EOT!\STX\ETX\ETX\DC2\EOT\154\ACK#$\n\
     \\r\n\
-    \\ENQ\EOT!\STX\ETX\b\DC2\EOT\138\ACK%6\n\
+    \\ENQ\EOT!\STX\ETX\b\DC2\EOT\154\ACK%6\n\
     \\r\n\
-    \\ENQ\EOT!\STX\ETX\a\DC2\EOT\138\ACK05\n\
+    \\ENQ\EOT!\STX\ETX\a\DC2\EOT\154\ACK05\n\
     \\f\n\
-    \\STX\EOT\"\DC2\ACK\141\ACK\NUL\181\ACK\SOH\n\
+    \\STX\EOT\"\DC2\ACK\157\ACK\NUL\200\ACK\SOH\n\
     \\v\n\
-    \\ETX\EOT\"\SOH\DC2\EOT\141\ACK\b!\n\
+    \\ETX\EOT\"\SOH\DC2\EOT\157\ACK\b!\n\
     \/\n\
-    \\EOT\EOT\"\STX\NUL\DC2\EOT\144\ACK\EOT$\SUB! Associated Customer identifier.\n\
+    \\EOT\EOT\"\STX\NUL\DC2\EOT\160\ACK\EOT$\SUB! Associated Customer identifier.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\NUL\EOT\DC2\EOT\144\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\NUL\EOT\DC2\EOT\160\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\NUL\ENQ\DC2\EOT\144\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\NUL\ENQ\DC2\EOT\160\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\NUL\SOH\DC2\EOT\144\ACK\DC4\US\n\
+    \\ENQ\EOT\"\STX\NUL\SOH\DC2\EOT\160\ACK\DC4\US\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\NUL\ETX\DC2\EOT\144\ACK\"#\n\
+    \\ENQ\EOT\"\STX\NUL\ETX\DC2\EOT\160\ACK\"#\n\
     \\GS\n\
-    \\EOT\EOT\"\STX\SOH\DC2\EOT\147\ACK\EOT\GS\SUB\SI Profile name.\n\
+    \\EOT\EOT\"\STX\SOH\DC2\EOT\163\ACK\EOT\GS\SUB\SI Profile name.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\SOH\EOT\DC2\EOT\147\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\SOH\EOT\DC2\EOT\163\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\SOH\ENQ\DC2\EOT\147\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\SOH\ENQ\DC2\EOT\163\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\SOH\SOH\DC2\EOT\147\ACK\DC4\CAN\n\
+    \\ENQ\EOT\"\STX\SOH\SOH\DC2\EOT\163\ACK\DC4\CAN\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\SOH\ETX\DC2\EOT\147\ACK\ESC\FS\n\
+    \\ENQ\EOT\"\STX\SOH\ETX\DC2\EOT\163\ACK\ESC\FS\n\
     \)\n\
-    \\EOT\EOT\"\STX\STX\DC2\EOT\150\ACK\EOT.\SUB\ESC Profile's brokerage name.\n\
+    \\EOT\EOT\"\STX\STX\DC2\EOT\166\ACK\EOT.\SUB\ESC Profile's brokerage name.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\STX\EOT\DC2\EOT\150\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\STX\EOT\DC2\EOT\166\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\STX\ENQ\DC2\EOT\150\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\STX\ENQ\DC2\EOT\166\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\STX\SOH\DC2\EOT\150\ACK\DC4)\n\
+    \\ENQ\EOT\"\STX\STX\SOH\DC2\EOT\166\ACK\DC4)\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\STX\ETX\DC2\EOT\150\ACK,-\n\
+    \\ENQ\EOT\"\STX\STX\ETX\DC2\EOT\166\ACK,-\n\
     \#\n\
-    \\EOT\EOT\"\STX\ETX\DC2\EOT\153\ACK\EOT#\SUB\NAK Contact first name.\n\
+    \\EOT\EOT\"\STX\ETX\DC2\EOT\169\ACK\EOT#\SUB\NAK Contact first name.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ETX\EOT\DC2\EOT\153\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\ETX\EOT\DC2\EOT\169\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ETX\ENQ\DC2\EOT\153\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\ETX\ENQ\DC2\EOT\169\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ETX\SOH\DC2\EOT\153\ACK\DC4\RS\n\
+    \\ENQ\EOT\"\STX\ETX\SOH\DC2\EOT\169\ACK\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ETX\ETX\DC2\EOT\153\ACK!\"\n\
+    \\ENQ\EOT\"\STX\ETX\ETX\DC2\EOT\169\ACK!\"\n\
     \\"\n\
-    \\EOT\EOT\"\STX\EOT\DC2\EOT\156\ACK\EOT\"\SUB\DC4 Contact last name.\n\
+    \\EOT\EOT\"\STX\EOT\DC2\EOT\172\ACK\EOT\"\SUB\DC4 Contact last name.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\EOT\EOT\DC2\EOT\156\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\EOT\EOT\DC2\EOT\172\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\EOT\ENQ\DC2\EOT\156\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\EOT\ENQ\DC2\EOT\172\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\EOT\SOH\DC2\EOT\156\ACK\DC4\GS\n\
+    \\ENQ\EOT\"\STX\EOT\SOH\DC2\EOT\172\ACK\DC4\GS\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\EOT\ETX\DC2\EOT\156\ACK !\n\
+    \\ENQ\EOT\"\STX\EOT\ETX\DC2\EOT\172\ACK !\n\
     \.\n\
-    \\EOT\EOT\"\STX\ENQ\DC2\EOT\159\ACK\EOT,\SUB  Profile's linked brokerage id.\n\
+    \\EOT\EOT\"\STX\ENQ\DC2\EOT\175\ACK\EOT,\SUB  Profile's linked brokerage id.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ENQ\EOT\DC2\EOT\159\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\ENQ\EOT\DC2\EOT\175\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ENQ\ENQ\DC2\EOT\159\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\ENQ\ENQ\DC2\EOT\175\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ENQ\SOH\DC2\EOT\159\ACK\DC4'\n\
+    \\ENQ\EOT\"\STX\ENQ\SOH\DC2\EOT\175\ACK\DC4'\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ENQ\ETX\DC2\EOT\159\ACK*+\n\
+    \\ENQ\EOT\"\STX\ENQ\ETX\DC2\EOT\175\ACK*+\n\
     \\GS\n\
-    \\EOT\EOT\"\STX\ACK\DC2\EOT\162\ACK\EOT\RS\SUB\SI Removed flag.\n\
+    \\EOT\EOT\"\STX\ACK\DC2\EOT\178\ACK\EOT\RS\SUB\SI Removed flag.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ACK\EOT\DC2\EOT\162\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\ACK\EOT\DC2\EOT\178\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ACK\ENQ\DC2\EOT\162\ACK\r\DC1\n\
+    \\ENQ\EOT\"\STX\ACK\ENQ\DC2\EOT\178\ACK\r\DC1\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ACK\SOH\DC2\EOT\162\ACK\DC2\EM\n\
+    \\ENQ\EOT\"\STX\ACK\SOH\DC2\EOT\178\ACK\DC2\EM\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\ACK\ETX\DC2\EOT\162\ACK\FS\GS\n\
+    \\ENQ\EOT\"\STX\ACK\ETX\DC2\EOT\178\ACK\FS\GS\n\
     \\208\SOH\n\
-    \\EOT\EOT\"\STX\a\DC2\EOT\167\ACK\EOTK\SUB\193\SOH [obsolete] Authentication system of login must be used instead.\n\
+    \\EOT\EOT\"\STX\a\DC2\EOT\183\ACK\EOTK\SUB\193\SOH [obsolete] Authentication system of login must be used instead.\n\
     \ Profile's authentication system.\n\
     \ LookupPropertyListRequest { property_type = CommonLookupPropertyType.AUTHENTICATION_SYSTEM }\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\a\EOT\DC2\EOT\167\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\a\EOT\DC2\EOT\183\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\a\ENQ\DC2\EOT\167\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\a\ENQ\DC2\EOT\183\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\a\SOH\DC2\EOT\167\ACK\DC42\n\
+    \\ENQ\EOT\"\STX\a\SOH\DC2\EOT\183\ACK\DC42\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\a\ETX\DC2\EOT\167\ACK56\n\
+    \\ENQ\EOT\"\STX\a\ETX\DC2\EOT\183\ACK56\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\a\b\DC2\EOT\167\ACK7J\n\
+    \\ENQ\EOT\"\STX\a\b\DC2\EOT\183\ACK7J\n\
     \\SO\n\
-    \\ACK\EOT\"\STX\a\b\ETX\DC2\EOT\167\ACK8I\n\
+    \\ACK\EOT\"\STX\a\b\ETX\DC2\EOT\183\ACK8I\n\
     \c\n\
-    \\EOT\EOT\"\STX\b\DC2\EOT\171\ACK\EOT%\SUBU Profile's main type.\n\
+    \\EOT\EOT\"\STX\b\DC2\EOT\187\ACK\EOT%\SUBU Profile's main type.\n\
     \ This field is associated with Customer.ProfileType enum type.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\b\EOT\DC2\EOT\171\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\b\EOT\DC2\EOT\187\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\b\ENQ\DC2\EOT\171\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\b\ENQ\DC2\EOT\187\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\b\SOH\DC2\EOT\171\ACK\DC4 \n\
+    \\ENQ\EOT\"\STX\b\SOH\DC2\EOT\187\ACK\DC4 \n\
     \\r\n\
-    \\ENQ\EOT\"\STX\b\ETX\DC2\EOT\171\ACK#$\n\
+    \\ENQ\EOT\"\STX\b\ETX\DC2\EOT\187\ACK#$\n\
     \,\n\
-    \\EOT\EOT\"\STX\t\DC2\EOT\174\ACK\EOT \SUB\RS Sales series profile number.\n\
+    \\EOT\EOT\"\STX\t\DC2\EOT\190\ACK\EOT \SUB\RS Sales series profile number.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\t\EOT\DC2\EOT\174\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\t\EOT\DC2\EOT\190\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\t\ENQ\DC2\EOT\174\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\t\ENQ\DC2\EOT\190\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\t\SOH\DC2\EOT\174\ACK\DC4\SUB\n\
+    \\ENQ\EOT\"\STX\t\SOH\DC2\EOT\190\ACK\DC4\SUB\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\t\ETX\DC2\EOT\174\ACK\GS\US\n\
+    \\ENQ\EOT\"\STX\t\ETX\DC2\EOT\190\ACK\GS\US\n\
     \3\n\
     \\EOT\EOT\"\STX\n\
-    \\DC2\EOT\177\ACK\EOT)\SUB% Associated Sales Series identifier.\n\
+    \\DC2\EOT\193\ACK\EOT)\SUB% Associated Sales Series identifier.\n\
     \\n\
     \\r\n\
     \\ENQ\EOT\"\STX\n\
-    \\EOT\DC2\EOT\177\ACK\EOT\f\n\
+    \\EOT\DC2\EOT\193\ACK\EOT\f\n\
     \\r\n\
     \\ENQ\EOT\"\STX\n\
-    \\ENQ\DC2\EOT\177\ACK\r\DC3\n\
+    \\ENQ\DC2\EOT\193\ACK\r\DC3\n\
     \\r\n\
     \\ENQ\EOT\"\STX\n\
-    \\SOH\DC2\EOT\177\ACK\DC4#\n\
+    \\SOH\DC2\EOT\193\ACK\DC4#\n\
     \\r\n\
     \\ENQ\EOT\"\STX\n\
-    \\ETX\DC2\EOT\177\ACK&(\n\
+    \\ETX\DC2\EOT\193\ACK&(\n\
     \#\n\
-    \\EOT\EOT\"\STX\v\DC2\EOT\180\ACK\EOT$\SUB\NAK Profile identifier.\n\
+    \\EOT\EOT\"\STX\v\DC2\EOT\196\ACK\EOT$\SUB\NAK Profile identifier.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\v\EOT\DC2\EOT\180\ACK\EOT\f\n\
+    \\ENQ\EOT\"\STX\v\EOT\DC2\EOT\196\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\v\ENQ\DC2\EOT\180\ACK\r\DC3\n\
+    \\ENQ\EOT\"\STX\v\ENQ\DC2\EOT\196\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\v\SOH\DC2\EOT\180\ACK\DC4\RS\n\
+    \\ENQ\EOT\"\STX\v\SOH\DC2\EOT\196\ACK\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT\"\STX\v\ETX\DC2\EOT\180\ACK!#\n\
+    \\ENQ\EOT\"\STX\v\ETX\DC2\EOT\196\ACK!#\n\
+    \\US\n\
+    \\EOT\EOT\"\STX\f\DC2\EOT\199\ACK\EOT \SUB\DC1 Profile email`s\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\f\EOT\DC2\EOT\199\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\f\ENQ\DC2\EOT\199\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\f\SOH\DC2\EOT\199\ACK\DC4\SUB\n\
+    \\r\n\
+    \\ENQ\EOT\"\STX\f\ETX\DC2\EOT\199\ACK\GS\US\n\
     \/\n\
-    \\STX\EOT#\DC2\ACK\184\ACK\NUL\195\ACK\SOH\SUB! Result of CancelDeferredRequest\n\
+    \\STX\EOT#\DC2\ACK\203\ACK\NUL\214\ACK\SOH\SUB! Result of CancelDeferredRequest\n\
     \\n\
     \\v\n\
-    \\ETX\EOT#\SOH\DC2\EOT\184\ACK\b#\n\
+    \\ETX\EOT#\SOH\DC2\EOT\203\ACK\b#\n\
     \-\n\
-    \\EOT\EOT#\STX\NUL\DC2\EOT\187\ACK\EOT#\SUB\US ID of a corresponding request\n\
+    \\EOT\EOT#\STX\NUL\DC2\EOT\206\ACK\EOT#\SUB\US ID of a corresponding request\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT#\STX\NUL\EOT\DC2\EOT\187\ACK\EOT\f\n\
+    \\ENQ\EOT#\STX\NUL\EOT\DC2\EOT\206\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT#\STX\NUL\ENQ\DC2\EOT\187\ACK\r\DC3\n\
+    \\ENQ\EOT#\STX\NUL\ENQ\DC2\EOT\206\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT#\STX\NUL\SOH\DC2\EOT\187\ACK\DC4\RS\n\
+    \\ENQ\EOT#\STX\NUL\SOH\DC2\EOT\206\ACK\DC4\RS\n\
     \\r\n\
-    \\ENQ\EOT#\STX\NUL\ETX\DC2\EOT\187\ACK!\"\n\
+    \\ENQ\EOT#\STX\NUL\ETX\DC2\EOT\206\ACK!\"\n\
     \^\n\
-    \\EOT\EOT#\STX\SOH\DC2\EOT\191\ACK\EOT)\SUBP Operation status.\n\
+    \\EOT\EOT#\STX\SOH\DC2\EOT\210\ACK\EOT)\SUBP Operation status.\n\
     \ this field is associated with common_1.OperationStatus enum\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT#\STX\SOH\EOT\DC2\EOT\191\ACK\EOT\f\n\
+    \\ENQ\EOT#\STX\SOH\EOT\DC2\EOT\210\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT#\STX\SOH\ENQ\DC2\EOT\191\ACK\r\DC3\n\
+    \\ENQ\EOT#\STX\SOH\ENQ\DC2\EOT\210\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT#\STX\SOH\SOH\DC2\EOT\191\ACK\DC4$\n\
+    \\ENQ\EOT#\STX\SOH\SOH\DC2\EOT\210\ACK\DC4$\n\
     \\r\n\
-    \\ENQ\EOT#\STX\SOH\ETX\DC2\EOT\191\ACK'(\n\
+    \\ENQ\EOT#\STX\SOH\ETX\DC2\EOT\210\ACK'(\n\
     \\US\n\
-    \\EOT\EOT#\STX\STX\DC2\EOT\194\ACK\EOT-\SUB\DC1 Failure details\n\
+    \\EOT\EOT#\STX\STX\DC2\EOT\213\ACK\EOT-\SUB\DC1 Failure details\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT#\STX\STX\EOT\DC2\EOT\194\ACK\EOT\f\n\
+    \\ENQ\EOT#\STX\STX\EOT\DC2\EOT\213\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT#\STX\STX\ACK\DC2\EOT\194\ACK\r\SUB\n\
+    \\ENQ\EOT#\STX\STX\ACK\DC2\EOT\213\ACK\r\SUB\n\
     \\r\n\
-    \\ENQ\EOT#\STX\STX\SOH\DC2\EOT\194\ACK\ESC(\n\
+    \\ENQ\EOT#\STX\STX\SOH\DC2\EOT\213\ACK\ESC(\n\
     \\r\n\
-    \\ENQ\EOT#\STX\STX\ETX\DC2\EOT\194\ACK+,\n\
+    \\ENQ\EOT#\STX\STX\ETX\DC2\EOT\213\ACK+,\n\
     \`\n\
-    \\STX\EOT$\DC2\ACK\199\ACK\NUL\208\ACK\SOH\SUBR Terminates all open sessions of login.\n\
+    \\STX\EOT$\DC2\ACK\218\ACK\NUL\227\ACK\SOH\SUBR Terminates all open sessions of login.\n\
     \ When there are no sessions does nothing.\n\
     \\n\
     \\v\n\
-    \\ETX\EOT$\SOH\DC2\EOT\199\ACK\b\GS\n\
+    \\ETX\EOT$\SOH\DC2\EOT\218\ACK\b\GS\n\
     \[\n\
-    \\EOT\EOT$\STX\NUL\DC2\EOT\203\ACK\EOT!\SUBM [required] Login identifier.\n\
+    \\EOT\EOT$\STX\NUL\DC2\EOT\222\ACK\EOT!\SUBM [required] Login identifier.\n\
     \ Supported login domains: trade-routing, admin\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT$\STX\NUL\EOT\DC2\EOT\203\ACK\EOT\f\n\
+    \\ENQ\EOT$\STX\NUL\EOT\DC2\EOT\222\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT$\STX\NUL\ENQ\DC2\EOT\203\ACK\r\DC3\n\
+    \\ENQ\EOT$\STX\NUL\ENQ\DC2\EOT\222\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT$\STX\NUL\SOH\DC2\EOT\203\ACK\DC4\FS\n\
+    \\ENQ\EOT$\STX\NUL\SOH\DC2\EOT\222\ACK\DC4\FS\n\
     \\r\n\
-    \\ENQ\EOT$\STX\NUL\ETX\DC2\EOT\203\ACK\US \n\
+    \\ENQ\EOT$\STX\NUL\ETX\DC2\EOT\222\ACK\US \n\
     \\135\SOH\n\
-    \\EOT\EOT$\STX\SOH\DC2\EOT\207\ACK\EOT$\SUBy Specific login session identifiers to terminate.\n\
+    \\EOT\EOT$\STX\SOH\DC2\EOT\226\ACK\EOT$\SUBy Specific login session identifiers to terminate.\n\
     \ If not provided, all active sessions of the login will be terminated.\n\
     \\n\
     \\r\n\
-    \\ENQ\EOT$\STX\SOH\EOT\DC2\EOT\207\ACK\EOT\f\n\
+    \\ENQ\EOT$\STX\SOH\EOT\DC2\EOT\226\ACK\EOT\f\n\
     \\r\n\
-    \\ENQ\EOT$\STX\SOH\ENQ\DC2\EOT\207\ACK\r\DC3\n\
+    \\ENQ\EOT$\STX\SOH\ENQ\DC2\EOT\226\ACK\r\DC3\n\
     \\r\n\
-    \\ENQ\EOT$\STX\SOH\SOH\DC2\EOT\207\ACK\DC4\US\n\
+    \\ENQ\EOT$\STX\SOH\SOH\DC2\EOT\226\ACK\DC4\US\n\
     \\r\n\
-    \\ENQ\EOT$\STX\SOH\ETX\DC2\EOT\207\ACK\"#\n\
+    \\ENQ\EOT$\STX\SOH\ETX\DC2\EOT\226\ACK\"#\n\
     \\f\n\
-    \\STX\EOT%\DC2\ACK\210\ACK\NUL\212\ACK\SOH\n\
+    \\STX\EOT%\DC2\ACK\229\ACK\NUL\231\ACK\SOH\n\
     \\v\n\
-    \\ETX\EOT%\SOH\DC2\EOT\210\ACK\b#"
+    \\ETX\EOT%\SOH\DC2\EOT\229\ACK\b#\n\
+    \*\n\
+    \\STX\EOT&\DC2\ACK\234\ACK\NUL\139\a\SOH\SUB\FS Request of login for demo.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT&\SOH\DC2\EOT\234\ACK\b\ETB\n\
+    \=\n\
+    \\EOT\EOT&\STX\NUL\DC2\EOT\237\ACK\EOT#\SUB/ [required] User first name (max length = 20).\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\NUL\EOT\DC2\EOT\237\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\NUL\ENQ\DC2\EOT\237\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\NUL\SOH\DC2\EOT\237\ACK\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\NUL\ETX\DC2\EOT\237\ACK!\"\n\
+    \<\n\
+    \\EOT\EOT&\STX\SOH\DC2\EOT\240\ACK\EOT\"\SUB. [required] User last name (max length = 25).\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\SOH\EOT\DC2\EOT\240\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\SOH\ENQ\DC2\EOT\240\ACK\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\SOH\SOH\DC2\EOT\240\ACK\DC4\GS\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\SOH\ETX\DC2\EOT\240\ACK !\n\
+    \O\n\
+    \\EOT\EOT&\STX\STX\DC2\EOT\243\ACK\EOT&\SUBA [required] E-mail address of an user who requested demo access.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\STX\EOT\DC2\EOT\243\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\STX\ACK\DC2\EOT\243\ACK\r\ESC\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\STX\SOH\DC2\EOT\243\ACK\FS!\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\STX\ETX\DC2\EOT\243\ACK$%\n\
+    \:\n\
+    \\EOT\EOT&\STX\ETX\DC2\EOT\246\ACK\EOT*\SUB, E-mail BCC addresses to send demo mail to.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ETX\EOT\DC2\EOT\246\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ETX\ACK\DC2\EOT\246\ACK\r\ESC\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ETX\SOH\DC2\EOT\246\ACK\FS%\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ETX\ETX\DC2\EOT\246\ACK()\n\
+    \F\n\
+    \\EOT\EOT&\STX\EOT\DC2\EOT\249\ACK\EOT&\SUB8 [required] Phone of an user who requested demo access.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\EOT\EOT\DC2\EOT\249\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\EOT\ACK\DC2\EOT\249\ACK\r\ESC\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\EOT\SOH\DC2\EOT\249\ACK\FS!\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\EOT\ETX\DC2\EOT\249\ACK$%\n\
+    \e\n\
+    \\EOT\EOT&\STX\ENQ\DC2\EOT\253\ACK\EOT1\SUBW Phone in E.164 format. Ex: +14155552671\n\
+    \ In case of SMS verification, it is required.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ENQ\EOT\DC2\EOT\253\ACK\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ENQ\ACK\DC2\EOT\253\ACK\r\ESC\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ENQ\SOH\DC2\EOT\253\ACK\FS,\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ENQ\ETX\DC2\EOT\253\ACK/0\n\
+    \;\n\
+    \\EOT\EOT&\STX\ACK\DC2\EOT\128\a\EOT#\SUB- Product for which demo access is requested.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ACK\EOT\DC2\EOT\128\a\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ACK\ENQ\DC2\EOT\128\a\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ACK\SOH\DC2\EOT\128\a\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\ACK\ETX\DC2\EOT\128\a!\"\n\
+    \A\n\
+    \\EOT\EOT&\STX\a\DC2\EOT\131\a\EOT)\SUB3 Determines whether demo credentials are returned.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\a\EOT\DC2\EOT\131\a\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\a\ENQ\DC2\EOT\131\a\r\DC1\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\a\SOH\DC2\EOT\131\a\DC2$\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\a\ETX\DC2\EOT\131\a'(\n\
+    \?\n\
+    \\EOT\EOT&\STX\b\DC2\EOT\134\a\EOT*\SUB1 Determines whether live data demo is requested.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\b\EOT\DC2\EOT\134\a\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\b\ENQ\DC2\EOT\134\a\r\DC1\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\b\SOH\DC2\EOT\134\a\DC2%\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\b\ETX\DC2\EOT\134\a()\n\
+    \\167\SOH\n\
+    \\EOT\EOT&\STX\t\DC2\EOT\138\a\EOT+\SUB\152\SOH Valid physical address of an user who requested demo access.\n\
+    \ [required] for live data demos only, as these require reporting on respective exchanges.\n\
+    \\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\t\EOT\DC2\EOT\138\a\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\t\ACK\DC2\EOT\138\a\r\GS\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\t\SOH\DC2\EOT\138\a\RS%\n\
+    \\r\n\
+    \\ENQ\EOT&\STX\t\ETX\DC2\EOT\138\a(*\n\
+    \*\n\
+    \\STX\EOT'\DC2\ACK\142\a\NUL\147\a\SOH\SUB\FS Result of ObtainDemoLogin.\n\
+    \\n\
+    \\v\n\
+    \\ETX\EOT'\SOH\DC2\EOT\142\a\b\GS\n\
+    \\f\n\
+    \\EOT\EOT'\STX\NUL\DC2\EOT\144\a\EOT#\n\
+    \\r\n\
+    \\ENQ\EOT'\STX\NUL\EOT\DC2\EOT\144\a\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT'\STX\NUL\ENQ\DC2\EOT\144\a\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT'\STX\NUL\SOH\DC2\EOT\144\a\DC4\RS\n\
+    \\r\n\
+    \\ENQ\EOT'\STX\NUL\ETX\DC2\EOT\144\a!\"\n\
+    \\f\n\
+    \\EOT\EOT'\STX\SOH\DC2\EOT\146\a\EOT!\n\
+    \\r\n\
+    \\ENQ\EOT'\STX\SOH\EOT\DC2\EOT\146\a\EOT\f\n\
+    \\r\n\
+    \\ENQ\EOT'\STX\SOH\ENQ\DC2\EOT\146\a\r\DC3\n\
+    \\r\n\
+    \\ENQ\EOT'\STX\SOH\SOH\DC2\EOT\146\a\DC4\FS\n\
+    \\r\n\
+    \\ENQ\EOT'\STX\SOH\ETX\DC2\EOT\146\a\US "

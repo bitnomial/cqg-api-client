@@ -170,6 +170,19 @@ maybe'profileSmsNotif ::
   Lens.Family2.LensLike' f s a
 maybe'profileSmsNotif
   = Data.ProtoLens.Field.field @"maybe'profileSmsNotif"
+maybe'signResponses ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'signResponses" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'signResponses
+  = Data.ProtoLens.Field.field @"maybe'signResponses"
+maybe'signature ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "maybe'signature" a) =>
+  Lens.Family2.LensLike' f s a
+maybe'signature = Data.ProtoLens.Field.field @"maybe'signature"
 maybe'smsNotif ::
   forall f s a.
   (Prelude.Functor f,
@@ -252,6 +265,18 @@ senderId ::
    Data.ProtoLens.Field.HasField s "senderId" a) =>
   Lens.Family2.LensLike' f s a
 senderId = Data.ProtoLens.Field.field @"senderId"
+signResponses ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "signResponses" a) =>
+  Lens.Family2.LensLike' f s a
+signResponses = Data.ProtoLens.Field.field @"signResponses"
+signature ::
+  forall f s a.
+  (Prelude.Functor f,
+   Data.ProtoLens.Field.HasField s "signature" a) =>
+  Lens.Family2.LensLike' f s a
+signature = Data.ProtoLens.Field.field @"signature"
 smsNotif ::
   forall f s a.
   (Prelude.Functor f,

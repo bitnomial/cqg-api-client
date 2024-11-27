@@ -1,0 +1,54 @@
+// CQG Customer Management System API Account related messages.
+// Must be used only for purposes of public protocols.
+
+syntax = "proto2";
+
+package account_1;
+
+import "CMS/common_1.proto";
+import "CMS/traderouting_1.proto";
+
+// Request related to trade routing accounts.
+// Only one optional field is expected.
+extend traderouting_1.AccountScopeRequest
+{
+    optional common_1.EntityDataRequest yield_settings_request = 47;
+
+    // Update specific account yield settings.
+    optional UpdateYieldSettings update_yield_settings = 48;
+}
+
+// Result of accounts related request.
+extend traderouting_1.AccountScopeResult
+{
+    optional YieldSettingsResult yield_settings_result = 46;
+}
+
+// Result of yield_settings_request message.
+message YieldSettingsResult
+{
+    optional YieldSettings yield_settings = 1;
+}
+
+message UpdateYieldSettings
+{
+    // [required] Trade routing account identifier.
+    optional string account_id = 1;
+
+    // [required] Account yield settings to update.
+    // Only fields for update must be provided.
+    optional YieldSettings yield_settings = 2;
+}
+
+message YieldSettings
+{
+    // List of field ids to clear during update operation.
+    repeated uint32 cleared_fields = 1;
+
+    // [erasable] The amount of expected product in units.
+    // Value must be greater than or equal to '0'.
+    optional sint32 yield = 2;
+
+    // [erasable] The hedge management account identifier to use when placing the unit order when using Yield.
+    optional string hm_account_id = 3;
+}

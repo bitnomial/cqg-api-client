@@ -241,6 +241,8 @@ message SignOnResult
 // Request for a list of entitlements of the current user.
 message EntitlementRequest
 {
+   // If true, add cryptographic signature to the responses.
+   optional bool sign_responses = 1;
 }
 
 // Report with a list of entitlements of the current user.
@@ -248,6 +250,9 @@ message EntitlementReport
 {
    // List of entitlements.
    repeated Entitlement entitlement = 1;
+
+   // Cryptographic signature.
+   optional bytes signature = 2;
 }
 
 message Entitlement

@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.37.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -17,6 +17,7 @@ license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
     README.md
+    proto/CMS/account_1.proto
     proto/CMS/api_limit_1.proto
     proto/CMS/cmsapi_1.proto
     proto/CMS/common_1.proto
@@ -25,6 +26,7 @@ extra-source-files:
     proto/CMS/login_1.proto
     proto/CMS/metadata_1.proto
     proto/CMS/order_1.proto
+    proto/CMS/profile_1.proto
     proto/CMS/session_context_1.proto
     proto/CMS/traderouting_1.proto
     proto/common/decimal.proto
@@ -32,6 +34,8 @@ extra-source-files:
 
 library
   exposed-modules:
+      Proto.CMS.Account1
+      Proto.CMS.Account1_Fields
       Proto.CMS.ApiLimit1
       Proto.CMS.ApiLimit1_Fields
       Proto.CMS.Cmsapi1
@@ -48,6 +52,8 @@ library
       Proto.CMS.Metadata1_Fields
       Proto.CMS.Order1
       Proto.CMS.Order1_Fields
+      Proto.CMS.Profile1
+      Proto.CMS.Profile1_Fields
       Proto.CMS.SessionContext1
       Proto.CMS.SessionContext1_Fields
       Proto.CMS.Traderouting1
